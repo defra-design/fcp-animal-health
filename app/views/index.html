@@ -1,20 +1,205 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName="Home" %}
+{% set pageName="Sprint Documentation" %}
 
 {% block content %}
+{% from "_tags.njk" import statusTag %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
-    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
+    <span class="govuk-caption-xl">
+      {{ serviceName }}  
+    </span>
 
-    <h1 class="govuk-heading-xl">
-      {{ serviceName }}
-    </h1>
+      <h1 class="govuk-heading-xl">Design history</h1>
 
-    {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}
+      <p class="govuk-body">Here you can find details about the prototypes that have been used for research.<p>
+
+      <p class="govuk-body">For build documentation, please go to <a class="govuk-link" href=/ready-for-dev>Ready for dev</a></p>
+
+    <!-- Sprint Documentation Summary Card -->
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Sprint 2: Even more species</h2>
+        <p class="govuk-body-s">Last changed: 29 October 2024</p>
+      </div>
+
+      <div class="govuk-summary-card__content">
+
+        <!-- User research links -->
+        <h4 class="govuk-heading-s">Links to prototype journeys</h4>
+        <p class="govuk-body"><a class="govuk-link" href="/prototype/page1">Check a giraffe</a><br>
+        <a class="govuk-link" href="/prototype/page1">Submit a claim</a></p>
+
+
+        
+        <!-- Sprint Goal Section -->
+        <h4 class="govuk-heading-s">Sprint Goal</h4>
+        <p class="govuk-body">Let people claim for all the animals.</p>
+
+        <!-- Hypotheses -->
+        <h4 class="govuk-heading-s">Hypotheses and questions</h4>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>How do users feel about the new agreement?</li>
+          <li>Do users notice that they can check for all the animals now?</li>
+          <li>We think this will make it faster to claim</li>
+        </ul>
+
+        <!-- What We Changed -->
+        <h4 class="govuk-heading-s">What We Changed</h4>
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th class="govuk-table__header">Page</th>
+              <th class="govuk-table__header">Changes</th>
+              <th class="govuk-table__header">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                <a class="govuk-link" href="/prototype/page1">Manage your claim</a>
+              </td>
+              <td class="govuk-table__cell">Removed tabs.</td>
+              <td class="govuk-table__cell">
+                {{ statusTag("Ready for UR") }}
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                <a class="govuk-link" href="/prototype/page2">Guidance</a>
+              </td>
+              <td class="govuk-table__cell">Clarified timing rules.</td>
+              <td class="govuk-table__cell">
+                {{ statusTag("Design in progress") }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Key Insights from Research -->
+        <h4 class="govuk-heading-s">Key Insights from Research</h4>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Very few farmers in the UK have giraffes. Descope?</li>
+          <li>It seemed faster to claim to participants.</li>
+          <li>Some participants were not sure if any animals were not eligible.</li>
+        </ul>
+
+      </div>
+    </div>
+
+
+    <!-- Sprint Documentation Summary Card -->
+    <div class="govuk-summary-card">
+      <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Sprint 1: Multiple species</h2>
+        <p class="govuk-body-s">Last changed: 17 October 2024</p>
+      </div>
+
+      <div class="govuk-summary-card__content">
+
+        <!-- User research links -->
+        <h4 class="govuk-heading-s">Links to prototype journeys</h4>
+        <p class="govuk-body"><a class="govuk-link" href="/prototype/page1">Check a cow</a><br>
+        <a class="govuk-link" href="/prototype/page1">Get your money back</a></p>
+
+
+        
+        <!-- Sprint Goal Section -->
+        <h4 class="govuk-heading-s">Sprint Goal</h4>
+        <p class="govuk-body">Introduce the capability for users to claim for more than one species.</p>
+
+        <!-- Hypotheses -->
+        <h4 class="govuk-heading-s">Hypotheses and questions</h4>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Are these changes enough that we can launch multi species?</li>
+          <li>Something else we would like to know</li>
+          <li>We think these designs will help users do this.</li>
+        </ul>
+
+        <!-- What We Changed -->
+        <h4 class="govuk-heading-s">What We Changed</h4>
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th class="govuk-table__header">Page</th>
+              <th class="govuk-table__header">Changes</th>
+              <th class="govuk-table__header">Status</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                <a class="govuk-link" href="/prototype/page1">Manage your claim</a>
+              </td>
+              <td class="govuk-table__cell">Removed tabs.</td>
+              <td class="govuk-table__cell">
+                {{ statusTag("Tested - High confidence") }}
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">
+                <a class="govuk-link" href="/prototype/page2">Guidance</a>
+              </td>
+              <td class="govuk-table__cell">Clarified timing rules.</td>
+              <td class="govuk-table__cell">
+                {{ statusTag("Tested - Medium confidence") }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Key Insights from Research -->
+        <h4 class="govuk-heading-s">Key Insights from Research</h4>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Participants prefer this and this is why.</li>
+          <li>The timing rules were easier to understand.</li>
+          <li>Participants would want this and this also.</li>
+        </ul>
+
+      </div>
+    </div>
+    
+    <h2 class="govuk-heading-m">Status tags</h2>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Status</th>
+          <th scope="col" class="govuk-table__header">Tag</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Ready for dev</td>
+          <td class="govuk-table__cell">{{ statusTag("Ready for dev") }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Design in progress</td>
+          <td class="govuk-table__cell">{{ statusTag("Design in progress") }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Tested - High confidence</td>
+          <td class="govuk-table__cell">{{ statusTag("Tested - High confidence") }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Tested - Medium confidence</td>
+          <td class="govuk-table__cell">{{ statusTag("Tested - Medium confidence") }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Tested - Low confidence</td>
+          <td class="govuk-table__cell">{{ statusTag("Tested - Low confidence") }}</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Ready for UR</td>
+          <td class="govuk-table__cell">{{ statusTag("Ready for UR") }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
   </div>
 </div>
-
 {% endblock %}

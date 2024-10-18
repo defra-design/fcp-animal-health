@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName="Sprint Documentation" %}
+
+{% block content %}
+{% from "_tags.njk" import statusTag %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <span class="govuk-caption-xl">
+      {{ serviceName }}  
+    </span>
+
+      <h1 class="govuk-heading-xl">Ready for dev</h1>
+
+       <!-- MoJ Sortable Table -->
+    <table class="govuk-table" data-module="moj-sortable-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header" aria-sort="none">Jira Ticket</th>
+          <th scope="col" class="govuk-table__header" aria-sort="none">Name and Description</th>
+          <th scope="col" class="govuk-table__header">Link</th>
+          <th scope="col" class="govuk-table__header" aria-sort="none">Last Changed</th>
+          <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">AHWR-482</td>
+          <td class="govuk-table__cell">Multi species guidance</td>
+          <td class="govuk-table__cell"><a href="#">View</a></td>
+          <td class="govuk-table__cell" data-sort-value="20241017">17 October 2024</td>
+          <td class="govuk-table__cell">
+            {{ statusTag("Ready for dev") }}
+          </td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">AHWR-848</td>
+          <td class="govuk-table__cell">Manage your claims</td>
+          <td class="govuk-table__cell"><a href="#">View</a></td>
+          <td class="govuk-table__cell" data-sort-value="20241010">10 October 2024</td>  
+          <td class="govuk-table__cell">
+            {{ statusTag("Design in progress") }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+  </div>
+</div>
+{% endblock %}

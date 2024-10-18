@@ -1,0 +1,15 @@
+{% macro statusTag(status) %}
+  {% if status == "Ready for dev" %}
+    <strong class="govuk-tag govuk-tag--blue">Ready for dev</strong>
+  {% elif status == "Design in progress" %}
+    <strong class="govuk-tag govuk-tag--turquoise">Design in progress</strong>
+  {% elif status == "Tested - High confidence" %}
+    <strong class="govuk-tag govuk-tag--green">Tested - High confidence</strong>
+  {% elif status == "Tested - Medium confidence" %}
+    <strong class="govuk-tag govuk-tag--orange">Tested - Medium confidence</strong>
+  {% elif status == "Tested - Low confidence" %}
+    <strong class="govuk-tag govuk-tag--yellow">Tested - Low confidence</strong>
+  {% elif status == "Ready for UR" %}
+    <strong class="govuk-tag govuk-tag--purple">Ready for UR</strong>
+  {% endif %}
+{% endmacro %}
