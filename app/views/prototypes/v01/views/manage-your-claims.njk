@@ -14,27 +14,37 @@
 {% endblock %}
 
 {% block beforeContent %}
-
-
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      beta
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service. Your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="govuk-grid-row govuk-!-padding-top-1">
+  <div class="govuk-grid-column-full">
 
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-full">
-            <table class="govuk-table">
-        <caption class="govuk-table__caption govuk-table__caption--m">J ROBERTS</caption>
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header"> </th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">Single Business Identifier (SBI): 106705799</td>
-          </tr>
-        </tbody>
-      </table>
+      {# // Login information #}
+      <div class="govuk-grid-row govuk-!-padding-bottom-3 govuk-!-border-bottom-2">
+        <div class="govuk-grid-column-two-thirds">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Arthington Farm Ltd</h2>
+          <p class="govuk-body govuk-!-margin-bottom-0">Single Business Identifier (SBI): 234567890</p>
+        </div>
+        <div class="govuk-grid-column-one-third govuk-!-display-flex govuk-!-justify-content-flex-end govuk-!-align-items-center govuk-!-flex-wrap-wrap">
+          <div class="govuk-!-text-align-right">
+            <p class="govuk-heading-m govuk-!-margin-bottom-0">Jane Doe</p>
+            <a class="govuk-body govuk-link" href="#">Claim for a different business</a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
       <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
         <div class="govuk-notification-banner__header">
@@ -51,7 +61,7 @@
       </div>
 
 
-
+      <div>
         <h1 class="govuk-heading-xl">
           Manage your claims
         </h1>
@@ -72,11 +82,13 @@
           href: "animal-type",
           isStartButton: false
         }) }}
+        </div>
 
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
+        <div>
         <!-- MoJ Sortable Table -->
-        <div class="moj-scrollable-pane">
+        {# <div class="moj-scrollable-pane"> #}
         <table class="govuk-table" data-module="moj-sortable-table">
           <caption class="govuk-table__caption govuk-table__caption--m">View your claims</caption>
           <thead class="govuk-table__head">
@@ -124,10 +136,10 @@
             </tr>
           </tbody>
         </table>
-        </div>
+        {# </div> #}
         </div>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
 
         <h2 class="govuk-heading-m">
           More information
@@ -148,5 +160,6 @@
     </div>
 
   </div>
+</div>
 
 {% endblock %}
