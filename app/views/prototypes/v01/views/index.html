@@ -1,0 +1,56 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Content page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Multispecies prototype
+      </h1>
+
+      <!-- <p>
+        This is a paragraph of text. It explains in more detail what has happened and wraps across several lines.
+      </p> -->
+
+      <h2 class="govuk-heading-m">Journeys for research:</h2>
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="#">Apply for an agreement for an agreement</a> (user with no agreement)
+        </li>
+        <li>
+          <a class="govuk-link" href="#">Claim for a review</a> (user with single species agreement)
+        </li>
+        <li>
+          <a class="govuk-link" href="manage-your-claims">Claim for a review</a> (user on multispecies agreement)
+        </li>
+      </ul>
+
+      <h2 class="govuk-heading-m">Do we need to test these journeys?</h2>
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="#">Claim for a review</a> (user on multispecies agreement, visit happened before accepting MS)
+        </li>
+        <li>
+          <a class="govuk-link" href="#">Claim for a follow-up</a> (user agreement status?)
+        </li>
+        <li>
+          <a class="govuk-link" href="#">Submitting multiple claims</a> (Visit dates in non-chronological order. User agreement status?)
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+{% endblock %}

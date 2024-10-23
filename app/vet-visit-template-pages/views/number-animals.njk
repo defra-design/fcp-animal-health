@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+{{ govukHeader({
+  homepageUrl: "#",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "#"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+       <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="sample-date-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Did you have 11 or more beef cattle on the date of the review?
+            </h1>
+          </legend>
+          <div id="sample-date-hint" class="govuk-hint">
+            You can find this on the summary the vet gave you.
+          </div>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="contact" name="contact" type="radio" value="last-visit" data-aria-controls="conditional-contact">
+              <label class="govuk-label govuk-radios__label" for="contact">
+                Yes
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="contact-2" name="contact" type="radio" value="other-date" data-aria-controls="conditional-other-date">
+              <label class="govuk-label govuk-radios__label" for="contact-2">
+                No
+              </label>
+            </div>
+            
+
+        </fieldset>
+      </div>
+
+        {{ govukButton({
+        text: "Continue",
+        href: "sample-number",
+        isStartButton: false
+        }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

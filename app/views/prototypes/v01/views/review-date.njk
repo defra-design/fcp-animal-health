@@ -1,0 +1,81 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+{{ govukHeader({
+  homepageUrl: "#",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "#"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" role="group" aria-describedby="review-date-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Date of review
+              </h1>
+            </legend>
+            <div id="review-date-hint" class="govuk-hint">
+              This is the date the vet last visited the farm for this review. You can find it on the summary the vet gave you.
+            </div>
+            <div id="review-date-hint" class="govuk-hint">
+              For example, 27 3 2022
+            </div>
+            <div class="govuk-date-input" id="review-date">
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="review-date-day">
+                    Day
+                  </label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="review-date-day" name="review-date-day" type="text" inputmode="numeric">
+                </div>
+              </div>
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="review-date-month">
+                    Month
+                  </label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="review-date-month" name="review-date-month" type="text" inputmode="numeric">
+                </div>
+              </div>
+              <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                  <label class="govuk-label govuk-date-input__label" for="review-date-year">
+                    Year
+                  </label>
+                  <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="review-date-year" name="review-date-year" type="text" inputmode="numeric">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        {{ govukButton({
+        text: "Continue",
+        href: "sample-date",
+        isStartButton: false
+        }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

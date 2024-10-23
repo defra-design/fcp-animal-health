@@ -18,33 +18,39 @@
 
       <p class="govuk-body">For build documentation, please go to <a class="govuk-link" href=/ready-for-dev>Ready for dev</a></p>
 
+
     <!-- Sprint Documentation Summary Card -->
     <div class="govuk-summary-card">
       <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Sprint 2: Even more species</h2>
-        <p class="govuk-body-s">Last changed: 29 October 2024</p>
+        <h2 class="govuk-summary-card__title">Sprint 1: Multiple species</h2>
+        <p class="govuk-body-s">Last changed: 23 October 2024</p>
       </div>
 
       <div class="govuk-summary-card__content">
 
         <!-- User research links -->
-        <h4 class="govuk-heading-s">Links to prototype journeys</h4>
-        <p class="govuk-body"><a class="govuk-link" href="/prototype/page1">Check a giraffe</a><br>
-        <a class="govuk-link" href="/prototype/page1">Submit a claim</a></p>
+        <h4 class="govuk-heading-s">Prototype for research</h4>
+        <p class="govuk-body"><a class="govuk-link" href="/prototypes/v01/index.html">User journeys for research</a><br>
+        {# <a class="govuk-link" href="/prototypes/v01/manage-your-claims.html">Manage your claims</a></p> #}
 
 
-        
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
         <!-- Sprint Goal Section -->
         <h4 class="govuk-heading-s">Sprint Goal</h4>
-        <p class="govuk-body">Let people claim for all the animals.</p>
+        <p class="govuk-body">Introduce the capability for users to claim for more than one species.</p>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
         <!-- Hypotheses -->
         <h4 class="govuk-heading-s">Hypotheses and questions</h4>
         <ul class="govuk-list govuk-list--bullet">
-          <li>How do users feel about the new agreement?</li>
-          <li>Do users notice that they can check for all the animals now?</li>
-          <li>We think this will make it faster to claim</li>
+          <li>Are these changes enough that we can launch multi species?</li>
+           {# <li>Something else we would like to know</li>
+          <li>We think these designs will help users do this.</li> --> #}
         </ul>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
         <!-- What We Changed -->
         <h4 class="govuk-heading-s">What We Changed</h4>
@@ -59,18 +65,18 @@
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
               <td class="govuk-table__cell">
-                <a class="govuk-link" href="/prototype/page1">Manage your claim</a>
+                <a class="govuk-link" href="/prototypes/v01/manage-your-claims">Manage your claims</a>
               </td>
-              <td class="govuk-table__cell">Removed tabs.</td>
+              <td class="govuk-table__cell">Added sortable table, improved visual hierarchy.</td>
               <td class="govuk-table__cell">
-                {{ statusTag("Ready for UR") }}
+                {{ statusTag("Design in progress") }}
               </td>
             </tr>
             <tr class="govuk-table__row">
               <td class="govuk-table__cell">
-                <a class="govuk-link" href="/prototype/page2">Guidance</a>
+                <a class="govuk-link" href="/prototype/page2">TBC</a>
               </td>
-              <td class="govuk-table__cell">Clarified timing rules.</td>
+              <td class="govuk-table__cell">TBC</td>
               <td class="govuk-table__cell">
                 {{ statusTag("Design in progress") }}
               </td>
@@ -78,84 +84,15 @@
           </tbody>
         </table>
 
-        <!-- Key Insights from Research -->
-        <h4 class="govuk-heading-s">Key Insights from Research</h4>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>Very few farmers in the UK have giraffes. Descope?</li>
-          <li>It seemed faster to claim to participants.</li>
-          <li>Some participants were not sure if any animals were not eligible.</li>
-        </ul>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
-      </div>
-    </div>
-
-
-    <!-- Sprint Documentation Summary Card -->
-    <div class="govuk-summary-card">
-      <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Sprint 1: Multiple species</h2>
-        <p class="govuk-body-s">Last changed: 17 October 2024</p>
-      </div>
-
-      <div class="govuk-summary-card__content">
-
-        <!-- User research links -->
-        <h4 class="govuk-heading-s">Links to prototype journeys</h4>
-        <p class="govuk-body"><a class="govuk-link" href="/prototype/page1">Check a cow</a><br>
-        <a class="govuk-link" href="/prototype/page1">Get your money back</a></p>
-
-
-        
-        <!-- Sprint Goal Section -->
-        <h4 class="govuk-heading-s">Sprint Goal</h4>
-        <p class="govuk-body">Introduce the capability for users to claim for more than one species.</p>
-
-        <!-- Hypotheses -->
-        <h4 class="govuk-heading-s">Hypotheses and questions</h4>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>Are these changes enough that we can launch multi species?</li>
-          <li>Something else we would like to know</li>
-          <li>We think these designs will help users do this.</li>
-        </ul>
-
-        <!-- What We Changed -->
-        <h4 class="govuk-heading-s">What We Changed</h4>
-        <table class="govuk-table">
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <th class="govuk-table__header">Page</th>
-              <th class="govuk-table__header">Changes</th>
-              <th class="govuk-table__header">Status</th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell">
-                <a class="govuk-link" href="/prototype/page1">Manage your claim</a>
-              </td>
-              <td class="govuk-table__cell">Removed tabs.</td>
-              <td class="govuk-table__cell">
-                {{ statusTag("Tested - High confidence") }}
-              </td>
-            </tr>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell">
-                <a class="govuk-link" href="/prototype/page2">Guidance</a>
-              </td>
-              <td class="govuk-table__cell">Clarified timing rules.</td>
-              <td class="govuk-table__cell">
-                {{ statusTag("Tested - Medium confidence") }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
 
         <!-- Key Insights from Research -->
         <h4 class="govuk-heading-s">Key Insights from Research</h4>
         <ul class="govuk-list govuk-list--bullet">
-          <li>Participants prefer this and this is why.</li>
-          <li>The timing rules were easier to understand.</li>
-          <li>Participants would want this and this also.</li>
+          <li>TBC. E.g. "Participants prefer this and this is why."</li>
+          {# <li>The timing rules were easier to understand.</li>
+          <li>Participants would want this and this also.</li> #}
         </ul>
 
       </div>
