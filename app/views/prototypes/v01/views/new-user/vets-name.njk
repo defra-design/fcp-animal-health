@@ -1,0 +1,64 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  What is the vet's name? – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+{{ govukHeader({
+  homepageUrl: "#",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "#"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="vets-name-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is the vet's name?
+            </h1>
+          </legend>
+          <div id="vets-name-hint" class="govuk-hint">
+            Enter the vet's personal name, not their business name. You can find this on the summary the vet gave you.
+          </div>
+          {{ govukInput({
+            id: "vets-name",
+            name: "vets-name",
+            classes: "govuk-input--width-30",
+            type: "text",
+            label: {
+              text: "Enter the vet's name"
+            }
+          }) }}
+        </fieldset>
+      </div>
+
+
+      {{ govukButton({
+      text: "Continue",
+      href: "vets-rcvs",
+      isStartButton: false
+      }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}
