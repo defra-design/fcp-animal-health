@@ -37,6 +37,7 @@ router.get('/ready-for-dev', (req, res) => {
 
 // Load routes for prototypes
 router.use('/prototypes/v01', require('./views/prototypes/v01/routes'));
+router.use('/prototypes/v01/new-user', require('./views/prototypes/v01/routes'));
 
 // Export router
 module.exports = router;

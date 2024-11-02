@@ -41,15 +41,37 @@
               <li>pigs</li>
               <li>sheep</li>
             </ul>
-
         </fieldset>
+
+        <p class="govuk-body">
+          You can do a maximum of 3 reviews and 3 follow-ups per species. You must do all your reviews and follow-ups by 19 June 2027.
+        </p>
+
+        <p class="govuk-body">
+          If you did a review in the old annual health and welfare service, it will not count towards your limit.
+        </p>
+
+        <p class="govuk-body">
+          You need to make a separate claim for each species.
+        </p>
+
       </div>
 
+
+      {% from "govuk/components/button/macro.njk" import govukButton %}
+
+      <div class="govuk-button-group">
         {{ govukButton({
-        text: "Sign in",
-        href: "you-can-claim-multiple",
-        isStartButton: false
+          text: "I agree",
+          href: "agreement-minimum-number"
         }) }}
+
+        {{ govukButton({
+          text: "I do not agree - reject agreement",
+          href: "#",
+          classes: "govuk-button--secondary"
+        }) }}
+      </div>
 
 
     </div>
