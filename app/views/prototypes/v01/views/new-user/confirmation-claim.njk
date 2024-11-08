@@ -1,7 +1,12 @@
 {% extends "layouts/main.html" %}
 
-{% block pageTitle %}
-  Confirmation page – {{ serviceName }} – GOV.UK Prototype Kit
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+    {{ govukHeader({
+      homepageUrl: "holding-page",
+      serviceName: "Get funding to improve animal health and welfare",
+      serviceUrl: "#"
+    }) }}
 {% endblock %}
 
 {% block content %}

@@ -1,0 +1,27 @@
+
+ {# Back link #}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+
+
+{# Page title #}
+
+{% block pageTitle %}
+  What was the rest result? – {{ serviceName }} – Prototype
+{% endblock %}
+
+
+
+{# Header #}
+
+{% block header %}
+  <!-- Header with service name and link to the holding page -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "#"
+}) }}
+{% endblock %}

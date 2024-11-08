@@ -17,10 +17,10 @@
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+  text: "Back",
+  href: "agreement-start"
+}) }}
 
 {% endblock %}
 
@@ -127,7 +127,7 @@
 
         {{ govukButton({
         text: "Continue",
-        href: "you-can-claim-multiple",
+        href: "manage-your-claims",
         isStartButton: false
         }) }}
 

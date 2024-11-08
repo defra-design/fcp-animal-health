@@ -18,9 +18,9 @@ router.post('/prototypes/v01/views/:nextPage', (req, res) => {
 });
 
 
-// Add this route for the next task
-router.get('/next-task', function (req, res) {
-  res.render('prototypes/v01/views/index.njk') // 'index' corresponds to 'index.html' in 'app/views'
+// Route from holding page
+router.get('/next-task-v1', function (req, res) {
+  res.render('prototypes/v01/views/index-research.njk') // 'index' for the v01 folder
 })
 
 

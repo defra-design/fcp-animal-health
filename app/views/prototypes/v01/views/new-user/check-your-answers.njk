@@ -9,8 +9,13 @@
 {% set vetsRcvs = data['vets-rcvs'] or '5435472' %}
 {% set urn = data['test-urn'] or '38527594' %}
 
-{% block pageTitle %}
-  Check your answers – {{ serviceName }} – Prototype
+{% block header %}
+  <!-- Header with service name and link to the holding page -->
+  {{ govukHeader({
+    homepageUrl: "holding-page",
+    serviceName: "Get funding to improve animal health and welfare",
+    serviceUrl: "#"
+  }) }}
 {% endblock %}
 
 {% block beforeContent %}

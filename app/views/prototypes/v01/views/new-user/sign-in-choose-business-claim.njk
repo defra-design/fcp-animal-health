@@ -17,10 +17,10 @@
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-  {{ govukBackLink({
-    text: "Back",
-    href: "javascript:window.history.back()"
-  }) }}
+{{ govukBackLink({
+  text: "Back",
+  href: "agreement-start"
+}) }}
 
 {% endblock %}
 
@@ -61,7 +61,7 @@
 
         {{ govukButton({
         text: "Continue",
-        href: "sign-in-check-your-details",
+        href: "sign-in-check-your-details-claim",
         isStartButton: false
         }) }}
 
