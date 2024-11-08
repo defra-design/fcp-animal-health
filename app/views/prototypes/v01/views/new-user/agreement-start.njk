@@ -11,6 +11,23 @@
 
 {% block beforeContent %}
 
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Environment</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
+    </li>
+  </ol>
+</nav>
+
 {% endblock %}
 
 {% block content %}
@@ -49,45 +66,47 @@
           </h2>
           <ol class="govuk-prototype-kit-common-templates-contents-list__list">
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
-              <a href="#">
+              <a href="#farmers-apply-for-funding">
                 Farmers: apply for funding
               </a>
             </li>
             <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+               <a href="#farmers-and-vets-arrange-and-do-a-review">
               Farmers and vets: arrange and do a review
+              </a>
             </li>
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#">
+              <a href="#vets-how-to-do-a-review">
                 Vets: how to do a review
               </a>
             </li>
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#">
+              <a href="#farmers-claim-funding-for-the-review">
                 Farmers: claim funding for the review
               </a>
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#">
+              <a href="#farmers-and-vets-arrange-and-do-a-follow-up">
                 Farmers and vets: arrange and do a follow-up
               </a>
             </li>
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#">
+              <a href="#vets-how-to-do-a-follow-up">
                 Vets: how to do a follow-up
               </a>
             </li>
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#">
+              <a href="#farmers-claim-funding-for-the-follow-up">
                 Farmers: claim funding for the follow-up
               </a>
             </li>
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#">
+              <a href="#terms-and-conditions">
                 Terms and conditions
               </a>
             </li>
             </li>
             <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#">
+              <a href="#other-sources-of-funding">
                 Other sources of funding
               </a>
             </li>
@@ -99,11 +118,17 @@
 
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
-      <p class="govuk-body">This service used to be the annual health and welfare review. It has been expanded to include:</p>
+      <div class="custom-grey-box">
+        <p class="govuk-body">
+          This service used to be the annual health and welfare review. It has been expanded to include:
+        </p>
         <ul class="govuk-list govuk-list--bullet">
           <li>changes to the review, which is now called the animal health and welfare review</li>
           <li>the second part of the service, which is the endemic disease follow-up</li>
         </ul>
+      </div>
+
+
 
       <!-- Pathway -->
 
@@ -136,7 +161,7 @@
 
       <!-- Farmers funding section -->
 
-      <h2 class="govuk-heading-m">
+      <h2 id="farmers-apply-for-funding" class="govuk-heading-m">
         Farmers: apply for funding
       </h2>
       <p class="govuk-body">Farmers should read this guidance to find out:</p>
@@ -149,9 +174,9 @@
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 
       <div class="govuk-body">
-        <a href="#" class="govuk-link govuk-heading-s">Farmers: how to apply for funding to improve animal health and welfare</a>
-          <div>
-          <span class="govuk-caption-m govuk-!-font-size-16">10 October 2024</span>
+        <a href="guidance-apply" class="govuk-link govuk-heading-s">Farmers: how to apply for funding to improve animal health and welfare</a>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
           <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
           </div>
       </div>
@@ -161,7 +186,7 @@
 
       <!-- Farmers and vets review section -->
 
-      <h2 class="govuk-heading-m">
+      <h2 id="farmers-and-vets-arrange-and-do-a-review" class="govuk-heading-m">
         Farmers and vets: arrange and do a review
       </h2>
       <p class="govuk-body">Farmer and vets should read this guidance to find out what:</p>
@@ -175,8 +200,8 @@
 
       <div class="govuk-body">
         <a href="#" class="govuk-link govuk-heading-s">Farmers and vets: what happens on an animal health and welfare review</a>
-          <div>
-          <span class="govuk-caption-m govuk-!-font-size-16">10 October 2024</span>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
           <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
           </div>
       </div>
@@ -186,7 +211,7 @@
 
       <!-- Vets review section -->
 
-      <h2 class="govuk-heading-m">
+      <h2 id="vets-how-to-do-a-review" class="govuk-heading-m">
         Vets: how to do a review
       </h2>
       <p class="govuk-body">Farmers should ask vets to read this guidance to find out:</p>
@@ -208,13 +233,162 @@
 
       <div class="govuk-body">
         <a href="#" class="govuk-link govuk-heading-s">Vets: how to do an animal health and welfare review and endemic disease follow-up</a>
-          <div>
-          <span class="govuk-caption-m govuk-!-font-size-16">10 October 2024</span>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
           <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
           </div>
       </div>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      <!-- Farmers: claim funding for the review -->
+
+      <h2 id="farmers-claim-funding-for-the-review" class="govuk-heading-m">
+        Farmers: claim funding for the review
+      </h2>
+      <p class="govuk-body">Farmers should read this guidance to find out:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>when to claim for a review</li>
+          <li>what information to provide when you claim funding</li>
+        </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Farmers: how to claim funding to improve animal health and welfare</a>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+          </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      <!-- Farmers and vets: arrange and do a follow-up -->
+
+      <h2 id="farmers-and-vets-arrange-and-do-a-follow-up" class="govuk-heading-m">
+        Farmers and vets: arrange and do a follow-up
+      </h2>
+      <p class="govuk-body">Farmer and vets should read this guidance to find out what:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>farmers must ask vets to do on an endemic disease follow-up</li>
+          <li>disease and condition testing is required</li>
+          <li>documentation farmers need to claim funding</li>
+        </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Farmers and vets: what happens on an endemic disease follow-up</a>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+          </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      <!-- Vets: how to do a follow-up -->
+
+      <h2 id="vets-how-to-do-a-follow-up" class="govuk-heading-m">
+        Vets: how to do a follow-up
+      </h2>
+      <p class="govuk-body">Farmers should ask vets to read this guidance to find out:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>how to do the required sampling for testing</li>
+          <li>laboratory requirements for testing</li>
+          <li>what advice to give farmers as part of a follow-up</li>
+        </ul>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Vets need to follow the guidance so that farmers are eligible to claim.
+        </strong>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Vets: how to do an animal health and welfare review and endemic disease follow-up</a>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+          </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      <!-- Farmers: claim funding for the follow-up -->
+
+      <h2 id="farmers-claim-funding-for-the-follow-up" class="govuk-heading-m">
+        Farmers: claim funding for the follow-up
+      </h2>
+      <p class="govuk-body">Farmers should read this guidance to find out:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>when to claim for a follow-up</li>
+          <li>what information to provide when you claim</li>
+        </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Farmers: how to claim funding to improve animal health and welfare</a>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+          </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      <!-- Terms and conditions -->
+
+      <h2 id="terms-and-conditions" class="govuk-heading-m">
+        Terms and conditions
+      </h2>
+      <p class="govuk-body">Farmers who enter into an agreement to get funding to improve animal health and welfare must follow the agreement terms and conditions.</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Get funding to improve animal health and welfare: terms and conditions</a>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">19 June 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Statutory guidance</span>
+          </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      <!-- Other sources of funding -->
+
+      <h2 id="other-sources-of-funding" class="govuk-heading-m" >
+        Other sources of funding
+      </h2>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Funding for farmers, growers and land managers</a>
+          <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">18 September 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+          </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+      <p class="govuk-body-s">Published 19 June 2024<br/>Last updated 23 October 2024</p>
+
+
 
     </div>
   </div>
