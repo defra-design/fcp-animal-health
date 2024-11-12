@@ -1,0 +1,82 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  What was the rest result? – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+{{ govukHeader({
+  homepageUrl: "#",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "#"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+       {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        <div class="govuk-form-group">
+          <form action="/new-user" method="post" class="form">
+
+          <fieldset class="govuk-fieldset" aria-describedby="test-result-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                What was the rest result?
+              </h1>
+            </legend>
+            <div id="test-result-hint" class="govuk-hint">
+              You can find it on the summary the vet gave you.
+            </div>
+            {{ govukRadios({
+              name: "test-result",
+              items: [
+                {
+                  value: "positive",
+                  text: "Positive"
+                },
+                {
+                  value: "negative",
+                  text: "Negative"
+                }
+              ]
+            }) }}
+          </fieldset>
+
+
+
+        </div>
+
+        
+            {{ govukButton({
+            text: "Continue",
+            href: "check-your-answers",
+            isStartButton: false
+            }) }}
+
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

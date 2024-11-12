@@ -28,7 +28,7 @@
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
       {{ govukRadios({
-        name: "animal-type",
+        name: "typeofclaim",
         fieldset: {
           legend: {
             text: "Which species are you claiming for?",
@@ -56,14 +56,11 @@
         ]
       }) }}
 
-      <input type="hidden" name="nextPage" value="/new-user/check-your-answers">
-
-
             {{ govukButton({
-              text: "Continue",
-              href: "claim-type",
-              isStartButton: false
-            }) }}
+        text: "Continue",
+        href: "claim-type",
+        isStartButton: false
+      }) }}
 
 
     </div>

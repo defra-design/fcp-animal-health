@@ -1,0 +1,95 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+{{ govukHeader({
+  homepageUrl: "#",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "#"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Timing of reviews and follow-ups
+      </h1>
+
+      <p class="govuk-body">
+        Claim your animal health and welfare reviews and endemic disease follow-ups as part of Get funding to improve animal health and welfare.
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+      {{ govukWarningText({
+        text: "To be eligible to claim, you need to have an Improve Animal Health and Welfare (IAHW) agreement in place and follow these timing rules.",
+        iconFallbackText: "Warning"
+      }) }}
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <h2 class="govuk-heading-m">
+        Animal health and welfare reviews
+      </h2>
+      <p class="govuk-body">To be eligible to claim for animal health and welfare reviews:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>you must have an Improve Animal Health and Welfare (IAHW) agreement that allows you to claim for reviews</li>
+        <li>reviews on a particular species must be at least 10 months apart</li>
+        <li>you must have no more than 3 animal health and welfare reviews per species before 19 June 2027</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <h2 class="govuk-heading-m">
+        Endemic disease follow-ups
+      </h2>
+      <p class="govuk-body">To be eligible to claim for endemic disease follow-ups:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>you must have an IAHW agreement that allows you to claim for follow-ups</li>
+        <li>you must have had a review take place, we also recommend you to claim for this review first</li>
+        <li>the follow-up must take place no more than 10 months after your review</li>
+        <li>the follow-up must be on the same species as the review</li>
+        <li>further follow-ups needed for that species must take place at least 10 months after your last follow-up and always be at least 10 months apart</li>
+        <li>you must have no more than 3 endemic disease follow-ups per species before 19 June 2027</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      {% from "govuk/components/button/macro.njk" import govukButton %}
+
+      <div class="govuk-button-group">
+        {{ govukButton({
+          text: "I agree",
+          href: "agreement-review-offer"
+        }) }}
+
+        {{ govukButton({
+          text: "I do not agree - reject agreement",
+          href: "#",
+          classes: "govuk-button--secondary"
+        }) }}
+      </div>
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

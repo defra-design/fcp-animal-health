@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+  What is the vet's RCVS number? – {{ serviceName }} – Prototype
 {% endblock %}
 
 {% block header %}
@@ -25,34 +25,28 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="sample-number-hint">
+       <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="sample-date-hint">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              How many animals were samples taken from?
+              What is the laboratory unique reference number (URN) for the test results?
             </h1>
           </legend>
-          <div id="sample-number-hint" class="govuk-hint">
+          <div id="sample-date-hint" class="govuk-hint">
             You can find this on the summary the vet gave you.
           </div>
           <div class="govuk-form-group">
-            <label class="govuk-label" for="sample-number">
+            {# <label class="govuk-label" for="event-name">
               Enter a number
-            </label>
-            {{ govukInput({
-              id: "sample-number",
-              name: "sample-number",
-              classes: "govuk-input--width-20",
-              type: "number"
-            }) }}
+            </label> #}
+            <input class="govuk-input govuk-input--width-40" id="event-name" name="eventName" type="text">
           </div>
         </fieldset>
       </div>
 
-
         {{ govukButton({
         text: "Continue",
-        href: "vets-name",
+        href: "#",
         isStartButton: false
         }) }}
 

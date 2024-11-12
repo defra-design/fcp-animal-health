@@ -28,10 +28,10 @@
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
       {{ govukRadios({
-        name: "animal-type",
+        name: "typeofclaim",
         fieldset: {
           legend: {
-            text: "Which species are you claiming for?",
+            text: "Are you claiming for a review or follow-up?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
@@ -39,31 +39,20 @@
         items: [
           {
             value: "review",
-            text: "Beef cattle"
+            text: "Animal health and welfare review"
           },
           {
             value: "followup",
-            text: "Dairy cattle"
-          },
-          {
-            value: "review",
-            text: "Pigs"
-          },
-          {
-            value: "review",
-            text: "Sheep"
+            text: "Endemic disease follow-up"
           }
         ]
       }) }}
 
-      <input type="hidden" name="nextPage" value="/new-user/check-your-answers">
-
-
             {{ govukButton({
-              text: "Continue",
-              href: "claim-type",
-              isStartButton: false
-            }) }}
+        text: "Continue",
+        href: "review-date",
+        isStartButton: false
+      }) }}
 
 
     </div>

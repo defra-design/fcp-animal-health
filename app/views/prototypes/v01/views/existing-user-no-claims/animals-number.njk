@@ -28,42 +28,35 @@
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
       {{ govukRadios({
-        name: "animal-type",
+        classes: "govuk-radios--inline",
+        name: "animals-number",
         fieldset: {
           legend: {
-            text: "Which species are you claiming for?",
+            text: "Did you have 11 or more beef cattle on the date of the review?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
         },
+        hint: {
+          text: "You can find this on the summary the vet gave you."
+        },
         items: [
           {
-            value: "review",
-            text: "Beef cattle"
+            value: "yes",
+            text: "Yes"
           },
           {
-            value: "followup",
-            text: "Dairy cattle"
-          },
-          {
-            value: "review",
-            text: "Pigs"
-          },
-          {
-            value: "review",
-            text: "Sheep"
+            value: "no",
+            text: "No"
           }
         ]
       }) }}
 
-      <input type="hidden" name="nextPage" value="/new-user/check-your-answers">
-
-
-            {{ govukButton({
-              text: "Continue",
-              href: "claim-type",
-              isStartButton: false
-            }) }}
+        {{ govukButton({
+        text: "Continue",
+        href: "sample-number",
+        isStartButton: false
+        }) }}
 
 
     </div>
