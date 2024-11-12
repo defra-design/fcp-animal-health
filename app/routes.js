@@ -35,6 +35,9 @@ router.get('/ready-for-dev', (req, res) => {
   res.render('ready-for-dev.njk');
 });
 
+// Load routes for ready-for-dev-pages
+router.use('/ready-for-dev', require('./views/ready-for-dev/routes'));
+
 // Load routes for prototypes
 router.use('/prototypes/v01', require('./views/prototypes/v01/routes'));
 router.use('/prototypes/v01/new-user', require('./views/prototypes/v01/routes'));
