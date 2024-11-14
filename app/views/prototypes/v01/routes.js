@@ -21,7 +21,7 @@ const router = govukPrototypeKit.requests.setupRouter();
 
 
 // Route from holding page
-router.get('/next-task-v1', function (req, res) {
+router.get('next-task-v1', function (req, res) {
   res.render('prototypes/v01/views/index-research.njk') // 'index' for the v01 folder
 })
 
