@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block header %}
-  <!-- Blank header with no service name for the start page -->
+  <!-- Header for v1 -->
 {{ govukHeader({
-  homepageUrl: "#",
+  homepageUrl: "holding-page",
   serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "#"
+  serviceUrl: "../index-research"
 }) }}
 {% endblock %}
 
@@ -47,11 +47,11 @@
       <h2 class="govuk-heading-m">
         Animal health and welfare reviews
       </h2>
-      <p class="govuk-body">To be eligible to claim for animal health and welfare reviews you must:</p>
+      <p class="govuk-body">To be eligible to claim for animal health and welfare reviews:</p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>have an Improve Animal Health and Welfare (IAHW) agreement in place before you do your first review</li>
-        <li>ensure reviews on a particular species are at least 10 months apart</li>
-        <li>have no more than 3 animal health and welfare reviews per species before 19 June 2027</li>
+        <li>you must have an Improve Animal Health and Welfare (IAHW) agreement that allows you to claim for reviews</li>
+        <li>reviews on a particular species must be at least 10 months apart</li>
+        <li>you must have no more than 3 animal health and welfare reviews per species before 19 June 2027</li>
       </ul>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
@@ -59,31 +59,17 @@
       <h2 class="govuk-heading-m">
         Endemic disease follow-ups
       </h2>
-      <p class="govuk-body">To be eligible to claim for endemic disease follow-ups you must:</p>
+      <p class="govuk-body">To be eligible to claim for endemic disease follow-ups:</p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>have an IAHW agreement agreement in place before you do your first follow-up</li>
-        <li>have had a review which you should claim for first</li>
-        <li>ensure the follow-up takes place no more than 10 months after your review</li>
-        <li>have the follow-up on the same species as the review</li>
-        <li>ensure that follow-ups for that species take place at least 10 months after your last follow-up and always be at least 10 months apart</li>
-        <li>have no more than 3 endemic disease follow-ups per species before 19 June 2027</li>
+        <li>you must have an IAHW agreement that allows you to claim for follow-ups</li>
+        <li>you must have had a review take place, we also recommend you to claim for this review first</li>
+        <li>the follow-up must take place no more than 10 months after your review</li>
+        <li>the follow-up must be on the same species as the review</li>
+        <li>further follow-ups needed for that species must take place at least 10 months after your last follow-up and always be at least 10 months apart</li>
+        <li>you must have no more than 3 endemic disease follow-ups per species before 19 June 2027</li>
       </ul>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
-
-      {# <h2 class="govuk-heading-m">
-        What to do if you completed a review in the old animal and health welfare service
-      </h2>
-      <p class="govuk-body">You must:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>have an IAHW agreement in place before carrying out a follow-up</li>
-        <li>claim for any previous reviews carried out in the old animal health and welfare service to be eligible to set up an IAHW agreement</li>
-        <li>carry out a follow-up within 10 months of the previous review visit</li>
-        <li>carry out the follow up on the same species as the review</li>
-        <li>wait until 10 months after your last review before doing a new review under this agreement. This applies even if your review claim was rejected</li>
-      </ul>
-
-      <hr class="govuk-section-break govuk-section-break--l govuk-section-break"> #}
 
 
       {% from "govuk/components/button/macro.njk" import govukButton %}
