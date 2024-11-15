@@ -10,12 +10,12 @@
 {% set urn = data['test-urn'] or '38527594' %}
 
 {% block header %}
-  <!-- Header with service name and link to the holding page -->
-  {{ govukHeader({
-    homepageUrl: "holding-page",
-    serviceName: "Get funding to improve animal health and welfare",
-    serviceUrl: "#"
-  }) }}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
 {% endblock %}
 
 {% block beforeContent %}
