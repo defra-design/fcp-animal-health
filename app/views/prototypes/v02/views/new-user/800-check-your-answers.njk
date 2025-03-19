@@ -1,0 +1,291 @@
+{% extends "layouts/main.html" %}
+
+{% set animalType = data['animalType'] or 'Beef cattle' %}
+
+
+// Claim type variables
+{% set claimType = data['claimType'] or "Animal health and welfare review." %}
+{% set displayClaimType = "the vet visit" %}
+
+{% if claimType == "Endemic disease follow-up" %}
+    {% set displayClaimType = "follow-up" %}
+{% elif claimType == "Animal health and welfare review" %}
+    {% set displayClaimType = "review" %}
+{% endif %}
+
+// Heading or label text
+{% set dateofvisitText = "Date of " + displayClaimType %}
+
+// Visit date - not working yet
+{% set visitDate = data['visit-date-day'] or "4" +' '+['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][data['visit-date-month']-1] or "January" +' '+data['visit-date-year'] or '4 September 2024' %}
+
+// Herd reference
+{% set herdReference = data['herd-reference'] or "Pedigree" %}
+
+// Sample date - not working yet
+
+{% if sampleDate == visitDate %}
+    {% set displaySampleDate = "date here" %}
+{% elif sampleDate == "Animal health and welfare review" %}
+    {% set displaySampleDate = "review" %}
+{% endif %}
+
+{% set sampleDate = data['sample-date-day']+' '+['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][data['sample-date-month']-1]+' '+data['sample-date-year'] or '4 September 2024' %}
+
+
+// Minimum number of animals variables
+{% set minimumNumber = data['minimum-number'] or 'Yes' %}
+{% set minimumnumberText = "the minimum number of animals required for this species" %}
+
+{% if animalType == "Beef cattle" %}
+    {% set minimumnumberText = "11 or more beef cattle" %}
+{% elif animalType == "Dairy cattle" %}
+    {% set minimumnumberText = "11 or more dairy cattle" %}
+{% elif animalType == "Pigs" %}
+    {% set minimumnumberText = "51 or more pigs" %}
+{% elif animalType == "Sheep" %}
+    {% set minimumnumberText = "21 or more sheep" %}
+{% endif %}
+
+
+{% set sampleNumber = data['sample-number'] or '6' %}
+{% set vetsName = data['vets-name'] or 'Alex Federico' %}
+{% set vetsRcvs = data['vets-rcvs'] or '5435472' %}
+{% set urn = data['test-urn'] or '38527594' %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers
+      </h1>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Business name"
+            },
+            value: {
+              text: "Arthington Farm"
+            }
+          }
+          ,
+                    {
+            key: {
+              text: "Species"
+            },
+            value: {
+              text: animalType
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Review or follow-up"
+            },
+            value: {
+              text: claimType
+            }
+          }
+          ,
+          {
+            key: {
+              text: dateofvisitText
+            },
+            value: {
+              text: visitDate
+            },
+            actions: {
+              items: [
+                {
+                  href: "300-visit-date",
+                  text: "Change",
+                  visuallyHiddenText: dateofvisitText
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Herd"
+            },
+            value: {
+              text: herdReference
+            },
+            actions: {
+              items: [
+                {
+                  href: "350-sample-date",
+                  text: "Change",
+                  visuallyHiddenText: "Herd"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Date of sampling"
+            },
+            value: {
+              text: sampleDate
+            },
+            actions: {
+              items: [
+                {
+                  href: "350-sample-date",
+                  text: "Change",
+                  visuallyHiddenText: "Date of sampling"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: minimumnumberText
+            },
+            value: {
+              text: minimumNumber
+            },
+            actions: {
+              items: [
+                {
+                  href: "400-minimum-number",
+                  text: "Change",
+                  visuallyHiddenText: minimumnumberText
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Number of samples taken"
+            },
+            value: {
+              text: sampleNumber
+            },
+            actions: {
+              items: [
+                {
+                  href: "550-sample-number",
+                  text: "Change",
+                  visuallyHiddenText: "Number of samples taken"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Vet's name"
+            },
+            value: {
+              text: vetsName
+            },
+            actions: {
+              items: [
+                {
+                  href: "600-vets-name",
+                  text: "Change",
+                  visuallyHiddenText: "Vet's name"
+                }
+              ]
+            }
+          }
+          ,  
+          {
+            key: {
+              text: "Vet's RCVS number"
+            },
+            value: {
+              text: vetsRcvs
+            },
+            actions: {
+              items: [
+                {
+                  href: "650-vets-rcvs",
+                  text: "Change",
+                  visuallyHiddenText: "Vet's RCVS number"
+                }
+              ]
+            }
+          }
+          , 
+          {
+            key: {
+              text: "URN or test certificate"
+            },
+            value: {
+              text: urn
+            },
+            actions: {
+              items: [
+                {
+                  href: "700-test-urn",
+                  text: "Change",
+                  visuallyHiddenText: "URN or test certificate"
+                }
+              ]
+            }
+          }
+          ,                                              
+          {
+            key: {
+              text: "Test result"
+            },
+            value: {
+              text: data['test-result'] or "Positive"
+            },
+            actions: {
+              items: [
+                {
+                  href: "750-test-result",
+                  text: "Change",
+                  visuallyHiddenText: "Test result"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <p class="govuk-body">By submitting your claim you confirm that:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>you understand you may have to provide evidence to the Rural Payments Agency to support this claim</li>
+        <li>all the information you have provided in this claim is correct to the best of your knowledge</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+        {{ govukButton({
+        text: "Submit your claim",
+        href: "900-confirmation-claim",
+        isStartButton: false
+        }) }}
+
+    </div>
+  </div>
+{% endblock %}

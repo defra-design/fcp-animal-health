@@ -1,0 +1,101 @@
+{% extends "layouts/main.html" %}
+
+
+// Dynamic content variables
+
+// Animal type variables
+{% set animalType = data['animalType'] or "" %}
+{% set displayAnimalType = "the minimum number of animals required for this species" %}
+
+{% if animalType == "Beef cattle" %}
+    {% set displayAnimalType = "11 or more beef cattle" %}
+{% elif animalType == "Dairy cattle" %}
+    {% set displayAnimalType = "11 or more dairy cattle" %}
+{% elif animalType == "Pigs" %}
+    {% set displayAnimalType = "51 or more pigs" %}
+{% elif animalType == "Sheep" %}
+    {% set displayAnimalType = "21 or more sheep" %}
+{% endif %}
+
+
+// Claim type variables
+{% set claimType = data['claimType'] or "" %}
+{% set displayClaimType = "the vet visit" %}
+
+{% if claimType == "Endemic disease follow-up" %}
+    {% set displayClaimType = "follow-up" %}
+{% elif claimType == "Animal health and welfare review" %}
+    {% set displayClaimType = "review" %}
+{% endif %}
+
+// Heading or label text
+{% set legendText = "Did you have " + displayAnimalType + " on the date of the " + displayClaimType + "?" %}
+
+// Hint text
+{% set hintText = "This is the date the vet last visited the farm for this " + displayClaimType + ". You can find it on the summary the vet gave you." %}
+
+// Dynamic content variables ends
+
+
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="550-sample-number" method="post" novalidate>
+
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        name: "minimum-number",
+        fieldset: {
+          legend: {
+            text: legendText,
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "You can find this on the summary the vet gave you."
+        },
+        items: [
+          {
+            value: "Yes",
+            text: "Yes"
+          },
+          {
+            value: "No",
+            text: "No"
+          }
+        ]
+      }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

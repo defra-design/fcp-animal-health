@@ -1,0 +1,36 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Content page template - {{ serviceName }} - GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        Usability testing
+      </h1>
+
+      <h2 class="govuk-heading-m">Multiple herds prototype</h2>
+        <p class="govuk-body-l">Start point</p>
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="new-user/100-animal-type">Claim journey</a>
+        </li>
+      </ul>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

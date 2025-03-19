@@ -30,17 +30,19 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
-// Route for the ready-for-dev page
-router.get('/ready-for-dev', (req, res) => {
-  res.render('ready-for-dev.njk');
-});
+// // Route for the ready-for-dev page
+// router.get('/ready-for-dev', (req, res) => {
+//   res.render('ready-for-dev.njk');
+// });
 
-// Load routes for ready-for-dev-pages
-router.use('/ready-for-dev', require('./views/ready-for-dev/routes'));
+// // Load routes for ready-for-dev-pages
+// router.use('/ready-for-dev', require('./views/ready-for-dev/routes'));
 
 // Load routes for prototypes
 router.use('/prototypes/v01', require('./views/prototypes/v01/routes'));
 router.use('/prototypes/v01/new-user', require('./views/prototypes/v01/routes'));
+router.use('/prototypes/v02', require('./views/prototypes/v02/routes'));
+router.use('/prototypes/v02/new-user', require('./views/prototypes/v02/routes'));
 
 // Export router
 module.exports = router;

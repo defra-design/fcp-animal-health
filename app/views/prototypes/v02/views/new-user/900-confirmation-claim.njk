@@ -1,0 +1,139 @@
+{% extends "layouts/main.html" %}
+
+// Claim type variables
+{% set claimType = data['claimType'] or "Animal health and welfare review." %}
+{% set displayClaimTypeConfirmation = "a vet visit" %}
+{% set claimReference = "REBC-A2D1-8181" %}
+{% set paymentAmount = "500" %}
+
+// Text for claim type
+{% if claimType == "Endemic disease follow-up" %}
+    {% set displayClaimTypeConfirmation = "an endemic disease follow-up" %}
+{% elif claimType == "Animal health and welfare review" %}
+    {% set displayClaimTypeConfirmation = "an animal health and welfare review" %}
+{% endif %}
+
+// Payment variables
+{% if claimType == "Animal health and welfare review" and animalType == "Beef cattle" %}
+    {% set claimReference = "REBC-DDD5-4646" %}
+     {% set paymentAmount = "522" %}
+{% elif claimType == "Animal health and welfare review" and animalType == "Dairy cattle" %}
+    {% set claimReference = "REDC-DDD5-4646" %}
+     {% set paymentAmount = "523" %}
+{% elif claimType == "Animal health and welfare review" and animalType == "Pigs" %}
+    {% set claimReference = "REPI-DDD5-4646" %}
+     {% set paymentAmount = "522" %}
+{% elif claimType == "Animal health and welfare review" and animalType == "Sheep" %}
+    {% set claimReference = "RESH-DDD5-4646" %}
+     {% set paymentAmount = "522" %}
+{% elif claimType == "Endemic disease follow-up" and animalType == "Beef cattle" %}
+    {% set claimReference = "FUBC-Y7UD-EZI5" %}
+    {% set paymentAmount = "522" %}
+{% elif claimType == "Endemic disease follow-up" and animalType == "Dairy cattle" %}
+    {% set claimReference = "FUDC-Y7UD-EZI5" %}
+    {% set paymentAmount = "522" %}
+{% elif claimType == "Endemic disease follow-up" and animalType == "Sheep" %}
+    {% set claimReference = "FUSH-Y7UD-EZI5" %}
+    {% set paymentAmount = "522" %}
+{% elif claimType == "Endemic disease follow-up" and animalType == "Pigs" %}
+    {% set claimReference = "FUPI-Y7UD-EZI5" %}
+    {% set paymentAmount = "522" %}
+{% endif %}
+
+
+
+// Dynamic text
+{% set claimSuccess = "You have successfully submitted your claim for  " + displayClaimTypeConfirmation %}
+{% set claimNumberText = "Your claim number<br><strong> " + claimReference + "</strong>" %}
+
+
+{% block header %}
+  <!-- Blank header with no service name for the start page -->
+    {{ govukHeader({
+      homepageUrl: "holding-page",
+      serviceName: "Get funding to improve animal health and welfare",
+      serviceUrl: "#"
+    }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Claim complete",
+        html: claimNumberText
+      }) }}
+
+      <p>
+        You have successfully submitted your claim for {{ displayClaimTypeConfirmation }}. 
+      </p>
+
+      <p>
+        We've sent you a confirmation email.
+      </p>
+
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+
+      <p>
+        The Rural Payments Agency (RPA) may contact you to request the summary the vet gave you.
+      </p>
+
+      <p>
+        We will process your claim within 28 days. If your claim is successful, you will get £{{ paymentAmount }}.
+      </p>
+      <p>
+        Go to 
+        <a href="manage-your-claims-after-submit">
+          manage your claims
+        </a> to make another claim or view:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>details of your claims</li>
+        <li>service guidance</li>
+        <li>your terms and conditions</li>
+      </ul>
+
+      <p>
+        If you want to arrange another review or follow-up, read the 
+        <a href="#">
+          guidance on timing of reviews and follow-ups
+        </a>.
+      </p>
+
+      <h2 class="govuk-heading-m">
+        Get help with your claim
+      </h2>
+
+      <p>
+        If you need to change the details of your claim, contact the RPA and give your agreement number.
+      </p>
+      <p>
+        Email: 
+        <a href="#">
+          ruralpayments@defra.gov.uk
+      </p>
+
+      <ul class="govuk-list">
+        <li>Telephone: 03000 200 301</li>
+        <li>Monday to Friday: *:30am to 5pm; except bank holidays</li>
+      </ul>
+
+      <p>
+        <a href="#">
+          Find out about call charges (opens in a new tab)</a>
+      </p>
+
+      <p>
+        <a href="#">
+          What did you think of this service?</a> (giving feedback takes about 5 minutes)
+      </p>
+
+
+    </div>
+  </div>
+
+{% endblock %}

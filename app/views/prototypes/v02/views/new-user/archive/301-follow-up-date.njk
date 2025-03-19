@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Date of follow-up – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form action="350-sample-date" method="post" novalidate>
+
+        {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+        {{ govukDateInput({
+          id: "visit-date",
+          namePrefix: "visit-date",
+          fieldset: {
+            legend: {
+              text: "Date of follow-up",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "This is the date the vet last visited the farm for this follow-up. You can find it on the summary the vet gave you."
+          }
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
