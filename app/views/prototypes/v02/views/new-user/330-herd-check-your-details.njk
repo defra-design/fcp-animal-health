@@ -1,10 +1,20 @@
 {% extends "layouts/main.html" %}
 
-{% set herdReference = data['herd-reference'] or 'Pedigree Meadow' %}
+// Dynamic data
+
+{# {% set herdReference = data['herd-reference'] or 'Pedigree Meadow' %}
 {% set herdCPH = data['herd-cph'] or '52423212' %}
 {% set otherHerdsCph = data['other-herds-cph'] or 'No' %}
 {% set herdDetails = data['herd-details']  | join("<br><br>") or 'No information provided' %}
-{% set herdMoreDetails = data['herd-more-details'] | replace("\n", "<br>") or 'No information provided' %}
+{% set herdMoreDetails = data['herd-more-details'] | replace("\n", "<br>") or 'No information provided' %} #}
+
+
+// Static data
+{% set herdReference = 'Pedigree herd' %}
+{% set herdCPH = '52423212' %}
+{% set otherHerdsCph = 'No' %}
+{% set herdDetails = 'They have separate management needs' %}
+{% set herdMoreDetails = 'This herd has a different disease risk to the other herd' %}
 
 
 
@@ -139,7 +149,7 @@
 
         {{ govukButton({
         text: "Continue",
-        href: "350-sample-date",
+        href: "325-same-herd",
         isStartButton: false
         }) }}
 
