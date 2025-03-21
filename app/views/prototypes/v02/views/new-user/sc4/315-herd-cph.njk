@@ -8,7 +8,7 @@
 {% block header %}
   <!-- Header for v1 -->
 {{ govukHeader({
-  homepageUrl: "holding-page",
+  homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
 }) }}
@@ -51,6 +51,9 @@
               label: {
                 text: "CPH number for this herd",
                 classes: "govuk-label--m"
+              },
+              hint: {
+                text: "CPH format should be nn/nnn/nnnn"
               },
               classes: "govuk-input--width-10",
               id: "herd-cph",
