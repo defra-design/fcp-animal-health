@@ -19,13 +19,55 @@
       <span class="govuk-caption-l">Usability testing</span>
       <h1 class="govuk-heading-l">Multiple herds prototype</h1>
 
-      <h2 class="govuk-heading-m">Entry points</h2>
+      <h2 class="govuk-heading-m">Existing user - existing herd</h2>
+
+          <!-- "Existing user - has existing herd" form -->
+          <form method="post" action="new-user/sc1/100-animal-type">
+            <input type="hidden" name="journeyType" value="existing-herd-user-add-new">
+            <button class="govuk-button govuk-button--secondary" type="submit">Review: Adds new herd</button>
+          </form>
+  
+          <!-- "Guidance collection" form -->
+          <form method="post" action="new-user/sc2/100-animal-type">
+            <input type="hidden" name="journeyType" value="existing-herd-user-follow-up-select">
+            <button class="govuk-button govuk-button--secondary" type="submit">Follow-up: Selects herds</button>
+          </form>
+
+          <!-- "Manage claims" form -->
+          <form method="post" action="new-user/sc3/100-animal-type">
+            <input type="hidden" name="journeyType" value="existing-herd-user-review-select-unnamed">
+            <button class="govuk-button govuk-button--secondary" type="submit">Review: Selects herds</button>
+          </form>
+  
+      <h2 class="govuk-heading-m">New user</h2>
+
+          <!-- "T&C email" form -->
+          <form method="post" action="new-user/sc4/100-animal-type">
+            <input type="hidden" name="journeyType" value="new-user-first-claim">
+            <button class="govuk-button govuk-button--secondary" type="submit">First claim</button>
+          </form>
+
+          <!-- "T&C email" form -->
+          <form method="post" action="new-user/sc5/100-animal-type">
+            <input type="hidden" name="journeyType" value="new-user-follow-up">
+            <button class="govuk-button govuk-button--secondary" type="submit">Follow-up: Selects herds</button>
+          </form>
+
+
+
+      <h2 class="govuk-heading-m">Scenario agnostic pages</h2>
       <ul class="govuk-list">
-        <li>
-          <a class="govuk-link" href="new-user/100-animal-type">Claim journey</a>
-        </li>
+        {# <li>
+          <a class="govuk-link" href="new-usernew-user/100-animal-type">Claim journey</a>
+        </li> #}
         <li>
           <a class="govuk-link" href="new-user/g100-guidance-collection">Guidance collections page</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="new-user/m100-manage-your-claims-after-submit">Manage your claims page</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="new-user/e100-email-t-and-c-change-mh">T&C email</a>
         </li>
       </ul>
 

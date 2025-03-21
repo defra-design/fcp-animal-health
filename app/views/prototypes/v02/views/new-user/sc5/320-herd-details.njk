@@ -1,0 +1,142 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+
+// Herd word variables
+{% set animalType = data['animalType'] or "herd" %}
+{% set displayHerdWord = "the vet visit" %}
+
+{% if animalType == "Beef cattle" %}
+    {% set displayHerdWord = "herd" %}
+{% elif animalType == "Dairy cattle" %}
+    {% set displayHerdWord = "herd" %}
+{% elif animalType == "Pigs" %}
+    {% set displayHerdWord = "herd" %}
+{% elif animalType == "Sheep" %}
+    {% set displayHerdWord = "flock" %}
+{% endif %}
+
+// Heading or label text
+{% set displayHerdText = "The " + displayHerdWord + " is a separate " + displayHerdWord + " (epidemiologically distinct unit) because:" %}
+{% set displayHerdFreeText = "Tell us why the vet considers it a separate " + displayHerdWord + " (epidemiologically distinct unit)" %}
+
+
+{% block pageTitle %}
+  Start page template - {{ serviceName }} - GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="330-herd-check-your-details" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="herd-details-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Enter the herd details
+            </h1>
+          </legend>
+          <div id="herd-details-hint" class="govuk-hint">
+            You can find this information on the 'Tell us about a herd or flock' section of the form that the vet filled in for you. 
+          </div>
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+          <div class="govuk-form-group">
+
+          {{ govukCheckboxes({
+            name: "herd-details",
+            fieldset: {
+              legend: {
+                text: displayHerdText,
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            hint: {
+              text: "Select all that apply"
+            },
+            items: [
+              {
+                value: "They have separate management needs",
+                text: "They have separate management needs"
+              },
+              {
+                value: "They have unique health needs to other herds on the farm (if present)",
+                text: "They have unique health needs to other herds on the farm (if present)"
+              },
+              {
+                value: "They are a different breed",
+                text: "They are a different breed"
+              },
+              {
+                value: "They are used for another purpose than the other herd(s) (e.g. milking cattle)",
+                text: "They are used for another purpose than the other herd(s) (e.g. milking cattle)"
+              },
+              {
+                value: "They have been kept completely separate  from any other herds",
+                text: "They have been kept completely separate  from any other herds"
+              },
+              {
+                value: "Other",
+                text: "Other"
+              }
+            ]
+          }) }}
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+          {{ govukTextarea({
+            name: "herd-more-details",
+            id: "herd-more-details",
+            label: {
+              text: displayHerdFreeText,
+              classes: "govuk-label--m",
+              isPageHeading: true
+            }
+          }) }}
+
+          </div>
+
+        </fieldset>
+      </div>
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+        <div>
+
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

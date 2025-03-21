@@ -18,12 +18,10 @@ const router = govukPrototypeKit.requests.setupRouter();
  });
 
 
-
-
 // Route from holding page
 router.get('next-task-v2', function (req, res) {
   res.render('prototypes/v02/views/index-research.njk') // 'index' for the v01 folder
-})
+});
 
 
 // Dynamic route for rendering pages within this prototype
@@ -32,6 +30,7 @@ router.get('/*', (req, res) => {
   res.render('prototypes/v02/views/' + page);
 });
 
+// Dynamic route from vet number
 router.post('/prototypes/v02/views/new-user/700-test-urn', function(request, response) {
 
   var animalType = request.session.data['animalType']
@@ -41,6 +40,8 @@ router.post('/prototypes/v02/views/new-user/700-test-urn', function(request, res
       response.redirect("/700-test-urn")
   }
 })
+
+
 
 // // Route from 200-claim-type page
 // router.post('/prototypes/v02/new-user/300-review-date', function(request, response) {

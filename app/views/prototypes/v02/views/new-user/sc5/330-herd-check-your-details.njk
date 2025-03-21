@@ -141,24 +141,13 @@
 
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
-    {% if claimType == 'Animal health and welfare review' %}
 
         {{ govukButton({
         text: "Continue",
-        href: "325-same-herd",
+        href: "../400-minimum-number",
         isStartButton: false
         }) }}
 
-    {% endif %}
-
-    {% if claimType == 'Endemic disease follow-up' %}
-          {{ govukButton({
-        text: "Continue",
-        href: "400-minimum-number",
-        isStartButton: false
-        }) }}
-
-    {% endif %}
 
 
     </div>

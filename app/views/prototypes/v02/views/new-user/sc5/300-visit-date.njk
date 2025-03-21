@@ -1,0 +1,75 @@
+{% extends "layouts/main.html" %}
+
+
+// Dynamic content variables
+
+{% set claimType = data['claimType'] or "" %}
+{% set displayClaimType = "the vet visit" %}
+
+{% if claimType == "Endemic disease follow-up" %}
+    {% set displayClaimType = "follow-up" %}
+{% elif claimType == "Animal health and welfare review" %}
+    {% set displayClaimType = "review" %}
+{% endif %}
+
+// Heading or label text
+{% set legendText = "Date of " + displayClaimType %}
+
+// Hint text
+{% set hintText = "This is the date the vet last visited the farm for this " + displayClaimType + ". You can find it on the summary the vet gave you." %}
+
+// Dynamic content variables ends
+
+
+{% block pageTitle %}
+  Date of {{ displayClaimType }} – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="330-herd-check-your-details" method="post" novalidate>
+
+        {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+        {{ govukDateInput({
+          id: "visit-date",
+          namePrefix: "visit-date",
+          fieldset: {
+            legend: {
+              text: legendText,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: hintText
+          }
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
