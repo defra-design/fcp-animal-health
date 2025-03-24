@@ -5,16 +5,16 @@
 
 
 // Herd word variables
-{% set animalType = data['animalType'] or "herd" %}
+{% set speciesType = data['species-type'] or "herd" %}
 {% set displayHerdWord = "herd" %}
 
-{% if animalType == "Beef cattle" %}
+{% if speciesType == "Beef cattle" %}
     {% set displayHerdWord = "herd" %}
-{% elif animalType == "Dairy cattle" %}
+{% elif speciesType == "Dairy cattle" %}
     {% set displayHerdWord = "herd" %}
-{% elif animalType == "Pigs" %}
+{% elif speciesType == "Pigs" %}
     {% set displayHerdWord = "herd" %}
-{% elif animalType == "Sheep" %}
+{% elif speciesType == "Sheep" %}
     {% set displayHerdWord = "flock" %}
 {% endif %}
 
