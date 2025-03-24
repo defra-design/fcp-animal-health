@@ -1,53 +1,58 @@
 {% extends "layouts/main.html" %}
 
-{% set animalType = data['animalType'] or 'Beef cattle' %}
+// Species
+{% set speciesValue = data['species-type'] or 'Beef cattle' %}
 
-
-// Claim type variables
+// Review or follow-up
 {% set claimType = data['claimType'] or "Animal health and welfare review." %}
 {% set displayClaimType = "the vet visit" %}
 
+// Claim type
 {% if claimType == "Endemic disease follow-up" %}
     {% set displayClaimType = "follow-up" %}
 {% elif claimType == "Animal health and welfare review" %}
     {% set displayClaimType = "review" %}
 {% endif %}
 
-// Heading or label text
+// Visit date
+{% set visitDay = data['visit-date-day'] or '18' %}
+{% set visitMonth = data['visit-date-month'] or 'January' %}
+{% set visitYear = data['visit-date-year'] or '2025' %}
+
+// Visit date label
 {% set dateofvisitText = "Date of " + displayClaimType %}
 
-// Visit date - not working yet
-{% set visitDate = data['visit-date-day'] or "4" +' '+['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][data['visit-date-month']-1] or "January" +' '+data['visit-date-year'] or '4 September 2024' %}
+// Visit date value
+{% set dateofvisitTextValue = visitDay + " " + (visitMonth | toMonth) + " " + visitYear %}
 
 // Herd reference
-{% set herdReference = data['herd-reference'] or "Pedigree" %}
+{% set herdReference = data['herd-reference'] or "Commercials" %}
 
-// Sample date - not working yet
-
-{% if sampleDate == visitDate %}
-    {% set displaySampleDate = "date here" %}
-{% elif sampleDate == "Animal health and welfare review" %}
-    {% set displaySampleDate = "review" %}
-{% endif %}
-
-{% set sampleDate = data['sample-date-day']+' '+['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][data['sample-date-month']-1]+' '+data['sample-date-year'] or '4 September 2024' %}
-
-
-// Minimum number of animals variables
+// Minimum number of animals met
 {% set minimumNumber = data['minimum-number'] or 'Yes' %}
-{% set minimumnumberText = "the minimum number of animals required for this species" %}
+{% set minimumnumberText = "11 or more beef cattle" %}
 
-{% if animalType == "Beef cattle" %}
+{% if speciesValue == "Beef cattle" %}
     {% set minimumnumberText = "11 or more beef cattle" %}
-{% elif animalType == "Dairy cattle" %}
+{% elif speciesValue == "Dairy cattle" %}
     {% set minimumnumberText = "11 or more dairy cattle" %}
-{% elif animalType == "Pigs" %}
+{% elif speciesValue == "Pigs" %}
     {% set minimumnumberText = "51 or more pigs" %}
-{% elif animalType == "Sheep" %}
+{% elif speciesValue == "Sheep" %}
     {% set minimumnumberText = "21 or more sheep" %}
 {% endif %}
 
+// Date of sampling
+// Sampling date
+{% set samplingDay = data['sample-date-day'] or visitDay %}
+{% set samplingMonth = data['sample-date-month'] or visitMonth %}
+{% set samplingYear = data['sample-date-year'] or visitYear %}
 
+// Sampling date value
+{% set dateofsamplingTextValue = samplingDay + " " + (samplingMonth | toMonth) + " " + samplingYear %}
+
+
+// still to sort
 {% set sampleNumber = data['sample-number'] or '6' %}
 {% set vetsName = data['vets-name'] or 'Alex Federico' %}
 {% set vetsRcvs = data['vets-rcvs'] or '5435472' %}
@@ -93,7 +98,16 @@
               text: "Species"
             },
             value: {
-              text: animalType
+              text: speciesValue
+            }
+          }
+          ,
+                    {
+            key: {
+              text: "Herd"
+            },
+            value: {
+              text: herdReference
             }
           }
           ,
@@ -111,7 +125,7 @@
               text: dateofvisitText
             },
             value: {
-              text: visitDate
+              text: dateofvisitTextValue
             },
             actions: {
               items: [
@@ -126,28 +140,10 @@
           ,
           {
             key: {
-              text: "Herd"
-            },
-            value: {
-              text: herdReference
-            },
-            actions: {
-              items: [
-                {
-                  href: "350-sample-date",
-                  text: "Change",
-                  visuallyHiddenText: "Herd"
-                }
-              ]
-            }
-          }
-          ,
-          {
-            key: {
               text: "Date of sampling"
             },
             value: {
-              text: sampleDate
+              text: dateofsamplingTextValue
             },
             actions: {
               items: [
