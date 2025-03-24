@@ -11,11 +11,11 @@
 {% set claimType = data['claimType'] %}
 
 // Static data
-{% set herdReference = 'Pedigree herd' %}
-{% set herdCPH = '52423212' %}
-{% set otherHerdsCph = 'No' %}
-{% set herdDetails = 'They have separate management needs' %}
-{% set herdMoreDetails = 'This herd has a different disease risk to the other herd' %}
+{% set herdReference = data['herd-reference'] or 'Commercials' %}
+{% set herdCPH = data['herd-cph'] or '52/423/2125' %}
+{% set otherHerdsCph = data['other-herds-cph'] or 'Yes' %}
+{% set herdDetails = data['herd-details'] or 'They have separate management needs' %}
+{% set herdMoreDetails = data['herd-more-details'] or 'This herd has a different disease risk to the other herd' %}
 
 
 
