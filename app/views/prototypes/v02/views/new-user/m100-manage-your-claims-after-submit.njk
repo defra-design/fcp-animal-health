@@ -51,6 +51,21 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
 
+      {# // Notification banner #}
+
+        {% set html %}
+          <p class="govuk-notification-banner__heading">
+            You can now claim for more than one herd
+            {# <a class="govuk-notification-banner__link" href="#">View application</a>. #}
+          </p>
+        {% endset %}
+
+        {{ govukNotificationBanner({
+          html: html
+        }) }}
+
+          
+        {# // Heading #}
         <h1 class="govuk-heading-xl">
           Manage your claims
         </h1>
@@ -103,7 +118,7 @@
 
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">4 Sep 2024</td>
-              <td class="govuk-table__cell">Pedigree</td>
+              <td class="govuk-table__cell">Unnamed herd</td>
               <td class="govuk-table__cell">Review<br>REBC-6844-3031</td>
               <td class="govuk-table__cell">
                 <strong class="govuk-tag">
@@ -114,7 +129,7 @@
 
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">4 Sep 2024</td>
-              <td class="govuk-table__cell">Pedigree</td>
+              <td class="govuk-table__cell">Unnamed herd</td>
               <td class="govuk-table__cell">Review<br>REBC-6844-3031</td>
               <td class="govuk-table__cell">
                 <strong class="govuk-tag">
@@ -148,7 +163,7 @@
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">4 Sep 2024</td>
-              <td class="govuk-table__cell">Pedigree</td>
+              <td class="govuk-table__cell">Unnamed herd</td>
               <td class="govuk-table__cell">Review<br>REBC-6844-3031</td>
               <td class="govuk-table__cell">
                 <strong class="govuk-tag govuk-tag--turquoise">
