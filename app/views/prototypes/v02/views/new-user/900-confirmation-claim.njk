@@ -4,7 +4,8 @@
 {% set claimType = data['claimType'] or "Animal health and welfare review." %}
 {% set displayClaimTypeConfirmation = "a vet visit" %}
 {% set claimReference = "REBC-A2D1-8181" %}
-{% set paymentAmount = "500" %}
+{% set paymentAmount = "526" %}
+{% set animalType = data['species-type'] or "Beef cattle" %}
 
 // Text for claim type
 {% if claimType == "Endemic disease follow-up" %}
