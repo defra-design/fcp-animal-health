@@ -1,0 +1,77 @@
+{% extends "layouts/main.html" %}
+
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "../holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="315-herd-cph" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="herd-reference-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Enter the herd reference
+            </h1>
+          </legend>
+          <div id="herd-reference-hint" class="govuk-hint">
+            You can find this information on the 'Tell us about a herd or flock' section of the form that the vet filled in for you. 
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="herd-reference">
+              Herd reference
+            </label>
+            {{ govukInput({
+              id: "herd-reference",
+              name: "herd-reference",
+              classes: "govuk-input--width-40",
+              type: "string"
+            }) }}
+          </div>
+
+        </fieldset>
+      </div>
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+        <div>
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              I don't have the herd details from the vet
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            Your vet should have completed the  'Tell us about a herd or flock' section on the vet template. You can ask them to <a href="#">download the form</a> and fill the details in for you.
+          </div>
+        </details>
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

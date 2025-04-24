@@ -1,0 +1,103 @@
+{% extends "layouts/main.html" %}
+
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "../holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="320-herd-details" method="post" novalidate>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="herd-cph-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Enter the County Parish Holding (CPH) number for this herd
+            </h1>
+          </legend>
+          <div id="herd-cph-hint" class="govuk-hint">
+            Tell us the CPH for where this herd is kept. 
+          </div>
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+          <div class="govuk-form-group">
+
+            {{ govukInput({
+              label: {
+                text: "CPH number for this herd",
+                classes: "govuk-label--m"
+              },
+              hint: {
+                text: "For example, 12/345/6789"
+              },
+              classes: "govuk-input--width-10",
+              id: "herd-cph",
+              name: "herd-cph"
+            }) }}
+
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+            {{ govukRadios({
+              name: "other-herds-cph",
+              fieldset: {
+                legend: {
+                  text: "Are there any other herds on this CPH?",
+                  isPageHeading: false,
+                  classes: "govuk-fieldset__legend--m"
+                }
+              },
+              items: [
+                {
+                  value: "Yes",
+                  text: "Yes"
+                },
+                {
+                  value: "No",
+                  text: "No"
+                }
+              ]
+            }) }}
+
+          </div>
+
+        </fieldset>
+      </div>
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+        <div>
+
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

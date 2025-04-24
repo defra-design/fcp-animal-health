@@ -1,0 +1,153 @@
+{% extends "layouts/main.html" %}
+
+// Dynamic data
+
+{# {% set herdReference = data['herd-reference'] or 'Pedigree Meadow' %}
+{% set herdCPH = data['herd-cph'] or '52423212' %}
+{% set otherHerdsCph = data['other-herds-cph'] or 'No' %}
+{% set herdDetails = data['herd-details']  | join("<br><br>") or 'No information provided' %}
+{% set herdMoreDetails = data['herd-more-details'] | replace("\n", "<br>") or 'No information provided' %} #}
+
+{% set claimType = data['claimType'] %}
+
+// Static data
+{% set herdReference = data['herd-reference'] or 'Commercials' %}
+{% set herdCPH = data['herd-cph'] or '52/423/2125' %}
+{% set otherHerdsCph = data['other-herds-cph'] or 'Yes' %}
+{% set herdDetails = data['herd-details'] or 'They have separate management needs' %}
+{% set herdMoreDetails = data['herd-more-details'] or 'This herd has a different disease risk to the other herd' %}
+
+
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "../holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check herd details
+      </h1>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Herd reference"
+            },
+            value: {
+              text: herdReference
+            },
+            actions: {
+                items: [
+                  {
+                    href: "310-herd-reference",
+                    text: "Change",
+                    visuallyHiddenText: "herd reference"
+                  }
+                ]
+              }
+            },
+
+          {
+            key: {
+              text: "CPH number for herd"
+            },
+            value: {
+              text: herdCPH
+            },
+            actions: {
+                items: [
+                  {
+                    href: "315-herd-cph",
+                    text: "Change",
+                    visuallyHiddenText: "CPH number for herd"
+                  }
+                ]
+              }
+            },
+
+          {
+            key: {
+              text: "Other herds on CPH"
+            },
+            value: {
+              text: otherHerdsCph
+            },
+          actions: {
+            items: [
+              {
+                href: "315-herd-cph",
+                text: "Change",
+                visuallyHiddenText: "other herds on CPH"
+                  }
+                ]
+              }
+            },
+           
+            {
+              key: {
+                text: "Herd details"
+              },
+              value: {
+                "html": herdDetails
+              },
+              actions: {
+                items: [
+                  {
+                    href: "320-herd-details",
+                    text: "Change",
+                    visuallyHiddenText: "herd details"
+                  }
+                ]
+              }
+            },
+
+            {
+              key: {
+                text: "Tell us why"
+              },
+              value: {
+                "html": herdMoreDetails
+              },
+              actions: {
+                items: [
+                  {
+                    href: "350-sample-date",
+                    text: "Change",
+                    visuallyHiddenText: "Herd"
+                  }
+                ]
+              }
+            }
+
+        ]
+      }) }}
+
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+        {{ govukButton({
+        text: "Continue",
+        href: "../400-minimum-number",
+        isStartButton: false
+        }) }}
+
+
+    </div>
+  </div>
+{% endblock %}

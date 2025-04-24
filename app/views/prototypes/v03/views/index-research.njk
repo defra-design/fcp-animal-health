@@ -1,0 +1,53 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Content page template - {{ serviceName }} - GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Usability testing</span>
+      <h1 class="govuk-heading-l">Multiple herds pigs prototype</h1>
+
+      <h2 class="govuk-heading-m">Existing user</h2>
+
+          <!-- "Existing user - has existing herd" form -->
+          <form method="post" action="new-user/sc1/manage-your-claims">
+            <input type="hidden" name="journeyType" value="existing-herd-user-add-new">
+            <button class="govuk-button govuk-button--secondary" type="submit">Review: Adds new herd</button>
+          </form>
+  
+
+          <!-- "Manage claims" form -->
+          <form method="post" action="new-user/sc3/100-animal-type">
+            <input type="hidden" name="journeyType" value="existing-herd-user-review-select-unnamed">
+            <button class="govuk-button govuk-button--secondary" type="submit">Review: Selects herds</button>
+          </form>
+          
+          <h2 class="govuk-heading-m govuk-!-padding-top-4">Scenario agnostic pages</h2>
+          
+          <ul class="govuk-list">
+          
+          <li>
+          <a class="govuk-link" href="new-user/guidance-collection">Guidance collections page</a>
+          </li>
+          <li>
+          <a class="govuk-link" href="new-user/email-t-and-c-change-mh">T&C email</a>
+          </li>
+          
+          </ul>
+
+    </div>
+  </div>
+
+{% endblock %}

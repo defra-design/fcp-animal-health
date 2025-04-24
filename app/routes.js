@@ -43,6 +43,8 @@ router.use('/prototypes/v01', require('./views/prototypes/v01/routes'));
 router.use('/prototypes/v01/new-user', require('./views/prototypes/v01/routes'));
 router.use('/prototypes/v02', require('./views/prototypes/v02/routes'));
 router.use('/prototypes/v02/new-user', require('./views/prototypes/v02/routes'));
+router.use('/prototypes/v03', require('./views/prototypes/v03/routes'));
+router.use('/prototypes/v03/new-user', require('./views/prototypes/v03/routes'));
 
 // Export router
 module.exports = router;

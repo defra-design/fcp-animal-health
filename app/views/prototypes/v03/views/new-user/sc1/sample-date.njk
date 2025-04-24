@@ -1,0 +1,113 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    
+      <form action="minimum-animals" method="post" novalidate>
+
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+      {# Set date fields for expand from radio button #}
+      
+      {% set dateInputHtml %}
+        <div class="govuk-hint">
+          For example, 27 3 2022
+        </div>
+        <div class="govuk-date-input" id="date-samples-taken">
+          <div class="govuk-date-input__item">
+            {{ govukInput({
+              id: "day",
+              name: "sample-date-day",
+              classes: "govuk-input--width-2",
+              label: {
+                text: "Day"
+              }
+            }) }}
+          </div>
+          <div class="govuk-date-input__item">
+            {{ govukInput({
+              id: "month",
+              name: "sample-date-month",
+              classes: "govuk-input--width-2",
+              label: {
+                text: "Month"
+              }
+            }) }}
+          </div>
+          <div class="govuk-date-input__item">
+            {{ govukInput({
+              id: "year",
+              name: "sample-date-year",
+              classes: "govuk-input--width-4",
+              label: {
+                text: "Year"
+              }
+            }) }}
+          </div>
+        </div>
+      {% endset %}
+
+      {{ govukRadios({
+        name: "samples-date",
+        fieldset: {
+          legend: {
+            text: "When were samples taken?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "This is the date samples were last taken for this review. You can find it on the summary the vet gave you."
+        },
+        items: [
+          {
+            value: "last-visit",
+            text: "When the vet last visited the farm for the review"
+          },
+          {
+            value: "other-date",
+            text: "On another date",
+            conditional: {
+              html: dateInputHtml
+            }
+          }
+        ]
+      }) }}
+
+
+
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

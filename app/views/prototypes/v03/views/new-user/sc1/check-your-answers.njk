@@ -1,0 +1,316 @@
+{% extends "layouts/main.html" %}
+
+// Review or follow-up
+{% set claimType = data['claimType'] or "Animal health and welfare review." %}
+{% set displayClaimType = "the vet visit" %}
+
+// Claim type
+{% if claimType == "Endemic disease follow-up" %}
+    {% set displayClaimType = "follow-up" %}
+{% elif claimType == "Animal health and welfare review" %}
+    {% set displayClaimType = "review" %}
+{% endif %}
+
+// Visit date
+{% set visitDay = data['visit-date-day'] or '28' %}
+{% set visitMonth = data['visit-date-month'] or 'March' %}
+{% set visitYear = data['visit-date-year'] or '2025' %}
+
+// Visit date label
+{% set dateofvisitText = "Date of " + displayClaimType %}
+
+// Visit date value
+{% set dateofvisitTextValue = visitDay + " " + (visitMonth | toMonth) + " " + visitYear %}
+
+// Herd reference
+{% set herdReference = data['herd-reference'] or "Commercials" %}
+
+// Minimum number of animals met
+{% set minimumNumber = data['minimum-number'] or 'Yes' %}
+{% set minimumnumberText = "11 or more beef cattle" %}
+
+// Date of sampling
+// Sampling date
+{% set samplingDay = data['sample-date-day'] or visitDay %}
+{% set samplingMonth = data['sample-date-month'] or visitMonth %}
+{% set samplingYear = data['sample-date-year'] or visitYear %}
+
+// Sampling date value
+{% set dateofsamplingTextValue = samplingDay + " " + (samplingMonth | toMonth) + " " + samplingYear %}
+
+
+// still to sort
+{% set sampleNumber = data['sample-number'] or '6' %}
+{% set vetsName = data['vets-name'] or 'Alex Federico' %}
+{% set vetsRcvs = data['vets-rcvs'] or '5435472' %}
+{% set urn = data['test-urn'] or '38527594' %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers
+      </h1>
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: " Business name"
+      },
+      value: {
+        text: "Arthington Farm Ltd"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "",
+            visuallyHiddenText: "name"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Species"
+      },
+      value: {
+        text: "Pigs"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Herd name"
+      },
+      value: {
+        text: "Pedigree pigs"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "",
+            visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Review"
+      },
+      value: {
+        html: "Animal health and welfare review"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "",
+            visuallyHiddenText: "address"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Date of review"
+      },
+      value: {
+        html: '25 February 2025'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+     {
+      key: {
+        text: "Date of sampling"
+      },
+      value: {
+        html: '25 February 2025'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }, 
+    {
+      key: {
+        text: "51 or more pigs"
+      },
+      value: {
+        html: 'Yes'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }, 
+    {
+      key: {
+        text: "Number of samples taken"
+      },
+      value: {
+        html: '200'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }, 
+    {
+      key: {
+        text: "Vet's name"
+      },
+      value: {
+        html: 'Joe Bloggs'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }, 
+    {
+      key: {
+        text: "Vet's RCVS number"
+      },
+      value: {
+        html: '1234567'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "URN"
+      },
+      value: {
+        html: '123456'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Number of oral fluid samples taken"
+      },
+      value: {
+        html: '5'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Test results"
+      },
+      value: {
+        html: 'Positive'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "contact details"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <p class="govuk-body">By submitting your claim you confirm that:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>you understand you may have to provide evidence to the Rural Payments Agency to support this claim</li>
+        <li>all the information you have provided in this claim is correct to the best of your knowledge</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+        {{ govukButton({
+        text: "Submit your claim",
+        href: "confirmation-claim",
+        isStartButton: false
+        }) }}
+
+    </div>
+  </div>
+{% endblock %}
