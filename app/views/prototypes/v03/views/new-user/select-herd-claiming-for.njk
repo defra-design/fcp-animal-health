@@ -1,0 +1,77 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "../holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <form action="only-herd-or-flock-answer" method="post" novalidate>
+
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  classes: "govuk-radios",
+  name: "only-pig-herd",
+  fieldset: {
+    legend: {
+      text: "Select the herd you are claiming for?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "You can also choose to claim for a different herd."
+  },
+  items: [
+    {
+      value: "herd one",
+      text: "Herd one"
+    },
+    {
+      value: "herd two",
+      text: "Herd two"
+    },
+     {
+      value: "herd three",
+      text: "Herd three"
+    },
+     {
+      value: "herd four",
+      text: "Herd four"
+    }
+  ]
+}) }}
+
+{{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+
+    </div>
+
+  </div>
+
+{% endblock %}
