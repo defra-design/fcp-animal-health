@@ -6,7 +6,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -27,9 +27,9 @@
 
       <form action="claim-type" method="post" novalidate>
 
-      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-      {{ govukRadios({
+        {{ govukRadios({
         name: "species-type",
         fieldset: {
           legend: {
@@ -58,20 +58,18 @@
         ]
       }) }}
 
-      {# <input type="hidden" name="nextPage" value="/new-user/check-your-answers"> #}
+        {# <input type="hidden" name="nextPage" value="/new-user/check-your-answers"> #}
 
-
-            {# {{ govukButton({
+        {# {{ govukButton({
               text: "Continue",
               href: "200-claim-type",
               isStartButton: false
             }) }} #}
 
-      {{ govukButton({
+        {{ govukButton({
           text: "Continue"
         }) }}
       </form>
-
 
     </div>
 

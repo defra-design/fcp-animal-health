@@ -6,7 +6,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -26,21 +26,21 @@
     <div class="govuk-grid-column-two-thirds">
       <form action="check-your-answers" method="post" novalidate>
 
-       {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
         <div class="govuk-form-group">
           <form action="/new-user" method="post" class="form">
 
-          <fieldset class="govuk-fieldset" aria-describedby="test-result-hint">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <h1 class="govuk-fieldset__heading">
+            <fieldset class="govuk-fieldset" aria-describedby="test-result-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
                 What was the test result?
               </h1>
-            </legend>
-            <div id="test-result-hint" class="govuk-hint">
+              </legend>
+              <div id="test-result-hint" class="govuk-hint">
               You can find it on the summary the vet gave you.
             </div>
-            {{ govukRadios({
+              {{ govukRadios({
               name: "test-result",
               items: [
                 {
@@ -53,14 +53,14 @@
                 }
               ]
             }) }}
-          </fieldset>
-        </div>
+            </fieldset>
+          </div>
 
-        {{ govukButton({
+          {{ govukButton({
           text: "Continue"
         }) }}
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
 
-{% endblock %}
+  {% endblock %}

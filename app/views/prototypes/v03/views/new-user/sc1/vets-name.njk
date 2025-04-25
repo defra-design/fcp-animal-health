@@ -6,7 +6,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -26,19 +26,19 @@
     <div class="govuk-grid-column-two-thirds">
       <form action="vets-rcvs" method="post" novalidate>
 
-      {% from "govuk/components/input/macro.njk" import govukInput %}
+        {% from "govuk/components/input/macro.njk" import govukInput %}
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="vets-name-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="vets-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
               What is the vet's name?
             </h1>
-          </legend>
-          <div id="vets-name-hint" class="govuk-hint">
+            </legend>
+            <div id="vets-name-hint" class="govuk-hint">
             Enter the vet's personal name, not their business name. You can find this on the summary the vet gave you.
           </div>
-          {{ govukInput({
+            {{ govukInput({
             id: "vets-name",
             name: "vets-name",
             classes: "govuk-input--width-30",
@@ -46,8 +46,8 @@
             label: {
             }
           }) }}
-        </fieldset>
-      </div>
+          </fieldset>
+        </div>
 
         {{ govukButton({
           text: "Continue"

@@ -6,7 +6,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -26,9 +26,9 @@
     <div class="govuk-grid-column-two-thirds">
       <form action="visit-date" method="post" novalidate>
 
-      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-      {{ govukRadios({
+        {{ govukRadios({
         name: "claimType",
         fieldset: {
           legend: {
@@ -49,11 +49,10 @@
         ]
       }) }}
 
-            {{ govukButton({
+        {{ govukButton({
           text: "Continue"
         }) }}
       </form>
-
 
     </div>
 

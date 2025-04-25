@@ -7,15 +7,15 @@ const govukPrototypeKit = require('govuk-prototype-kit');
 const router = govukPrototypeKit.requests.setupRouter();
 
 // Generic route for capturing form data and redirecting
- router.post('/prototypes/v03/views/:nextPage', (req, res) => {
-   req.session.data = {
-     ...req.session.data,
-     ...req.body
-   };
-   console.log('Session data:', req.session.data); 
-   const nextPage = req.params.nextPage;
-   res.redirect(`/prototypes/v03/views/${nextPage}`);
- });
+router.post('/prototypes/v03/views/:nextPage', (req, res) => {
+  req.session.data = {
+    ...req.session.data,
+    ...req.body
+  };
+  console.log('Session data:', req.session.data);
+  const nextPage = req.params.nextPage;
+  res.redirect(`/prototypes/v03/views/${nextPage}`);
+});
 
 
 // Route from holding page
@@ -31,25 +31,25 @@ router.get('/*', (req, res) => {
 });
 
 // Dynamic route from vet number
-router.post('/prototypes/v03/views/new-user/700-test-urn', function(request, response) {
+router.post('/prototypes/v03/views/new-user/700-test-urn', function (request, response) {
 
   var animalType = request.session.data['animalType']
-  if (animalType == "Dairy cattle"){
-      response.redirect("/551-pi-hunt")
+  if (animalType == "Dairy cattle") {
+    response.redirect("/551-pi-hunt")
   } else {
-      response.redirect("/700-test-urn")
+    response.redirect("/700-test-urn")
   }
 })
 
 
 // Dynamic route from only-herd-or-flock
-router.post('/prototypes/v03/new-user/sc1/only-herd-or-flock-answer', function(request, response) {
-console.log('post')
+router.post('/prototypes/v03/new-user/sc1/only-herd-or-flock-answer', function (request, response) {
+  console.log('post')
   var onlypigherd = request.session.data['only-pig-herd']
-  if (onlypigherd == "yes"){
-      response.redirect("only-herd-check-your-details")
+  if (onlypigherd == "yes") {
+    response.redirect("only-herd-check-your-details")
   } else {
-      response.redirect("herd-details")
+    response.redirect("herd-details")
   }
 })
 

@@ -9,19 +9,18 @@
 {% set displayHerdWord = "herd" %}
 
 {% if speciesType == "Beef cattle" %}
-    {% set displayHerdWord = "herd" %}
+  {% set displayHerdWord = "herd" %}
 {% elif speciesType == "Dairy cattle" %}
-    {% set displayHerdWord = "herd" %}
+  {% set displayHerdWord = "herd" %}
 {% elif speciesType == "Pigs" %}
-    {% set displayHerdWord = "herd" %}
+  {% set displayHerdWord = "herd" %}
 {% elif speciesType == "Sheep" %}
-    {% set displayHerdWord = "flock" %}
+  {% set displayHerdWord = "flock" %}
 {% endif %}
 
 // Heading or label text
 {% set displayHerdText = "The " + displayHerdWord + " is a separate " + displayHerdWord + " (epidemiologically distinct unit) because:" %}
 {% set displayHerdFreeText = "Tell us why the vet considers it a separate " + displayHerdWord + " (epidemiologically distinct unit)" %}
-
 
 {% block pageTitle %}
   Start page template - {{ serviceName }} - GOV.UK Prototype Kit
@@ -29,7 +28,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -56,22 +55,22 @@
 
       <form action="herd-check-your-details" method="post" novalidate>
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="herd-details-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="herd-details-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
               Enter the herd details
             </h1>
-          </legend>
-          <div id="herd-details-hint" class="govuk-hint">
+            </legend>
+            <div id="herd-details-hint" class="govuk-hint">
             You can find this information on the 'Tell us about this herd' section of the form that the vet filled in for you. 
           </div>
 
-          <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
-          <div class="govuk-form-group">
+            <div class="govuk-form-group">
 
-          {{ govukCheckboxes({
+              {{ govukCheckboxes({
             name: "herd-details",
             fieldset: {
               legend: {
@@ -111,21 +110,17 @@
             ]
           }) }}
 
-          </div>
+            </div>
 
-        </fieldset>
-      </div>
-
+          </fieldset>
+        </div>
 
         {{ govukButton({
           text: "Continue"
         }) }}
 
-        <div>
-
-
-      </form>
+        <div></form>
+      </div>
     </div>
-  </div>
 
-{% endblock %}
+  {% endblock %}

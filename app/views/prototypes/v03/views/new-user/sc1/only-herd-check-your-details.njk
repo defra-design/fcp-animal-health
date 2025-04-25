@@ -15,11 +15,9 @@
 {% set otherHerdsCph = data['other-herds-cph'] or 'Yes' %}
 {% set herdDetails = 'They have separate management needs' %}
 
-
-
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -36,14 +34,14 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-    
-    <form action="same-herd" method="post" novalidate>
 
-      <h1 class="govuk-heading-xl">
+      <form action="same-herd" method="post" novalidate>
+
+        <h1 class="govuk-heading-xl">
         Check herd details
       </h1>
 
-      {{ govukSummaryList({
+        {{ govukSummaryList({
         rows: [
           {
             key: {
@@ -104,16 +102,14 @@
 
         <div>
 
-        {{ govukButton({
+          {{ govukButton({
           text: "Continue"
         }) }}
-        
+
         </div>
 
-  </form>
+      </form>
 
-</div>
-  
+    </div>
 
-
-{% endblock %}
+  {% endblock %}

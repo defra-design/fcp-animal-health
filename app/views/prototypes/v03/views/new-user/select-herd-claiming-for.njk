@@ -6,7 +6,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukBackLink({
+  {{ govukBackLink({   
     text: "Back",
     href: "javascript:window.history.back()"
   }) }}
@@ -27,11 +27,11 @@
 
       <form action="only-herd-or-flock-answer" method="post" novalidate>
 
-      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-{{ govukRadios({
+        {{ govukRadios({
   classes: "govuk-radios",
   name: "only-pig-herd",
   fieldset: {
@@ -64,11 +64,10 @@
   ]
 }) }}
 
-{{ govukButton({
+        {{ govukButton({
           text: "Continue"
         }) }}
       </form>
-
 
     </div>
 

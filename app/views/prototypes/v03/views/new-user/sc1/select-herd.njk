@@ -8,7 +8,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -28,11 +28,11 @@
     <div class="govuk-grid-column-two-thirds">
       <form action="330-herd-check-your-details" method="post" novalidate>
 
-      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-      {% if claimType == 'Animal health and welfare review' %}
+        {% if claimType == 'Animal health and welfare review' %}
 
-      {{ govukRadios({
+          {{ govukRadios({
         name: "select-herd",
         fieldset: {
           legend: {
@@ -67,11 +67,11 @@
         ]
       }) }}
 
-      {% endif %}
+        {% endif %}
 
-      {% if claimType == 'Endemic disease follow-up' %}
+        {% if claimType == 'Endemic disease follow-up' %}
 
-      {{ govukRadios({
+          {{ govukRadios({
         name: "select-herd",
         fieldset: {
           legend: {
@@ -96,8 +96,7 @@
         ]
       }) }}
 
-      {% endif %}
-
+        {% endif %}
 
         {{ govukButton({
           text: "Continue"
@@ -105,19 +104,19 @@
 
         <div>
 
-        <details class="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
               I don't have the herd details from the vet
             </span>
-          </summary>
-          <div class="govuk-details__text">
+            </summary>
+            <div class="govuk-details__text">
             Your vet should have completed the  'Tell us about a herd or flock' section on the vet template. You can ask them to <a href="#">download the form</a> and fill the details in for you.
           </div>
-        </details>
+          </details>
 
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
 
-{% endblock %}
+  {% endblock %}

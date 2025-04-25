@@ -7,9 +7,9 @@
 {% set displayClaimType = "the vet visit" %}
 
 {% if claimType == "Endemic disease follow-up" %}
-    {% set displayClaimType = "follow-up" %}
+  {% set displayClaimType = "follow-up" %}
 {% elif claimType == "Animal health and welfare review" %}
-    {% set displayClaimType = "review" %}
+  {% set displayClaimType = "review" %}
 {% endif %}
 
 // Heading or label text
@@ -27,7 +27,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"

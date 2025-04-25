@@ -6,7 +6,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -24,15 +24,15 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-    
+
       <form action="minimum-animals" method="post" novalidate>
 
-      {% from "govuk/components/radios/macro.njk" import govukRadios %}
-      {% from "govuk/components/input/macro.njk" import govukInput %}
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+        {% from "govuk/components/input/macro.njk" import govukInput %}
 
-      {# Set date fields for expand from radio button #}
-      
-      {% set dateInputHtml %}
+        {# Set date fields for expand from radio button #}
+
+        {% set dateInputHtml %}
         <div class="govuk-hint">
           For example, 27 3 2022
         </div>
@@ -68,9 +68,9 @@
             }) }}
           </div>
         </div>
-      {% endset %}
+        {% endset %}
 
-      {{ govukRadios({
+        {{ govukRadios({
         name: "samples-date",
         fieldset: {
           legend: {
@@ -97,14 +97,10 @@
         ]
       }) }}
 
-
-
-
         {{ govukButton({
           text: "Continue"
         }) }}
       </form>
-
 
     </div>
 

@@ -1,13 +1,12 @@
 {% extends "layouts/main.html" %}
 
-
 {% block pageTitle %}
   Start page template - {{ serviceName }} - GOV.UK Prototype Kit
 {% endblock %}
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "../holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -32,23 +31,23 @@
     <div class="govuk-grid-column-two-thirds">
 
       <form action="sample-date" method="post" novalidate>
-      
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="herd-cph-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="herd-cph-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
               Is this the same herd you have previously claimed for?
             </h1>
-          </legend>
-          <div id="herd-cph-hint" class="govuk-hint">
+            </legend>
+            <div id="herd-cph-hint" class="govuk-hint">
             You can now have reviews and follow-ups on more than one herd. 
           </div>
-          
-          <h3 class="govuk-heading-s govuk-!-padding-top-4">Your last claim for this species:</h3>
-          
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{{ govukSummaryList({
+            <h3 class="govuk-heading-s govuk-!-padding-top-4">Your last claim for this species:</h3>
+
+            {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+            {{ govukSummaryList({
   rows: [
     {
       key: {
@@ -85,10 +84,10 @@
   ]
 }) }}
 
-<hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+            <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
-<div class="govuk-form-group">
-{{ govukRadios({
+            <div class="govuk-form-group">
+              {{ govukRadios({
   name: "same-herd",
   items: [
     {
@@ -101,23 +100,23 @@
         }
         ]
         }) }}
-        
-        </div>
-        
-        <div class=" govuk-!-padding-top-2">
-        
-        {{ govukButton({
+
+            </div>
+
+            <div class=" govuk-!-padding-top-2">
+
+              {{ govukButton({
           text: "Continue"
         }) }}
-        
-        </div>
-        
-        </fieldset>
-  
-      </form>
+
+            </div>
+
+          </fieldset>
+
+        </form>
+
+      </div>
 
     </div>
 
-  </div>
-
-{% endblock %}
+  {% endblock %}

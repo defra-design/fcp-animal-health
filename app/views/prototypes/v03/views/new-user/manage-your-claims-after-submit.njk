@@ -6,7 +6,7 @@
 
 {% block header %}
   <!-- Header for v1 -->
-{{ govukHeader({
+  {{ govukHeader({
   homepageUrl: "holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
@@ -14,21 +14,21 @@
 {% endblock %}
 
 {% block beforeContent %}
-<div class="govuk-phase-banner">
-  <p class="govuk-phase-banner__content">
-    <strong class="govuk-tag govuk-phase-banner__content__tag">
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
       beta
     </strong>
-    <span class="govuk-phase-banner__text">
+      <span class="govuk-phase-banner__text">
       This is a new service. Your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
     </span>
-  </p>
-</div>
+    </p>
+  </div>
 {% endblock %}
 
 {% block content %}
-<div class="govuk-grid-row govuk-!-padding-top-1">
-  <div class="govuk-grid-column-full">
+  <div class="govuk-grid-row govuk-!-padding-top-1">
+    <div class="govuk-grid-column-full">
 
       {# // Login information #}
       <div class="govuk-grid-row govuk-!-padding-bottom-3 govuk-!-border-bottom-2">
@@ -45,203 +45,194 @@
       </div>
 
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-  <div>
-</div>
+      <div></div>
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
 
-      {# // Notification banner #}
+          {# // Notification banner #}
 
-        {% set html %}
+          {% set html %}
           <p class="govuk-notification-banner__heading">
             You can now claim for more than one herd or flock of any species
-            {# <a class="govuk-notification-banner__link" href="#">View application</a>. #}
-          </p>
-        {% endset %}
+            {# <a class="govuk-notification-banner__link" href="#">View application</a>. #}</p>
+          {% endset %}
 
-        {{ govukNotificationBanner({
+          {{ govukNotificationBanner({
           html: html
         }) }}
 
-          
-        {# // Heading #}
-        <h1 class="govuk-heading-xl">
+          {# // Heading #}
+          <h1 class="govuk-heading-xl">
           Manage your claims
         </h1>
 
-        <p class="govuk-body">
+          <p class="govuk-body">
           Start a new claim or view and manage your current claims. We recommend you claim in order of the visits.<br>
           Download your <a href="agreement-summary">agreement summary</a>.
         </p>
 
-        <p class="govuk-body">
-          <strong>Agreement number:</strong> IAHW-91254-88277
+          <p class="govuk-body">
+            <strong>Agreement number:</strong> IAHW-91254-88277
         </p>
 
-
-        {{ govukButton({
+          {{ govukButton({
           text: "Start a new claim",
           href: "100-animal-type",
           isStartButton: false
         }) }}
-        
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
         </div>
 
-      <div class="govuk-grid-column-three-quarters">
-        
-        <!-- Pigs -->
- 
-        <!-- MoJ Sortable Table -->
-        {# <div class="moj-scrollable-pane"> #}
-        <table class="govuk-table" data-module="moj-sortable-table">
-          <caption class="govuk-table__caption govuk-table__caption--m">Pigs</caption>
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Herd name</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Type and claim number</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">30 April 2026</td>
-              <td class="govuk-table__cell">Croft Farm</td>
-              <td class="govuk-table__cell">Follow-up<br>FUPI-7834-9521</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag govuk-tag--turquoise">
+        <div class="govuk-grid-column-three-quarters">
+
+          <!-- Pigs -->
+
+          <!-- MoJ Sortable Table -->
+          {# <div class="moj-scrollable-pane"> #}
+          <table class="govuk-table" data-module="moj-sortable-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">Pigs</caption>
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Herd name</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Type and claim number</th>
+                <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">30 April 2026</td>
+                <td class="govuk-table__cell">Croft Farm</td>
+                <td class="govuk-table__cell">Follow-up<br>FUPI-7834-9521</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag govuk-tag--turquoise">
                   Submitted
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">24 March 2026</td>
-              <td class="govuk-table__cell">Bridge Farm</td>
-              <td class="govuk-table__cell">Follow-up<br>FUPI-7444-9865</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">24 March 2026</td>
+                <td class="govuk-table__cell">Bridge Farm</td>
+                <td class="govuk-table__cell">Follow-up<br>FUPI-7444-9865</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">31 December 2025</td>
-              <td class="govuk-table__cell">Croft Farm</td>
-              <td class="govuk-table__cell">Review<br>REPI-6745-8965</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">31 December 2025</td>
+                <td class="govuk-table__cell">Croft Farm</td>
+                <td class="govuk-table__cell">Review<br>REPI-6745-8965</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">24 November 2025</td>
-              <td class="govuk-table__cell">Bridge Farm</td>
-              <td class="govuk-table__cell">Review<br>REPI-6565-8218</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">24 November 2025</td>
+                <td class="govuk-table__cell">Bridge Farm</td>
+                <td class="govuk-table__cell">Review<br>REPI-6565-8218</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">14 June 2025</td>
-              <td class="govuk-table__cell">Croft Farm</td>
-              <td class="govuk-table__cell">Follow-up<br>FUPI-8963-6448</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">14 June 2025</td>
+                <td class="govuk-table__cell">Croft Farm</td>
+                <td class="govuk-table__cell">Follow-up<br>FUPI-8963-6448</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">8 May 2025</td>
-              <td class="govuk-table__cell">Bridge Farm</td>
-              <td class="govuk-table__cell">Follow-up<br>FUPI-7321-9845</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">8 May 2025</td>
+                <td class="govuk-table__cell">Bridge Farm</td>
+                <td class="govuk-table__cell">Follow-up<br>FUPI-7321-9845</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">15 February 2025</td>
-              <td class="govuk-table__cell">Croft Farm</td>
-              <td class="govuk-table__cell">Review<br>REPI-8323-6144</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">15 February 2025</td>
+                <td class="govuk-table__cell">Croft Farm</td>
+                <td class="govuk-table__cell">Review<br>REPI-8323-6144</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">9 January 2025</td>
-              <td class="govuk-table__cell">Bridge Farm</td>
-              <td class="govuk-table__cell">Review<br>REPI-6844-3031</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">9 January 2025</td>
+                <td class="govuk-table__cell">Bridge Farm</td>
+                <td class="govuk-table__cell">Review<br>REPI-6844-3031</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">14 February 2024</td>
-              <td class="govuk-table__cell">Croft Farm</td>
-              <td class="govuk-table__cell">Review<br>REPI-2644-2061</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">14 February 2024</td>
+                <td class="govuk-table__cell">Croft Farm</td>
+                <td class="govuk-table__cell">Review<br>REPI-2644-2061</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">3 January 2024</td>
-              <td class="govuk-table__cell">Bridge Farm</td>
-              <td class="govuk-table__cell">Review<br>REPI-4714-3435</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell" data-sort-value="20241017">3 January 2024</td>
+                <td class="govuk-table__cell">Bridge Farm</td>
+                <td class="govuk-table__cell">Review<br>REPI-4714-3435</td>
+                <td class="govuk-table__cell">
+                  <strong class="govuk-tag">
                   Approved
                 </strong>
-              </td>
-            </tr>
+                </td>
+              </tr>
 
+            </tbody>
+          </table>
 
-          </tbody>
-        </table>
+          {# </div> #}
 
-      {# </div> #}
-
- 
-
-        <h2 class="govuk-heading-s govuk-!-padding-top-6">
+          <h2 class="govuk-heading-s govuk-!-padding-top-6">
           More information
         </h2>
 
-        <ul class="govuk-list">
-          <li>
-            <a class="govuk-link" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Guidance for funding to improve animal health and welfare</a>
-          </li>
-          <li>
-            <a class="govuk-link" href="https://www.gov.uk/government/publications/get-funding-to-improve-animal-health-and-welfare-terms-and-conditions">Terms and conditions</a>
-          </li>
-        </ul>
+          <ul class="govuk-list">
+            <li>
+              <a class="govuk-link" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Guidance for funding to improve animal health and welfare</a>
+            </li>
+            <li>
+              <a class="govuk-link" href="https://www.gov.uk/government/publications/get-funding-to-improve-animal-health-and-welfare-terms-and-conditions">Terms and conditions</a>
+            </li>
+          </ul>
         </div>
 
       </div>
-
 
     </div>
 
