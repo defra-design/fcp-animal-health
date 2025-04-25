@@ -1,0 +1,165 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Farmers: how to apply for funding to improve animal health and welfare
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for this page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Environment</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Guidance</span>
+      <h1 class="govuk-heading-l">
+        Planning when to have an animal health and welfare review       
+      </h1>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <p class="govuk-body-s">
+        From: <a href="#">Department for Environment, Food and Rural Affairs</a> and <a href="#">Rural Payments Agency</a>
+        Published 19 June 2024<br/>
+        Last updated 10 October 2024 - <a href="#">See all updates</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      {{ govukButton({
+        text: "Get emails about this page",
+        href: "#",
+        classes: "govuk-button--secondary"
+      }) }}
+
+      <!-- Grey box -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="custom-grey-box-guidance">
+        <h2 class="govuk-heading-s">
+          Applies to England
+        </h2>
+      </div>
+
+
+      <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
+        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
+          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
+            Contents
+          </h2>
+          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
+              <a href="#timing-of-reviews">
+                Timing of reviews
+              </a>
+            </li>
+            <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+               <a href="#get-help-with-your-review">
+                Get help with your review
+              </a>
+            </li>
+          </ol>
+        </nav>
+      </aside>
+
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <!-- Print button -->
+
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Print this page
+      </button> 
+
+
+
+      <!-- Pathway -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <p class="govuk-body">You can do up to 3 reviews per species, on any number of herds or flocks, as part of your IAHW agreement.</p>
+
+      <p class="govuk-body">An animal health and welfare review is the first part of the ‘Get funding to improve animal health and welfare’ (IAHW) service. It will include:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>assessment of diseases and conditions</li>
+        <li>advice on improving animal health, welfare and productivity</li>
+      </ul>
+
+      <p class="govuk-body">You must have an IAHW agreement before you do a review, you should provide your vet with your IAHW agreement number. A review usually takes between 2 and 3 hours. It can happen:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>over several visits</li>
+        <li>in a single visit</li>
+      </ul>
+
+      <h2 id="timing-of-reviews" class="govuk-heading-m govuk-!-padding-top-4">
+        Timing of reviews
+      </h2>
+
+      <p class="govuk-body">To be eligible to claim for animal health and welfare reviews, you must:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>have an Improve Animal Health and Welfare (IAHW) agreement in place before you do your first review, including any sampling or testing</li>
+        <li>ensure reviews on herds or flocks of a particular species, are at least 10 months apart</li>
+        <li>have no more than 3 reviews on any number of herds or flocks per species by 19 June 2027</li>
+      </ul>
+
+      <h2 id="get-help-with-your-review" class="govuk-heading-m govuk-!-padding-top-4">
+        Get help with your review 
+      </h2>
+
+      <p class="govuk-body">Contact the RPA and give your IAHW agreement number if you need help arranging or completing your review.</p>
+
+      <p class="govuk-body">
+        Rural Payments Agency<br>
+        PO Box 352<br> 
+        Worksop<br> 
+        S80 9FG
+      </p>
+
+      <p class="govuk-body">Email: <a href="#">ruralpayments@defra.gov.uk</a></p>
+
+      <ul class="govuk-list govuk-list">
+        <li>Telephone: 03000 200 301</li>
+        <li>Monday to Friday, 8:30am to 5pm, except public holidays</li>
+      </ul>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/call-charges">Find out about call charges</a></p>
+
+      <p class="govuk-body"><a href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Funding to improve animal health and welfare: guidance for farmers and vets</a></p>
+  
+
+
+
+ 
+
+    </div>
+  </div>
+
+{% endblock %}

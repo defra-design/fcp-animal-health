@@ -1,0 +1,242 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+    Vet summary templates for all species
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for this page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Environment</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Guidance</span>
+      <h1 class="govuk-heading-l">
+        Vet summary templates for all species
+      </h1>
+  
+      <p class="govuk-body">
+        Access the vet summary templates for all species. These should be filled in as part of an animal health and welfare review or endemic disease follow-up.
+      </p>
+
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <p class="govuk-body-s">
+        From: <a href="#">Department for Environment, Food and Rural Affairs</a> and <a href="#">Rural Payments Agency</a>
+        Published 19 June 2024<br/>
+        Last updated 10 October 2024 - <a href="#">See all updates</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      {{ govukButton({
+        text: "Get emails about this page",
+        href: "#",
+        classes: "govuk-button--secondary"
+      }) }}
+
+      <!-- Grey box -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="custom-grey-box-guidance">
+        <h2 class="govuk-heading-s">
+          Applies to England
+        </h2>
+      </div>
+
+      <!-- Contents -->
+
+      <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
+        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
+          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
+            Contents
+          </h2>
+          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
+              <a href="#cattle-vet-templates">
+                Cattle vet templates
+              </a>
+            </li>
+            <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+               <a href="#pig-vet-templates">
+                Pig vet templates
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#sheep--vet-templates">
+                Sheep vet templates
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#details">
+                Details
+              </a>
+            </li>
+
+          </ol>
+        </nav>
+      </aside>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+
+      {{ govukButton({
+        text: "Print this page",
+        href: "#",
+        classes: "govuk-button--secondary"
+      }) }}
+
+      <p class="govuk-body">
+        These vet summary templates should be filled in as part of an animal health and welfare review or endemic disease follow-up. 
+        The information on the summary will be used by the farmer when making a claim.
+      </p>
+
+      <!-- Templates and links -->
+
+      <!-- Cattle vet templates -->
+      <h2 id="cattle-vet-templates" class="govuk-heading-m">Cattle vet templates</h2>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="/public/images/html-icon.png" alt="HTML" class="govuk-!-width-full">
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <a href="#" class="govuk-link govuk-heading-m">Vet summary template: cattle animal health and welfare review</a>
+          <p class="govuk-body-s">HTML</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="/public/images/html-icon.png" alt="HTML" class="govuk-!-width-full">
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <a href="#" class="govuk-link govuk-heading-m">Vet summary template: cattle animal health and welfare follow-up PI hunt done</a>
+          <p class="govuk-body-s">HTML</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="/public/images/html-icon.png" alt="HTML" class="govuk-!-width-full">
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <a href="#" class="govuk-link govuk-heading-m">Vet summary template: cattle animal health and welfare follow-up PI hunt not done</a>
+          <p class="govuk-body-s">HTML</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <!-- Pig vet templates -->
+
+      <h2 id="pig-vet-templates" class="govuk-heading-m">Pig vet templates</h2>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="/public/images/html-icon.png" alt="HTML" class="govuk-!-width-full">
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <a href="/public/files/pig-review-summary.odt" class="govuk-link govuk-heading-m">Vet summary template: pig animal health and welfare review</a>
+          <p class="govuk-body-s">ODT, 25.6 KB</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="/public/images/html-icon.png" alt="HTML" class="govuk-!-width-full">
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <a href="#" class="govuk-link govuk-heading-m">Vet summary template: pig endemic disease follow-up</a>
+          <p class="govuk-body-s">HTML</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+
+      <!-- Sheep vet templates -->
+
+      <h2 id="sheep-vet-templates" class="govuk-heading-m">Sheep vet templates</h2>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="/public/images/html-icon.png" alt="HTML" class="govuk-!-width-full">
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <a href="#" class="govuk-link govuk-heading-m">Vet summary template: sheep animal health and welfare review</a>
+          <p class="govuk-body-s">HTML</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-quarter">
+          <img src="/public/images/html-icon.png" alt="HTML" class="govuk-!-width-full">
+        </div>
+        <div class="govuk-grid-column-three-quarters">
+          <a href="#" class="govuk-link govuk-heading-m">Vet summary template: sheep endemic disease follow-up</a>
+          <p class="govuk-body-s">HTML</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+
+      <!-- Details -->
+
+
+        <h2 id="details" class="govuk-heading-m">
+          Details
+        </h2>
+
+        <p class="govuk-body">A vet, or a team chosen by a vet, can do the testing and assessment.</p>
+        <p class="govuk-body">A farmer will not be eligible for funding unless you follow the guidance on:</p>
+        
+        <ul class="govuk-list govuk-list--bullet">
+          <li><a href="#" class="govuk-link">what a vet needs to do on an animal health and welfare review and endemic disease follow-up</a></li>
+        </ul>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+        <div class="govuk-button-group">
+          <a href="#" class="govuk-button govuk-button--secondary">Get emails about this page</a>
+          <a href="#" class="govuk-button govuk-button--secondary">Print this page</a>
+        </div>
+
+
+    </div>
+  </div>
+
+{% endblock %}

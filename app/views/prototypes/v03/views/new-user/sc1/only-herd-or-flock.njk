@@ -25,7 +25,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <form action="herd-details" method="post" novalidate>
+      <form action="only-herd-or-flock-answer" method="post" novalidate>
 
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
@@ -33,7 +33,7 @@
 
 {{ govukRadios({
   classes: "govuk-radios--inline",
-  name: "changedName",
+  name: "only-pig-herd",
   fieldset: {
     legend: {
       text: "Is this the only pig herd associated with this Single Business Identifier (SBI)?",

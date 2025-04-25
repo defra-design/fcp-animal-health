@@ -1,0 +1,218 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Farmers: how to claim funding to improve animal health and welfare
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for this page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Environment</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Guidance</span>
+      <h1 class="govuk-heading-l">
+        Farmers: how to claim funding to improve animal health and welfare
+      </h1>
+
+      <p class="govuk-body-l">Find out how to claim for animal health and welfare reviews and endemic disease follow-ups.</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <p class="govuk-body-s">
+        From: <a href="#">Department for Environment, Food and Rural Affairs</a> and <a href="#">Rural Payments Agency</a>
+        Published 19 June 2024<br/>
+        Last updated 10 October 2024 - <a href="#">See all updates</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      {{ govukButton({
+        text: "Get emails about this page",
+        href: "#",
+        classes: "govuk-button--secondary"
+      }) }}
+
+      <!-- Grey box -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="custom-grey-box-guidance">
+        <h2 class="govuk-heading-s">
+          Applies to England
+        </h2>
+      </div>
+
+
+      <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
+        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
+          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
+            Contents
+          </h2>
+          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
+              <a href="#when-to-claim">
+                When to claim
+              </a>
+            </li>
+            <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+               <a href="#what-information-you-will-need">
+                What information you'll need to provide
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#claim-funding">
+                Claim funding
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#get-help-with-your-claim">
+                Get help with your claim
+              </a>
+            </li>
+          </ol>
+        </nav>
+      </aside>
+
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <!-- Print button -->
+
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Print this page
+      </button> 
+
+
+      <!-- When to claim -->
+
+      <h2 id="when-to-claim" class="govuk-heading-m">
+        When to claim
+      </h2>
+
+      <p class="govuk-body">
+        You can claim funding if you have set up a ‘Get funding to improve animal health and welfare’ (IAHW) agreement before the vet visit. The vet will give you a summary for the animal health and welfare review or endemic disease follow-up.
+      </p>
+
+      <p class="govuk-body">
+        You can submit a claim until 19 September 2027 (please note all reviews and follow-up visits must have been done by 19 June 2027).
+      </p>
+
+      <p class="govuk-body">
+        Your review claim must be approved before you claim for the resulting follow-up. You must have followed the guidance on timing of reviews and follow-ups.
+      </p>
+
+      <!-- What information you’ll need to provide -->
+
+      <h2 id="what-information-you-will-need" class="govuk-heading-m">
+        What information you’ll need to provide
+      </h2>
+
+      <p class="govuk-body">
+        When you claim you’ll need to give details from the vet’s summary. Find out what must be included in a:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li><a href="#" class="govuk-link">cattle review summary</a></li>
+        <li><a href="#" class="govuk-link">pig review summary</a></li>
+        <li><a href="#" class="govuk-link">sheep review summary</a></li>
+        <li><a href="#" class="govuk-link">cattle follow-up summary</a></li>
+        <li><a href="#" class="govuk-link">pig follow-up summary</a></li>
+        <li><a href="#" class="govuk-link">sheep follow-up summary</a></li>
+      </ul>
+
+      <!-- Claim funding -->
+
+      <h2 id="claim-funding" class="govuk-heading-m">
+        Claim funding
+      </h2>
+
+      <p class="govuk-body">
+        <a href="claim-start-page" class="govuk-link">Claim funding to improve animal health and welfare.</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <!-- Get help with your claim -->
+
+      <h2 id="get-help-with-your-claim" class="govuk-heading-m">
+        Get help with your claim
+      </h2>
+
+      <div class="custom-grey-box">
+        <p class="govuk-body">
+          For more help with claiming, you can watch the videos that show you how to make a claim for:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li><a href="#" class="govuk-link">sheep review</a></li>
+          <li><a href="#" class="govuk-link">beef cattle review</a></li>
+          <li><a href="#" class="govuk-link">dairy cattle review</a></li>
+          <li><a href="#" class="govuk-link">pig review</a></li>
+          <li><a href="#" class="govuk-link">sheep follow-up</a></li>
+          <li><a href="#" class="govuk-link">pig follow-up</a></li>
+          <li><a href="#" class="govuk-link">beef cattle follow-up</a></li>
+        </ul>
+      </div>
+
+      <p class="govuk-body">
+        Contact the Rural Payments Agency and give your agreement number if you:
+      </p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>cannot claim online</li>
+        <li>have a question about your claim</li>
+      </ul>
+
+
+    <!-- Contact details -->
+
+    <p class="govuk-body">Rural Payments Agency</p>
+
+    <p class="govuk-body">PO Box 352</p>
+
+    <p class="govuk-body">Worksop</p>
+
+    <p class="govuk-body">S80 9FG</p>
+
+    <p class="govuk-body">Email: <a href="#">ruralpayments@defra.gov.uk</a></p>
+
+    <ul class="govuk-list govuk-list">
+        <li>Telephone: 03000 200 301</li>
+        <li>Monday to Friday, 8:30am to 5pm, except bank holidays</li>
+    </ul>
+
+    <p class="govuk-body"><a href="https://www.gov.uk/call-charges">Find out about call charges</a></p>
+
+    <p class="govuk-body"><a href="agreement-start">Funding to improve animal health and welfare: guidance for farmers and vets</a></p>
+
+
+    </div>
+  </div>
+
+{% endblock %}

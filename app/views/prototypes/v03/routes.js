@@ -42,28 +42,17 @@ router.post('/prototypes/v03/views/new-user/700-test-urn', function(request, res
 })
 
 
+// Dynamic route from only-herd-or-flock
+router.post('/prototypes/v03/new-user/sc1/only-herd-or-flock-answer', function(request, response) {
+console.log('post')
+  var onlypigherd = request.session.data['only-pig-herd']
+  if (onlypigherd == "yes"){
+      response.redirect("only-herd-check-your-details")
+  } else {
+      response.redirect("herd-details")
+  }
+})
 
-// // Route from 200-claim-type page
-// router.post('/prototypes/v03/new-user/300-review-date', function(request, response) {
-// console.log('Check if the route is applied here!')
-//   var claimType = request.session.data['claimType']
-//   if (claimType == "Endemic disease follow-up"){
-//       response.redirect("/prototypes/v03/new-user/301-follow-up-date")
-//   } else {
-//       response.redirect("/prototypes/v03/new-user/301-review-date")
-//   }
-// })
-
-// // Test of previous variable
-// router.post('/prototypes/v03/new-user/300-review-date', function(request, response) {
-//   console.log('Check if the route is applied here!')
-//     var claimType = request.session.data['claimType']
-//     if (claimType == "Endemic disease follow-up" && foo == "sheep"){
-//         response.redirect("/prototypes/v03/new-user/301-follow-up-date")
-//     } else if() {
-//         response.redirect("/prototypes/v03/new-user/301-review-date")
-//     }
-//   })
 
 
 module.exports = router;
