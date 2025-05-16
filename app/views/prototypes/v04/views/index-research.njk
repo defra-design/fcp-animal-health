@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Content page template - {{ serviceName }} - GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Usability testing</span>
+      <h1 class="govuk-heading-l">Guidance restructure</h1>
+
+      <h2 class="govuk-heading-m">New user</h2>
+
+      <!-- Guidance: Make an application -->
+      <form method="post" action="new-user/sc1/guidance-collection">
+        <input type="hidden" name="journeyType" value="make-an-application">
+        <button class="govuk-button govuk-button--secondary" type="submit">Make an application</button>
+      </form>
+
+      <!-- Guidance: How much money you can get? -->
+      <form method="post" action="new-user/sc2/guidance-collection">
+        <input type="hidden" name="journeyType" value="how-much-money-you-can-get?">
+        <button class="govuk-button govuk-button--secondary" type="submit">How much money you can get?</button>
+      </form>
+
+      <!-- Guidance: Timing rules -->
+      <form method="post" action="new-user/sc3/guidance-collection">
+        <input type="hidden" name="journeyType" value="timing-rules">
+        <button class="govuk-button govuk-button--secondary" type="submit">Timing rules</button>
+      </form>
+
+      <!-- Guidance: Diseases checked in a review -->
+      <form method="post" action="new-user/sc4/guidance-collection">
+        <input type="hidden" name="journeyType" value="diseases-checked-in-a-review">
+        <button class="govuk-button govuk-button--secondary" type="submit">Diseases checked in a review</button>
+      </form>
+
+      <!-- Guidance: Find the vet template -->
+      <form method="post" action="new-user/sc5/guidance-collection">
+        <input type="hidden" name="journeyType" value="find-the-vet-template">
+        <button class="govuk-button govuk-button--secondary" type="submit">Find the vet template</button>
+      </form>
+
+      <!-- Guidance: Information needed when claiming -->
+      <form method="post" action="new-user/sc6/guidance-collection">
+        <input type="hidden" name="journeyType" value="information-needed-when-claiming">
+        <button class="govuk-button govuk-button--secondary" type="submit">Information needed when claiming</button>
+      </form>
+
+      <!-- Guidance: Make a claim -->
+      <form method="post" action="new-user/sc7/guidance-collection">
+        <input type="hidden" name="journeyType" value="make-a-claim">
+        <button class="govuk-button govuk-button--secondary" type="submit">Make a claim</button>
+      </form>
+
+
+      {# <h2 class="govuk-heading-m govuk-!-padding-top-4">Scenario agnostic pages</h2>
+
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="new-user/guidance-collection">TBC</a>
+        </li>
+      </ul> #}
+
+    </div>
+  </div>
+
+{% endblock %}

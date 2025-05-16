@@ -1,0 +1,399 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Funding to improve animal health and welfare: guidance for farmers and vets
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for this page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block beforeContent %}
+
+  <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Home</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Environment</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
+      </li>
+    </ol>
+  </nav>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Collection</span>
+      <h1 class="govuk-heading-l">
+        Funding to improve animal health and welfare
+      </h1>
+
+      <p class="govuk-body-l">Cattle, pig and sheep farmers can get funding for vet services. This includes disease testing and advice to improve welfare and productivity.</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <p class="govuk-body-s">
+        From: <a href="#">Department for Environment, Food and Rural Affairs</a> and <a href="#">Rural Payments Agency</a>
+        Published 19 June 2024<br/>
+        Last updated 23 October 2024 - <a href="#">See all updates</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      {{ govukButton({
+        text: "Get emails about this page",
+        href: "#",
+        classes: "govuk-button--secondary"
+      }) }}
+
+      <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
+        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
+          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
+            Contents
+          </h2>
+          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
+              <a href="#get-started">
+                Get started
+              </a>
+            </li>
+            <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#how-to-have-an-ahwr-review">
+              How to have an animal health and welfare review
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#how-to-have-an-endemic">
+                How to have an endemic disease follow-up
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#how-to-work-with-your-vet">
+                How to work with your vet
+              </a>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#how-to-claim">
+                How to claim
+              </a>
+              {# </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#vets-how-to-do-a-follow-up">
+                Vets: how to do a follow-up
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#farmers-claim-funding-for-the-follow-up">
+                Farmers: claim funding for the follow-up
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#terms-and-conditions">
+                Terms and conditions
+              </a>
+            </li>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#other-sources-of-funding">
+                Other sources of funding
+              </a>
+            </li> #}
+          </ol>
+        </nav>
+      </aside>
+
+      <!-- Grey box -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="custom-grey-box">
+        <p class="govuk-body">
+          This service used to be the annual health and welfare review. It has been expanded to include:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>changes to the review, which is now called the animal health and welfare review</li>
+          <li>the second part of the service, which is the endemic disease follow-up</li>
+        </ul>
+      </div>
+
+      <!-- Pathway -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <p class="govuk-body">This service forms part of the Animal Health and Welfare Pathway.</p>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          To get funding, you must have an Improve Animal Health and Welfare (IAHW) agreement in place for any reviews or follow-ups.
+        </strong>
+      </div>
+
+      <!-- Get started section -->
+
+      <h2 id="get-started" class="govuk-heading-m">
+        Get started
+      </h2>
+      <p class="govuk-body">Farmers should read this guidance to find out:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>how you can apply</li>
+        <li>what the service is</li>
+        <li>how much you could get</li>
+        <li>whether you're eligible</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Get started with improve animal health and welfare</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Terms and conditions: Improve animal health and welfare</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- Farmers and vets review section -->
+
+      <h2 id="how-to-have-an-ahwr-review" class="govuk-heading-m">
+        How to have an animal health and welfare review
+      </h2>
+      <p class="govuk-body">Farmers should read this guidance to find out:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>when to have a review</li>
+        <li>what happens on a review</li>
+        <li>what documentation farmers need to claim funding</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="planning-a-review" class="govuk-link govuk-heading-s">Planning when to have an animal health and welfare review</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">How to have an animal health and welfare review</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">What to do after an animal health and welfare review</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- How to have an endemic disease follow-up -->
+
+      <h2 id="how-to-have-an-endemic" class="govuk-heading-m">
+        How to have an endemic disease follow-up
+      </h2>
+      <p class="govuk-body">Farmers should read this guidance to find out:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>when to have a follow-up</li>
+        <li>what happens on a follow-up</li>
+        <li>what documentation farmers need to claim funding</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Planning when to have an endemic disease follow-up</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">How to have an endemic disease follow-up</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">What to do after an endemic disease follow-up</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- How to work with your vet -->
+
+      <h2 id="how-to-work-with-your-vet" class="govuk-heading-m">
+        How to work with your vet
+      </h2>
+      <p class="govuk-body">Farmers should send this guidance to the vet so they can:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>see how to sample and test each species</li>
+        <li>access the templates they need to complete so you can claim</li>
+      </ul>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Vets need to follow the guidance so that farmers are eligible to claim.
+        </strong>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="guidance-vet-needs-to-do" class="govuk-link govuk-heading-s">
+          What a vet needs to do on an animal health and welfare review or endemic disease follow-up
+        </a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Vet guidance for cattle</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Vet guidance for pigs</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Vet guidance for sheep</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="guidance-vet-download" class="govuk-link govuk-heading-s">Vet summary templates for all species</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- How to claim -->
+
+      <h2 id="how-to-claim" class="govuk-heading-m">
+        How to claim
+      </h2>
+      <p class="govuk-body">Farmers should read this guidance to find out:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>when to claim for a review or follow-up</li>
+        <li>what information to provide when you claim</li>
+      </ul>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">How to claim for improve animal health and welfare</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">10 October 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- Other sources of funding -->
+
+      <h2 id="other-sources-of-funding" class="govuk-heading-m" >
+        Other sources of funding
+      </h2>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-heading-s">Funding for farmers, growers and land managers</a>
+        <div style="display: flex;">
+          <span class="govuk-caption-m govuk-!-font-size-16" style="margin-right: 1rem;">18 September 2024</span>
+          <span class="govuk-caption-m govuk-!-font-size-16">Guidance</span>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+      <p class="govuk-body-s">Published 19 June 2024<br/>
+        Last updated 23 October 2024 <a href="#" class="govuk-link govuk-body-s">+ show all updates</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+      <h2 id="other-sources-of-funding" class="govuk-heading-s" >
+        Explore the topic
+      </h2>
+
+      <div class="govuk-body">
+        <a href="#" class="govuk-link govuk-body-s">Farming and food grants and payments</a>
+        <div style="display: flex;"></div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
