@@ -1,7 +1,7 @@
 {% extends "layouts/main.html" %}
 
 {% block pageTitle %}
-  Farmers: how to apply for funding to improve animal health and welfare
+  What a vet needs to do on an animal health and welfare review and endemic disease follow-up 
 {% endblock %}
 
 {% block header %}
@@ -34,10 +34,9 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-
       <span class="govuk-caption-l">Guidance</span>
       <h1 class="govuk-heading-l">
-        What a vet needs to do on an animal health and welfare review and endemic disease follow-up
+      What a vet needs to do on an animal health and welfare review and endemic disease follow-up
       </h1>
 
       <p class="govuk-body-l">Farmers should send this guidance to their vet, so they can see what to do on a review or follow-up. This guidance includes details of testing, how to advise, and what information to provide.</p>
@@ -58,6 +57,39 @@
         classes: "govuk-button--secondary"
       }) }}
 
+      <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
+        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
+          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
+            Contents
+          </h2>
+          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
+              <a href="#who-can-take-part">
+                Who can take part
+              </a>
+            </li>
+            <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#arrange-a-review-or-follow-up">
+              Arrange a review or follow-up
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#what-a-farmer-will-ask-the-vet-to-do">
+                What a farmer will ask the vet to do
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#required-testing">
+                Required testing
+              </a>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#vet-templates">
+                Vet templates
+              </a>
+          </ol>
+        </nav>
+      </aside>
+
       <!-- Grey box -->
 
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
@@ -65,67 +97,11 @@
       <div class="custom-grey-box-guidance">
         <h2 class="govuk-heading-s">
           Applies to England
-        </h2>
+          </h2>
       </div>
 
-      {# <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
-        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
-          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
-            Contents
-          </h2>
-          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
-            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
-              <a href="#what-you-could-get">
-                What you could get
-              </a>
-            </li> #}
-      {# <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-               <a href="#animal-health-and-welfare-review">
-                Animal health and welfare review
-              </a>
-            </li>
-            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#endemic-disease-follow-up">
-                Endemic disease follow-up
-              </a>
-            </li>
-            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#who-can-get-funding">
-                Who can get funding
-              </a>
-            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#timing-of-reviews-and-follow-ups">
-                Timing of reviews and follow-ups
-              </a>
-            </li>
-            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#what-to-do-if-you-completed-a-review">
-                What to do if you completed a review in the old animal and health welfare service
-              </a>
-            </li>
-            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#start-your-application">
-                Start your application
-              </a>
-            </li>
-            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
-              <a href="#get-help-with-your-application">
-                Get help with your application
-              </a>
-            </li>
-            </li> #}
   </ol>
 </nav>
-</aside>
-{# 
-
-      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
-
-      <!-- Print button -->
-
-      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-        Print this page
-      </button>  #}
 
 <!-- Pathway -->
 
@@ -133,52 +109,49 @@
 
 <p class="govuk-body">This service is called 'Get funding to improve animal health and welfare'. It forms part of the Animal Health and Welfare Pathway. It's designed to help farmers:</p>
 <ul class="govuk-list govuk-list--bullet">
-<li>test for endemic diseases and conditions</li>
-<li>increase animal productivity</li>
-<li>improve animal welfare</li>
+  <li>test for endemic diseases and conditions</li>
+  <li>increase animal productivity</li>
+  <li>improve animal welfare</li>
 </ul>
 
 <p class="govuk-body">There are 2 parts to the service:</p>
 <ul class="govuk-list govuk-list--bullet">
-<li>animal health and welfare review</li>
-<li>endemic disease follow-up</li>
+  <li>animal health and welfare review</li>
+  <li>endemic disease follow-up</li>
 </ul>
 </p>
 
 <p class="govuk-body">
-        A follow-up can only be done after a review and on the same species as the review. For the farmer to be eligible to claim funding, they must follow the timing rules. To help the farmer follow the timing rules, you can read more about <a href="#">timing of reviews</a> and <a href="#">timing of follow-ups</a>.
-      </p>
+A follow-up can only be done after a review and on the same species as the review. For the farmer to be eligible to claim funding, they must follow the rules for when to have a review or a follow up. You can read about <a href="#">when to have a review</a> and <a href="#">when to have a follow-up</a>.
+    </p>
 
 <p class="govuk-body">
-        Reviews and follow-ups are not inspections or audits.
-      </p>
+Reviews and follow-ups are not inspections or audits.
+</p>
 
-{# <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-          <span class="govuk-visually-hidden">Warning</span>
-          All your reviews and follow-ups must be done on the same species.
-        </strong>
-      </div> #}
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break">
 
 <!-- Who can take part -->
 
-<h2 id="what-you-could-get" class="govuk-heading-m">
+<h2 id="who-can-take-part" class="govuk-heading-m">
         Who can take part
       </h2>
 <p class="govuk-body">
         A farmer is eligible if they keep any of the following per herd or flock:
         <ul class="govuk-list govuk-list--bullet">
-<li>11 or more beef cattle</li>
-<li>11 or more dairy cattle</li>
-<li>51 or more pigs</li>
-<li>21 or more sheep</li>
+  <li>11 or more beef cattle</li>
+  <li>11 or more dairy cattle</li>
+  <li>51 or more pigs</li>
+  <li>21 or more sheep</li>
 </ul>
 </p>
+      
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
 
 <!-- Arrange a review or follow-up  -->
 
-<h2 id="what-you-could-get" class="govuk-heading-m">
+<h2 id="arrange-a-review-or-follow-up" class="govuk-heading-m">
         Arrange a review or follow-up 
       </h2>
 
@@ -193,14 +166,16 @@
 <p class="govuk-body">
         The farmer can agree with you to do a review or follow-up either:
         <ul class="govuk-list govuk-list--bullet">
-<li>over several visits to the farm</li>
-<li>in a single visit</li>
+  <li>over several visits to the farm</li>
+  <li>in a single visit</li>
 </ul>
 </p>
 
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
 <!-- What a farmer will ask the vet to do  -->
 
-<h2 id="what-you-could-get" class="govuk-heading-m">
+<h2 id="what-a-farmer-will-ask-the-vet-to-do" class="govuk-heading-m">
         What a farmer will ask the vet to do 
       </h2>
 
@@ -208,18 +183,21 @@
         The farmer will ask the vet to follow the steps in the <a href="#">review guidance</a> or <a href="#">follow-up guidance</a>.
       </p>
 
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
 <!-- Required testing   -->
 
-<h2 id="what-you-could-get" class="govuk-heading-m">
+<h2 id="required-testing" class="govuk-heading-m">
         Required testing 
       </h2>
 
 <p class="govuk-body">
         The vet guidance has information on:
         <ul class="govuk-list govuk-list--bullet">
-<li>testing and specifications a laboratory needs to meet </li>
-<li>what you need to include in a summary and written report</li>
-<li>how to confirm a herd with our 'Tell us about a herd or flock' section of the form</li>
+  <li>testing and specifications a laboratory needs to meet </li>
+  <li>what you need to include in a summary and written report</li>
+  <li>how to confirm a herd with our 'Tell us about a herd or flock' section of the form</li>
 </ul>
 </p>
 
@@ -227,27 +205,31 @@
         Read vet guidance for:</p>
 <ul class="govuk-list">
 <li>
-<a class="govuk-link" href="#">Cattle</a>
+  <a class="govuk-link" href="#">Cattle</a>
 </li>
 <li>
-<a class="govuk-link" href="#">Pigs</a>
+  <a class="govuk-link" href="#">Pigs</a>
 </li>
 <li>
-<a class="govuk-link" href="#">Sheep</a>
+  <a class="govuk-link" href="#">Sheep</a>
 </li>
 </ul>
 
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
 <!-- Vet templates   -->
 
-<h2 id="what-you-could-get" class="govuk-heading-m">
+<h2 id="vet-templates" class="govuk-heading-m">
         Vet templates 
       </h2>
 
 <p class="govuk-body">
-        There are vet templates your vet can use to:</p>
+        There are blank vet summary templates your vet can use to:
+        </p>
 <ul class="govuk-list govuk-list--bullet">
-<li>Provide the information about the visit, so you can make a claim</li>
-<li>Confirm the herd that they did the visit for</li>
+<li>Confirm the details of the herd</li>
+<li>Provide the information about the visit, so the farmer can make a claim</li>
 </ul>
 
 <p class="govuk-body">
@@ -255,6 +237,9 @@
         Vet summary templates for all species
         </a>
 </p>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
 
 <h3 id="what-you-could-get" class="govuk-heading-m">
         Other schemes
