@@ -21,6 +21,12 @@
 
       <h2 class="govuk-heading-m">New user</h2>
 
+      <!-- Guidance: All scenarios -->
+      <form method="post" action="new-user/all-scenarios/guidance-collection">
+        <input type="hidden" name="journeyType" value="make-an-application">
+        <button class="govuk-button govuk-button--secondary" type="submit">All Guidance scenarios</button>
+      </form>
+
       <!-- Guidance: Make an application -->
       <form method="post" action="new-user/sc1/guidance-collection">
         <input type="hidden" name="journeyType" value="make-an-application">
@@ -62,7 +68,6 @@
         <input type="hidden" name="journeyType" value="make-a-claim">
         <button class="govuk-button govuk-button--secondary" type="submit">Make a claim</button>
       </form>
-
 
       {# <h2 class="govuk-heading-m govuk-!-padding-top-4">Scenario agnostic pages</h2>
 

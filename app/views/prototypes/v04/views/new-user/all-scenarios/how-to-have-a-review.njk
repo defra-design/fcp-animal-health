@@ -1,0 +1,235 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  During an animal health and welfare review 
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for this page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block beforeContent %}
+
+  <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Home</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Environment</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
+      </li>
+    </ol>
+  </nav>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Guidance</span>
+      <h1 class="govuk-heading-l">
+        During an animal health and welfare review 
+      </h1>
+
+      <p class="govuk-body-l">Find out what farmers must ask vets to do during a review.</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <p class="govuk-body-s">
+        From: <a href="#">Department for Environment, Food and Rural Affairs</a> and <a href="#">Rural Payments Agency</a>
+        Published 19 June 2024<br/>
+        Last updated 10 October 2024 - <a href="#">See all updates</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      {{ govukButton({
+        text: "Get emails about this page",
+        href: "#",
+        classes: "govuk-button--secondary"
+      }) }}
+
+      <!-- Grey box -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="custom-grey-box-guidance">
+        <h2 class="govuk-heading-s">
+          Applies to England
+        </h2>
+      </div>
+
+      <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
+        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
+          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
+            Contents
+          </h2>
+          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
+              <a href="#sampling-for-disease-testing">
+                During the review: sampling for disease testing
+              </a>
+            </li>
+            <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#health-and-welfare-advice">
+                During the review: health and welfare advice
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#get-help-with-your-review">
+                Get help with your review  
+              </a>
+            </li>
+          </ol>
+        </nav>
+      </aside>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <!-- Print button -->
+
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Print this page
+      </button>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          You must ask the vet to complete the following steps before you claim.
+        </strong>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+
+      <!-- During the review: sampling for disease testing -->
+
+      <h2 id="sampling-for-disease-testing" class="govuk-heading-m">
+        During the review: sampling for disease testing
+      </h2>
+
+      <p class="govuk-body">You must ask the vet to take samples for the required tests.</p>
+
+      <p class="govuk-body">You must ask your vet to read the <a href="no-design-yet" class="govuk-link">vet's guidance on the required sampling and testing</a>. You will only be eligible for funding if the vet follows this guidance. You can also read the vet's guidance for details of the required testing, but it is not mandatory to.</p>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- Required testing -->
+
+      <h3 id="how-much-you-can-claim" class="govuk-heading-s">
+        Required testing 
+      </h3>
+
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header app-custom-class">Species</th>
+            <th scope="col" class="govuk-table__header app-custom-class">Test type</th>
+            <th scope="col" class="govuk-table__header app-custom-class">Minimum number of samples taken from:</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Beef cattle</td>
+            <td class="govuk-table__cell">Bovine viral diarrhoea &#40BVD&#41 blood &#40serum antibody test&#41</td>
+            <td class="govuk-table__cell">5 unvaccinated cattle aged 9 to 18 months per management group in up to 2 groups</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Dairy cattle</td>
+            <td class="govuk-table__cell">Bovine viral diarrhoea &#40BVD&#41 bulk milk test. The farmer can take the bulk milk sample without the vet, if confident in doing so</td>
+            <td class="govuk-table__cell">A representative milk sample from the bulk tank</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Sheep</td>
+            <td class="govuk-table__cell">Wormer treatment check. The farmer can collect faeces samples, if confident in doing so</td>
+            <td class="govuk-table__cell">Minimum of 10 lambs less than 12 months old. If you have less than 10 lambs on your farm, you can still apply, but you must test all lambs in your flock</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Pigs</td>
+            <td class="govuk-table__cell">Test for porcine reproductive and respiratory syndrome &#40PRRS&#41 antibodies. This test uses the enzyme-linked immunosorbent assay &#40ELISA&#41 method</td>
+            <td class="govuk-table__cell">£837 for a follow-up with a persistently infected &#40PI&#41 hunt or £215 for a follow up without a PI hunt</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="govuk-body">You can:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>arrange your review to fit in with your existing testing schedule if you're already testing for these diseases or conditions</li>
+        <li>use review test results for other accreditation schemes you're a member of. Check with the accreditation scheme that they will accept testing from the review</li>
+      </ul>
+
+      <p class="govuk-body">
+        You cannot use other accreditation scheme test results for this review funding. If you ask the vet to test for other medical conditions or diseases, you must pay for that separately.
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- During the review: health and welfare advice -->
+
+      <h2 id="health-and-welfare-advice" class="govuk-heading-m">
+        During the review: health and welfare advice 
+      </h2>
+
+      <p class="govuk-body">You must ask the vet to give you health and welfare advice about your livestock. You can discuss any related animal health and welfare topic, that is important to you, as well as topics like:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>biosecurity</li>
+        <li>medicine usage</li>
+        <li>any other health or welfare concerns you have</li>
+      </ul>
+
+      <p class="govuk-body">You can read the <a href="no-design-yet" class="govuk-link">vet's guidance for more information on health and welfare advice</a>, but it is not mandatory to. </p>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+
+      <!-- Get help with your review -->
+
+      <h2 id="get-help-with-your-review" class="govuk-heading-m">
+        Get help with your review 
+      </h2>
+
+      <p class="govuk-body">
+        Contact the RPA and give your IAHW agreement number if you need help arranging or completing your review.
+      </p>
+
+      <!-- Contact details -->
+
+      <p class="govuk-body">Rural Payments Agency</p>
+
+      <p class="govuk-body">PO Box 352</p>
+
+      <p class="govuk-body">Worksop</p>
+
+      <p class="govuk-body">S80 9FG</p>
+
+      <p class="govuk-body">Email: <a href="#">ruralpayments@defra.gov.uk</a>
+      </p>
+
+      <ul class="govuk-list govuk-list">
+        <li>Telephone: 03000 200 301</li>
+        <li>Monday to Friday, 8:30am to 5pm, except public holidays</li>
+      </ul>
+
+      <p class="govuk-!-padding-top-6 govuk-body">
+        <a href="no-design-yet">Find out about call charges</a>
+      </p>
+
+      <p class="govuk-!-padding-bottom-6 govuk-body">
+        <a href="no-design-yet">Funding to improve animal health and welfare: guidance for farmers and vets</a>
+      </p>
+
+    </div>
+  </div>
+
+{% endblock %}
