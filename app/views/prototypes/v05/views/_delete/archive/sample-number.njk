@@ -1,0 +1,58 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+       <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="sample-date-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              How many animals were samples taken from?
+            </h1>
+          </legend>
+          <div id="sample-date-hint" class="govuk-hint">
+            You can find this on the summary the vet gave you.
+          </div>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="event-name">
+              Enter a number
+            </label>
+            <input class="govuk-input govuk-input--width-20" id="event-name" name="eventName" type="text">
+          </div>
+        </fieldset>
+      </div>
+
+        {{ govukButton({
+        text: "Continue",
+        href: "vets-name",
+        isStartButton: false
+        }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -1,3 +1,8 @@
 {
-  "serviceName": "Vet Visits Prototype"
+  "serviceName": "Get funding to improve animal health and welfare",
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
 }

@@ -17,12 +17,10 @@ router.post('/prototypes/v03/views/:nextPage', (req, res) => {
   res.redirect(`/prototypes/v03/views/${nextPage}`);
 });
 
-
 // Route from holding page
 router.get('next-task-v2', function (req, res) {
   res.render('prototypes/v03/views/index-research.njk') // 'index' for the v01 folder
 });
-
 
 // Dynamic route for rendering pages within this prototype
 router.get('/*', (req, res) => {

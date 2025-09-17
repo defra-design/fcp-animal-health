@@ -7,10 +7,23 @@
 {% block header %}
   <!-- Header for v1 -->
   {{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
+    homepageUrl: "holding-page",
+    serviceUrl: "../index-research"
+  }) }}
+  {{ govukServiceNavigation({
+    serviceName: serviceName,
+    navigation: [
+      {
+        href: "#",
+        text: "Manage your claims",
+        active: true
+      },
+      {
+        href: "#",
+        text: "Sign out"
+      }
+    ]
+  })}}
 {% endblock %}
 
 {% block beforeContent %}

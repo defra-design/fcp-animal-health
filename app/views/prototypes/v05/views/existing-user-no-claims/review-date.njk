@@ -1,0 +1,54 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Date of review – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+        {{ govukDateInput({
+          id: "review-date",
+          namePrefix: "review-date",
+          fieldset: {
+            legend: {
+              text: "Date of review",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: "This is the date the vet last visited the farm for this review. You can find it on the summary the vet gave you."
+          }
+        }) }}
+
+        {{ govukButton({
+        text: "Continue",
+        href: "sample-date",
+        isStartButton: false
+        }) }}
+
+    </div>
+  </div>
+
+{% endblock %}

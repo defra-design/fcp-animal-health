@@ -1,0 +1,93 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Content page template - {{ serviceName }} - GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for this page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">
+        IAHW prototype
+      </h1>
+
+      <p>
+        As-is 11 September 2025.
+      </p>
+
+      <h2 class="govuk-heading-m">Apply journey:<br>
+        New users, not signed up to the scheme</h2>
+      <ol class="govuk-list govuk-list--number">
+        <li>
+          <a class="govuk-link" href="guidance/index">Guidance</a>
+        </li>
+        {# <li>
+          <a class="govuk-link" href="new-user/sign-in-crn">Agreement journey (with login)</a>
+        </li>
+        <!-- <li>
+          <a class="govuk-link" href="new-user/you-can-claim-multiple">Agreement journey (after login)</a>
+        </li> -->
+        <li>
+          <a class="govuk-link" href="new-user/guidance-collection">Make a claim (guidance collection page)</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="new-user/manage-your-claims">Make a claim (after login)</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="new-user/manage-your-claims-after-submit">Work out when follow up visit can be done</a>
+        </li> #}
+        <li>
+          <a class="govuk-link" href="new-user/manage-your-claims-after-submit">Apply journey</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="new-user/email-agreement-confirmation">Confirmation email (agreement)</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="new-user/email-claim-review-confirmation">Confirmation email (claim)</a>
+        </li>
+      </ol>
+
+      <!-- User group B -->
+
+      <h2 class="govuk-heading-m">Claim journey: <br>
+        Existing multispecies users who have made a claim in the past</h2>
+      <ol class="govuk-list govuk-list--number">
+        <li>
+          <a class="govuk-link" href="existing-user/email-change.njk">Receive email about change</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="guidance/index">Guidance</a>
+        </li>
+        {# <li>
+          <a class="govuk-link" href="existing-user/manage-your-claims-complex">Make a claim for beef review</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="existing-user/manage-your-claims-complex">Make claim for follow-up beef endemics</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="existing-user/manage-your-claims-complex">Work out when next review can be done</a>
+        </li>         #}
+        <li>
+          <a class="govuk-link" href="existing-user/manage-your-claims-complex">Manage your claims</a>
+        </li>
+      </ol>
+
+
+    </div>
+  </div>
+
+{% endblock %}

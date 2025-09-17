@@ -47,6 +47,8 @@ router.use('/prototypes/v03', require('./views/prototypes/v03/routes'));
 router.use('/prototypes/v03/new-user', require('./views/prototypes/v03/routes'));
 router.use('/prototypes/v04', require('./views/prototypes/v04/routes'));
 router.use('/prototypes/v04/new-user', require('./views/prototypes/v04/routes'));
+router.use('/prototypes/v05', require('./views/prototypes/v05/routes'));
+router.use('/prototypes/v05/new-user', require('./views/prototypes/v05/routes'));
 
 
 
