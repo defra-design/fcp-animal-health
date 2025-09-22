@@ -28,40 +28,57 @@
     </span>
   </p>
 </div>
+
+{# // Login information #}
+      <div class="govuk-grid-row govuk-!-padding-bottom-2 govuk-!-padding-top-2 govuk-!-border-bottom-1">
+        <div class="govuk-grid-column-two-thirds">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Arthington Farm Ltd</h2>
+          <p class="govuk-body govuk-!-margin-bottom-0"><strong>Single Business Identifier (SBI):</strong> 234567890</p>
+          <p class="govuk-body govuk-!-margin-bottom-0"><strong>Farmer:</strong> Jane Doe</p>
+        </div>
+        <div class="govuk-grid-column-one-third govuk-!-display-flex govuk-!-justify-content-flex-end govuk-!-align-items-center govuk-!-flex-wrap-wrap">
+          <div class="govuk-!-text-align-right">
+            {# <p class="govuk-heading-m govuk-!-margin-bottom-0">Jane Doe</p> #}
+            <a class="govuk-body govuk-link" href="#">Claim for a different business</a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-0 govuk-!-margin-top-0">
+
+      <div class="govuk-grid-row govuk-!-padding-bottom-2 govuk-!-padding-top-2 govuk-!-border-bottom-2">
+        <div class="govuk-grid-column-two-thirds">
+          {# <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Arthington Farm Ltd</h2> #}
+          <p class="govuk-body govuk-!-margin-bottom-0"><strong>Agreement number:</strong> 234567890</p>
+        </div>
+        <div class="govuk-grid-column-one-third govuk-!-display-flex govuk-!-justify-content-flex-end govuk-!-align-items-center govuk-!-flex-wrap-wrap">
+          <div class="govuk-!-text-align-right">
+            <a class="govuk-body govuk-link" href="agreement-summary">Download agreement summary</a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-0 govuk-!-margin-top-0">
 {% endblock %}
 
 {% block content %}
 <div class="govuk-grid-row govuk-!-padding-top-1">
   <div class="govuk-grid-column-full">
 
-      {# // Login information #}
-      <div class="govuk-grid-row govuk-!-padding-bottom-3 govuk-!-border-bottom-2">
-        <div class="govuk-grid-column-two-thirds">
-          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Arthington Farm Ltd</h2>
-          <p class="govuk-body govuk-!-margin-bottom-0">Single Business Identifier (SBI): 234567890</p>
-        </div>
-        <div class="govuk-grid-column-one-third govuk-!-display-flex govuk-!-justify-content-flex-end govuk-!-align-items-center govuk-!-flex-wrap-wrap">
-          <div class="govuk-!-text-align-right">
-            <p class="govuk-heading-m govuk-!-margin-bottom-0">Jane Doe</p>
-            <a class="govuk-body govuk-link" href="#">Claim for a different business</a>
-          </div>
-        </div>
-      </div>
-
-      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      
 
 
       <div>
-        <h1 class="govuk-heading-xl">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
           Manage your claims
         </h1>
 
-        <p>Start a new claim or view and manage your current claims. We recommend you claim in order of the visits.<br>
-            Download your <a href="agreement-summary">agreement summary</a>.
-        </p>
+        <p>Start a new claim or view and manage your current claims. We recommend you claim in order of the visits.</p>
 
+        {# <br>
+            Download your <a href="agreement-summary">agreement summary</a>.
         <p>Agreement number: <strong>IAHW-91254-88277</strong><br>
-        </p>
+        </p> #}
         {# <p>You can claim for <strong>Single species</strong> <a href="#">aceept multi-species agreement</a>
         </p> #}
         {# <p>You can claim for <strong>multiple species</strong><a href="#"> contact us to discuss</a>
@@ -74,14 +91,14 @@
         }) }}
         </div>
 
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+        {# <hr class="govuk-section-break govuk-section-break--m govuk-section-break"> #}
 
         <div>
           <h2 class="govuk-heading-m">
             View your claims
           </h2>
 
-          <p class="govuk-body">Once you have submitted a claim, it will appear here.</p>
+          <p class="govuk-body" style="color:	#505a5f;">Your claims will appear here once you have submitted them.</p>
         <!-- MoJ Sortable Table -->
         {# <div class="moj-scrollable-pane"> #}
         {# <table class="govuk-table" data-module="moj-sortable-table">
@@ -112,9 +129,9 @@
         {# </div> #}
         </div>
 
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break">
+        {# <hr class="govuk-section-break govuk-section-break--l govuk-section-break"> #}
 
-        <h2 class="govuk-heading-m">
+        <h2 class="govuk-heading-m govuk-!-margin-top-7">
           More information
         </h2>
 

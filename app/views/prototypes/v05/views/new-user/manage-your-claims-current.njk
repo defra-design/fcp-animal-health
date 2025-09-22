@@ -1,10 +1,10 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/main-logged.html" %}
 
 {% block pageTitle %}
   Manage your claims – {{ serviceName }} – Prototype  
 {% endblock %}
 
-{% block header %}
+{# {% block header %}
   <!-- Header for v1 -->
 {{ govukHeader({
   homepageUrl: "holding-page",
@@ -12,6 +12,10 @@
   serviceUrl: "../index-research"
 }) }}
 {% endblock %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %} #}
+
+
 
 {% block beforeContent %}
 <div class="govuk-phase-banner">
@@ -73,10 +77,14 @@
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
 
         <div>
+          <h2 class="govuk-heading-m">
+            View your claims
+          </h2>
 
+          <p class="govuk-body">Once you have submitted a claim, it will appear here.</p>
         <!-- MoJ Sortable Table -->
         {# <div class="moj-scrollable-pane"> #}
-        <table class="govuk-table" data-module="moj-sortable-table">
+        {# <table class="govuk-table" data-module="moj-sortable-table">
           <caption class="govuk-table__caption govuk-table__caption--m">View your claims</caption>
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -89,18 +97,18 @@
           </thead>
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">4 September 2024</td>
+              <td class="govuk-table__cell" data-sort-value="20241017">Once you have submitted a claim, it will appear here.</td>
               <td class="govuk-table__cell">Beef cattle</td>
               <td class="govuk-table__cell">Review</td>
               <td class="govuk-table__cell">REBC-6844-3031</td>
               <td class="govuk-table__cell">
-                <strong class="govuk-tag govuk-tag--turquoise">
-                  Submitted
+                <strong class="govuk-tag govuk-tag">
+                  Approved
                 </strong>
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> #}
         {# </div> #}
         </div>
 
@@ -128,3 +136,5 @@
 </div>
 
 {% endblock %}
+
+
