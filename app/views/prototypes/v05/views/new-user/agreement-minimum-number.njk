@@ -1,17 +1,17 @@
-{% extends "layouts/main-logged.html" %}
+{% extends "layouts/main-logged-agreement.html" %}
 
 {% block pageTitle %}
   Start page template – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
-{% block header %}
+{# {% block header %}
   <!-- Header for v1 -->
 {{ govukHeader({
   homepageUrl: "holding-page",
   serviceName: "Get funding to improve animal health and welfare",
   serviceUrl: "../index-research"
 }) }}
-{% endblock %}
+{% endblock %} #}
 
 {% block beforeContent %}
   {{ govukBackLink({
