@@ -3,23 +3,30 @@
 {% block pageTitle %}
 Back office: Applications
 {% endblock %}
+{% set serviceName %}
+Annual health and welfare review agreements
+{% endset%}
+
+{% block beforeContent %}
+
+{% endblock %}
+
 
 {% block content %}
+
+
 <!-- Title + Search -->
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-four-quarters govuk-!-margin-top-2">
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">
-      Claims
+      Claims and agreements
     </h1>
-
-    {% from "govuk/components/button/macro.njk" import govukButton %}
-    {{ govukButton({ text: "Create a new claim" }) }}
 
     
           
            <!-- New tabs here-->
-    {# <div class="govuk-tabs" data-module="govuk-tabs">
+    <div class="govuk-tabs" data-module="govuk-tabs">
       <h2 class="govuk-tabs__title">
         Contents
       </h2>
@@ -36,7 +43,7 @@ Back office: Applications
         </li>
       </ul>
       <div class="govuk-tabs__panel" id="past-day">
-        <h2 class="govuk-heading-l">Claims</h2> #}
+        <h2 class="govuk-heading-l">Claims</h2>
         <div class="user-search-box govuk-!-width-two-thirds govuk-!-margin-bottom-7">
           <label class="govuk-label govuk-label--s" for="user-search">
             Find a claim<!-- by claim number, organisation, SBI or status-->
@@ -49,15 +56,13 @@ Back office: Applications
     
           </div>-->
           <form action="/v7/l2/users/search/search-results-none" method="post" class="form">
-            {% include "/prototypes/v05/views/backoffice/includes/search-bar.html" %}
+            <input class="govuk-input" id="user-search" name="user-search" type="text" aria-describedby="user-search-hint" spellcheck="false">
+            <button style="background-color:#008938;" class="search-button" data-module="govuk-button">
+              
+            </button>
           </form>
-
-
         </div>
-
-        {% include "/prototypes/v05/views/backoffice/includes/claims-table.html" %}
-
-        {# <table class="govuk-table" data-module="moj-sortable-table">
+        <table class="govuk-table" data-module="moj-sortable-table">
 
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -194,7 +199,7 @@ Back office: Applications
         
           </tbody>
           
-        </table> #}
+        </table>
       </div>
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="past-week">
         <h2 class="govuk-heading-l">Agreements</h2>
@@ -215,7 +220,7 @@ Back office: Applications
         </div>
 
       </div>
-    {# </div> #}
+    </div>
     <!-- New tabs end here -->
 
                     <!-- Start pagination-->
@@ -327,14 +332,12 @@ Back office: Applications
 
   </div>
 </div>
-{% endblock %}
 
-{% block pageScripts %}
-{{ super() }}
-<script>
-  $(document).ready(function() {
-    console.log( "ready!" );
-    $("#claims").parent().addClass("govuk-service-navigation__item--active");
-  });
-</script>
+
+
+
+
+
+
+
 {% endblock %}

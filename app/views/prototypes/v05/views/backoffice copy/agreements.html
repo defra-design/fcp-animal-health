@@ -21,12 +21,30 @@ Annual health and welfare review agreements
   <div class="govuk-grid-column-four-quarters govuk-!-margin-top-2">
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">
-      Agreements
+      Claims and agreements
     </h1>
 
-    {% from "govuk/components/button/macro.njk" import govukButton %}
-    {{ govukButton({ text: "Create a new agreement" }) }}
-
+    
+          
+           <!-- New tabs here-->
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">
+        Contents
+      </h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="claims.html">
+            Claims
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#past-week">
+            Agreements
+          </a>
+        </li>
+      </ul>
+      <div class="govuk-tabs__panel" id="past-day">
+        <h2 class="govuk-heading-l">Agreements</h2>
         <div class="user-search-box govuk-!-width-two-thirds govuk-!-margin-bottom-7">
           <label class="govuk-label govuk-label--s" for="user-search">Find an agreement
             <div id="search-hint" class="govuk-hint moj-search__hint ">
@@ -38,12 +56,13 @@ Annual health and welfare review agreements
     
           </div>-->
           <form action="/v7/l2/users/search/search-results-none" method="post" class="form">
-            {% include "/prototypes/v05/views/backoffice/includes/search-bar.html" %}
+            <input class="govuk-input" id="user-search" name="user-search" type="text" aria-describedby="user-search-hint" spellcheck="false">
+            <button style="background-color:#008938;" class="search-button" data-module="govuk-button">
+                Search
+            </button>
           </form>
         </div>
-
-        {% include "/prototypes/v05/views/backoffice/includes/agreements-table.html" %}
-        {# <table class="govuk-table" data-module="moj-sortable-table">
+        <table class="govuk-table" data-module="moj-sortable-table">
 
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -182,7 +201,7 @@ Annual health and welfare review agreements
         
           </tbody>
           
-        </table> #}
+        </table>
       </div>
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="past-week">
         <h2 class="govuk-heading-l">Agreements</h2>
@@ -202,8 +221,8 @@ Annual health and welfare review agreements
           </form>
         </div>
       </div>
-
-
+    </div>
+    <!-- New tabs end here -->
                     <!-- Start pagination-->
                     <nav class="govuk-pagination" aria-label="Pagination">
                         <!--<div class="govuk-pagination__prev">
@@ -245,16 +264,82 @@ Annual health and welfare review agreements
                         </div>
                       </nav>
                       <!-- End pagination -->
-     
+        </div>
+       
+                      
+        </div>
+        <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="past-month">
+          <h2 class="govuk-heading-l">Past month</h2>
+          <table class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Case manager</th>
+                <th scope="col" class="govuk-table__header">Cases opened</th>
+                <th scope="col" class="govuk-table__header">Cases closed</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">David Francis</td>
+                <td class="govuk-table__cell">98</td>
+                <td class="govuk-table__cell">95</td>
+              </tr>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Paul Farmer</td>
+                <td class="govuk-table__cell">122</td>
+                <td class="govuk-table__cell">131</td>
+              </tr>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Rita Patel</td>
+                <td class="govuk-table__cell">126</td>
+                <td class="govuk-table__cell">142</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="past-year">
+          <h2 class="govuk-heading-l">Past year</h2>
+          <table class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Case manager</th>
+                <th scope="col" class="govuk-table__header">Cases opened</th>
+                <th scope="col" class="govuk-table__header">Cases closed</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">David Francis</td>
+                <td class="govuk-table__cell">1380</td>
+                <td class="govuk-table__cell">1472</td>
+              </tr>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Paul Farmer</td>
+                <td class="govuk-table__cell">1129</td>
+                <td class="govuk-table__cell">1083</td>
+              </tr>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Rita Patel</td>
+                <td class="govuk-table__cell">1539</td>
+                <td class="govuk-table__cell">1265</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      
+      <!-- End tabs -->
+
+  </div>
 </div>
 
-{% endblock %}
 
-{% block pageScripts %}
-{{ super() }}
-<script>
-  $(document).ready(function() {
-    $("#agreements").parent().addClass("govuk-service-navigation__item--active");
-  });
-</script>
+
+
+
+
+
+
+
+
 {% endblock %}

@@ -4,6 +4,10 @@
   <link rel="shortcut icon" href="{{ asset_path }}images/unbranded.ico?0.18.3" type="image/x-icon" />
 {% endblock %}
 
+{% set serviceName %}
+Administration of the health and welfare of your livestock
+{% endset%}
+
 {% block head %}
   <!--[if lte IE 8]><link href="/public/stylesheets/unbranded-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
   <!--[if gt IE 8]><!--><link href="/public/stylesheets/unbranded.css" media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
@@ -17,8 +21,118 @@
       margin-left: 80px;
       margin-right: 80px;
     }
+
+    /* SEARCH BAR */
+    .gem-c-search__item-wrapper {
+      display: table;
+      width: 100%;
+      background: #fff;
+    }
+    .gem-c-search-with-autocomplete__wrapper {
+      position: relative;
+    }
+    .gem-c-search--large .gem-c-search__input[type=search] {
+      height: 50px;
+    }
+
+    .gem-c-search--on-white .gem-c-search__input[type=search] {
+      border-right-width: 0;
+    }
+    .gem-c-search__input[type=search] {
+      margin: 0;
+      width: 100%;
+      height: 2.1052631579em;
+      padding: .3157894737em;
+      border: 2px solid #0b0c0c;
+      border-right: none;
+      background: #fff;
+      border-radius: 0;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      font-family: "GDS Transport", arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-weight: 400;
+      font-size: 1.1875rem;
+      line-height: 1.4736842105;
+    }
+    .gem-c-search__item {
+      position: relative;
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .gem-c-search-with-autocomplete.gem-c-search-with-autocomplete--large .gem-c-search-with-autocomplete__menu {
+      margin-right: -50px;
+    }
+
+    .gem-c-search-with-autocomplete__menu--inline {
+      position: relative;
+    }
+    .gem-c-search-with-autocomplete__menu--hidden {
+      display: none;
+    }
+    .gem-c-search-with-autocomplete__menu {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: #fff;
+      border: 1px solid #b1b4b6;
+      border-top: 0;
+      margin-right: -40px;
+    }
+    .gem-c-search__submit-wrapper {
+      width: 1%;
+    }
+    .gem-c-search__item {
+      position: relative;
+      display: table-cell;
+      vertical-align: top;
+    }
+    .gem-c-search--large .gem-c-search__submit {
+      width: 50px;
+      height: 50px;
+    }
+
+    .gem-c-search--on-white .gem-c-search__submit {
+      background-color: #1d70b8;
+      color: #fff;
+    }
+    .gem-c-search__submit {
+      border: 0;
+      cursor: pointer;
+      border-radius: 0;
+      outline: 2px solid rgba(0, 0, 0, 0);
+      outline-offset: 0;
+      position: relative;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      text-indent: -5000px;
+      overflow: hidden;
+      background-color: #1d70b8;
+      color: #fff;
+    }
+    .gem-c-search--large .gem-c-search__submit .gem-c-search__icon {
+      transform: scale(0.4);
+    }
+
+    .gem-c-search__submit .gem-c-search__icon {
+      pointer-events: none;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      transform: scale(0.5);
+    }
   </style>
 {% endblock %}
+
+{# govuk-service-navigation__item--active #}
+        {# active: true #}
 
 {% block header %}
   <!-- Header for v1 -->
@@ -33,14 +147,31 @@
         href: "claims.html",
         text: "Claims",
         attributes: {
+          id: "claims",
           style: "visibility: auto;"
-        },
-        active: true
+        }
       },
       {
         href: "agreements.html",
         text: "Agreements",
         attributes: {
+          id: "agreements",
+          style: "visibility: auto;"
+        }
+      },
+      {
+        href: "flags.html",
+        text: "Flags",
+        attributes: {
+          id: "flags",
+          style: "visibility: auto;"
+        }
+      },
+      {
+        href: "audit.html",
+        text: "Audit",
+        attributes: {
+          id: "audit",
           style: "visibility: auto;"
         }
       },

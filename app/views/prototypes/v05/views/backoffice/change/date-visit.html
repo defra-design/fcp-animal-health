@@ -1,0 +1,70 @@
+{% extends "layouts/layout-defra-wide.html" %}
+
+{% block pageTitle %}
+Back office: Applications
+{% endblock %}
+
+
+{% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.go(-1)"
+  }) }}
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Title + Search -->
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-four-quarters govuk-!-margin-top-2">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">
+      Change date of visit for claim REPI-6844-3029
+    </h1>
+
+
+    {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+    {{ govukDateInput({
+      id: "passport-issued",
+      namePrefix: "passport-issued",
+      fieldset: {
+        legend: {
+          text: "Date of visit",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      hint: {
+        text: "For example, 27 3 2007"
+      }
+    }) }}
+
+    {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+    {{ govukTextarea({
+      name: "moreDetail",
+      id: "more-detail",
+      label: {
+        text: "Reasons for change",
+        classes: "govuk-label--m",
+        isPageHeading: true
+      },
+      hint: {
+        text: "Do not include personal or financial information, like your National Insurance number or credit card details"
+      }
+    }) }}
+
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+      text: "Save and continue"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
