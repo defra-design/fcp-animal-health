@@ -128,6 +128,25 @@ Administration of the health and welfare of your livestock
       left: 0;
       transform: scale(0.5);
     }
+
+    .flagged-item {
+      background-color: rgba(255, 221, 0, 0.25);
+    }
+
+    .govuk-summary-list__actions {
+      width: 2em
+    }
+    .govuk-summary-list__value {
+        width: 50%;
+    }
+
+    .iahw-table-tag {
+      margin-top: 8px;
+      white-space: nowrap;
+      display: block;
+      max-width: 100%;
+      width: fit-content;
+    }
   </style>
 {% endblock %}
 
@@ -179,12 +198,17 @@ Administration of the health and welfare of your livestock
         href: "#",
         text: "Carlos Bernardo Jr",
         attributes: {
-          style: "font-weight: 300; margin-left: 18rem;"
+          style: "visibility: auto; text-align: right; margin-left: 4em;",
+          id: "rpa-user-name"
         }
       },
       {
         href: "#",
-        text: "Sign out"
+        text: "Sign out",
+        attributes: {
+          id: "audit",
+          style: "visibility: auto;"
+        }
       }
     ]
   })}}
@@ -223,4 +247,14 @@ Administration of the health and welfare of your livestock
         ]
     }
     }) }}
+{% endblock %}
+
+
+{% block pageScripts %}
+{{ super() }}
+<script>
+  $(document).ready(function() {
+    $("#rpa-user-name").parent().css({"flex-grow": "1", "text-align":"right"});
+  });
+</script>
 {% endblock %}
