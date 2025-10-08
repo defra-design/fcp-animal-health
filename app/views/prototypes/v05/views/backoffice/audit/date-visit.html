@@ -56,10 +56,33 @@ Back office: Applications
       ]
     }) }}
 
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+    {{ govukRadios({
+      name: "approveRejectChange",
+      fieldset: {
+        legend: {
+          text: "Approve or reject the change?",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "approve",
+          text: "Approve"
+        },
+        {
+          value: "reject",
+          text: "Reject"
+        }
+      ]
+    }) }}
+
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
     {{ govukButton({
-      text: "Approve change and continue",
+      text: "Save and continue",
       href: "audit.html"
     }) }}
 

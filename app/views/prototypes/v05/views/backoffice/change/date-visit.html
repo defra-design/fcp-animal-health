@@ -25,7 +25,6 @@ Back office: Applications
       Change date of visit for claim REPI-6844-3029
     </h1>
 
-
     {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
     {{ govukDateInput({
@@ -34,14 +33,46 @@ Back office: Applications
       fieldset: {
         legend: {
           text: "Date of visit",
-          isPageHeading: true,
+          isPageHeading: false,
           classes: "govuk-fieldset__legend--m"
         }
       },
       hint: {
         text: "For example, 27 3 2007"
-      }
+      },
+      items: [
+        {
+          classes: "govuk-input--width-2",
+          name: "day",
+          value: "10"
+        },
+        {
+          classes: "govuk-input--width-2",
+          name: "month",
+          value: "10"
+        },
+        {
+          classes: "govuk-input--width-4",
+          name: "year",
+          value: "2025"
+        }
+      ]
     }) }}
+
+    {# {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Original date of visit"
+          },
+          value: {
+            text: "10/10/2024"
+          }
+        }
+      ]
+    }) }} #}
 
     {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
@@ -51,7 +82,7 @@ Back office: Applications
       label: {
         text: "Reasons for change",
         classes: "govuk-label--m",
-        isPageHeading: true
+        isPageHeading: false
       },
       hint: {
         text: "Do not include personal or financial information, like your National Insurance number or credit card details"
