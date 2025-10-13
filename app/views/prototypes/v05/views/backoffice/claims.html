@@ -37,12 +37,12 @@ Back office: Applications
       </ul>
       <div class="govuk-tabs__panel" id="past-day">
         <h2 class="govuk-heading-l">Claims</h2> #}
-        <div class="user-search-box govuk-!-width-two-thirds govuk-!-margin-bottom-7">
+        <div class="user-search-box govuk-!-width-two-thirds govuk-!-margin-bottom-1">
           <label class="govuk-label govuk-label--s" for="user-search">
             Find a claim<!-- by claim number, organisation, SBI or status-->
             <div id="search-hint" class="govuk-hint moj-search__hint ">
-              Search by claim number, visit type, SBI, claim date or status.
-        </div>
+              Search by claim number, SBI or claim date.
+            </div>
           </label>
           <!--<div id="heading-hint" class="govuk-hint govuk-!-margin-bottom-3">
             Search by agreement number, status or single business identifier (SBI) number
@@ -51,8 +51,137 @@ Back office: Applications
           <form action="/v7/l2/users/search/search-results-none" method="post" class="form">
             {% include "/prototypes/v05/views/backoffice/includes/search-bar.html" %}
           </form>
+        </div>
+
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+
+            {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+            {{ govukSelect({
+              id: "filter",
+              name: "filter",
+              label: {
+                text: "Filter by claim type"
+              },
+              items: [
+                {
+                  value: "all",
+                  text: "All types",
+                  selected: true
+                },
+                {
+                  value: "review",
+                  text: "Review"
+                },
+                {
+                  value: "endemics",
+                  text: "Endemics"
+                }
+              ]
+            }) }}
+          </div>
+
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+
+            {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+            {{ govukSelect({
+              id: "filter",
+              name: "filter",
+              label: {
+                text: "Filter by species"
+              },
+              items: [
+                {
+                  value: "all",
+                  text: "All species",
+                  selected: true
+                },
+                {
+                  value: "beef",
+                  text: "Beef cattle"
+                },
+                {
+                  value: "dairy",
+                  text: "Dairy cattle"
+                },
+                {
+                  value: "pig",
+                  text: "Pigs"
+                },
+                {
+                  value: "sheep",
+                  text: "Sheep"
+                }
+              ]
+            }) }}
+          </div>
+
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+
+            {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+            {{ govukSelect({
+              id: "filter",
+              name: "filter",
+              label: {
+                text: "Filter by flag"
+              },
+              items: [
+                {
+                  value: "all",
+                  text: "All flags",
+                  selected: true
+                },
+                {
+                  value: "agreed",
+                  text: "Flagged"
+                },
+                {
+                  value: "notagreed",
+                  text: "Not flagged"
+                }
+              ]
+            }) }}
+          </div>
 
 
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+
+            {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+            {{ govukSelect({
+              id: "filter",
+              name: "filter",
+              label: {
+                text: "Filter by status"
+              },
+              items: [
+                {
+                  value: "all",
+                  text: "All status",
+                  selected: true
+                },
+                {
+                  value: "ready",
+                  text: "Ready to pay"
+                },
+                {
+                  value: "incheck",
+                  text: "In check"
+                },
+                {
+                  value: "paid",
+                  text: "Paid"
+                }
+              ]
+            }) }}
+
+          </div>
+
+          
+          
         </div>
 
         {% include "/prototypes/v05/views/backoffice/includes/claims-table.html" %}
