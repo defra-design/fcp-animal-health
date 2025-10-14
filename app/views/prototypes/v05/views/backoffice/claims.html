@@ -13,8 +13,8 @@ Back office: Applications
       Claims
     </h1>
 
-    {% from "govuk/components/button/macro.njk" import govukButton %}
-    {{ govukButton({ text: "Create a new claim" }) }}
+    {# {% from "govuk/components/button/macro.njk" import govukButton %}
+    {{ govukButton({ text: "Create a new claim" }) }} #}
 
     
           
@@ -41,7 +41,7 @@ Back office: Applications
           <label class="govuk-label govuk-label--s" for="user-search">
             Find a claim<!-- by claim number, organisation, SBI or status-->
             <div id="search-hint" class="govuk-hint moj-search__hint ">
-              Search by claim number, SBI number or claim date.
+              Search by claim number or SBI number.
             </div>
           </label>
           <!--<div id="heading-hint" class="govuk-hint govuk-!-margin-bottom-3">
@@ -53,136 +53,203 @@ Back office: Applications
           </form>
         </div>
 
-        <div class="govuk-grid-row iahw-filters-group">
-          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
 
-            {% from "govuk/components/select/macro.njk" import govukSelect %}
+        <details class="govuk-details govuk-!-margin-top-2">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter claims by
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+            {# We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post. #}
 
-            {{ govukSelect({
-              id: "filter",
-              name: "filter",
-              label: {
-                text: "Filter by claim type"
-              },
-              items: [
-                {
-                  value: "all",
-                  text: "All types",
-                  selected: true
-                },
-                {
-                  value: "review",
-                  text: "Review"
-                },
-                {
-                  value: "endemics",
-                  text: "Endemics"
-                }
-              ]
-            }) }}
+
+            {# <h2 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-3">Filter by</h2> #}
+
+            <div class="govuk-grid-row iahw-filters-group">
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+                {{ govukDateInput({
+                  id: "passport-issued",
+                  namePrefix: "passport-issued",
+                  fieldset: {
+                    legend: {
+                      text: "Start vet visit date"
+                    }
+                  },
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  }
+                }) }}
+              </div>
+
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                {{ govukDateInput({
+                  id: "passport-issued",
+                  namePrefix: "passport-issued",
+                  fieldset: {
+                    legend: {
+                      text: "End date"
+                    }
+                  },
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  }
+                }) }}
+              </div>
+
+              
+            </div>
+
+            <div class="govuk-grid-row iahw-filters-group">
+              
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+
+                {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+                {{ govukSelect({
+                  id: "filter",
+                  name: "filter",
+                  label: {
+                    text: "Claim type"
+                  },
+                  items: [
+                    {
+                      value: "all",
+                      text: "All types",
+                      selected: true
+                    },
+                    {
+                      value: "review",
+                      text: "Review"
+                    },
+                    {
+                      value: "endemics",
+                      text: "Endemics"
+                    }
+                  ]
+                }) }}
+              </div>
+
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+
+                {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+                {{ govukSelect({
+                  id: "filter",
+                  name: "filter",
+                  label: {
+                    text: "Species"
+                  },
+                  items: [
+                    {
+                      value: "all",
+                      text: "All species",
+                      selected: true
+                    },
+                    {
+                      value: "beef",
+                      text: "Beef cattle"
+                    },
+                    {
+                      value: "dairy",
+                      text: "Dairy cattle"
+                    },
+                    {
+                      value: "pig",
+                      text: "Pigs"
+                    },
+                    {
+                      value: "sheep",
+                      text: "Sheep"
+                    }
+                  ]
+                }) }}
+              </div>
+
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+
+                {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+                {{ govukSelect({
+                  id: "filter",
+                  name: "filter",
+                  label: {
+                    text: "Flag"
+                  },
+                  items: [
+                    {
+                      value: "all",
+                      text: "All flags",
+                      selected: true
+                    },
+                    {
+                      value: "agreed",
+                      text: "Flagged"
+                    },
+                    {
+                      value: "notagreed",
+                      text: "Not flagged"
+                    }
+                  ]
+                }) }}
+              </div>
+
+
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+
+                {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+                {{ govukSelect({
+                  id: "filter",
+                  name: "filter",
+                  label: {
+                    text: "Status"
+                  },
+                  items: [
+                    {
+                      value: "all",
+                      text: "All status",
+                      selected: true
+                    },
+                    {
+                      value: "ready",
+                      text: "Ready to pay"
+                    },
+                    {
+                      value: "incheck",
+                      text: "In check"
+                    },
+                    {
+                      value: "paid",
+                      text: "Paid"
+                    }
+                  ]
+                }) }}
+
+              </div>
+
+              
+              
+            </div>
+
+            <div class="govuk-grid-row iahw-filters-group">
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                {% from "govuk/components/button/macro.njk" import govukButton %}
+
+                {{ govukButton({
+                  text: "Apply filter",
+                  classes: "govuk-button--secondary"
+                }) }}
+              </div>
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                <a href="#" class="govuk-link">Clear all filters</a>
+              </div>
+            </div>
+
           </div>
-
-          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
-
-            {% from "govuk/components/select/macro.njk" import govukSelect %}
-
-            {{ govukSelect({
-              id: "filter",
-              name: "filter",
-              label: {
-                text: "Filter by species"
-              },
-              items: [
-                {
-                  value: "all",
-                  text: "All species",
-                  selected: true
-                },
-                {
-                  value: "beef",
-                  text: "Beef cattle"
-                },
-                {
-                  value: "dairy",
-                  text: "Dairy cattle"
-                },
-                {
-                  value: "pig",
-                  text: "Pigs"
-                },
-                {
-                  value: "sheep",
-                  text: "Sheep"
-                }
-              ]
-            }) }}
-          </div>
-
-          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
-
-            {% from "govuk/components/select/macro.njk" import govukSelect %}
-
-            {{ govukSelect({
-              id: "filter",
-              name: "filter",
-              label: {
-                text: "Filter by flag"
-              },
-              items: [
-                {
-                  value: "all",
-                  text: "All flags",
-                  selected: true
-                },
-                {
-                  value: "agreed",
-                  text: "Flagged"
-                },
-                {
-                  value: "notagreed",
-                  text: "Not flagged"
-                }
-              ]
-            }) }}
-          </div>
-
-
-          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
-
-            {% from "govuk/components/select/macro.njk" import govukSelect %}
-
-            {{ govukSelect({
-              id: "filter",
-              name: "filter",
-              label: {
-                text: "Filter by status"
-              },
-              items: [
-                {
-                  value: "all",
-                  text: "All status",
-                  selected: true
-                },
-                {
-                  value: "ready",
-                  text: "Ready to pay"
-                },
-                {
-                  value: "incheck",
-                  text: "In check"
-                },
-                {
-                  value: "paid",
-                  text: "Paid"
-                }
-              ]
-            }) }}
-
-          </div>
-
-          
-          
-        </div>
+        </details>
 
         {% include "/prototypes/v05/views/backoffice/includes/claims-table.html" %}
 
