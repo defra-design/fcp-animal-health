@@ -31,7 +31,7 @@ Annual health and welfare review agreements
       <label class="govuk-label govuk-label--s" for="user-search">Find an agreement
         <div id="search-hint" class="govuk-hint moj-search__hint ">
           
-        Search agreement number, organisation, SBI number or agreement date.</div>
+        Search agreement number, organisation or SBI number.</div>
       </label>
       <!--<div id="heading-hint" class="govuk-hint govuk-!-margin-bottom-3">
         Search by agreement number, status or single business identifier (SBI) number
@@ -42,7 +42,59 @@ Annual health and welfare review agreements
       </form>
     </div>
 
-        <div class="govuk-grid-row iahw-filters-group">
+    <details class="govuk-details govuk-!-margin-top-2">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter claims by
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+
+        
+
+<div class="govuk-grid-row iahw-filters-group">
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+                {{ govukDateInput({
+                  id: "passport-issued",
+                  namePrefix: "passport-issued",
+                  fieldset: {
+                    legend: {
+                      text: "Start agreement date",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  }
+                }) }}
+                  {# ,
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  } #}
+              </div>
+
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                {{ govukDateInput({
+                  id: "passport-issued",
+                  namePrefix: "passport-issued",
+                  fieldset: {
+                    legend: {
+                      text: "End date",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  }
+                }) }}
+                  {# ,
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  } #}
+              </div>
+
+              
+            </div>
+
+            <div class="govuk-grid-row iahw-filters-group">
           <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
 
             {% from "govuk/components/select/macro.njk" import govukSelect %}
@@ -51,7 +103,7 @@ Annual health and welfare review agreements
               id: "filter",
               name: "filter",
               label: {
-                text: "Filter by flag"
+                text: "Flag"
               },
               items: [
                 {
@@ -80,7 +132,7 @@ Annual health and welfare review agreements
               id: "filter",
               name: "filter",
               label: {
-                text: "Filter by status"
+                text: "Status"
               },
               items: [
                 {
@@ -100,151 +152,29 @@ Annual health and welfare review agreements
             }) }}
 
           </div>
+</div>
+
+          <div class="govuk-grid-row iahw-filters-group">
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+            {% from "govuk/components/button/macro.njk" import govukButton %}
+
+            {{ govukButton({
+              text: "Apply filter",
+              classes: "govuk-button--secondary"
+            }) }}
+          </div>
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-4">
+            <a href="#" class="govuk-link">Clear all filters</a>
+          </div>
 
           
         </div>
 
-        {% include "/prototypes/v05/views/backoffice/includes/agreements-table.html" %}
-        {# <table class="govuk-table" data-module="moj-sortable-table">
+        </div>
+        </details>
 
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
+        {% include "/prototypes/v05/views/backoffice/includes/agreements-table.html" %}
         
-              <th scope="col" class="govuk-table__header" aria-sort="none">Agreement number</th>
-        
-              <th scope="col" class="govuk-table__header" aria-sort="none">Business name</th>
-        
-              <th scope="col" class="govuk-table__header" aria-sort="none">SBI</th>
-        
-              <th scope="col" class="govuk-table__header" aria-sort="none">Agreement date</th>
-        
-              <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
-        
-              <th scope="col" class="govuk-table__header" aria-sort="none">Details</th>
-        
-        
-            </tr>
-          </thead>
-        
-          <tbody class="govuk-table__body">
-        
-        
-            <tr class="govuk-table__row">
-        
-              <td class="govuk-table__cell">AHWR-F021-721B</td>
-        
-              <td class="govuk-table__cell" data-sort-value="6194">P & D Fearnley & Sons</td>
-        
-              <td class="govuk-table__cell">103491987</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="11/08/2022">11/08/2022</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="Agreed"><strong class="govuk-tag govuk-tag--green">Agreed</strong></td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="#"><a href='business.html'>View details</a></td>
-        
-            </tr>
-        
-            <tr class="govuk-table__row">
-        
-              <td class="govuk-table__cell">AHWR-F021-715S</td>
-        
-              <td class="govuk-table__cell" data-sort-value="P & D Fearnley & Sons">Stubbings Mill Farm</td>
-        
-              <td class="govuk-table__cell">108966003</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="01/11/2022">01/11/2022</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="Agreed"><strong class="govuk-tag govuk-tag--green">Agreed</strong></td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="#"><a href='#'>View details</a></td>
-        
-            </tr>
-        
-            <tr class="govuk-table__row">
-        
-              <td class="govuk-table__cell">AHWR-F022-321G</td>
-        
-              <td class="govuk-table__cell" data-sort-value="Greenfield & Co">Greenfield & Co</td>
-        
-              <td class="govuk-table__cell">108977341</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="01/11/2022">13/02/2023</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="Agreed"><strong class="govuk-tag govuk-tag--green">Agreed</strong></td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="In check"><a href='#'>View details</a></td>
-        
-            </tr>
-            <tr class="govuk-table__row">
-        
-            <tr class="govuk-table__row">
-        
-              <td class="govuk-table__cell">AHWR-F001-789H</td>
-        
-              <td class="govuk-table__cell" data-sort-value="Greenfield & Co">Sunnyhill & Daughters</td>
-        
-              <td class="govuk-table__cell">102749506</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="09/02/2022">09/02/2023</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="Agreed"><strong class="govuk-tag govuk-tag--green">Agreed</strong></td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="#"><a href='#'>View details</a></td>
-        
-            </tr>
-        
-            <tr class="govuk-table__row">
-        
-              <td class="govuk-table__cell">AHWR-F019-555K</td>
-        
-              <td class="govuk-table__cell" data-sort-value="Joseph McGregor Farm Ltd">Joseph McGregor Farm Ltd</td>
-        
-              <td class="govuk-table__cell">108506840</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="12/04/2023">12/04/2023</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="Agreed"><strong class="govuk-tag govuk-tag--grey">Withdrawn</strong></td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="#"><a href='#'>View details</a></td>
-        
-            </tr>
-        
-            <tr class="govuk-table__row">
-        
-              <td class="govuk-table__cell">AHWR-F001-432L</td>
-        
-              <td class="govuk-table__cell" data-sort-value="Tulips & Rose Gardens">Tulips & Rose Gardens</td>
-        
-              <td class="govuk-table__cell">104385962</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="02/01/2023">02/01/2023</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="Agreed"><strong class="govuk-tag govuk-tag--grey">Withdrawn</strong></td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="#"><a href='#'>View details</a></td>
-        
-            </tr>
-    
-            <tr class="govuk-table__row">
-    
-              <td class="govuk-table__cell">AHWR-F001-432L</td>
-        
-              <td class="govuk-table__cell" data-sort-value="Beef cattle">Sunshine Farms</td>
-        
-              <td class="govuk-table__cell">104385962</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="11/08/2022">11/08/2022</td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="Agreed"><strong class="govuk-tag govuk-tag--red">Not agreed</strong></td>
-        
-              <td class="govuk-table__cell govuk-table__cell--numeric" data-sort-value="#"></td>
-        
-            </tr>
-        
-          </tbody>
-          
-        </table> #}
       </div>
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="past-week">
         <h2 class="govuk-heading-l">Agreements</h2>

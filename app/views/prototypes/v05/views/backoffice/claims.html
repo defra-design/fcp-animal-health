@@ -75,13 +75,16 @@ Back office: Applications
                   namePrefix: "passport-issued",
                   fieldset: {
                     legend: {
-                      text: "Start vet visit date"
+                      text: "Start vet visit date",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
                     }
-                  },
-                  hint: {
-                    text: "For example, 27 3 2007"
                   }
                 }) }}
+                  {# ,
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  } #}
               </div>
 
               <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
@@ -90,13 +93,16 @@ Back office: Applications
                   namePrefix: "passport-issued",
                   fieldset: {
                     legend: {
-                      text: "End date"
+                      text: "End date",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
                     }
-                  },
-                  hint: {
-                    text: "For example, 27 3 2007"
                   }
                 }) }}
+                  {# ,
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  } #}
               </div>
 
               
@@ -112,7 +118,9 @@ Back office: Applications
                   id: "filter",
                   name: "filter",
                   label: {
-                    text: "Claim type"
+                    text: "Claim type",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
                   },
                   items: [
                     {
@@ -140,7 +148,9 @@ Back office: Applications
                   id: "filter",
                   name: "filter",
                   label: {
-                    text: "Species"
+                    text: "Species",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
                   },
                   items: [
                     {
@@ -176,7 +186,9 @@ Back office: Applications
                   id: "filter",
                   name: "filter",
                   label: {
-                    text: "Flag"
+                    text: "Flag",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
                   },
                   items: [
                     {
@@ -205,7 +217,9 @@ Back office: Applications
                   id: "filter",
                   name: "filter",
                   label: {
-                    text: "Status"
+                    text: "Status",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
                   },
                   items: [
                     {
@@ -243,7 +257,7 @@ Back office: Applications
                   classes: "govuk-button--secondary"
                 }) }}
               </div>
-              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
                 <a href="#" class="govuk-link">Clear all filters</a>
               </div>
             </div>
