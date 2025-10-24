@@ -188,10 +188,10 @@ Administration of the health and welfare of your livestock
 {% block header %}
   <!-- Header for v1 -->
   {{ govukHeader({
-    homepageUrl: "holding-page",
-    serviceUrl: "../index-research"
+    homepageUrl: "/",
+    serviceUrl: "/"
   }) }}
-  {{ govukServiceNavigation({
+  {# {{ govukServiceNavigation({
     serviceName: serviceName,
     navigation: [
       {
@@ -243,7 +243,65 @@ Administration of the health and welfare of your livestock
         }
       }
     ]
-  })}}
+  })}} #}
+
+<section aria-label="Service information" class="govuk-service-navigation"
+  data-module="govuk-service-navigation">
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      <span class="govuk-service-navigation__service-name">
+        <a href="/prototypes/v05/backoffice/index-research.njk" class="govuk-service-navigation__link">
+          {{serviceName}}
+        </a>
+      </span>
+      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          Menu
+        </button>
+        <ul class="govuk-service-navigation__list" id="navigation">
+          <li class="govuk-service-navigation__item">
+             {# govuk-service-navigation__item--active #}
+            <a id="claims" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/claims.html" aria-current="true">
+              Claims
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a id="agreements" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/agreements.html">
+              <strong class="govuk-service-navigation__active-fallback">Agreements</strong>
+            </a>
+          </li>
+
+          {% if data['backoffice-user'] != 'team' %}
+          <li class="govuk-service-navigation__item">
+            <a id="flags" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/flags.html">
+              Flags
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a id="audit" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/audit.html">
+              Change log
+            </a>
+          </li>
+          {% endif %}
+
+          <li class="govuk-service-navigation__item" style="visibility: auto; text-align: right; margin-left: 4em;">
+            <a id="rpa-user-name" class="govuk-service-navigation__link" href="#">
+              Carlos Bernardo Jr
+            </a>
+          </li>
+          <li class="govuk-service-navigation__item">
+            <a class="govuk-service-navigation__link" href="#">
+              Sign out
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+
+
 {% endblock %}
 
 {# {% block beforeContent %}

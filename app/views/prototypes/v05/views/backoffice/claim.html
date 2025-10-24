@@ -22,7 +22,7 @@ Annual Health and Welfare Back Office
   </div> #}
   {# <div class="govuk-width-container">
     <main class="govuk-main-wrapper" style="padding-top: 0px; padding-bottom: 0px;"> #}
-<div class="govuk-grid-row" style="padding-top:16px;">
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REPI-6844-3029</h1>
     <h2 class="govuk-heading-m" style="margin-bottom: 8px;"><strong class="govuk-tag govuk-tag--purple">
@@ -203,16 +203,28 @@ Annual Health and Welfare Back Office
                 On hold
               </strong>
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> test resultst</span></a>
             </dd>
+            {% endif %}
           </div>
+          
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Claim number
+            </dt>
+            <dd class="govuk-summary-list__value">   
+              REPI-6844-3029
+            </dd>
+          </div>
+
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
               Claim date
             </dt>
             <dd class="govuk-summary-list__value">   
-                11 July 2024
+              11 July 2024
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -241,9 +253,11 @@ Annual Health and Welfare Back Office
                 Change pending approval
               </strong>
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="change/date-visit.html">Change<span class="govuk-visually-hidden"> date of visit</span></a>
             </dd>
+            {% endif %}
           </div>
           
 
@@ -254,9 +268,11 @@ Annual Health and Welfare Back Office
             <dd class="govuk-summary-list__value">
               Commercial
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> herd name</span></a>
             </dd>
+            {% endif %}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
@@ -265,9 +281,11 @@ Annual Health and Welfare Back Office
             <dd class="govuk-summary-list__value">
               12/345/6789
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> herd CPH</span></a>
             </dd>
+            {% endif %}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
@@ -304,9 +322,11 @@ Annual Health and Welfare Back Office
                 Change approved
               </strong>
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date of testing</span></a>
             </dd>
+            {% endif %}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -323,9 +343,11 @@ Annual Health and Welfare Back Office
             <dd class="govuk-summary-list__value">
               Nora Williams
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> vet's name</span></a>
             </dd>
+            {% endif %}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -334,9 +356,11 @@ Annual Health and Welfare Back Office
             <dd class="govuk-summary-list__value">
               7116359
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> vet's RCVS number</span></a>
             </dd>
+            {% endif %}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -345,9 +369,11 @@ Annual Health and Welfare Back Office
             <dd class="govuk-summary-list__value">
               URN-7374-48BC
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> URN</span></a>
             </dd>
+            {% endif %}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
@@ -372,36 +398,36 @@ Annual Health and Welfare Back Office
             <dd class="govuk-summary-list__value">
               Positive
             </dd>
+            {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> test resultst</span></a>
             </dd>
+            {% endif %}
           </div>
         </dl>
         <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
         <p class="govuk-body">If no further checks are required, you do not need to do anything. The claim will automatically move to ‘ready to pay’.</p>
 
         <div class="govuk-button-group">
-          <a href="claim-move-to-in-check.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+          <a href="change/move-claim-to-in-check.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
             Move claim to 'in check'
           </a>
         </div>
 
-        <br />
-        <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible">
-        <br />
-        {# <br />
-        <br />
-        <br /> #}
 
+        {% if data['backoffice-user'] != 'team' %}
+        <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible govuk-!-margin-bottom-7 govuk-!-margin-top-6">
         <div class="govuk-button-group">
           <a
             class="govuk-button govuk-button--warning"
             data-module="govuk-button"
-            href="https://ffc-ahwr-backoffice-test.azure.defra.cloud/flags?deleteFlag=da5a06bb-7c44-4b7f-93e8-4c37100c3b02"
+            href="change/delete-claim.html"
             data-govuk-button-init=""
             >Delete claim</a
           >
         </div>
+        {% endif %}
+
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="history">

@@ -1,5 +1,3 @@
 module.exports = {
-
-  // Insert values here
-
+  'backoffice-user': 'team' // team, leaader, authoriser
 }

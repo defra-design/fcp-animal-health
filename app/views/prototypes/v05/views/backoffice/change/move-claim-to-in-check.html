@@ -1,0 +1,64 @@
+{% extends "layouts/layout-defra-wide.html" %}
+
+{% block pageTitle %}
+Back office: User application
+{% endblock %}
+{# {% set serviceName %}
+Annual Health and Welfare Back Office
+{% endset %} #}
+
+{% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.go(-1)"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-2">
+
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">
+          Move claim to 'in check'
+        </h1>
+
+        <p class="govuk-body govuk-!-padding-bottom-2 govuk-!-padding-top-2">
+          <strong>Claim number:</strong> REPI-6844-3029
+        </p>
+
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="on-hold-validation" name="on-hold-validation" type="checkbox" value="on-hold-validation">
+            <label class="govuk-label govuk-checkboxes__label" for="on-hold-validation">
+              I have reviewed this claim and recommend it is moved to ‘in check‘
+            </label>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="issues-log" name="issues-log" type="checkbox" value="issues-log">
+            <label class="govuk-label govuk-checkboxes__label" for="issues-log">
+              I have updated the issues log to show this claim is now ‘in check’
+            </label>
+          </div>
+        </div>
+
+        <div class="govuk-form-group govuk-!-padding-top-7">
+          {% from "govuk/components/button/macro.njk" import govukButton %}
+
+          {{ govukButton({
+            text: "Confirm and continue",
+            href: "../claim.html"
+          }) }}
+          {# <button class="govuk-button govuk-button govuk-!-margin-bottom-2" data-module="govuk-button" onclick="handleConfirmation()">
+            Confirm and continue
+          </button> #}
+        </div>
+
+      </fieldset>
+
+  </div>
+</div>
+
+{% endblock %}
