@@ -39,7 +39,7 @@ Back office: Applications
         <h2 class="govuk-heading-l">Claims</h2> #}
         {% include "/prototypes/v05/views/backoffice/includes/claims-search.html" %}
 
-        {% include "/prototypes/v05/views/backoffice/includes/claims-table.html" %}
+        {% include "/prototypes/v05/views/backoffice/includes/claims-table-results.html" %}
 
         {# <table class="govuk-table" data-module="moj-sortable-table">
 
@@ -317,8 +317,15 @@ Back office: Applications
 {{ super() }}
 <script>
   $(document).ready(function() {
-    console.log( "ready!" );
     $("#claims").parent().addClass("govuk-service-navigation__item--active");
+
+    $("#filter-species").children("option").removeAttr("selected");
+    $("#filter-species option[value='pig']").attr("selected", "selected");
+
+    $("#filter-status").children("option").removeAttr("selected");
+    $("#filter-status option[value='incheck']").attr("selected", "selected");
+
+    $("#filter-details").attr("open", true);
   });
 </script>
 {% endblock %}

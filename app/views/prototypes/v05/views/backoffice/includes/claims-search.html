@@ -18,7 +18,7 @@
   </form>
 </div>
 
-<details class="govuk-details govuk-!-margin-top-2">
+<details id="filter-details" class="govuk-details govuk-!-margin-top-2">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text"> Filter claims by </span>
   </summary>
@@ -80,6 +80,7 @@
         isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
         value: "all", text: "All status", selected: true }, { value: "ready",
         text: "Ready to pay" }, { value: "incheck", text: "In check" }, { value:
+        "paid", text: "On hold" }, { value:
         "paid", text: "Paid" } ] }) }}
       </div>
     </div>
