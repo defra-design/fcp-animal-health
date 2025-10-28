@@ -12,15 +12,17 @@
   }) }}
 {% endblock %}
 
+{# Delete a claim scenario #}
+
 
 {% block content %}
 <div class="govuk-grid-row govuk-!-margin-bottom-4">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REPI-6844-3029</h1>
+    <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REDC-D9H7-BJQX</h1>
     <h2 class="govuk-heading-m" style="margin-bottom: 8px;"><strong class="govuk-tag govuk-tag--purple">
       On hold
     </strong></h2>
-      <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">P&D Fearnley & Sons</a></p></h2>
+      <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">Harwood Milk</a></p></h2>
   </div>
 </div>
 
@@ -35,7 +37,7 @@
           Agreement number
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>AHWR-F001-432L</p>
+          <p>IAHW-FK1P-TGHC</p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -67,7 +69,7 @@
           SBI number
         </dt>
         <dd class="govuk-summary-list__value">
-          103491987
+          106740213
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -181,7 +183,7 @@
               Claim number
             </dt>
             <dd class="govuk-summary-list__value">   
-              REPI-6844-3029
+              REDC-D9H7-BJQX
             </dd>
           </div>
 
@@ -190,7 +192,7 @@
               Claim date
             </dt>
             <dd class="govuk-summary-list__value">   
-              11 July 2024
+              29 October 2025
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -198,7 +200,7 @@
               Species
             </dt>
             <dd class="govuk-summary-list__value">
-              Sheep
+              Dairy cattle
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -206,7 +208,7 @@
               Type of visit
             </dt>
             <dd class="govuk-summary-list__value">
-              [Review type]
+              Review
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -214,10 +216,11 @@
               Date of visit
             </dt>
             <dd class="govuk-summary-list__value">
-              11 October 2024 (previous 10/10/2024)
+              27 October 2025 
+              {# (previous 10/10/2024)
               <br/><strong class="govuk-tag govuk-tag--yellow iahw-table-tag">
                 Change pending approval
-              </strong>
+              </strong> #}
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -232,7 +235,7 @@
               Herd name
             </dt>
             <dd class="govuk-summary-list__value">
-              Commercial
+              Harwood 1
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -245,7 +248,7 @@
               Herd CPH
             </dt>
             <dd class="govuk-summary-list__value">
-              12/345/6789
+              10/131/7588
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -258,7 +261,7 @@
               Is this the only herd or flock associated with this SBI?
             </dt>
             <dd class="govuk-summary-list__value">
-              Yes
+              No
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -268,9 +271,9 @@
             <dd class="govuk-summary-list__value">
               
               <ul class="govuk-list govuk-list--bullet">
-                <li>They are a different breed</li>
-                <li>They have been kept completely separate from any other herds or flocks</li>
-                <li>Other reasons based on my vet's judgement</li>
+                {# <li>They are a different breed</li> #}
+                <li>They have been kept completely separate (for example, at a different location, housing or grazing area)</li>
+                {# <li>Other reasons based on my vet's judgement</li> #}
               </ul>
 
             </dd>
@@ -283,10 +286,10 @@
               Date of testing
             </dt>
             <dd class="govuk-summary-list__value">
-              6 November 2022
-              <br/><strong class="govuk-tag govuk-tag--green iahw-table-tag">
+              27 October 2025
+              {# <br/><strong class="govuk-tag govuk-tag--green iahw-table-tag">
                 Change approved
-              </strong>
+              </strong> #}
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -296,7 +299,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              11 or more beef cattle
+              11 or more dairy cattle
             </dt>
             <dd class="govuk-summary-list__value">
               Yes
@@ -307,7 +310,7 @@
               Vet's name
             </dt>
             <dd class="govuk-summary-list__value">
-              Nora Williams
+              David Martindale
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -320,7 +323,7 @@
               Vet's RCVS number
             </dt>
             <dd class="govuk-summary-list__value">
-              7116359
+              7441894
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -333,7 +336,7 @@
               URN
             </dt>
             <dd class="govuk-summary-list__value">
-              URN-7374-48BC
+              APHA-BVD-BM-24-001756
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -362,7 +365,7 @@
               Test results
             </dt>
             <dd class="govuk-summary-list__value">
-              Positive
+              Negative
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
