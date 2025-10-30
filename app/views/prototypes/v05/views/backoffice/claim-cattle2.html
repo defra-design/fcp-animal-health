@@ -45,7 +45,7 @@
           Agreement date
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>1/11/2022</p>
+          <p>21/4/2023</p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -53,7 +53,7 @@
           Agreement holder
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>Bill Fearnley</p>
+          <p>Jenny McSwale</p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -61,7 +61,7 @@
           Agreement holder email
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>bill@fearnly.test</p>
+          <p>jennysmac@hotmail.com</p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -77,7 +77,13 @@
           Address
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>Coronation Drive<br>Harleston<br>IP20 0AX</p>
+          <p>
+            Brookfield Farm<br>
+            Old Mill Lane<br>
+            Little Ashby<br>
+            Hertfordshire<br>
+            AL5 7QP<br>
+          </p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -85,7 +91,7 @@
           Business email
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>hello@fearnley-sons.com</p>
+          <p>jennysmac@hotmail.com</p>
         </dd>
       </div>
 
@@ -117,7 +123,7 @@
                 Sheep
               </dt>
               <dd class="govuk-summary-list__value">
-                5
+                0
               </dd>
             </div>
             <div class="govuk-summary-list__row" style="border-bottom: none;">
@@ -173,7 +179,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> test resultst</span></a>
+              <a class="govuk-link" href="change/status.html">Change<span class="govuk-visually-hidden"> status</span></a>
             </dd>
             {% endif %}
           </div>
@@ -216,10 +222,11 @@
               Date of visit
             </dt>
             <dd class="govuk-summary-list__value">
-              27 October 2025 (previous 26 October 2025)
+              27 October 2025
+               {# (previous 26 October 2025)
               <br/><strong class="govuk-tag govuk-tag--yellow iahw-table-tag">
                 Change pending approval
-              </strong>
+              </strong> #}
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -238,7 +245,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> herd name</span></a>
+              <a class="govuk-link" href="change/herd-name.html">Change<span class="govuk-visually-hidden"> herd name</span></a>
             </dd>
             {% endif %}
           </div>
@@ -251,7 +258,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> herd CPH</span></a>
+              <a class="govuk-link" href="change/herd-cph.html">Change<span class="govuk-visually-hidden"> herd CPH</span></a>
             </dd>
             {% endif %}
           </div>
@@ -268,12 +275,12 @@
               Reasons the herd or flock is separate
             </dt>
             <dd class="govuk-summary-list__value">
-              
-              <ul class="govuk-list govuk-list--bullet">
+              -
+              {# <ul class="govuk-list govuk-list--bullet">
                 <li>They are a different breed</li>
                 <li>They have been kept completely separate from any other herds or flocks</li>
                 <li>Other reasons based on my vet's judgement</li>
-              </ul>
+              </ul> #}
 
             </dd>
           </div>
@@ -286,13 +293,13 @@
             </dt>
             <dd class="govuk-summary-list__value">
               27 October 2025
-              <br/><strong class="govuk-tag govuk-tag--green iahw-table-tag">
+              {# <br/><strong class="govuk-tag govuk-tag--green iahw-table-tag">
                 Change approved
-              </strong>
+              </strong> #}
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date of testing</span></a>
+              <a class="govuk-link" href="change/date-testing.html">Change<span class="govuk-visually-hidden"> date of testing</span></a>
             </dd>
             {% endif %}
           </div>
@@ -313,7 +320,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> vet's name</span></a>
+              <a class="govuk-link" href="change/vet-name.html">Change<span class="govuk-visually-hidden"> vet's name</span></a>
             </dd>
             {% endif %}
           </div>
@@ -326,7 +333,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> vet's RCVS number</span></a>
+              <a class="govuk-link" href="change/vet-rcvs.html">Change<span class="govuk-visually-hidden"> vet's RCVS number</span></a>
             </dd>
             {% endif %}
           </div>
@@ -335,11 +342,17 @@
               URN
             </dt>
             <dd class="govuk-summary-list__value">
-              BIO-25-BVD-AB-000473
+              {% if data['changed'] !== "yes" %}BIO-25-BVD-AB-000473{% endif %}
+              {% if data['changed'] == "yes" %}
+              BIO-25-BVD-AB-0004737 (previous BIO-25-BVD-AB-000473)
+              <br/><strong class="govuk-tag govuk-tag--yellow iahw-table-tag">
+                Change pending approval
+              </strong>
+              {% endif %}
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> URN</span></a>
+              <a class="govuk-link" href="change/urn.html">Change<span class="govuk-visually-hidden"> URN</span></a>
             </dd>
             {% endif %}
           </div>
@@ -368,7 +381,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> test resultst</span></a>
+              <a class="govuk-link" href="change/test-results.html">Change<span class="govuk-visually-hidden"> test results</span></a>
             </dd>
             {% endif %}
           </div>

@@ -27,7 +27,7 @@ Annual Health and Welfare Back Office
       </legend>
 
       <p class="govuk-body">
-        <strong>Claim number:</strong> REPI-6844-3029
+        <strong>Claim number:</strong> REBC-D9H7-BJQX
       </p>
         <div class="govuk-warning-text">
           <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -37,6 +37,41 @@ Annual Health and Welfare Back Office
           </strong>
         </div>
         
+
+        {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+    {{ govukSelect({
+      id: "reasons",
+      name: "reasons",
+      label: {
+        text: "Reasons for deletion",
+        classes: "govuk-label--m",
+        isPageHeading: false
+      },
+      items: [
+        {
+          value: "reason0",
+          text: "",
+          selected: true 
+        },
+        {
+          value: "reason1",
+          text: "Customer contacted RPA and requested deletion"
+        },
+        {
+          value: "reason2",
+          text: "Lorem ipsum"
+        },
+        {
+          value: "reason3",
+          text: "Lorem ipsum"
+        },
+        {
+          value: "reason4",
+          text: "Lorem ipsum"
+        }
+      ]
+    }) }}
       
       <div class="govuk-form-group">
         {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -57,7 +92,7 @@ Annual Health and Welfare Back Office
         {{ govukButton({
           text: "Cancel",
           classes: "govuk-button--secondary",
-          href: "../claims.html"
+          href: "../claim-cattle1.html"
         }) }}
       </div>
     </fieldset>

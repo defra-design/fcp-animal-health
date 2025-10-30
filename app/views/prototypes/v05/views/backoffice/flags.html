@@ -15,7 +15,10 @@
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">Flags</h1>
 
     {% from "govuk/components/button/macro.njk" import govukButton %}
-    {{ govukButton({ text: "Create a new agreement flag" }) }}
+    {{ govukButton({
+      text: "Create a new agreement flag",
+      href: "create-flag.html"
+    }) }}
 
     {% include "/prototypes/v05/views/backoffice/includes/flags-table.html" %}
   </div>

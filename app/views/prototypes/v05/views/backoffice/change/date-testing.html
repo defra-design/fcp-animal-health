@@ -22,7 +22,7 @@ Back office: Applications
   <div class="govuk-grid-column-two-thirds govuk-!-margin-top-2">
 
     <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">
-      Change date of visit for claim REPI-6844-3029
+      Change date of testing for claim REPI-6844-3029
     </h1>
 
     {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
@@ -32,7 +32,7 @@ Back office: Applications
       namePrefix: "passport-issued",
       fieldset: {
         legend: {
-          text: "Date of visit",
+          text: "Date of testing",
           isPageHeading: false,
           classes: "govuk-fieldset__legend--m"
         }
@@ -44,7 +44,7 @@ Back office: Applications
         {
           classes: "govuk-input--width-2",
           name: "day",
-          value: "10"
+          value: "24"
         },
         {
           classes: "govuk-input--width-2",
@@ -129,7 +129,7 @@ Back office: Applications
 
     {{ govukButton({
       text: "Save and continue",
-      href: "../claim.html"
+      href: "../claim-sheep.html?changed=yes"
     }) }}
 
   </div>

@@ -18,11 +18,11 @@
 {% block content %}
 <div class="govuk-grid-row govuk-!-margin-bottom-4">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REDC-D9H7-BJQX</h1>
+    <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REBC-D9H7-BJQX</h1>
     <h2 class="govuk-heading-m" style="margin-bottom: 8px;"><strong class="govuk-tag govuk-tag--purple">
       On hold
     </strong></h2>
-      <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">Harwood Milk</a></p></h2>
+      <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">Willowbank Dairy</a></p></h2>
   </div>
 </div>
 
@@ -45,7 +45,7 @@
           Agreement date
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>1/11/2022</p>
+          <p>7/6/2024</p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -53,7 +53,7 @@
           Agreement holder
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>Bill Fearnley</p>
+          <p>Thomas Henderson</p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -61,7 +61,7 @@
           Agreement holder email
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>bill@fearnly.test</p>
+          <p>twhendersonfarm@btinternet.com</p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -77,7 +77,13 @@
           Address
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>Coronation Drive<br>Harleston<br>IP20 0AX</p>
+          <p>
+            Willowbank Dairy<br>
+            Holloway Road<br>
+            East Brambleton<br>
+            Oxfordshire<br>
+            OX17 3LD<br>
+          </p>
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -85,7 +91,7 @@
           Business email
         </dt>
         <dd class="govuk-summary-list__value">
-          <p>hello@fearnley-sons.com</p>
+          <p>twhendersonfarm@btinternet.com</p>
         </dd>
       </div>
 
@@ -101,7 +107,7 @@
                 Beef cattle
               </dt>
               <dd class="govuk-summary-list__value">
-                1
+                0
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -109,7 +115,7 @@
                 Dairy cattle
               </dt>
               <dd class="govuk-summary-list__value">
-                0
+                1
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -117,7 +123,7 @@
                 Sheep
               </dt>
               <dd class="govuk-summary-list__value">
-                5
+                0
               </dd>
             </div>
             <div class="govuk-summary-list__row" style="border-bottom: none;">
@@ -173,7 +179,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> test resultst</span></a>
+              <a class="govuk-link" href="change/status.html">Change<span class="govuk-visually-hidden"> status</span></a>
             </dd>
             {% endif %}
           </div>
@@ -183,7 +189,7 @@
               Claim number
             </dt>
             <dd class="govuk-summary-list__value">   
-              REDC-D9H7-BJQX
+              REBC-D9H7-BJQX
             </dd>
           </div>
 
@@ -200,7 +206,7 @@
               Species
             </dt>
             <dd class="govuk-summary-list__value">
-              Dairy cattle
+              Beef cattle
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -239,7 +245,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> herd name</span></a>
+              <a class="govuk-link" href="change/herd-name.html">Change<span class="govuk-visually-hidden"> herd name</span></a>
             </dd>
             {% endif %}
           </div>
@@ -252,7 +258,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> herd CPH</span></a>
+              <a class="govuk-link" href="change/herd-cph.html">Change<span class="govuk-visually-hidden"> herd CPH</span></a>
             </dd>
             {% endif %}
           </div>
@@ -261,7 +267,7 @@
               Is this the only herd or flock associated with this SBI?
             </dt>
             <dd class="govuk-summary-list__value">
-              No
+              Yes
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -270,11 +276,11 @@
             </dt>
             <dd class="govuk-summary-list__value">
               
-              <ul class="govuk-list govuk-list--bullet">
+              {# <ul class="govuk-list govuk-list--bullet"> #}
                 {# <li>They are a different breed</li> #}
-                <li>They have been kept completely separate (for example, at a different location, housing or grazing area)</li>
+                {# <li>They have been kept completely separate (for example, at a different location, housing or grazing area)</li> #}
                 {# <li>Other reasons based on my vet's judgement</li> #}
-              </ul>
+              {# </ul> #}
 
             </dd>
           </div>
@@ -293,13 +299,13 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date of testing</span></a>
+              <a class="govuk-link" href="change/date-testing.html">Change<span class="govuk-visually-hidden"> date of testing</span></a>
             </dd>
             {% endif %}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              11 or more dairy cattle
+              11 or more beef cattle
             </dt>
             <dd class="govuk-summary-list__value">
               Yes
@@ -314,7 +320,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> vet's name</span></a>
+              <a class="govuk-link" href="change/vet-name.html">Change<span class="govuk-visually-hidden"> vet's name</span></a>
             </dd>
             {% endif %}
           </div>
@@ -327,7 +333,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> vet's RCVS number</span></a>
+              <a class="govuk-link" href="change/vet-rcvs.html">Change<span class="govuk-visually-hidden"> vet's RCVS number</span></a>
             </dd>
             {% endif %}
           </div>
@@ -340,7 +346,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> URN</span></a>
+              <a class="govuk-link" href="change/urn.html">Change<span class="govuk-visually-hidden"> URN</span></a>
             </dd>
             {% endif %}
           </div>
@@ -349,7 +355,7 @@
               Number of tests
             </dt>
             <dd class="govuk-summary-list__value">
-              8
+              5
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -357,7 +363,7 @@
               Number of animals tested
             </dt>
             <dd class="govuk-summary-list__value">
-              8
+              5
             </dd>
           </div>
           <div class="govuk-summary-list__row">
@@ -369,7 +375,7 @@
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> test resultst</span></a>
+              <a class="govuk-link" href="change/test-results.html">Change<span class="govuk-visually-hidden"> test results</span></a>
             </dd>
             {% endif %}
           </div>
