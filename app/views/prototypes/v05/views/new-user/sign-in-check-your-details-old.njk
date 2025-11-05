@@ -14,8 +14,8 @@
 {% endblock %} #}
 
 {% block beforeContent %}
-{{super()}}
-  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
   {{ govukBackLink({
     text: "Back",
@@ -29,99 +29,76 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <h1 class="govuk-heading-xl">
+       <h1 class="govuk-heading-xl">
         Check your details
       </h1>
-
-      <p class="govuk-body">
-        If your details are not correct, you need to update them before you can get funding to Improve Animal Health and Welfare (IAHW).
-      </p>
-
-      <h2 class="govuk-heading-m">
-        Business details
-      </h2>
 
       {{ govukSummaryList({
         rows: [
           {
+            key: {
+              text: "Farmer name"
+            },
+            value: {
+              text: "Jo Bloggs"
+            }
+          }
+          ,
+                    {
             key: {
               text: "Business name"
             },
             value: {
-              text: "Agile Farm Ltd"
-            }
-          }
-          ,
-                    {
-            key: {
-              text: "Single business identifier (SBI)"
-            },
-            value: {
-              text: "123456789"
+              text: "Farmington Family Coop"
             }
           }
           ,
           {
             key: {
-              text: "Business address"
+              text: "CRN number"
             },
             value: {
-              html: "10 Skirbeck way<br>
-                    Maidstone<br>
-                    SK22 1DL<br>
-                    United Kingdom"
+              text: "1100002017"
             }
           }
           ,
           {
             key: {
-              text: "Business email address"
+              text: "SBI number"
             },
             value: {
-              text: "agilefarmsrus25@gmail.com"
+              text: "847106388"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Organisation email address"
+            },
+            value: {
+              text: "farmington@farmington-family-coop.co.uk"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "User email address"
+            },
+            value: {
+              text: "j.bloggs@farmington-family-coop.co.uk"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Address"
+            },
+            value: {
+              html: "Barnstaple<br>B49 6LJ<br>United Kingdom"
             }
           }
         ]
       }) }}
-
-
-      <h2 class="govuk-heading-m">
-        Personal details
-      </h2>
-
-      {{ govukSummaryList({
-        rows: [
-          {
-            key: {
-              text: "Full name"
-            },
-            value: {
-              text: "Alfred Waldron"
-            }
-          }
-          ,
-                    {
-            key: {
-              text: "Customer reference number (CRN)"
-            },
-            value: {
-              text: "1101996862"
-            }
-          }
-          ,
-          {
-            key: {
-              text: "Personal email address"
-            },
-            value: {
-              text: "alfredwaldron@email.com"
-            }
-          }
-        ]
-      }) }}
-
-      <hr class="govuk-section-break govuk-section-break--l">
-
 
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
