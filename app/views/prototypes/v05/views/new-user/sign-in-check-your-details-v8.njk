@@ -42,11 +42,30 @@
         <a class="govuk-notification-banner__link" href="#">Find out more</a>.
       </div>
 
-      <h2 class="govuk-heading-l">
+      {# <h2 class="govuk-heading-l">
         Business details
       </h2>
+                    {
+                href: "#",
+                text: "Delete choice",
+                visuallyHiddenText: "of University of Gloucestershire"
+              }, #}
 
       {{ govukSummaryList({
+        card: {
+          title: {
+            text: "Business details"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "business details"
+              }
+            ]
+          }
+        },
         rows: [
           {
             key: {
@@ -89,7 +108,7 @@
         ]
       }) }}
 
-      <p class="govuk-body">
+      {# <p class="govuk-body">
         <a href="#" class="govuk-link">Update your business details</a>
       </p>
 
@@ -98,9 +117,23 @@
 
       <h2 class="govuk-heading-l">
         Personal details
-      </h2>
+      </h2> #}
 
       {{ govukSummaryList({
+        card: {
+          title: {
+            text: "Personal details"
+          },
+          actions: {
+            items: [
+              {
+                href: "#",
+                text: "Change",
+                visuallyHiddenText: "personal details"
+              }
+            ]
+          }
+        },
         rows: [
           {
             key: {
@@ -131,9 +164,10 @@
         ]
       }) }}
 
-      <p class="govuk-body">
+
+      {# <p class="govuk-body">
         <a href="#" class="govuk-link">Update your personal details</a>
-      </p>
+      </p> #}
 
       <hr class="govuk-section-break govuk-section-break--l">
 
@@ -144,10 +178,6 @@
       <p class="govuk-body">
         If your bank details are missing or incorrect, your claim might be rejected or delayed. To update your bank details and manage people permissions, you need to use the Rural Payments Service (RPS).
       </p>
-      {# <p class="govuk-body">
-        After updating your details, return to this tab and proceed. You might need to refresh this page if your details are not displaying correctly.
-      </p> #}
-
 
       <p class="govuk-body">
         <a href="#" class="govuk-link">Update your bank details and manage permissions (opens in a new tab)</a>
@@ -222,13 +252,14 @@
         <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
       </p> #}
 
-      {# <hr class="govuk-section-break govuk-section-break--m">
+
+      <hr class="govuk-section-break govuk-section-break--m">
 
       <div class="govuk-inset-text">
         After updating your details, return to this tab and proceed. You might need to refresh this page if your details are not displaying correctly.
-      </div> #}
+      </div>
 
-      <hr class="govuk-section-break govuk-section-break--l">
+      <hr class="govuk-section-break govuk-section-break--m">
        {# govuk-section-break--visible #}
 
 
@@ -266,9 +297,7 @@
 
         <hr class="govuk-section-break govuk-section-break--m">
 
-
       {% from "govuk/components/details/macro.njk" import govukDetails %}
-
       {{ govukDetails({
         summaryText: "Contact the Rural Payments Agency for help",
         html: 
@@ -286,6 +315,7 @@
             <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
           </p>'
       }) }}
+
 
     </div>
 

@@ -29,6 +29,20 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
+      <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Service update
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <p class="govuk-notification-banner__heading">
+            We're working on a new service to replace the Rural Payments Service. 
+            <a class="govuk-notification-banner__link" href="#">Find out more</a>.
+          </p>
+        </div>
+      </div>
+
       <h1 class="govuk-heading-xl">
         Check your details
       </h1>
@@ -36,11 +50,6 @@
       <p class="govuk-body">
         If your details are not correct, you need to update them before you can get funding to Improve Animal Health and Welfare (IAHW).
       </p>
-
-      <div class="govuk-inset-text">
-        We're working on a new service to replace the Rural Payments Service. 
-        <a class="govuk-notification-banner__link" href="#">Find out more</a>.
-      </div>
 
       <h2 class="govuk-heading-l">
         Business details
@@ -144,10 +153,6 @@
       <p class="govuk-body">
         If your bank details are missing or incorrect, your claim might be rejected or delayed. To update your bank details and manage people permissions, you need to use the Rural Payments Service (RPS).
       </p>
-      {# <p class="govuk-body">
-        After updating your details, return to this tab and proceed. You might need to refresh this page if your details are not displaying correctly.
-      </p> #}
-
 
       <p class="govuk-body">
         <a href="#" class="govuk-link">Update your bank details and manage permissions (opens in a new tab)</a>
@@ -222,14 +227,9 @@
         <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
       </p> #}
 
-      {# <hr class="govuk-section-break govuk-section-break--m">
 
-      <div class="govuk-inset-text">
-        After updating your details, return to this tab and proceed. You might need to refresh this page if your details are not displaying correctly.
-      </div> #}
 
       <hr class="govuk-section-break govuk-section-break--l">
-       {# govuk-section-break--visible #}
 
 
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
@@ -245,8 +245,6 @@
   ]
 }) }}
 
-
-
   {# fieldset: {
     legend: {
       text: "Are those details correct?",
@@ -255,7 +253,6 @@
     }
   }, #}
 
-<hr class="govuk-section-break govuk-section-break--l">
 
         {{ govukButton({
         text: "Continue",
@@ -263,11 +260,10 @@
         isStartButton: false
         }) }}
 
+<hr class="govuk-section-break govuk-section-break--l">
 
-        <hr class="govuk-section-break govuk-section-break--m">
 
-
-      {% from "govuk/components/details/macro.njk" import govukDetails %}
+                    {% from "govuk/components/details/macro.njk" import govukDetails %}
 
       {{ govukDetails({
         summaryText: "Contact the Rural Payments Agency for help",
