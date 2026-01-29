@@ -1,0 +1,59 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{{ govukBackLink({
+  text: "Back",
+  href: "agreement-start"
+}) }}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+       <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="sample-date-hint">
+            <h1 class="govuk-heading-l">
+              You can claim for multiple species as part of this agreement
+            </h1>
+          <p class="govuk-body">Under this agreement, you can claim funding for the following species:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>beef cattle</li>
+              <li>dairy cattle</li>
+              <li>pigs</li>
+              <li>sheep</li>
+            </ul>
+
+        </fieldset>
+      </div>
+
+        {{ govukButton({
+        text: "Sign in",
+        href: "you-can-claim-multiple",
+        isStartButton: false
+        }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

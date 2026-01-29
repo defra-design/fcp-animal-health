@@ -1,0 +1,355 @@
+<table class="govuk-table fixed-layout-table" data-module="moj-sortable-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th
+        scope="col"
+        class="govuk-table__header col-12 responsive-text"
+        {#
+        aria-sort="none"
+        data-url="claims/sort/claim number"
+        #}
+      >
+        {#
+        <button type="button" data-index="0">
+          #} Claim number and type {#
+        </button>
+        #}
+      </th>
+
+      <th scope="col" class="govuk-table__header col-6 responsive-text">
+        <span>Flagged {# 🚩 #} </span>
+      </th>
+
+      <th
+        scope="col"
+        class="govuk-table__header col-6 responsive-text"
+        {#
+        aria-sort="none"
+        data-url="claims/sort/species"
+        #}
+      >
+        {# <button type="button" data-index="2">#} Species {#</button> #}
+      </th>
+
+      <th scope="col" class="govuk-table__header col-25 responsive-text">
+        Herd name
+      </th>
+
+      <th scope="col" class="govuk-table__header col-6 responsive-text">
+        Herd CPH
+      </th>
+
+      <th
+        scope="col"
+        class="govuk-table__header govuk-table__header--numeric col-6 align-left responsive-text"
+        {#
+        aria-sort="none"
+        data-url="/claims/sort/SBI"
+        #}
+      >
+        {# <button type="button" data-index="5">#} SBI number {#</button> #}
+      </th>
+
+      <th
+        scope="col"
+        class="govuk-table__header govuk-table__header--date col-6 align-left responsive-text"
+        aria-sort="none"
+        data-url="claims/sort/claim date"
+      >
+        <button type="button" data-index="6">Claim date</button>
+      </th>
+
+      <th
+        scope="col"
+        class="govuk-table__header col-6 responsive-text"
+        style="text-align: right"
+        {#
+        aria-sort="none"
+        data-url="claims/sort/status"
+        #}
+      >
+        {# <button type="button" data-index="7">#} Status {#</button> #}
+      </th>
+    </tr>
+  </thead>
+
+  <tbody class="govuk-table__body">
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <div>
+          <a class="govuk-!-margin-0 responsive-text" href="claim.html"
+            >REPI-7598-0976</a
+          >
+          <p class="govuk-!-margin-0 responsive-text">Review</p>
+        </div>
+      </td>
+
+      <td class="govuk-table__cell responsive-text"></td>
+
+      <td class="govuk-table__cell responsive-text" data-sort-value="pigs">
+        Pigs
+      </td>
+
+      <td class="govuk-table__cell responsive-text">Lomonds Hill Farm</td>
+
+      <td class="govuk-table__cell responsive-text">12/011/1752</td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric responsive-text align-left"
+        data-sort-value="106592443"
+      >
+        106639701
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--date responsive-text align-left"
+        data-sort-value="2025-09-24T13:59:17.571Z"
+      >
+        28/10/2025
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric"
+        data-sort-value="READY TO PAY"
+      >
+        <span class="app-long-tag"
+          ><span class="govuk-tag responsive-text govuk-tag--purple"
+            >On hold</span
+          ></span
+        >
+      </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <div>
+          <a class="govuk-!-margin-0 responsive-text" href="claim.html"
+            >REPI-6539-1325</a
+          >
+          <p class="govuk-!-margin-0 responsive-text">Review</p>
+        </div>
+      </td>
+
+      <td class="govuk-table__cell responsive-text"></td>
+
+      <td class="govuk-table__cell responsive-text" data-sort-value="beef">
+        Pigs
+      </td>
+
+      <td class="govuk-table__cell responsive-text">Ashburn Pork</td>
+
+      <td class="govuk-table__cell responsive-text">23/132/6613</td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric responsive-text align-left"
+        data-sort-value="106853564"
+      >
+        101578695
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--date responsive-text align-left"
+        data-sort-value="2025-09-23T18:04:45.265Z"
+      >
+        27/10/2025
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric"
+        data-sort-value="On hold"
+      >
+        <span class="app-long-tag"
+          ><span class="govuk-tag responsive-text govuk-tag--purple"
+            >On hold</span
+          ></span
+        >
+      </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <div>
+          <a class="govuk-!-margin-0 responsive-text" href="claim.html"
+            >REPI-8740-7498</a
+          >
+          <p class="govuk-!-margin-0 responsive-text">Review</p>
+        </div>
+      </td>
+
+      <td class="govuk-table__cell responsive-text"></td>
+
+      <td class="govuk-table__cell responsive-text" data-sort-value="Pigs">
+        Pigs
+      </td>
+
+      <td class="govuk-table__cell responsive-text">Marlows Farm</td>
+
+      <td class="govuk-table__cell responsive-text">38/019/1752</td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric responsive-text align-left"
+        data-sort-value="107097991"
+      >
+        201654976
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--date responsive-text align-left"
+        data-sort-value="2025-09-23T09:56:12.015Z"
+      >
+        27/10/2025
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric"
+        data-sort-value="On hold"
+      >
+        <span class="app-long-tag"
+          ><span class="govuk-tag responsive-text govuk-tag--purple"
+            >On hold</span
+          ></span
+        >
+      </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <div>
+          <a class="govuk-!-margin-0 responsive-text" href="claim.html"
+            >REPI-9277-8052</a
+          >
+          <p class="govuk-!-margin-0 responsive-text">Endemics</p>
+        </div>
+      </td>
+
+      <td class="govuk-table__cell responsive-text"></td>
+
+      <td class="govuk-table__cell responsive-text" data-sort-value="Pigs">
+        Pigs
+      </td>
+
+      <td class="govuk-table__cell responsive-text">Ashburn Pork South</td>
+
+      <td class="govuk-table__cell responsive-text">12/102/6613</td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric responsive-text align-left"
+        data-sort-value="200714542"
+      >
+        101578695
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--date responsive-text align-left"
+        data-sort-value="2025-09-11T09:20:12.706Z"
+      >
+        23/10/2025
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric"
+        data-sort-value="On hold"
+      >
+        <span class="app-long-tag"
+          ><span class="govuk-tag responsive-text govuk-tag--purple"
+            >On hold</span
+          ></span
+        >
+      </td>
+    </tr>
+
+    
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <div>
+          <a class="govuk-!-margin-0 responsive-text" href="claim.html"
+            >REPI-1146-4584</a
+          >
+          <p class="govuk-!-margin-0 responsive-text">Review</p>
+        </div>
+      </td>
+
+      <td class="govuk-table__cell responsive-text"></td>
+
+      <td class="govuk-table__cell responsive-text" data-sort-value="beef">
+        Pigs
+      </td>
+
+      <td class="govuk-table__cell responsive-text">Mark purpleish & Co</td>
+
+      <td class="govuk-table__cell responsive-text">21/124/9177</td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric responsive-text align-left"
+        data-sort-value="107209382"
+      >
+        118652187
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--date responsive-text align-left"
+        data-sort-value="2025-08-18T10:00:22.503Z"
+      >
+        21/10/2025
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric"
+        data-sort-value="READY TO PAY"
+      >
+        <span class="app-long-tag"
+          ><span class="govuk-tag responsive-text govuk-tag--purple"
+            >On hold</span
+          ></span
+        >
+      </td>
+    </tr>
+
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">
+        <div>
+          <a class="govuk-!-margin-0 responsive-text" href="claim.html"
+            >REPI -9207-8954</a
+          >
+          <p class="govuk-!-margin-0 responsive-text">Review</p>
+        </div>
+      </td>
+
+      <td class="govuk-table__cell responsive-text"></td>
+
+      <td class="govuk-table__cell responsive-text" data-sort-value="dairy">
+        Pigs
+      </td>
+
+      <td class="govuk-table__cell responsive-text">Smyth and Wilson Pork Ltd</td>
+
+      <td class="govuk-table__cell responsive-text">19/076/1984</td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric responsive-text align-left"
+        data-sort-value="106616010"
+      >
+        128653008
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--date responsive-text align-left"
+        data-sort-value="2025-08-13T13:28:53.287Z"
+      >
+        20/10/2025
+      </td>
+
+      <td
+        class="govuk-table__cell govuk-table__cell--numeric"
+        data-sort-value="READY TO PAY"
+      >
+        <span class="app-long-tag"
+          ><span class="govuk-tag responsive-text govuk-tag--purple"
+            >On hold</span
+          ></span
+        >
+      </td>
+    </tr>
+
+  </tbody>
+</table>

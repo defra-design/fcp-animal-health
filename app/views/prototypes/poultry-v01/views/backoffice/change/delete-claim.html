@@ -1,0 +1,103 @@
+{% extends "layouts/layout-defra-wide.html" %}
+
+{% block pageTitle %}
+Back office: User application
+{% endblock %}
+{# {% set serviceName %}
+Annual Health and Welfare Back Office
+{% endset %} #}
+
+{% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.go(-1)"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-2">
+
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">
+          Are you sure you want to delete this claim?
+        </h1>
+      </legend>
+
+      <p class="govuk-body">
+        <strong>Claim number:</strong> REBC-D9H7-BJQX
+      </p>
+        <div class="govuk-warning-text">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">Warning</span>
+            Once this deletion is approved, this action cannot be undone.
+          </strong>
+        </div>
+        
+
+        {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+    {{ govukSelect({
+      id: "reasons",
+      name: "reasons",
+      label: {
+        text: "Reasons for deletion",
+        classes: "govuk-label--m",
+        isPageHeading: false
+      },
+      items: [
+        {
+          value: "reason0",
+          text: "",
+          selected: true 
+        },
+        {
+          value: "reason1",
+          text: "Customer contacted RPA and requested deletion"
+        },
+        {
+          value: "reason2",
+          text: "Lorem ipsum"
+        },
+        {
+          value: "reason3",
+          text: "Lorem ipsum"
+        },
+        {
+          value: "reason4",
+          text: "Lorem ipsum"
+        }
+      ]
+    }) }}
+      
+      <div class="govuk-form-group">
+        {% from "govuk/components/button/macro.njk" import govukButton %}
+        {# <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
+          Delete flag
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Do not delete flag
+        </button> #}
+
+        {{ govukButton({
+          text: "Delete",
+          classes: "govuk-button--warning",
+          href: "../claims.html"
+        }) }}
+        &nbsp;&nbsp;&nbsp;
+        {{ govukButton({
+          text: "Cancel",
+          classes: "govuk-button--secondary",
+          href: "../claim-cattle1.html"
+        }) }}
+      </div>
+    </fieldset>
+
+  </div>
+</div>
+
+{% endblock %}

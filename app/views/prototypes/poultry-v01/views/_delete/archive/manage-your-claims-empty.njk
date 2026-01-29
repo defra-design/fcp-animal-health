@@ -1,0 +1,96 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Start page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-full">
+            <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">J ROBERTS</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"> </th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Single Business Identifier (SBI): 106705799</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Manage your claims
+      </h1>
+
+      <p>Agreement number: IAHW-91254-88277</p>
+
+      {{ govukButton({
+        text: "Start a new claim",
+        href: "claim-type",
+        isStartButton: false
+      }) }}
+
+
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Your previous claims</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header"> </th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Your claims will appear here when you have made them</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="govuk-heading-m">
+        More information
+      </h2>
+
+      <p>
+        <a href="#">Terms and conditions</a>
+      </p>
+
+       <p>
+        <a href="guidance-claim-funding-review">Guidance for funding to improve animal health and welfare</a>
+      </p>
+
+      <p>
+        <a href="#">Agreement summary</a>
+      </p>
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

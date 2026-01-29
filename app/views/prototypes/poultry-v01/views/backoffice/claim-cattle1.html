@@ -1,0 +1,459 @@
+{% extends "layouts/layout-defra-wide.html" %}
+
+{% block pageTitle %}
+  Back office: User application
+{% endblock %}
+
+{% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.go(-1)"
+  }) }}
+{% endblock %}
+
+{# Delete a claim scenario #}
+
+
+{% block content %}
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REBC-D9H7-BJQX</h1>
+    <h2 class="govuk-heading-m" style="margin-bottom: 8px;"><strong class="govuk-tag govuk-tag--purple">
+      On hold
+    </strong></h2>
+      <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">Willowbank Dairy</a></p></h2>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible">
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Agreement number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p>IAHW-FK1P-TGHC</p>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Agreement date
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p>7/6/2024</p>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Agreement holder
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p>Thomas Henderson</p>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Agreement holder email
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p>twhendersonfarm@btinternet.com</p>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          SBI number
+        </dt>
+        <dd class="govuk-summary-list__value">
+          106740213
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Address
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p>
+            Willowbank Dairy<br>
+            Holloway Road<br>
+            East Brambleton<br>
+            Oxfordshire<br>
+            OX17 3LD<br>
+          </p>
+        </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Business email
+        </dt>
+        <dd class="govuk-summary-list__value">
+          <p>twhendersonfarm@btinternet.com</p>
+        </dd>
+      </div>
+
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          Number of herds and flocks
+        </dt>
+        <dd class="govuk-summary-list__value">
+          
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Beef cattle
+              </dt>
+              <dd class="govuk-summary-list__value">
+                0
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Dairy cattle
+              </dt>
+              <dd class="govuk-summary-list__value">
+                1
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Sheep
+              </dt>
+              <dd class="govuk-summary-list__value">
+                0
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row" style="border-bottom: none;">
+              <dt class="govuk-summary-list__key">
+                Pigs
+              </dt>
+              <dd class="govuk-summary-list__value">
+                0
+              </dd>
+            </div>
+          </dl>
+
+        </dd>
+      </div>
+
+    </dl>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-three-thirds">
+
+    <!--Application stages (in tabs)-->
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <h2 class="govuk-tabs__title">
+        Contents
+      </h2>
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#claimed">
+            Claim details
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#history">
+            History
+          </a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="claimed">
+        <h2 class="govuk-heading-l">Claim details</h2>
+        <dl class="govuk-summary-list">
+          <!-- Content for the 'Claim' tab goes here -->
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Status
+            </dt>
+            <dd class="govuk-summary-list__value">
+              <strong class="govuk-tag govuk-tag--purple">
+                On hold
+              </strong>
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/status.html">Change<span class="govuk-visually-hidden"> status</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Claim number
+            </dt>
+            <dd class="govuk-summary-list__value">   
+              REBC-D9H7-BJQX
+            </dd>
+          </div>
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Claim date
+            </dt>
+            <dd class="govuk-summary-list__value">   
+              29 October 2025
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Species
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Beef cattle
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Type of visit
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Review
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Date of visit
+            </dt>
+            <dd class="govuk-summary-list__value">
+              27 October 2025 
+              {# (previous 10/10/2024)
+              <br/><strong class="govuk-tag govuk-tag--yellow iahw-table-tag">
+                Change pending approval
+              </strong> #}
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/date-visit.html">Change<span class="govuk-visually-hidden"> date of visit</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          
+
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Herd name
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Harwood 1
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/herd-name.html">Change<span class="govuk-visually-hidden"> herd name</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Herd CPH
+            </dt>
+            <dd class="govuk-summary-list__value">
+              10/131/7588
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/herd-cph.html">Change<span class="govuk-visually-hidden"> herd CPH</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Is this the only herd or flock associated with this SBI?
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Yes
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Reasons the herd or flock is separate
+            </dt>
+            <dd class="govuk-summary-list__value">
+              
+              {# <ul class="govuk-list govuk-list--bullet"> #}
+                {# <li>They are a different breed</li> #}
+                {# <li>They have been kept completely separate (for example, at a different location, housing or grazing area)</li> #}
+                {# <li>Other reasons based on my vet's judgement</li> #}
+              {# </ul> #}
+
+            </dd>
+          </div>
+
+
+          
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Date of testing
+            </dt>
+            <dd class="govuk-summary-list__value">
+              27 October 2025
+              {# <br/><strong class="govuk-tag govuk-tag--green iahw-table-tag">
+                Change approved
+              </strong> #}
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/date-testing.html">Change<span class="govuk-visually-hidden"> date of testing</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              11 or more beef cattle
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Yes
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Vet's name
+            </dt>
+            <dd class="govuk-summary-list__value">
+              David Martindale
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/vet-name.html">Change<span class="govuk-visually-hidden"> vet's name</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Vet's RCVS number
+            </dt>
+            <dd class="govuk-summary-list__value">
+              7441894
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/vet-rcvs.html">Change<span class="govuk-visually-hidden"> vet's RCVS number</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              URN
+            </dt>
+            <dd class="govuk-summary-list__value">
+              APHA-BVD-BM-24-001756
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/urn.html">Change<span class="govuk-visually-hidden"> URN</span></a>
+            </dd>
+            {% endif %}
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Number of tests
+            </dt>
+            <dd class="govuk-summary-list__value">
+              5
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Number of animals tested
+            </dt>
+            <dd class="govuk-summary-list__value">
+              5
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Test results
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Negative
+            </dd>
+            {% if data['backoffice-user'] != 'team' %}
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="change/test-results.html">Change<span class="govuk-visually-hidden"> test results</span></a>
+            </dd>
+            {% endif %}
+          </div>
+        </dl>
+        <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
+        <p class="govuk-body">If no further checks are required, you do not need to do anything. The claim will automatically move to ‘ready to pay’.</p>
+
+        <div class="govuk-button-group">
+          <a href="change/move-claim-to-in-check.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Move claim to 'in check'
+          </a>
+        </div>
+
+
+        {% if data['backoffice-user'] != 'team' %}
+        <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible govuk-!-margin-bottom-7 govuk-!-margin-top-6">
+        <div class="govuk-button-group">
+          <a
+            class="govuk-button govuk-button--warning"
+            data-module="govuk-button"
+            href="change/delete-claim.html"
+            data-govuk-button-init=""
+            >Delete claim</a
+          >
+        </div>
+        {% endif %}
+
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="history">
+        <h2 class="govuk-heading-l">History</h2>
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Date</th
+
+>
+              <th scope="col" class="govuk-table__header">Time</th>
+              <th scope="col" class="govuk-table__header">Action</th>
+              <th scope="col" class="govuk-table__header">User</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">03/10/2025</td>
+              <td class="govuk-table__cell">10:00:12</td>
+              <td class="govuk-table__cell">Date of visit changed from 10/10/2024 to 11/10/2025</td>
+              <td class="govuk-table__cell">Carlos Bernardo Jr</td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">23/03/2023</td>
+              <td class="govuk-table__cell">10:00:12</td>
+              <td class="govuk-table__cell">Recommend to reject</td>
+              <td class="govuk-table__cell">Daniel Jones</td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">24/03/2023</td>
+              <td class="govuk-table__cell">09:30:00</td>
+              <td class="govuk-table__cell">Recommended to pay</td>
+              <td class="govuk-table__cell">Daniel Jones</td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">25/03/2023</td>
+              <td class="govuk-table__cell">11:10:15</td>
+              <td class="govuk-table__cell">Authorise to reject</td>
+              <td class="govuk-table__cell">Amanda Hassan</td>
+            </tr>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">25/03/2023</td>
+              <td class="govuk-table__cell">11:10:15</td>
+              <td class="govuk-table__cell">Authorise to pay</td>
+              <td class="govuk-table__cell">Amanda Hassan</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{# </div> #}
+
+{% endblock %}

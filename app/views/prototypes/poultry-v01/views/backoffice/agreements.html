@@ -1,0 +1,252 @@
+{% extends "layouts/layout-defra-wide.html" %}
+
+{% block pageTitle %}
+Back office: Applications
+{% endblock %}
+{% set serviceName %}
+Annual health and welfare review agreements
+{% endset%}
+
+{% block beforeContent %}
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- Title + Search -->
+<!-- Title + Search -->
+ 
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-four-quarters govuk-!-margin-top-2">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">
+      Agreements
+    </h1>
+
+    {# {% from "govuk/components/button/macro.njk" import govukButton %}
+    {{ govukButton({ text: "Create a new agreement" }) }} #}
+
+    <div class="user-search-box govuk-!-width-two-thirds govuk-!-margin-bottom-1">
+      <label class="govuk-label govuk-label--s" for="user-search">Find an agreement
+        <div id="search-hint" class="govuk-hint moj-search__hint ">
+          
+        Search agreement number, organisation or SBI number.</div>
+      </label>
+      <!--<div id="heading-hint" class="govuk-hint govuk-!-margin-bottom-3">
+        Search by agreement number, status or single business identifier (SBI) number
+
+      </div>-->
+      <form action="/v7/l2/users/search/search-results-none" method="post" class="form">
+        {% include "/prototypes/poultry-v01/views/backoffice/includes/search-bar.html" %}
+      </form>
+    </div>
+
+    <details class="govuk-details govuk-!-margin-top-2">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              Filter claims by
+            </span>
+          </summary>
+          <div class="govuk-details__text">
+
+        
+
+<div class="govuk-grid-row iahw-filters-group">
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+                {{ govukDateInput({
+                  id: "passport-issued",
+                  namePrefix: "passport-issued",
+                  fieldset: {
+                    legend: {
+                      text: "Start agreement date",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  }
+                }) }}
+                  {# ,
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  } #}
+              </div>
+
+              <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+                {{ govukDateInput({
+                  id: "passport-issued",
+                  namePrefix: "passport-issued",
+                  fieldset: {
+                    legend: {
+                      text: "End date",
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--s"
+                    }
+                  }
+                }) }}
+                  {# ,
+                  hint: {
+                    text: "For example, 27 3 2007"
+                  } #}
+              </div>
+
+              
+            </div>
+
+            <div class="govuk-grid-row iahw-filters-group">
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+
+            {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+            {{ govukSelect({
+              id: "filter",
+              name: "filter",
+              label: {
+                text: "Flag"
+              },
+              items: [
+                {
+                  value: "all",
+                  text: "All flags",
+                  selected: true
+                },
+                {
+                  value: "agreed",
+                  text: "Flagged"
+                },
+                {
+                  value: "notagreed",
+                  text: "Not flagged"
+                }
+              ]
+            }) }}
+
+          </div>
+
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+
+            {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+            {{ govukSelect({
+              id: "filter",
+              name: "filter",
+              label: {
+                text: "Status"
+              },
+              items: [
+                {
+                  value: "all",
+                  text: "All status",
+                  selected: true
+                },
+                {
+                  value: "agreed",
+                  text: "Agreed"
+                },
+                {
+                  value: "notagreed",
+                  text: "Not agreed"
+                }
+              ]
+            }) }}
+
+          </div>
+</div>
+
+          <div class="govuk-grid-row iahw-filters-group">
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+            {% from "govuk/components/button/macro.njk" import govukButton %}
+
+            {{ govukButton({
+              text: "Apply filter",
+              classes: "govuk-button--secondary"
+            }) }}
+          </div>
+          <div class="govuk-grid-column-one-quarter govuk-!-margin-top-4">
+            <a href="#" class="govuk-link">Clear all filters</a>
+          </div>
+
+          
+        </div>
+
+        </div>
+        </details>
+
+        {% include "/prototypes/poultry-v01/views/backoffice/includes/agreements-table.html" %}
+        
+      </div>
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="past-week">
+        <h2 class="govuk-heading-l">Agreements</h2>
+        <div class="user-search-box govuk-!-width-two-thirds govuk-!-margin-bottom-7">
+          <label class="govuk-label govuk-label--s" for="user-search">
+            Search agreements<!-- by claim number, organisation, SBI or status-->
+          </label>
+          <!--<div id="heading-hint" class="govuk-hint govuk-!-margin-bottom-3">
+            Search by agreement number, status or single business identifier (SBI) number
+    
+          </div>-->
+          <form action="/v7/l2/users/search/search-results-none" method="post" class="form">
+            <input class="govuk-input" id="user-search" name="user-search" type="text" aria-describedby="user-search-hint" spellcheck="false">
+            <button style="background-color:#008938;" class="search-button" data-module="govuk-button">
+                Search
+            </button>
+          </form>
+        </div>
+      </div>
+
+
+                    <!-- Start pagination-->
+                    <nav class="govuk-pagination" aria-label="Pagination">
+                        <!--<div class="govuk-pagination__prev">
+                          <a class="govuk-link govuk-pagination__link" href="#" rel="prev">
+                            <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                              <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+                            </svg>
+                            <span class="govuk-pagination__link-title">
+                              Previous<span class="govuk-visually-hidden"> page</span>
+                            </span>
+                          </a>
+                        </div>-->
+                        <ul class="govuk-pagination__list">
+                          <li class="govuk-pagination__item govuk-pagination__item--current">
+                            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 1">
+                              1
+                            </a>
+                          </li>
+                          <li class="govuk-pagination__item">
+                            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 2" aria-current="page">
+                              2
+                            </a>
+                          </li>
+                          <li class="govuk-pagination__item">
+                            <a class="govuk-link govuk-pagination__link" href="#" aria-label="Page 3">
+                              3
+                            </a>
+                          </li>
+                        </ul>
+                        <div class="govuk-pagination__next">
+                          <a class="govuk-link govuk-pagination__link" href="#" rel="next">
+                            <span class="govuk-pagination__link-title">
+                              Next<span class="govuk-visually-hidden"> page</span>
+                            </span>
+                            <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+                              <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+                            </svg>
+                          </a>
+                        </div>
+                      </nav>
+                      <!-- End pagination -->
+     
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+{{ super() }}
+<script>
+  $(document).ready(function() {
+    $("#agreements").parent().addClass("govuk-service-navigation__item--active");
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  What is the vet's RCVS number? – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="test-urn-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is the laboratory unique reference number (URN) for the test results?
+            </h1>
+          </legend>
+          <div id="test-urn-hint" class="govuk-hint">
+            You can find this on the summary the vet gave you.
+          </div>
+          {{ govukInput({
+            id: "test-urn",
+            name: "test-urn",
+            classes: "govuk-input--width-40",
+            type: "text",
+            label: {
+              text: "Enter the test URN"
+            }
+          }) }}
+        </fieldset>
+      </div>
+
+
+      {{ govukButton({
+      text: "Continue",
+      href: "test-result",
+      isStartButton: false
+      }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  End of journey – {{ serviceName }} – Prototype  
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+
+  <h1 class="govuk-heading-l">This is the end of the task</h1>
+  
+  <p class="govuk-body">Please wait here for any questions from the user researcher</p>
+  
+  <a href="../index-research" role="button" class="govuk-button">
+    Continue to next task
+  </a>
+  
+  <div class="govuk-!-margin-top-6">
+    <img src="/public/images/end-of-task.jpg" alt="End of task illustration" class="govuk-!-width-full">
+  </div>
+
+{% endblock %}

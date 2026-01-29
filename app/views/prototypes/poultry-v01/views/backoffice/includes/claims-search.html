@@ -1,0 +1,99 @@
+<div class="user-search-box govuk-!-width-two-thirds govuk-!-margin-bottom-1">
+  <label class="govuk-label govuk-label--s" for="user-search">
+    Find a claim<!-- by claim number, organisation, SBI or status-->
+    <div id="search-hint" class="govuk-hint moj-search__hint">
+      Search by claim number or SBI number.
+    </div>
+  </label>
+  <!--<div id="heading-hint" class="govuk-hint govuk-!-margin-bottom-3">
+    Search by agreement number, status or single business identifier (SBI) number
+
+    </div>-->
+  <form
+    action="/v7/l2/users/search/search-results-none"
+    method="post"
+    class="form"
+  >
+    {% include "/prototypes/poultry-v01/views/backoffice/includes/search-bar.html" %}
+  </form>
+</div>
+
+<details id="filter-details" class="govuk-details govuk-!-margin-top-2">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text"> Filter claims by </span>
+  </summary>
+  <div class="govuk-details__text">
+    {# We need to know your nationality so we can work out which elections
+    you’re entitled to vote in. If you cannot provide your nationality, you’ll
+    have to send copies of identity documents through the post. #} {#
+    <h2 class="govuk-heading-s govuk-!-margin-bottom-2 govuk-!-margin-top-3">
+      Filter by
+    </h2>
+    #}
+
+    <div class="govuk-grid-row iahw-filters-group">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+        {{ govukDateInput({ id: "passport-issued", namePrefix:
+        "passport-issued", fieldset: { legend: { text: "Start vet visit date",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" } } }) }} {#
+        , hint: { text: "For example, 27 3 2007" } #}
+      </div>
+
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {{ govukDateInput({ id: "passport-issued", namePrefix:
+        "passport-issued", fieldset: { legend: { text: "End date",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" } } }) }} {#
+        , hint: { text: "For example, 27 3 2007" } #}
+      </div>
+    </div>
+
+    <div class="govuk-grid-row iahw-filters-group">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/select/macro.njk" import govukSelect %} {{
+        govukSelect({ id: "filter-type", name: "filter-type", label: { text: "Claim type",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
+        value: "all", text: "All types", selected: true }, { value: "review",
+        text: "Review" }, { value: "endemics", text: "Endemics" } ] }) }}
+      </div>
+
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/select/macro.njk" import govukSelect %} {{
+        govukSelect({ id: "filter-species", name: "filter-species", label: { text: "Species",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
+        value: "all", text: "All species", selected: true }, { value: "beef",
+        text: "Beef cattle" }, { value: "dairy", text: "Dairy cattle" }, {
+        value: "pig", text: "Pigs" }, { value: "sheep", text: "Sheep" } ] }) }}
+      </div>
+
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/select/macro.njk" import govukSelect %} {{
+        govukSelect({ id: "filter-flag", name: "filter-flag", label: { text: "Flag",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
+        value: "all", text: "All flags", selected: true }, { value: "agreed",
+        text: "Flagged" }, { value: "notagreed", text: "Not flagged" } ] }) }}
+      </div>
+
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/select/macro.njk" import govukSelect %} {{
+        govukSelect({ id: "filter-status", name: "filter-status", label: { text: "Status",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
+        value: "all", text: "All status", selected: true }, { value: "ready",
+        text: "Ready to pay" }, { value: "incheck", text: "In check" }, { value:
+        "paid", text: "On hold" }, { value:
+        "paid", text: "Paid" } ] }) }}
+      </div>
+    </div>
+
+    <div class="govuk-grid-row iahw-filters-group">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/button/macro.njk" import govukButton %} {{
+        govukButton({ text: "Apply filter", classes: "govuk-button--secondary",
+        href: "claims-filter-results.html" }) }}
+      </div>
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">
+        <a href="claims.html" class="govuk-link">Clear all filters</a>
+      </div>
+    </div>
+  </div>
+</details>

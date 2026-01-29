@@ -1,0 +1,75 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Manage your claims – {{ serviceName }} – Prototype  
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Service unavailable",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+
+
+
+{% block beforeContent %}
+
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row govuk-!-padding-top-1">
+  <div class="govuk-grid-column-full">
+
+      <div>
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+          Service unavailable
+        </h1>
+        <p class="govuk-body" style="color:	#505a5f;">Improve Animal Health and Welfare (IAHW) is currently unavailable.</p>
+      </div>
+
+      <h2 class="govuk-heading-m govuk-!-margin-top-6">
+        Contact the Rural Payments Agency for help
+      </h2>
+
+      <p class="govuk-body">
+        Email: <a href="#" class="govuk-link">ruralpayments@defra.gov.uk</a>
+      </p>
+
+      <p class="govuk-body">
+        Telephone: 03000 200 301<br />
+        Monday to Friday, 8:30am to 5pm, except bank holidays
+      </p>
+
+      <p class="govuk-body">
+        <a href="https://www.gov.uk/call-charges" target="_blank" class="govuk-link">Find out about call charges (opens in a new tab)</a>
+      </p>
+
+      <h2 class="govuk-heading-m govuk-!-margin-top-7">
+        More information
+      </h2>
+
+      <ul class="govuk-list">
+        <li>
+          <a class="govuk-link" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Guidance for funding to improve animal health and welfare</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="https://www.gov.uk/government/publications/get-funding-to-improve-animal-health-and-welfare-terms-and-conditions">Terms and conditions</a>
+        </li>
+      </ul>
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+
+

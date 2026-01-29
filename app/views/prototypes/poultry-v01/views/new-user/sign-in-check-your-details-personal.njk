@@ -1,0 +1,142 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Sign in {{ serviceName }} Prototype
+{% endblock %}
+
+{# {% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %} #}
+
+{% block beforeContent %}
+{{super()}}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Check your personal details
+      </h1>
+
+      <p class="govuk-body">
+        If your details are not correct, you need to update them before you can get funding to Improve Animal Health and Welfare (IAHW).
+      </p>
+
+
+      {# <h2 class="govuk-heading-l">
+        Personal details
+      </h2> #}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Full name"
+            },
+            value: {
+              text: "Alfred Waldron"
+            }
+          }
+          ,
+                    {
+            key: {
+              text: "Customer reference number (CRN)"
+            },
+            value: {
+              text: "1101996862"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Personal email address"
+            },
+            value: {
+              text: "alfredwaldron@email.com"
+            }
+          }
+        ]
+      }) }}
+
+      {# <p class="govuk-body">
+        <a href="#" class="govuk-link">Update your personal details</a>
+      </p> #}
+
+            
+
+      {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+      {{ govukDetails({
+        summaryText: "Contact the Rural Payments Agency for help",
+        html: 
+        '
+          <p class="govuk-body">
+            Email: <a href="#" class="govuk-link">ruralpayments@defra.gov.uk</a>
+          </p>
+
+          <p class="govuk-body">
+            Telephone: 03000 200 301<br />
+            Monday to Friday, 8:30am to 5pm, except bank holidays
+          </p>
+
+          <p class="govuk-body">
+            <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
+          </p>'
+      }) }}
+
+
+{# <hr class="govuk-section-break govuk-section-break--l"> #}
+
+
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        name: "correctDetails",
+        fieldset: {
+          legend: {
+            text: "Are these details correct?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes"
+          },
+          {
+            value: "no",
+            text: "No"
+          }
+        ]
+      }) }}
+
+
+
+        {{ govukButton({
+        text: "Continue",
+        href: "you-can-claim-multiple",
+        isStartButton: false
+        }) }}
+
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends "layouts/layout-defra-wide.html" %}
+
+{% block pageTitle %}
+Back office: Applications
+{% endblock %}
+
+
+{% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.go(-1)"
+  }) }}
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Title + Search -->
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-2">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-7">
+      Change URN for claim REBC-M385-75C8
+    </h1>
+
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+    {{ govukInput({
+      label: {
+        text: "Laboratory unique reference number (URN) for the test results",
+        classes: "govuk-label--m",
+        isPageHeading: true
+      },
+      classes: "govuk-input--width-20",
+      id: "width-20",
+      name: "width20",
+      value: "BIO-25-BVD-AB-000473"
+    }) }}
+
+    {# {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+
+    {{ govukDateInput({
+      id: "passport-issued",
+      namePrefix: "passport-issued",
+      fieldset: {
+        legend: {
+          text: "URN",
+          isPageHeading: false,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      hint: {
+        text: "For example, 27 3 2007"
+      },
+      items: [
+        {
+          classes: "govuk-input--width-2",
+          name: "day",
+          value: "10"
+        },
+        {
+          classes: "govuk-input--width-2",
+          name: "month",
+          value: "10"
+        },
+        {
+          classes: "govuk-input--width-4",
+          name: "year",
+          value: "2025"
+        }
+      ]
+    }) }} #}
+
+    {# {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Original date of visit"
+          },
+          value: {
+            text: "10/10/2024"
+          }
+        }
+      ]
+    }) }} #}
+
+    {# {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+    {{ govukTextarea({
+      name: "moreDetail",
+      id: "more-detail",
+      label: {
+        text: "Reasons for change",
+        classes: "govuk-label--m",
+        isPageHeading: false
+      },
+      hint: {
+        text: "Do not include personal or financial information, like your National Insurance number or credit card details"
+      }
+    }) }} #}
+
+    {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+    {{ govukSelect({
+      id: "reasons",
+      name: "reasons",
+      label: {
+        text: "Reasons for change",
+        classes: "govuk-label--m",
+        isPageHeading: false
+      },
+      items: [
+        {
+          value: "reason0",
+          text: "",
+          selected: true 
+        },
+        {
+          value: "reason1",
+          text: "Customer contacted RPA and requested change"
+        },
+        {
+          value: "reason2",
+          text: "Lorem ipsum"
+        },
+        {
+          value: "reason3",
+          text: "Lorem ipsum"
+        },
+        {
+          value: "reason4",
+          text: "Lorem ipsum"
+        }
+      ]
+    }) }}
+
+
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+      text: "Save and continue",
+      href: "../claim-cattle2.html?changed=yes"
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  What is the vet's RCVS number? – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="vets-rcvs-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is the vet's Royal College of Veterinary Surgeons (RCVS) number?
+            </h1>
+          </legend>
+          <div id="vets-rcvs-hint" class="govuk-hint">
+            You can find this on the summary the vet gave you.
+          </div>
+          {{ govukInput({
+            id: "vets-rcvs",
+            name: "vets-rcvs",
+            classes: "govuk-input--width-10",
+            type: "text",
+            label: {
+              text: "Enter the vet's RCVS number"
+            }
+          }) }}
+        </fieldset>
+      </div>
+
+
+      {{ govukButton({
+      text: "Continue",
+      href: "test-urn",
+      isStartButton: false
+      }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}
