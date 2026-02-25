@@ -1,14 +1,5 @@
 {% extends "layouts/main-logged.html" %}
 
-{% block header %}
-  <!-- Blank header with no service name for the start page -->
-    {{ govukHeader({
-      homepageUrl: "holding-page",
-      serviceName: "Get funding to improve animal health and welfare",
-      serviceUrl: "#"
-    }) }}
-{% endblock %}
-
 {% block content %}
 
   <div class="govuk-grid-row">
@@ -16,11 +7,11 @@
 
       {{ govukPanel({
         titleText: "Claim complete",
-        html: "Your claim number<br><strong>REBC-DDD5-4646</strong>"
+        html: "Your claim number<br><strong>POLH-DDD5-4646</strong>"
       }) }}
 
       <p>
-        You have successfully submitted your claim for an animal health and welfare review.
+        You have successfully submitted your claim for a poultry biosecurity review.
       </p>
 
       <p>
@@ -36,8 +27,9 @@
       </p>
 
       <p>
-        We will process your claim within 28 days. If your claim is successful, you will get £522.
+        We will process your claim within 28 days. If your claim is successful, you will get £xxx.
       </p>
+
       <p>
         Go to 
         <a href="manage-your-claims-after-submit">
@@ -51,9 +43,9 @@
       </ul>
 
       <p>
-        If you want to arrange another review or follow-up, read the 
+        If you want to arrange another poultry biosecurity review, read the 
         <a href="#">
-          guidance on timing of reviews and follow-ups
+          guidance on timings of poultry biosecurity review
         </a>.
       </p>
 
@@ -68,11 +60,12 @@
         Email: 
         <a href="#">
           ruralpayments@defra.gov.uk
+        </a>
       </p>
 
       <ul class="govuk-list">
         <li>Telephone: 03000 200 301</li>
-        <li>Monday to Friday: *:30am to 5pm; except bank holidays</li>
+        <li>Monday to Friday: 8:30am to 5pm, except bank holidays</li>
       </ul>
 
       <p>

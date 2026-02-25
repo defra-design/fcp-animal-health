@@ -4,16 +4,8 @@
   Date of review – {{ serviceName }} – Prototype
 {% endblock %}
 
-{% block header %}
-  <!-- Header for v1 -->
-{{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
-{% endblock %}
-
 {% block beforeContent %}
+  {{ super() }}
   {{ govukBackLink({
     text: "Back",
     href: "javascript:window.history.back()"
@@ -38,13 +30,13 @@
             }
           },
           hint: {
-            text: "This is the date the vet last visited the farm for this review. You can find it on the summary the vet gave you."
+            html: "This is the date the vet last visited the farm for this review. You can find it on the summary the vet gave you.<br /><br />For example, 27 3 2022"
           }
         }) }}
 
         {{ govukButton({
         text: "Continue",
-        href: "sample-date",
+        href: "flock-name",
         isStartButton: false
         }) }}
 

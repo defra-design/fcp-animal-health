@@ -1,0 +1,96 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  What was the rest result? – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+        Enter the flock details
+      </h1>
+
+      <p class="govuk-body govuk-hint govuk-!-margin-bottom-8">
+        You can find this information on the ‘Tell us about this flock’ section of the form that the vet filled in for you.
+      </p>
+
+<div class="govuk-form-group">
+      {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{{ govukCheckboxes({
+  name: "waste",
+  fieldset: {
+    legend: {
+      text: "The flock is a separate flock (epidemiologically distinct unit) of this species because:",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--s"
+    }
+  },
+  items: [
+    {
+      value: "reason1",
+      text: "They are a different poultry species on the same unit (for example chicken and ducks etc)"
+    },
+    {
+      value: "reason2",
+      text: "They are raised for a different purpose (for example breeding, laying, meat, day old chicks etc)"
+    },
+    {
+      value: "reason3",
+      text: "They are a different breed of the same species (for example, slow-growing versus conventional breeds)"
+    },
+    {
+      value: "reason4",
+      text: "They are reared using a different production system (for example indoor, higher welfare indoor, free-range, organic, cage etc)"
+    },
+    {
+      value: "reason5",
+      text: "They are a different age or stage of production cycle (for example all-in/all-out batch, pullets, growers, adults etc)"
+    },
+    {
+      value: "reason6",
+      text: "They are on a separate premises or in a different management unit (for example CPH defined site, separate shed, separate biosecurity unit"
+    }
+  ]
+}) }}
+
+
+  {# hint: {
+    text: "Select all that apply"
+  }, #}
+
+        
+
+        </div>
+
+        
+            {{ govukButton({
+            text: "Continue",
+            href: "flock-review",
+            isStartButton: false
+            }) }}
+
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

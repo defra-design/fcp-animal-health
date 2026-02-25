@@ -18,16 +18,7 @@
 
 
 {% block beforeContent %}
-<div class="govuk-phase-banner">
-  <p class="govuk-phase-banner__content">
-    <strong class="govuk-tag govuk-phase-banner__content__tag">
-      beta
-    </strong>
-    <span class="govuk-phase-banner__text">
-      This is a new service. Your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
-    </span>
-  </p>
-</div>
+  {{ super() }}
 
 {# // Login information #}
       <div class="govuk-grid-row govuk-!-padding-bottom-2 govuk-!-padding-top-2 govuk-!-border-bottom-1">
@@ -55,7 +46,7 @@
         <div class="govuk-grid-column-one-third govuk-!-display-flex govuk-!-justify-content-flex-end govuk-!-align-items-center govuk-!-flex-wrap-wrap">
           <div class="govuk-!-text-align-right">
             <p class="govuk-body govuk-!-margin-bottom-0"><a class="govuk-body govuk-link" href="agreement-summary">Download agreement summary</a></p>
-            <p class="govuk-body govuk-!-margin-bottom-0"><a class="govuk-body govuk-link" href="agreement-summary">View all agreements</a></p>
+            <p class="govuk-body govuk-!-margin-bottom-0"><a class="govuk-body govuk-link" href="agreement-summary">Claim for a different agreement</a></p>
           </div>
         </div>
       </div>
@@ -88,7 +79,7 @@
 
         {{ govukButton({
           text: "Start a new claim",
-          href: "/prototypes/poultry-v01/new-user/sign-in-check-your-details-bank-v2",
+          href: "/prototypes/poultry-v01/new-user/animal-type",
           isStartButton: false
         }) }}
         </div>
@@ -251,7 +242,7 @@
 
         <ul class="govuk-list">
           <li>
-            <a class="govuk-link" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Guidance for funding to improve animal health and welfare</a>
+            <a class="govuk-link" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Guidance for poultry biosecurity reviews</a>
           </li>
           <li>
             <a class="govuk-link" href="https://www.gov.uk/government/publications/get-funding-to-improve-animal-health-and-welfare-terms-and-conditions">Terms and conditions</a>

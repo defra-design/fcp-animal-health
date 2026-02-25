@@ -4,16 +4,8 @@
   Start page template – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
-{% block header %}
-  <!-- Header for v1 -->
-{{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
-{% endblock %}
-
 {% block beforeContent %}
+  {{ super() }}
   {{ govukBackLink({
     text: "Back",
     href: "javascript:window.history.back()"
@@ -26,13 +18,13 @@
     <div class="govuk-grid-column-two-thirds">
 
       {% from "govuk/components/radios/macro.njk" import govukRadios %}
-
+        {# classes: "govuk-radios--inline", #}
       {{ govukRadios({
-        classes: "govuk-radios--inline",
+
         name: "animals-number",
         fieldset: {
           legend: {
-            text: "Did you have 11 or more beef cattle on the date of the review?",
+            text: "Did you have 1,000 or more broilers in this flock on the date of visit?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
@@ -54,7 +46,7 @@
 
         {{ govukButton({
         text: "Continue",
-        href: "sample-number",
+        href: "vets-name",
         isStartButton: false
         }) }}
 

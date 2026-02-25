@@ -53,6 +53,8 @@ router.use('/prototypes/v05/new-user', require('./views/prototypes/v05/routes'))
 router.use('/prototypes/poultry-v01', require('./views/prototypes/poultry-v01/routes'));
 router.use('/prototypes/poultry-v01/new-user', require('./views/prototypes/poultry-v01/routes'));
 
+router.use('/prototypes/guidance', require('./views/prototypes/guidance/routes'));
+
 
 
 module.exports = router;

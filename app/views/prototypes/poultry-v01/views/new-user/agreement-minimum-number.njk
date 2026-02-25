@@ -4,16 +4,8 @@
   Start page template – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
-{# {% block header %}
-  <!-- Header for v1 -->
-{{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
-{% endblock %} #}
-
 {% block beforeContent %}
+  {{ super() }}
   {{ govukBackLink({
     text: "Back",
     href: "javascript:window.history.back()"
@@ -26,18 +18,21 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-l">
-        Minimum number of livestock
+        Minimum number of poultry in the flock
       </h1>
 
-      <p class="govuk-body">
-        Each time you do a review or follow-up, you must have the minimum number of the species you choose. The minimums needed for each species are:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>11 beef cattle</li>
-        <li>11 dairy cattle</li>
-        <li>51 pigs</li>
-        <li>21 sheep</li>
-      </ul>
+      <div class="govuk-button-group">
+        <p class="govuk-body">
+          Each time you do a biosecurity review of the flock, you must have the minimum number of poultry. The minimum needed for the flock is:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>1,000 broilers</li>
+          <li>1,000 laying hens</li>
+          <li>500 ducks</li>
+          <li>500 geese</li>
+          <li>500 turkeys</li>
+        </ul>
+      </div>
 
       {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -48,7 +43,7 @@
         }) }}
 
         {{ govukButton({
-          text: "I do not agree - reject agreement",
+          text: "I do not agree",
           href: "#",
           classes: "govuk-button--secondary"
         }) }}

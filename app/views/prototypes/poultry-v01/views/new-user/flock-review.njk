@@ -1,0 +1,117 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  What is the vet's name? – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
+        Check flock details
+      </h1>
+
+      {# <p class="govuk-body govuk-hint govuk-!-margin-bottom-8">
+        You can find this information on the ‘Tell us about this flock’ section of the form that the vet filled in for you.
+      </p> #}
+
+
+      {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Flock name"
+      },
+      value: {
+        text: "Egg laying poultry"
+      },
+      actions: {
+        items: [
+
+        ]
+      }
+    },
+    {
+      key: {
+        text: "CPH number for flock"
+      },
+      value: {
+        text: "4512324"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "CPH number for flock"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Only flock associated with SBI"
+      },
+      value: {
+        html: "No"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "only flock associated with SBI"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Flock details"
+      },
+      value: {
+        html: '<p class="govuk-body">They have separate management needs</p><p class="govuk-body">They are a different breed</p>'
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "flock details"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+
+
+      {# <div class="govuk-form-group">
+        
+      </div> #}
+
+
+      {{ govukButton({
+      text: "Continue",
+      href: "assurance-scheme",
+      isStartButton: false
+      }) }}
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -4,16 +4,8 @@
   What is the vet's RCVS number? – {{ serviceName }} – Prototype
 {% endblock %}
 
-{% block header %}
-  <!-- Header for v1 -->
-{{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
-{% endblock %}
-
 {% block beforeContent %}
+  {{ super() }}
   {{ govukBackLink({
     text: "Back",
     href: "javascript:window.history.back()"
@@ -41,18 +33,18 @@
             id: "vets-rcvs",
             name: "vets-rcvs",
             classes: "govuk-input--width-10",
-            type: "text",
-            label: {
-              text: "Enter the vet's RCVS number"
-            }
+            type: "text"
           }) }}
+            {# label: {
+              text: "Enter the vet's RCVS number"
+            } #}
         </fieldset>
       </div>
 
 
       {{ govukButton({
       text: "Continue",
-      href: "test-urn",
+      href: "biosecurity-assessment",
       isStartButton: false
       }) }}
 

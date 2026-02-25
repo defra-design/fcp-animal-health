@@ -1,0 +1,74 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  What was the rest result? – {{ serviceName }} – Prototype
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+
+       {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        <div class="govuk-form-group">
+          <form action="/new-user" method="post" class="form">
+
+          <fieldset class="govuk-fieldset" aria-describedby="test-result-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Is this flock part of an Assurance Scheme?
+              </h1>
+            </legend>
+            <div id="test-result-hint" class="govuk-hint">
+              We need to know this to understand your farm better. We won’t contact or share any information with your assurance scheme.
+            </div>
+            {{ govukRadios({
+              name: "test-result",
+              items: [
+                {
+                  value: "yes",
+                  text: "Yes"
+                },
+                {
+                  value: "no",
+                  text: "No"
+                }
+              ]
+            }) }}
+          </fieldset>
+
+
+
+        </div>
+
+        
+            {{ govukButton({
+            text: "Continue",
+            href: "animals-number",
+            isStartButton: false
+            }) }}
+
+
+
+
+
+
+
+
+
+    </div>
+
+  </div>
+
+{% endblock %}

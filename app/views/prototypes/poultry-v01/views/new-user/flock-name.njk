@@ -23,11 +23,11 @@
         <fieldset class="govuk-fieldset" aria-describedby="vets-name-hint">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              What is the vet's name?
+              Enter the flock name
             </h1>
           </legend>
           <div id="vets-name-hint" class="govuk-hint">
-            Enter the vet's personal name, not their business name. You can find this on the summary the vet gave you.
+            You can find this information on the ‘Tell us about this flock’ section of the form that the vet filled in for you.
           </div>
           {{ govukInput({
             id: "vets-name",
@@ -35,17 +35,21 @@
             classes: "govuk-input--width-30",
             type: "text"
           }) }}
-            {# label: {
-              text: "Enter the vet's name"
-            } #}
         </fieldset>
       </div>
 
 
       {{ govukButton({
       text: "Continue",
-      href: "vets-rcvs",
+      href: "flock-cph",
       isStartButton: false
+      }) }}
+
+      {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+      {{ govukDetails({
+        summaryText: "I don’t have the flock details from the vet",
+        html: "Your vet should have completed the ‘Tell us about this flock’ section on the vet template. You can ask them to <a href='#'>download the form</a> and fill the details in for you."
       }) }}
 
 

@@ -4,16 +4,8 @@
   Start page template – {{ serviceName }} – GOV.UK Prototype Kit
 {% endblock %}
 
-{% block header %}
-  <!-- Header for v1 -->
-{{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
-{% endblock %}
-
 {% block beforeContent %}
+  {{ super() }}
   {{ govukBackLink({
     text: "Back",
     href: "javascript:window.history.back()"
@@ -31,27 +23,31 @@
         name: "animal-type",
         fieldset: {
           legend: {
-            text: "Which species are you claiming for?",
+            text: "Which species of poultry are you claiming for?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
         },
         items: [
           {
-            value: "review",
-            text: "Beef cattle"
+            value: "broilers",
+            text: "Broilers"
           },
           {
-            value: "followup",
-            text: "Dairy cattle"
+            value: "hens",
+            text: "Laying hens"
           },
           {
-            value: "review",
-            text: "Pigs"
+            value: "ducks",
+            text: "Ducks"
           },
           {
-            value: "review",
-            text: "Sheep"
+            value: "geese",
+            text: "Geese"
+          },
+          {
+            value: "turkeys",
+            text: "Turkeys"
           }
         ]
       }) }}
@@ -61,7 +57,7 @@
 
             {{ govukButton({
               text: "Continue",
-              href: "claim-type",
+              href: "review-date",
               isStartButton: false
             }) }}
 

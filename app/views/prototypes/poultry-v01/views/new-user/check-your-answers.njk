@@ -9,16 +9,8 @@
 {% set vetsRcvs = data['vets-rcvs'] or '5435472' %}
 {% set urn = data['test-urn'] or '38527594' %}
 
-{% block header %}
-  <!-- Header for v1 -->
-{{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
-{% endblock %}
-
 {% block beforeContent %}
+  {{ super() }}
   {{ govukBackLink({
     text: "Back",
     href: "javascript:window.history.back()"
@@ -40,13 +32,13 @@
               text: "Business name"
             },
             value: {
-              text: "Arthington Farm"
+              text: "Omni Consumer Products Ltd"
             }
           }
           ,
-                    {
+          {
             key: {
-              text: "Livestock"
+              text: "Species"
             },
             value: {
               text: animalType
@@ -55,10 +47,10 @@
           ,
           {
             key: {
-              text: "Review or follow-up"
+              text: "Flock name"
             },
             value: {
-              text: "Animal health and welfare review"
+              text: "Egg laying flock"
             }
           }
           ,
@@ -82,17 +74,17 @@
           ,
           {
             key: {
-              text: "Date of sampling"
+              text: "Assurance scheme"
             },
             value: {
-              text: sampleDate
+              text: animalsNumber
             },
             actions: {
               items: [
                 {
-                  href: "sample-date",
+                  href: "assurance-scheme",
                   text: "Change",
-                  visuallyHiddenText: "Date of sampling"
+                  visuallyHiddenText: "assurance scheme"
                 }
               ]
             }
@@ -100,7 +92,7 @@
           ,
           {
             key: {
-              text: "11 or more beef cattle"
+              text: "1,000 or more broilers"
             },
             value: {
               text: animalsNumber
@@ -110,25 +102,7 @@
                 {
                   href: "number-animals",
                   text: "Change",
-                  visuallyHiddenText: "11 or more beef cattle"
-                }
-              ]
-            }
-          }
-          ,
-          {
-            key: {
-              text: "Number of samples taken"
-            },
-            value: {
-              text: sampleNumber
-            },
-            actions: {
-              items: [
-                {
-                  href: "sample-number",
-                  text: "Change",
-                  visuallyHiddenText: "Number of samples taken"
+                  visuallyHiddenText: "1,000 or more broilers"
                 }
               ]
             }
@@ -169,38 +143,20 @@
               ]
             }
           }
-          , 
-          {
-            key: {
-              text: "URN or test certificate"
-            },
-            value: {
-              text: urn
-            },
-            actions: {
-              items: [
-                {
-                  href: "test-urn",
-                  text: "Change",
-                  visuallyHiddenText: "URN or test certificate"
-                }
-              ]
-            }
-          }
           ,                                              
           {
             key: {
-              text: "Test result"
+              text: "Biosecurity assessment"
             },
             value: {
-              text: data['test-result'] or "Positive"
+              text: data['test-result'] or "Yes"
             },
             actions: {
               items: [
                 {
-                  href: "test-result",
+                  href: "biosecurity-assessment",
                   text: "Change",
-                  visuallyHiddenText: "Test result"
+                  visuallyHiddenText: "biosecurity assessment"
                 }
               ]
             }
