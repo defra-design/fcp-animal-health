@@ -1,0 +1,276 @@
+{% extends "layouts/main-logged-agreement.html" %}
+
+{% block pageTitle %}
+  Sign in {{ serviceName }} Prototype
+{% endblock %}
+
+{# {% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %} #}
+
+{% block beforeContent %}
+{{super()}}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        Check your details
+      </h1>
+
+      <p class="govuk-body">
+        If your details are not correct, you need to update them before you can get funding to Improve Animal Health and Welfare (IAHW).
+      </p>
+
+      <h2 class="govuk-heading-l">
+        Business details
+      </h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Business name"
+            },
+            value: {
+              text: "Agile Farm Ltd"
+            }
+          }
+          ,
+                    {
+            key: {
+              text: "Single business identifier (SBI)"
+            },
+            value: {
+              text: "123456789"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Business address"
+            },
+            value: {
+              html: "10 Skirbeck way<br>
+                    Maidstone<br>
+                    SK22 1DL<br>
+                    United Kingdom"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Business email address"
+            },
+            value: {
+              text: "agilefarmsrus25@gmail.com"
+            }
+          }
+        ]
+      }) }}
+
+      {# <p class="govuk-body">
+        <a href="#" class="govuk-link">Update your business details</a>
+      </p> #}
+
+      <hr class="govuk-section-break govuk-section-break--l">
+
+
+      <h2 class="govuk-heading-l">
+        Personal details
+      </h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Full name"
+            },
+            value: {
+              text: "Alfred Waldron"
+            }
+          }
+          ,
+                    {
+            key: {
+              text: "Customer reference number (CRN)"
+            },
+            value: {
+              text: "1101996862"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Personal email address"
+            },
+            value: {
+              text: "alfredwaldron@email.com"
+            }
+          }
+        ]
+      }) }}
+
+      <div class="govuk-inset-text">
+        We're working on a new service to replace the Rural Payments Service. 
+        <a class="govuk-notification-banner__link" href="#">Find out more</a>.
+      </div>
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Update your business and personal details</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--l">
+
+      <h2 class="govuk-heading-l">
+        Bank details and manage people permissions
+      </h2>
+
+      <p class="govuk-body">
+        If your bank details are missing or incorrect, your claim might be rejected or delayed. To update your bank details and manage people permissions, you need to use the Rural Payments Service (RPS).
+      </p>
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Update your bank details and manage permissions (opens in a new tab)</a>
+      </p>
+
+      {# <hr class="govuk-section-break govuk-section-break--l">
+
+      <h2 class="govuk-heading-m">
+        Manage people permission to act for this business
+      </h2>
+
+      <p class="govuk-body">
+        To manage permissions, you need to use the Rural Payments Service (RPS).
+      </p>
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Update your details on the Rural and Payments Service (opens in a new tab)</a>
+      </p> #}
+
+      {# <hr class="govuk-section-break govuk-section-break--l"> #}
+
+
+      {# {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+      {{ govukRadios({
+        name: "whereDoYouLive",
+        fieldset: {
+          legend: {
+            text: "Are your details up-to-date?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+
+        items: [
+          {
+            value: "england",
+            text: "No, update my personal and business details"
+          },
+          {
+            value: "scotland",
+            text: "No, update my bank details"
+          },
+          {
+            value: "wales",
+            text: "No, manage access permissions"
+          },
+          {
+            divider: "or"
+          },
+          {
+            value: "abroad",
+            text: "Yes, I have updated all my details"
+          }
+        ]
+      }) }} #}
+
+            <h2 class="govuk-heading-l govuk-!-margin-top-6">
+        Contact the Rural Payments Agency for help
+      </h2>
+
+      <p class="govuk-body">
+        Email: <a href="#" class="govuk-link">ruralpayments@defra.gov.uk</a>
+      </p>
+
+      <p class="govuk-body">
+        Telephone: 03000 200 301<br />
+        Monday to Friday, 8:30am to 5pm, except bank holidays
+      </p>
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
+      </p>
+
+            {# {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+      {{ govukDetails({
+        summaryText: "Contact the Rural Payments Agency for help",
+        html: 
+        '
+          <p class="govuk-body">
+            Email: <a href="#" class="govuk-link">ruralpayments@defra.gov.uk</a>
+          </p>
+
+          <p class="govuk-body">
+            Telephone: 03000 200 301<br />
+            Monday to Friday, 8:30am to 5pm, except bank holidays
+          </p>
+
+          <p class="govuk-body">
+            <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
+          </p>'
+      }) }} #}
+
+      <hr class="govuk-section-break govuk-section-break--l">
+
+
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+
+{{ govukCheckboxes({
+  name: "waste",
+
+  items: [
+    {
+      value: "carcasses",
+      text: "I have checked and updated my details"
+    }
+  ]
+}) }}
+
+  {# fieldset: {
+    legend: {
+      text: "Are those details correct?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  }, #}
+
+
+        {{ govukButton({
+        text: "Continue",
+        href: "you-can-claim-multiple",
+        isStartButton: false
+        }) }}
+
+    </div>
+
+  </div>
+
+{% endblock %}

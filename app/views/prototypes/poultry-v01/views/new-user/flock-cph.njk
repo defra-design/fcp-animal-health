@@ -18,40 +18,46 @@
     <div class="govuk-grid-column-two-thirds">
 
       {% from "govuk/components/input/macro.njk" import govukInput %}
-
+{# 
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" aria-describedby="vets-rcvs-hint">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Enter the County Parish Holding (CPH) number for this flock
+              Enter the County Parish Holding (CPH) number for this unit
             </h1>
           </legend>
           <div id="vets-rcvs-hint" class="govuk-hint">
-            Tell us the CPH for where this flock is kept.
+            Tell us the CPH for where this unit is located.
           </div>
-          {{ govukInput({
-            id: "vets-rcvs",
-            name: "vets-rcvs",
-            classes: "govuk-input--width-10",
-            type: "text",
-            label: {
-              text: "CPH number for this flock",
-              classes: "govuk-label--s",
-              isPageHeading: true
-            },
-            hint: {
-              text: "CPH format should be nn/nnn/nnnn"
-            }
-          }) }}
+          
+
+                      
         </fieldset>
-      </div>
+      </div> #}
+
+      {{ govukInput({
+          id: "vets-rcvs",
+          name: "vets-rcvs",
+          classes: "govuk-input--width-10",
+          type: "text",
+          label: {
+            text: "Enter the County Parish Holding (CPH) number for this unit",
+            classes: "govuk-label--l",
+            isPageHeading: true
+          },
+          hint: {
+            html: "Tell us the CPH for where this unit is located.<br />CPH format should be nn/nnn/nnnn."
+          }
+        }) }}
 
 
       {{ govukButton({
       text: "Continue",
-      href: "flock-sbi",
+      href: "assurance-scheme",
       isStartButton: false
       }) }}
+
+      {# flock-sbi #}
 
 
     </div>

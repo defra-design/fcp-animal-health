@@ -1,0 +1,192 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Sign in {{ serviceName }} Prototype
+{% endblock %}
+
+{# {% block header %}
+  <!-- Header for v1 -->
+{{ govukHeader({
+  homepageUrl: "holding-page",
+  serviceName: "Get funding to improve animal health and welfare",
+  serviceUrl: "../index-research"
+}) }}
+{% endblock %} #}
+
+{% block beforeContent %}
+{{ super() }}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {# <h1 class="govuk-heading-xl">
+
+        Before you start
+
+      </h1>
+
+      <p class="govuk-body">
+        If your details are not correct, you need to update them before you can get funding to Improve Animal Health and Welfare (IAHW).
+      </p>
+
+            {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+      {{ govukDetails({
+        summaryText: "Contact the Rural Payments Agency for help",
+        html: 
+        '
+          <p class="govuk-body">
+            Email: <a href="#" class="govuk-link">ruralpayments@defra.gov.uk</a>
+          </p>
+
+          <p class="govuk-body">
+            Telephone: 03000 200 301<br />
+            Monday to Friday, 8:30am to 5pm, except bank holidays
+          </p>
+
+          <p class="govuk-body">
+            <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
+          </p>'
+      }) }} #}
+
+
+      {# <h2 class="govuk-heading-l"> #}
+        {# Check your bank details #}
+        {# Make sure your bank details are up-to-date with RPS #}
+         {# using Rural Payments Service #}
+      {# </h2> #}
+
+      {# <p class="govuk-body">
+        If your bank details are missing or incorrect, your claim might be rejected or delayed. To update your bank details or manage permissions, you need to use the Rural Payments Service (RPS).
+      </p>
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Update your bank details (opens in a new tab)</a>
+      </p> #}
+
+      {# {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+      {{ govukDetails({
+        summaryText: "How to change details on the Rural and Payments Service",
+        html: '
+        <ol class="govuk-list govuk-list--number">
+          <li>Delivery address.</li>
+          <li>Payment.</li>
+          <li>Confirmation.</li>
+        </ol>
+        '
+      }) }} #}
+
+      {# <h2 class="govuk-heading-l govuk-!-margin-top-6">
+        Contact the Rural Payments Agency for help
+      </h2>
+
+      <p class="govuk-body">
+        Email: <a href="#" class="govuk-link">ruralpayments@defra.gov.uk</a>
+      </p>
+
+      <p class="govuk-body">
+        Telephone: 03000 200 301<br />
+        Monday to Friday, 8:30am to 5pm, except bank holidays
+      </p>
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
+      </p> #}
+
+
+      {# {% from "govuk/components/details/macro.njk" import govukDetails %}
+
+      {{ govukDetails({
+        summaryText: "Contact the Rural Payments Agency for help",
+        html: 
+        '
+          <p class="govuk-body">
+            Email: <a href="#" class="govuk-link">ruralpayments@defra.gov.uk</a>
+          </p>
+
+          <p class="govuk-body">
+            Telephone: 03000 200 301<br />
+            Monday to Friday, 8:30am to 5pm, except bank holidays
+          </p>
+
+          <p class="govuk-body">
+            <a href="#" class="govuk-link">Find out about call charges (opens in a new tab)</a>
+          </p>'
+      }) }} #}
+
+
+
+      {# <hr class="govuk-section-break govuk-section-break--l"> #}
+      
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{{ govukRadios({
+  name: "whereDoYouLive",
+  fieldset: {
+    legend: {
+      text: "Are your details up-to-date?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--xl"
+    }
+  },
+  hint: {
+    text: "If your details are not correct, you need to update them before you can get funding to Improve Animal Health and Welfare (IAHW)."
+  },
+  items: [
+    {
+      value: "england",
+      text: "No, update my personal and business details",
+      hint: {
+        text: "To update your personal or business details such as name, email, or addresses, you can use the new Land and Farm Service (LFS)."
+      }
+    },
+    {
+      value: "scotland",
+      text: "No, update my bank details",
+      hint: {
+        text: "If your bank details are missing or incorrect, your claim might be rejected or delayed. To update your bank details or manage permissions, you need to use the Rural Payments Service (RPS)."
+      }
+    },
+    {
+      value: "wales",
+      text: "No, manage access permissions",
+      hint: {
+        text: "Make sure only people you have authorised can use this service. You can manage accounts using the Rural Payments Service (RPS)."
+      }
+    },
+    {
+      divider: "or"
+    },
+    {
+      value: "abroad",
+      text: "Yes, I have updated all my details"
+    }
+  ]
+}) }}
+
+      {{ govukButton({
+        text: "Continue",
+        href: "animal-type",
+        isStartButton: false
+        }) }}
+
+
+
+      
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,459 @@
+{% extends "layouts/main-logged.html" %}
+
+{% block pageTitle %}
+  Farmers: how to apply for funding to improve animal health and welfare
+{% endblock %}
+
+{% block header %}
+  <!-- Blank header with no service name for this page -->
+  {{ govukHeader() }}
+{% endblock %}
+
+{% block beforeContent %}
+
+<nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Home</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Environment</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
+    </li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <span class="govuk-caption-l">Guidance</span>
+      <h1 class="govuk-heading-l">
+        Farmers: how to apply for funding to improve animal health and welfare
+      </h1>
+
+      <p class="govuk-body-l">Apply for funding for a vet to visit your farm to reduce endemic diseases and conditions, increase animal productivity and improve animal welfare.</p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+      <p class="govuk-body-s">
+        From: <a href="#">Department for Environment, Food and Rural Affairs</a> and <a href="#">Rural Payments Agency</a>
+        Published 19 June 2024<br/>
+        Last updated 10 October 2024 - <a href="#">See all updates</a>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      {{ govukButton({
+        text: "Get emails about this page",
+        href: "#",
+        classes: "govuk-button--secondary"
+      }) }}
+
+      <!-- Grey box -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <div class="custom-grey-box-guidance">
+        <h2 class="govuk-heading-s">
+          Applies to England
+        </h2>
+      </div>
+
+
+      <aside class="govuk-prototype-kit-common-templates-mainstream-guide-contents-list" role="complementary">
+        <nav class="govuk-prototype-kit-common-templates-contents-list" aria-label="Pages in this guide" role="navigation">
+          <h2 class="govuk-prototype-kit-common-templates-contents-list__title">
+            Contents
+          </h2>
+          <ol class="govuk-prototype-kit-common-templates-contents-list__list">
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed govuk-prototype-kit-common-templates-contents-list__list-item--active">
+              <a href="#what-you-could-get">
+                What you could get
+              </a>
+            </li>
+            <li aria-current="true" class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+               <a href="#animal-health-and-welfare-review">
+                Animal health and welfare review
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#endemic-disease-follow-up">
+                Endemic disease follow-up
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#who-can-get-funding">
+                Who can get funding
+              </a>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#timing-of-reviews-and-follow-ups">
+                Timing of reviews and follow-ups
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#what-to-do-if-you-completed-a-review">
+                What to do if you completed a review in the old animal and health welfare service
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#start-your-application">
+                Start your application
+              </a>
+            </li>
+            <li class="govuk-prototype-kit-common-templates-contents-list__list-item govuk-prototype-kit-common-templates-contents-list__list-item--dashed">
+              <a href="#get-help-with-your-application">
+                Get help with your application
+              </a>
+            </li>
+            </li>
+          </ol>
+        </nav>
+      </aside>
+
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <!-- Print button -->
+
+      <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Print this page
+      </button> 
+
+
+
+      <!-- Pathway -->
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <p class="govuk-body">This service forms part of the Animal Health and Welfare Pathway. It will provide payments to livestock keepers to fund farm visits by vets.</p>
+
+      <p class="govuk-body">To get funding, you must have an Improve Animal Health and Welfare (IAHW) agreement in place for any reviews or follow-ups.</p>
+
+      <p class="govuk-body">You can get funding for a vet, or a team chosen by a vet, to visit your farm if you keep:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>beef cattle</li>
+          <li>dairy cattle</li>
+          <li>pigs</li>
+          <li>sheep</li>
+        </ul>
+
+      <p class="govuk-body">A vet, or a team chosen by a vet, can do these visits. If a farmer is a vet, they must use another vet and should not do the visit themselves.</p>
+
+      <p class="govuk-body">There are 2 parts to the service:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>animal health and welfare review</li>
+          <li>endemic disease follow-up</li>
+        </ul>
+      </p>
+
+      <p class="govuk-body">You can choose the vet you want to do these. If the farmer is a vet, they must use another vet and should not do the visit themselves. The review and follow-up are not an inspection or audit.</p>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          All your reviews and follow-ups must be done on the same species.
+        </strong>
+      </div>
+
+
+      <!-- What you could get -->
+
+      <h2 id="what-you-could-get" class="govuk-heading-m">
+        What you could get
+      </h2>
+      <p class="govuk-body">You'll get funding for whichever species you choose, not for each animal.</p>
+
+      <table class="govuk-table">
+        <!-- <caption class="govuk-table__caption govuk-table__caption--m">Months and rates</caption> -->
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Species</th>
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">Animal health and welfare review funding</th>
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">Endemic disease follow-up funding</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Pigs</th>
+            <td class="govuk-table__cell govuk-table__cell--numeric">£557</td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">£923</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Sheep</th>
+            <td class="govuk-table__cell govuk-table__cell--numeric">£436</td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">£639</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Beef cattle</th>
+            <td class="govuk-table__cell govuk-table__cell--numeric">£522</td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">£837 if review result is positive
+              £215 if review result is negative</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Dairy cattle</th>
+            <td class="govuk-table__cell govuk-table__cell--numeric">£327</td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">N/A</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="govuk-body">The funding amount for each species is different because some tests cost more to do.</p>
+
+      <p class="govuk-body">The funding will contribute to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the cost of testing</li>
+        <li>your time and the vet's time</li>
+      </ul>
+     </p>
+
+     <p class="govuk-body">As part of your IAHW agreement, you can have up to:</p>
+     <ul class="govuk-list govuk-list--bullet">
+       <li>3 reviews</li>
+       <li>3 follow-ups</li>
+     </ul>
+    </p>
+
+    <p class="govuk-body">These can be on one or more species from the list of eligible livestock - beef cattle, dairy cattle, pigs or sheep.</p>
+
+    <p class="govuk-body">The service ends on 19 June 2027. All reviews and follow-ups must be done by this date.</p>
+      
+
+    <!-- Animal health and welfare review -->
+
+    <h2 id="animal-health-and-welfare-review" class="govuk-heading-m">
+      Animal health and welfare review
+    </h2>
+
+    <p class="govuk-body">During a review, the vet will:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>test for endemic disease (for cattle and pigs)</li>
+      <li>test the effectiveness of medicines to treat worms (for sheep)</li>
+      <li>advise you on how to improve animal health and welfare</li>
+      <li>advise you on how to increase animal productivity</li>
+      <li>discuss any other topics that are important to you</li>
+    </ul>
+   </p>
+
+   <p class="govuk-body">After the vet has completed a review, you can choose to have an endemic disease follow-up.</p>
+
+
+    <!-- Endemic disease follow-up -->
+
+    <h2 id="endemic-disease-follow-up" class="govuk-heading-m">
+      Endemic disease follow-up
+    </h2>
+
+    <p class="govuk-body">
+      You can only do a follow-up after you have done a review. You may also prefer to claim successfully for the review before you organise a follow-up. The follow-up must be on the same species as the review.
+    </p>
+
+    <p class="govuk-body">During a follow-up, the vet will:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>do more in-depth disease testing based on your review results (for beef cattle and pigs)</li>
+      <li>do disease testing or condition assessments based on farm health priorities (for sheep)</li>
+      <li>do a biosecurity assessment</li>
+    </ul>
+
+    <p class="govuk-body">The vet will also advise you on further steps to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>control and prevent disease</li>
+      <li>improve animal health and welfare</li>
+      <li>improve animal productivity</li>
+    </ul>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-visually-hidden">Warning</span>
+        Endemic disease follow-up is not available for dairy cattle yet. This part of the service will be available soon.
+      </strong>
+    </div>
+
+
+    <!-- Who can get funding -->
+
+    <h2 id="who-can-get-funding" class="govuk-heading-m">
+      Who can get funding
+    </h2>
+
+    <p class="govuk-body">
+      You must have a minimum number of animals each time the vet visits your farm. You must have one or more of the following:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>11 or more beef cattle</li>
+      <li>11 or more dairy cattle</li>
+      <li>51 or more pigs</li>
+      <li>21 or more sheep</li>
+    </ul>
+
+    <p class="govuk-body">
+      You can still apply for funding if you got a lump sum payment to leave or retire from farming.
+    </p>
+
+    <p class="govuk-body">You must:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>claim only for livestock registered in England</li>
+      <li>be responsible for the welfare of your livestock when the vet does a review or follow-up</li>
+      <li>claim only for businesses with a single business identifier (SBI) linked to a county parish holding (CPH) number</li>
+    </ul>
+
+    <p class="govuk-body">
+      The CPH number must be registered in England. The CPH number cannot be:
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>an 8,000 number used for abattoirs, pet food manufacturers, racing pigeon establishments, and showgrounds</li>
+      <li>a 9,000 number used for poultry keepers</li>
+    </ul>
+
+
+     <!-- Timing of reviews and follow-ups -->
+
+     <h2 id="timing-of-reviews-and-follow-ups" class="govuk-heading-m">
+      Timing of reviews and follow-ups
+    </h2>
+
+    <p class="govuk-body">
+      You can do up to 3 reviews and 3 follow-ups as part of your IAHW agreement
+    </p>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-visually-hidden">Warning</span>
+        To be eligible to claim, you need to have an IAHW agreement in place and follow these timing rules.
+      </strong>
+    </div>
+
+    <!-- Steps to Complete Reviews and Follow-ups -->
+
+    {# <p class="govuk-body">
+      Animal health and welfare reviews
+    </p> #}
+
+    <h3 id="animal-health-and-welfare-reviews" class="govuk-heading-s">
+      Animal health and welfare reviews
+    </h3>
+
+    <p class="govuk-body">
+      To be eligible to claim for animal health and welfare reviews you must:
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>have an Improve Animal Health and Welfare (IAHW) agreement in place before you do your first review</li>
+      <li>ensure reviews on a particular species are at least 10 months apart</li>
+      <li>have no more than 3 animal health and welfare reviews per species before 19 June 2027</li>
+    </ul>
+
+    {# <p class="govuk-body">
+      Endemic disease follow-ups
+    </p> #}
+
+    <h3 id="endemic-disease-follow-ups" class="govuk-heading-s">
+      Endemic disease follow-ups
+    </h3>
+
+    <p class="govuk-body">
+      To be eligible to claim for endemic disease follow-ups you must:
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>have an IAHW agreement agreement in place before you do your first follow-up</li>
+      <li>have had a review which you should claim for first</li>
+      <li>ensure the follow-up takes place no more than 10 months after your review</li>
+      <li>have the follow-up on the same species as the review</li>
+      <li>ensure that follow-ups for that species take place at least 10 months after your last follow-up and always be at least 10 months apart</li>
+      <li>have no more than 3 endemic disease follow-ups per species before 19 June 2027</li>
+    </ul>
+
+    <!-- What to do if you completed a review in the old animal and health welfare service -->
+
+    <h2 id="what-to-do-if-you-completed-a-review-in-the-old-animal-and-health-welfare-service" class="govuk-heading-m">
+      What to do if you completed a review in the old animal and health welfare service
+    </h2>
+
+    <p class="govuk-body">
+      You must:
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>have an IAHW agreement in place before carrying out a follow-up</li>
+      <li>claim for any previous reviews carried out in the old animal health and welfare service to be eligible to set up an IAHW agreement</li>
+      <li>carry out a follow-up within 10 months of the previous review visit</li>
+      <li>carry out the follow up on the same species as the review</li>
+      <li>wait until 10 months after your last review before doing a new review under this agreement. This applies even if your review claim was rejected</li>
+    </ul>
+
+    <!-- Start your application -->
+
+    <h2 id="start-your-application" class="govuk-heading-m">
+      Start your application
+    </h2>
+
+    <p class="govuk-body">
+      <a href="agreement-start-page" class="govuk-link">Apply for funding to improve animal health and welfare.</a>
+    </p>
+
+    <!-- Get help with your application -->
+
+    <h2 id="get-help-with-your-application" class="govuk-heading-m">
+      Get help with your application
+    </h2>
+
+    <div class="custom-grey-box">
+      <p class="govuk-body">
+        For more help with applying for this service, you can watch this video. It shows you how to apply and how to find all the information farmers and vets need.
+      </p>
+    </div>
+
+    <p class="govuk-body">
+      Contact the Rural Payments Agency if you:
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>cannot apply online</li>
+      <li>have a question about your application</li>
+    </ul>
+
+    <p class="govuk-body">
+      You can scan and attach documents in an email and send them to us. Or you can post them to our address. You should:
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
+      {# <li>use 'Get funding to improve animal health and welfare' as the email subject heading</li> #}
+      <li>use 'IAHW' in the email subject heading</li>
+      <li>put your SBI and IAHW agreement number on everything you send to us</li>
+    </ul>
+
+
+    <!-- Contact details -->
+
+    <p class="govuk-body">Rural Payments Agency</p>
+
+    <p class="govuk-body">PO Box 352</p>
+
+    <p class="govuk-body">Worksop</p>
+
+    <p class="govuk-body">S80 9FG</p>
+
+    <p class="govuk-body">Email: <a href="#">ruralpayments@defra.gov.uk</a></p>
+
+    <ul class="govuk-list govuk-list">
+        <li>Telephone: 03000 200 301</li>
+        <li>Monday to Friday, 8:30am to 5pm, except bank holidays</li>
+    </ul>
+
+    <p class="govuk-body"><a href="https://www.gov.uk/call-charges">Find out about call charges</a></p>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

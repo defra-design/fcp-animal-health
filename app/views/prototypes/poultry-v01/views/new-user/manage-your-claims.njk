@@ -4,19 +4,6 @@
   Manage your claims – {{ serviceName }} – Prototype  
 {% endblock %}
 
-{# {% block header %}
-  <!-- Header for v1 -->
-{{ govukHeader({
-  homepageUrl: "holding-page",
-  serviceName: "Get funding to improve animal health and welfare",
-  serviceUrl: "../index-research"
-}) }}
-{% endblock %}
-
-{% from "govuk/components/header/macro.njk" import govukHeader %} #}
-
-
-
 {% block beforeContent %}
   {{ super() }}
 
@@ -40,13 +27,13 @@
       <div class="govuk-grid-row govuk-!-padding-bottom-2 govuk-!-padding-top-2 govuk-!-border-bottom-2">
         <div class="govuk-grid-column-two-thirds">
           {# <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Arthington Farm Ltd</h2> #}
-          <p class="govuk-body govuk-!-margin-bottom-0"><strong>Agreement number:</strong> IAHW-2345-6789</p>
+          <p class="govuk-body govuk-!-margin-bottom-0"><strong>Agreement number:</strong> PORE-2345-6789</p>
           <p class="govuk-body govuk-!-margin-bottom-0"><strong>Species included in this agreement:</strong> poultry</p>
         </div>
         <div class="govuk-grid-column-one-third govuk-!-display-flex govuk-!-justify-content-flex-end govuk-!-align-items-center govuk-!-flex-wrap-wrap">
           <div class="govuk-!-text-align-right">
             <p class="govuk-body govuk-!-margin-bottom-0"><a class="govuk-body govuk-link" href="agreement-summary">Download agreement summary</a></p>
-            <p class="govuk-body govuk-!-margin-bottom-0"><a class="govuk-body govuk-link" href="select-funding-claim">Claim for a different agreement</a></p>
+            <p class="govuk-body govuk-!-margin-bottom-0"><a class="govuk-body govuk-link" href="select-funding-claim?funding=cattle"">Claim for a different agreement</a></p>
           </div>
         </div>
       </div>
@@ -58,43 +45,40 @@
 <div class="govuk-grid-row govuk-!-padding-top-1">
   <div class="govuk-grid-column-full">
 
-      
+    <div>
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+        Manage your claims
+      </h1>
 
+      <p>Start a new claim or view and manage your current claims. We recommend you claim in order of the visits.</p>
 
-      <div>
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
-          Manage your claims
-        </h1>
+      {# <br>
+          Download your <a href="agreement-summary">agreement summary</a>.
+      <p>Agreement number: <strong>IAHW-91254-88277</strong><br>
+      </p> #}
+      {# <p>You can claim for <strong>Single species</strong> <a href="#">aceept multi-species agreement</a>
+      </p> #}
+      {# <p>You can claim for <strong>multiple species</strong><a href="#"> contact us to discuss</a>
+      </p> #}
 
-        <p>Start a new claim or view and manage your current claims. We recommend you claim in order of the visits.</p>
-
-        {# <br>
-            Download your <a href="agreement-summary">agreement summary</a>.
-        <p>Agreement number: <strong>IAHW-91254-88277</strong><br>
-        </p> #}
-        {# <p>You can claim for <strong>Single species</strong> <a href="#">aceept multi-species agreement</a>
-        </p> #}
-        {# <p>You can claim for <strong>multiple species</strong><a href="#"> contact us to discuss</a>
-        </p> #}
-
-        {{ govukButton({
-          text: "Start a new claim",
-          href: "/prototypes/poultry-v01/new-user/animal-type",
-          isStartButton: false
-        }) }}
-        </div>
+      {{ govukButton({
+        text: "Start a new claim",
+        href: "/prototypes/poultry-v01/new-user/animal-type",
+        isStartButton: false
+      }) }}
+    </div>
 
         {# <hr class="govuk-section-break govuk-section-break--m govuk-section-break"> #}
 
-        <div>
-          <h2 class="govuk-heading-m">
-            Your claims
-          </h2>
+    <div>
+      <h2 class="govuk-heading-m">
+        Your claims
+      </h2>
 
-          {% if data['populated'] === "false" %}
-          <p class="govuk-body" style="color:	#505a5f;">Your claims will appear here once you have submitted them.</p>
-        
-        {% else %}
+      {% if data['populated'] === "false" %}
+        <p class="govuk-body" style="color:	#505a5f;">Your claims will appear here once you have submitted them.</p>
+    
+      {% else %}
         <!-- MoJ Sortable Table -->
         {# <div class="moj-scrollable-pane"> #}
         <table class="govuk-table" data-module="moj-sortable-table">
@@ -102,8 +86,7 @@
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
-              {# <th scope="col" class="govuk-table__header" aria-sort="none">Species</th> #}
-              <th scope="col" class="govuk-table__header" aria-sort="none">Flock name</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Unit name</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Claim number</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
             </tr>
@@ -111,8 +94,7 @@
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">10/05/2026</td>
-              {# <td class="govuk-table__cell">Beef cattle</td> #}
-              <td class="govuk-table__cell">Flock 1</td>
+              <td class="govuk-table__cell">Shed 1</td>
               <td class="govuk-table__cell">REBC-6844-3031</td>
               <td class="govuk-table__cell">
                 <strong class="govuk-tag govuk-tag">
@@ -129,8 +111,7 @@
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
-              {# <th scope="col" class="govuk-table__header" aria-sort="none">Species</th> #}
-              <th scope="col" class="govuk-table__header" aria-sort="none">Flock name</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Unit name</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Claim number</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
             </tr>
@@ -138,25 +119,25 @@
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">10/05/2026</td>
-              {# <td class="govuk-table__cell">Beef cattle</td> #}
-              <td class="govuk-table__cell">Flock 2</td>
+              <td class="govuk-table__cell">Shed 2</td>
               <td class="govuk-table__cell">REBC-6844-3031</td>
               <td class="govuk-table__cell">
-                <strong class="govuk-tag govuk-tag">
-                  Approved
+                <strong class="govuk-tag govuk-tag--green">
+                  Submitted
                 </strong>
               </td>
             </tr>
           </tbody>
-        </table>        
+        </table>
 
-                <table class="govuk-table" data-module="moj-sortable-table">
+
+{# 
+        <table class="govuk-table" data-module="moj-sortable-table">
           <caption class="govuk-table__caption govuk-table__caption--s">Ducks</caption>
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
-              {# <th scope="col" class="govuk-table__header" aria-sort="none">Species</th> #}
-              <th scope="col" class="govuk-table__header" aria-sort="none">Flock name</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Unit name</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Claim number</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
             </tr>
@@ -164,8 +145,7 @@
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">10/05/2026</td>
-              {# <td class="govuk-table__cell">Beef cattle</td> #}
-              <td class="govuk-table__cell">Flock 3</td>
+              <td class="govuk-table__cell">Shed 3</td>
               <td class="govuk-table__cell">REBC-6844-3031</td>
               <td class="govuk-table__cell">
                 <strong class="govuk-tag govuk-tag">
@@ -182,8 +162,7 @@
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
-              {# <th scope="col" class="govuk-table__header" aria-sort="none">Species</th> #}
-              <th scope="col" class="govuk-table__header" aria-sort="none">Flock name</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Unit name</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Claim number</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
             </tr>
@@ -191,8 +170,7 @@
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">10/05/2026</td>
-              {# <td class="govuk-table__cell">Beef cattle</td> #}
-              <td class="govuk-table__cell">Flock 4</td>
+              <td class="govuk-table__cell">Shed 4</td>
               <td class="govuk-table__cell">REBC-6844-3031</td>
               <td class="govuk-table__cell">
                 <strong class="govuk-tag govuk-tag">
@@ -209,8 +187,7 @@
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
-              {# <th scope="col" class="govuk-table__header" aria-sort="none">Species</th> #}
-              <th scope="col" class="govuk-table__header" aria-sort="none">Flock name</th>
+              <th scope="col" class="govuk-table__header" aria-sort="none">Unit name</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Claim number</th>
               <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
             </tr>
@@ -218,8 +195,7 @@
           <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
               <td class="govuk-table__cell" data-sort-value="20241017">10/05/2026</td>
-              {# <td class="govuk-table__cell">Beef cattle</td> #}
-              <td class="govuk-table__cell">Flock 5</td>
+              <td class="govuk-table__cell">Shed 5</td>
               <td class="govuk-table__cell">REBC-6844-3031</td>
               <td class="govuk-table__cell">
                 <strong class="govuk-tag govuk-tag">
@@ -228,8 +204,11 @@
               </td>
             </tr>
           </tbody>
-        </table>
-        {# </div> #}
+        </table> #}
+
+
+
+
         </div>
 
         {% endif %}

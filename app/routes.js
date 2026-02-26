@@ -50,6 +50,9 @@ router.use('/prototypes/v04/new-user', require('./views/prototypes/v04/routes'))
 router.use('/prototypes/v05', require('./views/prototypes/v05/routes'));
 router.use('/prototypes/v05/new-user', require('./views/prototypes/v05/routes'));
 
+router.use('/prototypes/v06', require('./views/prototypes/v06/routes'));
+router.use('/prototypes/v06/new-user', require('./views/prototypes/v06/routes'));
+
 router.use('/prototypes/poultry-v01', require('./views/prototypes/poultry-v01/routes'));
 router.use('/prototypes/poultry-v01/new-user', require('./views/prototypes/poultry-v01/routes'));
 

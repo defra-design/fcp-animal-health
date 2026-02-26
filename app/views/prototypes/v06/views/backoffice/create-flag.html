@@ -1,0 +1,175 @@
+{% extends "layouts/layout-defra-wide.html" %}
+
+{% block pageTitle %}
+Back office: User application
+{% endblock %}
+{# {% set serviceName %}
+Annual Health and Welfare Back Office
+{% endset %} #}
+
+{% block beforeContent %}
+  {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.go(-1)"
+  }) }}
+{% endblock %}
+
+
+{# {% block beforeContent %}
+<a class="govuk-back-link" href="javascript:history.go(-1)">Back</a>
+<!--<a style="float:right;" class="govuk-!-margin-bottom-0 govuk-!-margin-top-2" href="index.html">Claims and agreements dashboard</a>-->
+
+{% endblock %} #}
+
+{% block content %}
+{# <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+  Back to all flags
+</button> #}
+    
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        
+        {# <h1 class="govuk-caption-l govuk-!-margin-bottom-3">
+          Claim by <a href="business.html">P & D Fearnley & Sons</a>
+        </h1>
+    
+        <h2 class="govuk-heading-l">
+          Claim number: REPI-6844-3029 
+          <strong class="govuk-tag govuk-tag--purple">
+            On hold
+          </strong>
+        </h2> #}
+    
+    {# <div class="govuk-panel govuk-grid-column-two-thirds govuk-panel--confirmation govuk-!-text-align-left" id="create-flag"> #}
+    <form method="POST" action="https://ffc-ahwr-backoffice-test.azure.defra.cloud/flags/create" class="ahwr-update-form">
+      {# <a href="https://ffc-ahwr-backoffice-test.azure.defra.cloud/flags" class="govuk-link govuk-body">Back</a> #}
+      <h1 class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">Create flag</h1>
+      <span class="govuk-caption-xl govuk-!-margin-bottom-7">An agreement can have a maximum of 2 flags; one for multiple herds T&amp;C's and one for any other reason.</span>
+
+      
+
+      <div class="govuk-inset-text">
+  If an agreement is flagged for not agreeing to multiple herds T&amp;C's, when the owner of that agreement makes a claim they will not see the multiple herds pages and will not be able to claim for multiple herds.
+</div>
+
+
+      
+
+
+
+  
+<div class="govuk-form-group">
+  <label class="govuk-label govuk-label--m" for="agreement-reference">
+    What is the reference of the agreement you want to flag?
+  </label>
+
+  
+  
+  <div id="agreement-reference-hint" class="govuk-hint">
+    Copy and paste the agreement reference from the agreements tab.
+  </div>
+
+
+  <input class="govuk-input govuk-input--width-10" id="agreement-reference" name="appRef" type="text" aria-describedby="agreement-reference-hint">
+
+</div>
+
+
+      
+
+
+
+<div class="govuk-form-group">
+  <label class="govuk-label govuk-label--m" for="note">
+    Note
+  </label>
+
+  
+  
+  <div id="note-hint" class="govuk-hint">
+    Provide some details as to why the agreement has been flagged.
+  </div>
+
+
+
+  <textarea class="govuk-textarea" id="note" name="note" rows="5" aria-describedby="note-hint"></textarea>
+
+</div>
+
+
+      
+
+
+
+<div class="govuk-form-group">
+
+  <fieldset class="govuk-fieldset">
+    
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+    
+      Is the flag because the owner of the agreement didn't agree to multiple herds T&amp;C's?
+    
+    </legend>
+    
+  
+    <div class="govuk-radios" data-module="govuk-radios" data-govuk-radios-init="">
+      
+      
+        
+    
+      
+      
+      
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="appliesToMh" name="appliesToMh" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="appliesToMh">
+          Yes
+        </label>
+        
+      </div>
+      
+    
+      
+        
+    
+      
+      
+      
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="appliesToMh-2" name="appliesToMh" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="appliesToMh-2">
+          No
+        </label>
+        
+      </div>
+      
+    
+      
+      
+    </div>
+  
+  </fieldset>
+
+</div>
+
+  
+    
+  
+    
+        {{ govukButton({
+          text: "Create flag",
+          href: "flags.html"
+        }) }}
+
+{# <button type="submit" class="govuk-button" data-module="govuk-button" data-govuk-button-init="">
+  Create flag
+</button> #}
+
+  </form>
+{# </div> #}
+
+  </div>
+</div>
+
+{% endblock %}

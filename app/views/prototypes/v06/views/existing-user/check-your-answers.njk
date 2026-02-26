@@ -1,0 +1,230 @@
+{% extends "layouts/main-logged.html" %}
+
+{% set animalType = data['animal-type'] or 'Beef cattle' %}
+{% set reviewDate = data['review-date'] or '4 September 2024' %}
+{% set sampleDate = data['sample-date'] or '12 September 2024' %}
+{% set animalsNumber = data['animals-number'] or 'Yes' %}
+{% set sampleNumber = data['sample-number'] or '6' %}
+{% set vetsName = data['vets-name'] or 'Alex Federico' %}
+{% set vetsRcvs = data['vets-rcvs'] or '5435472' %}
+{% set urn = data['test-urn'] or '38527594' %}
+
+{% block header %}
+  <!-- Header with service name and link to the holding page -->
+  {{ govukHeader({
+    homepageUrl: "holding-page",
+    serviceName: "Get funding to improve animal health and welfare",
+    serviceUrl: "#"
+  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers
+      </h1>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Business name"
+            },
+            value: {
+              text: "Arthington Farm"
+            }
+          }
+          ,
+                    {
+            key: {
+              text: "Livestock"
+            },
+            value: {
+              text: animalType
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Review or follow-up"
+            },
+            value: {
+              text: "Animal health and welfare review"
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Date of review"
+            },
+            value: {
+              text: reviewDate
+            },
+            actions: {
+              items: [
+                {
+                  href: "review-date",
+                  text: "Change",
+                  visuallyHiddenText: "Date of review"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Date of sampling"
+            },
+            value: {
+              text: sampleDate
+            },
+            actions: {
+              items: [
+                {
+                  href: "sample-date",
+                  text: "Change",
+                  visuallyHiddenText: "Date of sampling"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "11 or more beef cattle"
+            },
+            value: {
+              text: animalsNumber
+            },
+            actions: {
+              items: [
+                {
+                  href: "number-animals",
+                  text: "Change",
+                  visuallyHiddenText: "11 or more beef cattle"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Number of samples taken"
+            },
+            value: {
+              text: sampleNumber
+            },
+            actions: {
+              items: [
+                {
+                  href: "sample-number",
+                  text: "Change",
+                  visuallyHiddenText: "Number of samples taken"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Vet's name"
+            },
+            value: {
+              text: vetsName
+            },
+            actions: {
+              items: [
+                {
+                  href: "vets-name",
+                  text: "Change",
+                  visuallyHiddenText: "Vet's name"
+                }
+              ]
+            }
+          }
+          ,  
+          {
+            key: {
+              text: "Vet's RCVS number"
+            },
+            value: {
+              text: vetsRcvs
+            },
+            actions: {
+              items: [
+                {
+                  href: "vets-rcvs",
+                  text: "Change",
+                  visuallyHiddenText: "Vet's RCVS number"
+                }
+              ]
+            }
+          }
+          , 
+          {
+            key: {
+              text: "URN or test certificate"
+            },
+            value: {
+              text: urn
+            },
+            actions: {
+              items: [
+                {
+                  href: "test-urn",
+                  text: "Change",
+                  visuallyHiddenText: "URN or test certificate"
+                }
+              ]
+            }
+          }
+          ,                                              
+          {
+            key: {
+              text: "Test result"
+            },
+            value: {
+              text: data['test-result'] or "Positive"
+            },
+            actions: {
+              items: [
+                {
+                  href: "test-result",
+                  text: "Change",
+                  visuallyHiddenText: "Test result"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break">
+
+      <p class="govuk-body">By submitting your claim you confirm that:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>you understand you may have to provide evidence to the Rural Payments Agency to support this claim</li>
+        <li>all the information you have provided in this claim is correct to the best of your knowledge</li>
+      </ul>
+
+
+        {{ govukButton({
+        text: "Submit your claim",
+        href: "confirmation-claim",
+        isStartButton: false
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

@@ -23,11 +23,11 @@
         <fieldset class="govuk-fieldset" aria-describedby="vets-name-hint">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-              Enter the flock name
+              Enter the unit name
             </h1>
           </legend>
           <div id="vets-name-hint" class="govuk-hint">
-            You can find this information on the ‘Tell us about this flock’ section of the form that the vet filled in for you.
+            You can find this information on the ‘Tell us about this unit' section of the form that the vet filled in for you.
           </div>
           {{ govukInput({
             id: "vets-name",
@@ -48,8 +48,8 @@
       {% from "govuk/components/details/macro.njk" import govukDetails %}
 
       {{ govukDetails({
-        summaryText: "I don’t have the flock details from the vet",
-        html: "Your vet should have completed the ‘Tell us about this flock’ section on the vet template. You can ask them to <a href='#'>download the form</a> and fill the details in for you."
+        summaryText: "I don’t have the unit details from the vet",
+        html: "Your vet should have completed the ‘Tell us about this unit' section on the vet template. You can ask them to <a href='#'>download the form</a> and fill the details in for you."
       }) }}
 
 

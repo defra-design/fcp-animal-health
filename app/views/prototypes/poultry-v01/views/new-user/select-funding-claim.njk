@@ -59,7 +59,8 @@
 
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
         {{ govukRadios({
-          name: "signIn",
+          name: "funding",
+          id: "funding",
           fieldset: {
             legend: {
               text: "Select funding",
@@ -72,30 +73,40 @@
           },
           items: [
             {
-              value: "government-gateway",
+              value: "cattle",
               html: "<strong>Cattle, pig, and sheep review and follow-up</strong>",
               classes: "govuk-!-font-weight-bold",
               hint: {
-                html: "You’ll have a user ID if you’ve registered for Self Assessment or filed a tax return online before"
+                html: "<strong>Agreement number:</strong> IAHW-91254-88277<br />
+                      Create or manage claims for this agreement"
               }
             },
             {
-              value: "govuk-one-login",
+              value: "poultry",
               html: "<strong>Poultry biosecurity review</strong>",
               classes: "govuk-!-font-weight-bold",
               hint: {
-                html: "If you don’t have a GOV.UK One Login, you can create one"
+                html: "<strong>Agreement number:</strong> POUL-83720-47282<br />
+                      Create or manage claims for this agreement"
               }
             }
           ]
         }) }}
 
+        {% set hrefFunding = "manage-your-claims?populated=false" %}
+        {% if data['funding'] === "poultry" %}
+        {% set hrefFunding = "manage-your-claims?populated=true&funding=cattle" %}
+        {% else %}
+        {% set hrefFunding = "/prototypes/v06/new-user/manage-your-claims?populated=false" %}
+        {% endif %}
+        {# {% set animalType = data['animal-type'] or 'Beef cattle' %} #}
+
         
-            {{ govukButton({
-            text: "Continue",
-            href: "manage-your-claims",
-            isStartButton: false
-            }) }}
+        {{ govukButton({
+          text: "Continue",
+          href: hrefFunding,
+          isStartButton: false
+        }) }}
 
 
 
