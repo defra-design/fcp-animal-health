@@ -67,7 +67,7 @@
 
         {{ govukButton({
           text: "Start a new claim",
-          href: "/prototypes/v05/new-user/sign-in-check-your-details-bank-v2",
+          href: "animal-type",
           isStartButton: false
         }) }}
         </div>
@@ -79,35 +79,48 @@
             Your claims
           </h2>
 
-          <p class="govuk-body" style="color:	#505a5f;">Your claims will appear here once you have submitted them.</p>
-        <!-- MoJ Sortable Table -->
-        {# <div class="moj-scrollable-pane"> #}
-        {# <table class="govuk-table" data-module="moj-sortable-table">
-          <caption class="govuk-table__caption govuk-table__caption--m">View your claims</caption>
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Species</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Type</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Claim number</th>
-              <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell" data-sort-value="20241017">Once you have submitted a claim, it will appear here.</td>
-              <td class="govuk-table__cell">Beef cattle</td>
-              <td class="govuk-table__cell">Review</td>
-              <td class="govuk-table__cell">REBC-6844-3031</td>
-              <td class="govuk-table__cell">
-                <strong class="govuk-tag govuk-tag">
-                  Approved
-                </strong>
-              </td>
-            </tr>
-          </tbody>
-        </table> #}
-        {# </div> #}
+          {% if data['populated'] === "false" %}
+            <p class="govuk-body" style="color:	#505a5f;">Your claims will appear here once you have submitted them.</p>
+        
+          {% else %}
+            <!-- MoJ Sortable Table -->
+            {# <div class="moj-scrollable-pane"> #}
+            <table class="govuk-table" data-module="moj-sortable-table">
+              <caption class="govuk-table__caption govuk-table__caption--s">Beef cattle</caption>
+              <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  <th scope="col" class="govuk-table__header" aria-sort="none">Visit date</th>
+                  <th scope="col" class="govuk-table__header" aria-sort="none">Herd name</th>
+                  <th scope="col" class="govuk-table__header" aria-sort="none">Type and claim number</th>
+                  <th scope="col" class="govuk-table__header" aria-sort="none">Status</th>
+                </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell" data-sort-value="20241017">12/10/2025</td>
+                  <td class="govuk-table__cell">Commercial herd 1</td>
+                  <td class="govuk-table__cell">Review<br />REBC-4563-6396</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag">
+                      Paid
+                    </strong>
+                  </td>
+                </tr>
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell" data-sort-value="20241017">10/10/2025</td>
+                  <td class="govuk-table__cell">Commercial herd 2</td>
+                  <td class="govuk-table__cell">Review<br />REBC-6844-3031</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag">
+                      Paid
+                    </strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            {# </div> #}
+          {% endif %}
+
         </div>
 
         {# <hr class="govuk-section-break govuk-section-break--l govuk-section-break"> #}

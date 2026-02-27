@@ -56,6 +56,12 @@
 
         </div> #}
 
+        {% set cattleFunding = "<strong>Agreement number:</strong> IAHW-91254-88277<br />Create or manage claims for this agreement" %}
+        {% if data['cattle'] === "yes" %}
+        {% set cattleFunding = "<strong>Agreement number:</strong> IAHW-91254-88277<br />Create or manage claims for this agreement" %}
+        {% else %}
+        {% set cattleFunding = "Create an agreement for improve animal health and welfare for cattle, pigs and sheep" %}
+        {% endif %}
 
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
         {{ govukRadios({
@@ -77,8 +83,7 @@
               html: "<strong>Cattle, pig, and sheep review and follow-up</strong>",
               classes: "govuk-!-font-weight-bold",
               hint: {
-                html: "<strong>Agreement number:</strong> IAHW-91254-88277<br />
-                      Create or manage claims for this agreement"
+                html: cattleFunding
               }
             },
             {
@@ -86,20 +91,19 @@
               html: "<strong>Poultry biosecurity review</strong>",
               classes: "govuk-!-font-weight-bold",
               hint: {
-                html: "<strong>Agreement number:</strong> POUL-83720-47282<br />
-                      Create or manage claims for this agreement"
+                html: "Create an agreement for poultry biosecurity assessments"
               }
             }
           ]
         }) }}
 
-        {# {% set hrefFunding = "manage-your-claims" %} #}
-        {# {% if data['funding'] === "poultry" %}
-        {% set hrefFunding = "manage-your-claims" %}
+        {% set hrefFunding = "manage-your-claims?populated=true" %}
+        {% if data['funding'] === "poultry" %}
+        {% set hrefFunding = "manage-your-claims?populated=true&funding=cattle" %}
         {% else %}
-        {% endif %} #}
+        {% set hrefFunding = "/prototypes/v06/new-user/manage-your-claims?populated=true" %}
+        {% endif %}
         {# {% set animalType = data['animal-type'] or 'Beef cattle' %} #}
-        {% set hrefFunding = "/prototypes/poultry-v01/new-user/manage-your-claims?populated=true&funding=poultry" %}
 
         
         {{ govukButton({
