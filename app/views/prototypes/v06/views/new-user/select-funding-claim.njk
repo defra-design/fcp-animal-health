@@ -101,7 +101,11 @@
         {% if data['funding'] === "poultry" %}
         {% set hrefFunding = "manage-your-claims?populated=true&funding=cattle" %}
         {% else %}
-        {% set hrefFunding = "/prototypes/v06/new-user/manage-your-claims?populated=true" %}
+          {% if data['poultry'] === "yes" %}
+            {% set hrefFunding = "/prototypes/poultry-v01/new-user/manage-your-claims?populated=true" %}
+          {% else %}
+            {% set hrefFunding = "/prototypes/poultry-v01/new-user/you-can-claim-multiple" %}
+          {% endif %}
         {% endif %}
         {# {% set animalType = data['animal-type'] or 'Beef cattle' %} #}
 
