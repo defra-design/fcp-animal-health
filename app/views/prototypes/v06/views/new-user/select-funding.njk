@@ -66,6 +66,13 @@
         {% set cattleFunding = "Create an agreement for improve animal health and welfare for cattle, pigs and sheep" %}
         {% endif %}
 
+        {% set poultryFunding = "<strong>Agreement number:</strong> PORE-83720-47282<br />Create or manage claims for this agreement" %}
+        {% if data['poultry'] === "yes" %}
+        {% set poultryFunding = "<strong>Agreement number:</strong> PORE-83720-47282<br />Create or manage claims for this agreement" %}
+        {% else %}
+        {% set poultryFunding = "Create an agreement for poultry biosecurity reviews" %}
+        {% endif %}
+
 
         {% from "govuk/components/radios/macro.njk" import govukRadios %}
         {{ govukRadios({
@@ -92,12 +99,13 @@
               html: "<strong>Poultry biosecurity review</strong>",
               classes: "govuk-!-font-weight-bold",
               hint: {
-                html: "Create an agreement for poultry biosecurity assessments"
+                html: poultryFunding
               }
             }
           ]
         }) }}
 
+{# "Create an agreement for poultry biosecurity reviews" #}
         
             {{ govukButton({
             text: "Continue",
