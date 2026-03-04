@@ -18,7 +18,7 @@
     <div class="govuk-grid-column-two-thirds">
 
       <h1 class="govuk-heading-xl govuk-!-margin-bottom-2">
-        Check flock details
+        Check unit details
       </h1>
 
       {# <p class="govuk-body govuk-hint govuk-!-margin-bottom-8">
@@ -32,10 +32,10 @@
   rows: [
     {
       key: {
-        text: "Flock name"
+        text: "Unit name"
       },
       value: {
-        text: "Egg laying poultry"
+        text: "Home farm"
       },
       actions: {
         items: [
@@ -45,7 +45,7 @@
     },
     {
       key: {
-        text: "CPH number for flock"
+        text: "CPH number for unit"
       },
       value: {
         text: "4512324"
@@ -55,14 +55,14 @@
           {
             href: "#",
             text: "Change",
-            visuallyHiddenText: "CPH number for flock"
+            visuallyHiddenText: "CPH number for unit"
           }
         ]
       }
     },
     {
       key: {
-        text: "Only flock associated with SBI"
+        text: "Only unit associated with SBI"
       },
       value: {
         html: "No"
@@ -76,7 +76,11 @@
           }
         ]
       }
-    },
+    }
+  ]
+}) }}
+
+    {# ,
     {
       key: {
         text: "Flock details"
@@ -93,10 +97,7 @@
           }
         ]
       }
-    }
-  ]
-}) }}
-
+    } #}
 
       {# <div class="govuk-form-group">
         

@@ -27,11 +27,11 @@
           <fieldset class="govuk-fieldset" aria-describedby="test-result-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 class="govuk-fieldset__heading">
-                Is this the only flock associated with this Single Business Identifier (SBI)?
+                Is this the only unit associated with this Single Business Identifier (SBI)?
               </h1>
             </legend>
             <div id="test-result-hint" class="govuk-hint">
-              You can find this information on the ‘Tell us about this flock’ section of the form that the vet filled in for you.
+              You can find this information on the ‘Tell us about this unit’ section of the form that the vet filled in for you.
             </div>
             {{ govukRadios({
               name: "test-result",
@@ -53,11 +53,14 @@
         </div>
 
         
-            {{ govukButton({
-            text: "Continue",
-            href: "flock-reasons",
-            isStartButton: false
-            }) }}
+        {{ govukButton({
+        text: "Continue",
+        href: "flock-review",
+        isStartButton: false
+        }) }}
+
+
+        {# flock-reasons #}
 
 
 
