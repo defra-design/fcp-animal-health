@@ -17,19 +17,19 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+      {# {% from "govuk/components/radios/macro.njk" import govukRadios %} #}
 
-      {{ govukRadios({
+      {{ govukCheckboxes({
         name: "animal-type",
         fieldset: {
           legend: {
-            text: "Which species of poultry are you claiming for?",
+            text: "Which species of poultry do you keep in this unit?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
         },
         hint: {
-          text: "Choose the main species you are claiming for, if you have more than one species on your unit"
+          text: "Select all species you keep in this unit"
         },
         items: [
           {
@@ -60,7 +60,7 @@
 
             {{ govukButton({
               text: "Continue",
-              href: "review-date",
+              href: "animals-number",
               isStartButton: false
             }) }}
 
