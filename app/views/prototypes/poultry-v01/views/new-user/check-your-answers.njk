@@ -38,24 +38,6 @@
           ,
           {
             key: {
-              text: "Species"
-            },
-            value: {
-              text: animalType
-            }
-          }
-          ,
-          {
-            key: {
-              text: "Unit name"
-            },
-            value: {
-              text: "Home farm"
-            }
-          }
-          ,
-          {
-            key: {
               text: "Date of review"
             },
             value: {
@@ -74,17 +56,53 @@
           ,
           {
             key: {
-              text: "Assurance scheme"
+              text: "Unit name"
             },
             value: {
-              text: animalsNumber
+              text: "Home farm"
             },
             actions: {
               items: [
                 {
-                  href: "assurance-scheme",
+                  href: "review-date",
                   text: "Change",
-                  visuallyHiddenText: "assurance scheme"
+                  visuallyHiddenText: "Date of review"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Unit CPH number"
+            },
+            value: {
+              text: "11/111/1111"
+            },
+            actions: {
+              items: [
+                {
+                  href: "review-date",
+                  text: "Change",
+                  visuallyHiddenText: "Date of review"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Species"
+            },
+            value: {
+              text: animalType
+            },
+            actions: {
+              items: [
+                {
+                  href: "animal-type",
+                  text: "Change",
+                  visuallyHiddenText: "Date of review"
                 }
               ]
             }
@@ -103,6 +121,24 @@
                   href: "number-animals",
                   text: "Change",
                   visuallyHiddenText: "1,000 or more laying hens"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Assurance scheme"
+            },
+            value: {
+              text: animalsNumber
+            },
+            actions: {
+              items: [
+                {
+                  href: "assurance-scheme",
+                  text: "Change",
+                  visuallyHiddenText: "assurance scheme"
                 }
               ]
             }
