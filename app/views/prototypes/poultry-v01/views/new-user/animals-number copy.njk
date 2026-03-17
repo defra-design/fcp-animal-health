@@ -24,20 +24,22 @@
         name: "animals-number",
         fieldset: {
           legend: {
-            text: "Has your vet confirmed that this site can hold the minimum number of birds?",
+            text: "Did you have the minimum number of at least one species of bird in this site on the date of the visit?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
         },
         hint: {
-          html: "Minimum number of birds per species:<br />
+          html: "You can find this on the summary the vet gave you.<br />
+Minimum number of birds per species:<br />
 <ul class='govuk-list govuk-list--bullet'>
   <li class='govuk-hint'>1,000 broilers</li>
   <li class='govuk-hint'>1,000 laying hens</li>
   <li class='govuk-hint'>500 ducks</li>
   <li class='govuk-hint'>500 geese</li>
   <li class='govuk-hint'>500 turkeys</li>
-</ul>"
+</ul>
+"
         },
         items: [
           {
@@ -62,7 +64,4 @@
 
   </div>
 
-
-
-{# You can find this on the summary the vet gave you.<br /> #}
 {% endblock %}
