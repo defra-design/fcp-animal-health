@@ -56,7 +56,7 @@
           ,
           {
             key: {
-              text: "Unit name"
+              text: "Site name"
             },
             value: {
               text: "Home farm"
@@ -74,7 +74,7 @@
           ,
           {
             key: {
-              text: "Unit CPH number"
+              text: "Site CPH number"
             },
             value: {
               text: "11/111/1111"
@@ -110,7 +110,7 @@
           ,
           {
             key: {
-              text: "1,000 or more laying hens"
+              text: "Minimum number of birds"
             },
             value: {
               text: animalsNumber
@@ -120,7 +120,7 @@
                 {
                   href: "number-animals",
                   text: "Change",
-                  visuallyHiddenText: "1,000 or more laying hens"
+                  visuallyHiddenText: "minimum number of birds"
                 }
               ]
             }
@@ -193,6 +193,57 @@
                   href: "biosecurity-assessment",
                   text: "Change",
                   visuallyHiddenText: "biosecurity assessment"
+                }
+              ]
+            }
+          },                                              
+          {
+            key: {
+              text: "Biosecurity changes planned"
+            },
+            value: {
+              text: data['test-result'] or "Yes, I have already started"
+            },
+            actions: {
+              items: [
+                {
+                  href: "biosecurity-changes",
+                  text: "Change",
+                  visuallyHiddenText: "biosecurity changes planned"
+                }
+              ]
+            }
+          },                                              
+          {
+            key: {
+              text: "Expected cost for biosecurity changes"
+            },
+            value: {
+              text: data['test-result'] or "£0-£500"
+            },
+            actions: {
+              items: [
+                {
+                  href: "biosecurity-cost",
+                  text: "Change",
+                  visuallyHiddenText: "expected cost for biosecurity changes"
+                }
+              ]
+            }
+          },                                              
+          {
+            key: {
+              text: "Evaluation interview"
+            },
+            value: {
+              text: data['test-result'] or "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "interview-option",
+                  text: "Change",
+                  visuallyHiddenText: "evaluation interview"
                 }
               ]
             }

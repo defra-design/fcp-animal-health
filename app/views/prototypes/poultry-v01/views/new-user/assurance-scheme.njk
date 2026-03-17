@@ -27,11 +27,11 @@
           <fieldset class="govuk-fieldset" aria-describedby="test-result-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 class="govuk-fieldset__heading">
-                Is this unit part of an Assurance Scheme?
+                Are you a member of a poultry assurance scheme?
               </h1>
             </legend>
             <div id="test-result-hint" class="govuk-hint">
-              We need to know this to understand your farm better. We won’t contact or share any information with your assurance scheme.
+              We ask if you're part of an assurance scheme so we understand the standards you work to and only request information that’s relevant to your farm. All results are combined and anonymised. For example, Red Tractor, RSPCA Assured, Soil Association, British Lion Eggs, Laid in Britain, others.
             </div>
             {{ govukRadios({
               name: "test-result",
@@ -43,6 +43,10 @@
                 {
                   value: "no",
                   text: "No"
+                },
+                {
+                  value: "I prefer not to say",
+                  text: "I prefer not to say"
                 }
               ]
             }) }}

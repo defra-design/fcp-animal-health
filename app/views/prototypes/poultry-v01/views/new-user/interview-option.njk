@@ -24,22 +24,13 @@
         name: "animals-number",
         fieldset: {
           legend: {
-            text: "Did you have the minimum number of at least one species of bird in this site on the date of the visit?",
+            text: "Would you like to take part in a short interview about your experience with this service?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
         },
         hint: {
-          html: "You can find this on the summary the vet gave you.<br />
-Minimum number of birds per species:<br />
-<ul class='govuk-list govuk-list--bullet'>
-  <li class='govuk-hint'>1,000 broilers</li>
-  <li class='govuk-hint'>1,000 laying hens</li>
-  <li class='govuk-hint'>500 ducks</li>
-  <li class='govuk-hint'>500 geese</li>
-  <li class='govuk-hint'>500 turkeys</li>
-</ul>
-"
+          html: "You might be contacted by Defra to answer a short evaluation interview about your experience with the scheme. This will help us to improve this and other services."
         },
         items: [
           {
@@ -55,7 +46,7 @@ Minimum number of birds per species:<br />
 
         {{ govukButton({
         text: "Continue",
-        href: "assurance-scheme",
+        href: "check-your-answers",
         isStartButton: false
         }) }}
 

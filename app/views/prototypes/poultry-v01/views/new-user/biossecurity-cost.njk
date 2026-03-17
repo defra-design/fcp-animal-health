@@ -24,12 +24,45 @@
         name: "animals-number",
         fieldset: {
           legend: {
-            text: "Did you have the minimum number of at least one species of bird in this site on the date of the visit?",
+            text: "What is your expected cost for the recommended biosecurity changes?",
             isPageHeading: true,
             classes: "govuk-fieldset__legend--l"
           }
         },
-        hint: {
+        items: [
+          {
+            value: "£0–£500",
+            text: "£0–£500"
+          },
+          {
+            value: "£500–£5,000",
+            text: "£500–£5,000"
+          },
+          {
+            value: "More than £5,000",
+            text: "More than £5,000"
+          },
+          {
+            value: "Not sure",
+            text: "Not sure"
+          }
+        ]
+      }) }}
+
+        {{ govukButton({
+        text: "Continue",
+        href: "interview-option",
+        isStartButton: false
+        }) }}
+
+
+    </div>
+
+  </div>
+
+
+
+        {# hint: {
           html: "You can find this on the summary the vet gave you.<br />
 Minimum number of birds per species:<br />
 <ul class='govuk-list govuk-list--bullet'>
@@ -40,28 +73,6 @@ Minimum number of birds per species:<br />
   <li class='govuk-hint'>500 turkeys</li>
 </ul>
 "
-        },
-        items: [
-          {
-            value: "yes",
-            text: "Yes"
-          },
-          {
-            value: "no",
-            text: "No"
-          }
-        ]
-      }) }}
-
-        {{ govukButton({
-        text: "Continue",
-        href: "assurance-scheme",
-        isStartButton: false
-        }) }}
-
-
-    </div>
-
-  </div>
+        }, #}
 
 {% endblock %}
