@@ -33,6 +33,16 @@
 
     <div class="govuk-grid-row iahw-filters-group">
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/select/macro.njk" import govukSelect %} {{
+        govukSelect({ id: "filter-type", name: "filter-type", label: { text: "Agreement type",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
+        value: "all", text: "All types", selected: true }, { value: "iahw",
+        text: "Improve Animal Health and Welfare (IAHW)" }, { value: "pbr", text: "Poultry Biosecurity Review (PBR)" } ] }) }}
+      </div>
+    </div>
+
+    <div class="govuk-grid-row iahw-filters-group">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
         {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
         {{ govukDateInput({ id: "passport-issued", namePrefix:
         "passport-issued", fieldset: { legend: { text: "Start vet visit date",
