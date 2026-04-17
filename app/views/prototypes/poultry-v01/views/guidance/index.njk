@@ -1,126 +1,50 @@
 {% extends "layouts/main-guidance.html" %}
 
 {% block pageTitle %}
-  Funding to improve animal health and welfare: guidance for farmers and vets
+  Funding for poultry biosecurity reviews: guidance for poultry keepers and vets
 {% endblock %}
 
 {% block header %}
 {{super()}}
-  <!-- Blank header with no service name for this page -->
-  {# {{ govukHeader() }} #}
 {% endblock %}
 
 {% block beforeContent %}
 {{super()}}
-{# <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
-  <ol class="govuk-breadcrumbs__list">
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="#">Home</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="#">Environment</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="#">Food and farming</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="#">Farming and food grants and payments</a>
-    </li>
-  </ol>
-</nav> #}
 <div class="gem-c-contextual-breadcrumbs">
     <div class="govuk-!-display-none-print">
-      
-<script type="application/ld+json">
-  {
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "item": {
-        "name": "Home",
-        "@id": "https://www.gov.uk/"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "item": {
-        "name": "Environment",
-        "@id": "https://www.gov.uk/environment"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "item": {
-        "name": "Food and farming",
-        "@id": "https://www.gov.uk/environment/food-and-farming"
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 4,
-      "item": {
-        "name": "Farming and food grants and payments",
-        "@id": "https://www.gov.uk/environment/farming-food-grants-payments"
-      }
-    }
-  ]
-}
-</script>
-
-<nav data-module="ga4-link-tracker" aria-label="Breadcrumb" class="gem-c-breadcrumbs govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile" data-ga4-link-tracker-module-started="true">
-  <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;1&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/">Home</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;2&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/environment">Environment</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;3&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/environment/food-and-farming">Food and farming</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;4&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/environment/farming-food-grants-payments">Farming and food grants and payments</a>
-        </li>
-  </ol>
-</nav>
+      <nav data-module="ga4-link-tracker" aria-label="Breadcrumb" class="gem-c-breadcrumbs govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile" data-ga4-link-tracker-module-started="true">
+        <ol class="govuk-breadcrumbs__list">
+              <li class="govuk-breadcrumbs__list-item">
+                <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;1&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/">Home</a>
+              </li>
+              <li class="govuk-breadcrumbs__list-item">
+                <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;2&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/environment">Environment</a>
+              </li>
+              <li class="govuk-breadcrumbs__list-item">
+                <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;3&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/environment/food-and-farming">Food and farming</a>
+              </li>
+              <li class="govuk-breadcrumbs__list-item">
+                <a data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;breadcrumb&quot;,&quot;index_link&quot;:&quot;4&quot;,&quot;index_total&quot;:&quot;4&quot;}" class="govuk-breadcrumbs__link" href="https://www.gov.uk/environment/farming-food-grants-payments">Farming and food grants and payments</a>
+              </li>
+        </ol>
+      </nav>
     </div>
 </div>
-
 {% endblock %}
 
 {% block content %}
-
-
-  {# <div class="govuk-width-container">
-
-      
-
-
-    
-
-    <main role="main" id="content" class="govuk-main-wrapper  ">
-      <span id="Top"></span>
-      
- #}
-
-
-
+  
 <div class="govuk-grid-row gem-print-columns-none translation-nav-header">
   <div class="govuk-grid-column-two-thirds translation-nav-header__child">
     
 <div class="gem-c-heading govuk-!-margin-bottom-0" dir="ltr">
       <span class="govuk-caption-xl gem-c-heading__context">
-    Collection
+    Guidance
   </span>
 
 
   <h1 class="gem-c-heading__text govuk-heading-l">
-    Funding to improve animal health and welfare: guidance for farmers and vets
+    Funding for poultry biosecurity reviews: guidance for poultry keepers and vets
 </h1></div>
   </div>
 </div>
@@ -128,18 +52,11 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <p class="gem-c-lead-paragraph" dir="ltr">
-    Cattle, pig and sheep farmers can get funding for vet services. This includes disease testing and advice to improve welfare and productivity.
-</p>
+          Funding is available to keepers of chickens, ducks, geese and turkeys. This guidance explains who can apply, how to claim funding, and what is needed from poultry keepers and vets.
+        </p>
     </div>
   </div>
 
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-
-    
-  </div>
-</div>
 
 
 <div class="govuk-grid-row">
@@ -153,11 +70,11 @@
 
       </dd>
       <dt class="gem-c-metadata__term">Published</dt>
-      <dd class="gem-c-metadata__definition">19 June 2024</dd>
+      <dd class="gem-c-metadata__definition">20 May 2026</dd>
       <dt class="gem-c-metadata__term">Last updated</dt>
       <dd class="gem-c-metadata__definition">
-        1 July 2025
-          — <a href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#full-publication-update-history" class="gem-c-metadata__definition-link govuk-!-display-none-print js-see-all-updates-link">
+        25 May 2026
+          — <a href="https://www.gov.uk/guidance/farmers-how-to-claim-funding-to-improve-animal-health-and-welfare#full-publication-update-history" class="gem-c-metadata__definition-link govuk-!-display-none-print js-see-all-updates-link">
             See all updates
           </a>
       </dd>
@@ -170,20 +87,24 @@
 </div>
 
 
-  
 
   <div data-button-location="top" data-button-text-subscribe="Get emails about this page" data-button-text-unsubscribe="Stop getting emails about this page" data-module="ga4-link-tracker" class="gem-c-single-page-notification-button govuk-!-display-none-print govuk-!-margin-bottom-6" data-ga4-link-tracker-module-started="true">
-  <form action="https://www.gov.uk/email-signup" method="POST">
-    <input type="hidden" name="base_path" value="/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">
-      <input type="hidden" name="single_page_subscription" value="true">
-      <input type="hidden" name="link" value="/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">
-    <button class="gem-c-single-page-notification-button__submit" type="submit" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;subscribe&quot;,&quot;index_link&quot;:1,&quot;index_total&quot;:2,&quot;section&quot;:&quot;Top&quot;,&quot;url&quot;:&quot;/email-signup&quot;}">  <svg class="gem-c-single-page-notification-button__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 459.334 459.334"><path fill="currentColor" d="M177.216 404.514c-.001.12-.009.239-.009.359 0 30.078 24.383 54.461 54.461 54.461s54.461-24.383 54.461-54.461c0-.12-.008-.239-.009-.359H175.216zM403.549 336.438l-49.015-72.002v-89.83c0-60.581-43.144-111.079-100.381-122.459V24.485C254.152 10.963 243.19 0 229.667 0s-24.485 10.963-24.485 24.485v27.663c-57.237 11.381-100.381 61.879-100.381 122.459v89.83l-49.015 72.002a24.76 24.76 0 0 0 20.468 38.693H383.08a24.761 24.761 0 0 0 20.469-38.694z"></path></svg><span class="gem-c-single-page-notication-button__text">Get emails about this page</span>
+  <form action="https://www.gov.uk/email/subscriptions/single-page/new" method="POST">
+    <input type="hidden" name="base_path" value="/guidance/farmers-how-to-claim-funding-to-improve-animal-health-and-welfare">
+    <button class="gem-c-single-page-notification-button__submit" type="submit" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;subscribe&quot;,&quot;index_link&quot;:1,&quot;index_total&quot;:2,&quot;section&quot;:&quot;Top&quot;,&quot;url&quot;:&quot;/email/subscriptions/single-page/new&quot;}">  <svg class="gem-c-single-page-notification-button__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 459.334 459.334"><path fill="currentColor" d="M177.216 404.514c-.001.12-.009.239-.009.359 0 30.078 24.383 54.461 54.461 54.461s54.461-24.383 54.461-54.461c0-.12-.008-.239-.009-.359H175.216zM403.549 336.438l-49.015-72.002v-89.83c0-60.581-43.144-111.079-100.381-122.459V24.485C254.152 10.963 243.19 0 229.667 0s-24.485 10.963-24.485 24.485v27.663c-57.237 11.381-100.381 61.879-100.381 122.459v89.83l-49.015 72.002a24.76 24.76 0 0 0 20.468 38.693H383.08a24.761 24.761 0 0 0 20.469-38.694z"></path></svg><span class="gem-c-single-page-notication-button__text">Get emails about this page</span>
 </button>
 </form></div>
 
 
-<div class="govuk-grid-row">
+<div class="govuk-grid-row gem-print-columns-none">
   <div class="govuk-grid-column-two-thirds">
+      
+  <section data-ga4-devolved-nations-banner="England" data-module="ga4-link-tracker" data-ga4-track-links-only="" data-ga4-set-indexes="" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;devolved nations banner&quot;,&quot;section&quot;:&quot;Applies to England&quot;,&quot;index_total&quot;:0}" aria-label="Nation" class="gem-c-devolved-nations" data-ga4-link-tracker-module-started="true">
+    <h2 class="govuk-heading-s govuk-!-margin-bottom-0">
+      Applies to England
+</h2>
+</section>
+
       <div id="contents" data-module="contents-list-with-body" class="gem-c-contents-list-with-body" data-contents-list-with-body-module-started="true">
       <div class="gem-c-contents-list-with-body__list-container">
           <nav data-module="ga4-link-tracker" aria-label="Contents" class="gem-c-contents-list govuk-!-margin-bottom-4" data-ga4-link-tracker-module-started="true">
@@ -193,522 +114,302 @@
     <ol class="gem-c-contents-list__list">
         <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
           <span class="gem-c-contents-list__list-item-dash" aria-hidden="true"></span>
-          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:6,&quot;index_link&quot;:1}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#get-started">Get started</a>
+          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:4,&quot;index_link&quot;:1}" href="#about-the-scheme">About the scheme</a>
         </li>
         <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
           <span class="gem-c-contents-list__list-item-dash" aria-hidden="true"></span>
-          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:6,&quot;index_link&quot;:2}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#how-to-have-an-animal-health-and-welfare-review-">How to have an animal health and welfare review</a>
+          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:4,&quot;index_link&quot;:2}" href="#who-can-apply">Who can apply</a>
         </li>
         <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
           <span class="gem-c-contents-list__list-item-dash" aria-hidden="true"></span>
-          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:6,&quot;index_link&quot;:3}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#how-to-have-an-endemic-disease-follow-up-">How to have an endemic disease follow-up</a>
+          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:4,&quot;index_link&quot;:3}" href="#apply-or-make-a-claim">Apply or make a claim</a>
         </li>
         <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
           <span class="gem-c-contents-list__list-item-dash" aria-hidden="true"></span>
-          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:6,&quot;index_link&quot;:4}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#how-to-work-with-your-vet">How to work with your vet</a>
+          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:4,&quot;index_link&quot;:4}" href="#how-to-have-a-poultry-biosecurity-review">How to have a poultry biosecurity review</a>
         </li>
         <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
           <span class="gem-c-contents-list__list-item-dash" aria-hidden="true"></span>
-          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:6,&quot;index_link&quot;:5}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#how-to-claim">How to claim</a>
-        </li>
-        <li class="gem-c-contents-list__list-item gem-c-contents-list__list-item--dashed">
-          <span class="gem-c-contents-list__list-item-dash" aria-hidden="true"></span>
-          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:6,&quot;index_link&quot;:6}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#other-sources-of-funding">Other sources of funding</a>
+          <a class="gem-c-contents-list__link govuk-link gem-print-force-link-styles govuk-link--no-underline" data-ga4-link="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;section&quot;:&quot;Contents&quot;,&quot;type&quot;:&quot;contents list&quot;,&quot;index_total&quot;:4,&quot;index_link&quot;:4}" href="#contact-us">Contact us</a>
         </li>
     </ol>
 </nav>
       </div>
     
-      <div class="responsive-bottom-margin">
-          <div class="govuk-!-margin-bottom-8">
-          <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0" data-govspeak-module-started="true">
-      <div class="govspeak"><p>This service forms part of the Animal Health and Welfare Pathway.</p>
-
-<div role="note" aria-label="Warning" class="application-notice help-notice">
-<p>To get funding, you must apply for an Improve Animal Health and Welfare (IAHW) agreement. Before you start any actions from reviews or follow-ups, make sure you have applied and the agreement is in place.</p>
+      <div class="gem-c-print-link govuk-!-display-none-print govuk-!-margin-bottom-6">
+    <button class="govuk-link gem-c-print-link__button" data-module="print-link" data-print-link-module-started="true">Print this page</button>
 </div>
 
-</div>
-</div>
-          </div>
+      <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak govuk-!-margin-bottom-0" data-govspeak-module-started="true">
+    
+        <div class="govspeak">
+          <h2 id="about-the-scheme">About the scheme</h2>
 
+<p>Poultry keepers can claim £430 for a vet to do a poultry biosecurity review. Reviews include all eligible species kept on a site.</p>
 
-          <h3 class="govuk-heading-m govuk-!-font-size-27" id="get-started">Get started</h3>
+<p>If multiple sites need reviews, £430 funding will be given for each site.</p>
 
-            <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0" data-govspeak-module-started="true">
-      <div class="govspeak"><p>Farmers should read this guidance to find out:</p>
+<p>These are the steps poultry keepers need to take.</p>
 
-<ul>
+<ol class="steps">
   <li>
-    <p>who can claim&nbsp;</p>
+    <p>
+      <strong>Apply for an agreement by 30 September 2028</strong>
+    </p>
+    <p>Read the <a href="https://www.gov.uk/government/publications/laying-hen-housing-for-health-and-welfare-grant-round-1/terms-and-conditions">terms and conditions</a> before you apply for an agreement.</p>
+
+    <p>Each single business identifier (SBI) will have one agreement, which can include:</p>
+
+    <ul>
+      <li>any eligible species</li>
+      <li>multiple poultry sites</li>
+    </ul>
   </li>
   <li>
-    <p>how much you can claim</p>
+    <p><strong>Complete any vet reviews by 31 December 2028</strong></p>
+
+    <p>You must have an agreement in place before you organise a vet review.</p>
   </li>
   <li>
-    <p>how you can apply</p>
+    <p><strong>Claim funding by 31 March 2029 </strong></p>
+    <p>A claim can be made after the vet has assessed the site and provided a completed <a href="#">summary template and written report.</a></p>
+    <p>A claim must be submitted in the same financial year that the review takes place. For example, if a review takes place in November 2027, you will need to submit your claim by 31 March 2028.</p>
+    <p>The service closes on 31 March 2029.</p>
   </li>
-</ul>
-</div>
-</div>
+</ol>
 
-          <div class="govuk-!-margin-bottom-8">
-              <ul data-module="ga4-link-tracker" data-ga4-track-links-only="" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;document list&quot;}" class="gem-c-document-list govuk-!-margin-bottom-5" data-ga4-link-tracker-module-started="true">
-      <li class="gem-c-document-list__item  ">
+<h2 id="who-can-apply">Who can apply</h2>
 
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/who-can-apply-and-claim-for-funding-to-improve-animal-health-and-welfare">Who can apply and claim for funding to improve animal health and welfare</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-07-01T16:35:46+01:00">
-                       1 July 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/how-much-you-can-claim-to-improve-animal-health-and-welfare">How much you can claim to improve animal health and welfare</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-07-01T16:41:40+01:00">
-                       1 July 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/farmers-how-to-apply-for-funding-to-improve-animal-health-and-welfare">Apply for funding to improve animal health and welfare</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-09-25T10:30:02+01:00">
-                      25 September 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/government/publications/get-funding-to-improve-animal-health-and-welfare-terms-and-conditions">Terms and conditions Stage 3 (26 June 2025): Get funding to improve animal health and welfare</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T10:00:05+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Statutory guidance
-</li>          </ul>
-
-
-      </li>
-</ul>
-          </div>
-
-          <h3 class="govuk-heading-m govuk-!-font-size-27" id="how-to-have-an-animal-health-and-welfare-review-">How to have an animal health and welfare review </h3>
-
-            <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0" data-govspeak-module-started="true">
-      <div class="govspeak"><p>Farmer and vets should read this guidance to find out:</p>
+<p>Poultry keepers are eligible to claim for a biosecurity review if they keep at least:</p>
 
 <ul>
-  <li>when to have a review&nbsp;</li>
-  <li>what happens on a review&nbsp;</li>
-  <li>what documentation farmers need to claim funding</li>
+  <li>1,000 broilers</li>
+  <li>1,000 egg-laying hens</li>
+  <li>1,000 breeders</li>
+  <li>500 ducks</li>
+  <li>500 geese</li>
+  <li>500 turkeyss</li>
 </ul>
-</div>
-</div>
 
-          <div class="govuk-!-margin-bottom-8">
-              <ul data-module="ga4-link-tracker" data-ga4-track-links-only="" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;document list&quot;}" class="gem-c-document-list govuk-!-margin-bottom-5" data-ga4-link-tracker-module-started="true">
-      <li class="gem-c-document-list__item  ">
+<p>Species numbers cannot be combined, for example 200 ducks and 300 turkeys.</p>
 
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/plan-an-animal-health-and-welfare-review">Plan an animal health and welfare review</a>
-</div>
+<p>If the site is empty, the vet must assess its capacity to hold the minimum number of relevant birds. This is based on stocking densities stated in the <a href="#">codes of practice for the welfare of poultry.</a></p>
 
+<p>The keeper does not need to be the owner of the poultry.</p>
 
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T00:00:00+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/farmers-and-vets-what-happens-on-an-animal-health-and-welfare-review">What happens during an animal health and welfare review</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T10:00:04+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/what-to-do-after-an-animal-health-and-welfare-review">What to do after an animal health and welfare review</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T10:00:04+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-</ul>
-          </div>
-
-          <h3 class="govuk-heading-m govuk-!-font-size-27" id="how-to-have-an-endemic-disease-follow-up-">How to have an endemic disease follow-up </h3>
-
-            <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0" data-govspeak-module-started="true">
-      <div class="govspeak"><p>Farmer and vets should read this guidance to find out:</p>
+<p>Poultry keepers must:</p>
 
 <ul>
-  <li>when to have a follow-up&nbsp;</li>
-  <li>what happens on a follow-up&nbsp;</li>
-  <li>what documentation farmers need to claim funding</li>
+  <li>claim only for poultry registered in England</li>
+  <li>be responsible for the welfare of their birds when the vet does a review</li>
+  <li>claim only for a business which has an SBI linked to a county parish holding (CPH) number registered in England</li>
 </ul>
-</div>
-</div>
 
-          <div class="govuk-!-margin-bottom-8">
-              <ul data-module="ga4-link-tracker" data-ga4-track-links-only="" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;document list&quot;}" class="gem-c-document-list govuk-!-margin-bottom-5" data-ga4-link-tracker-module-started="true">
-      <li class="gem-c-document-list__item  ">
+{# <p>You can claim funding if you have set up a ‘Get funding to improve animal health and welfare’ (<abbr title="Improve Animal Health and Welfare">IAHW</abbr>) agreement before the vet visit. The vet will give you a summary of the animal health and welfare review or endemic disease follow-up.</p> #}
 
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/plan-when-to-have-an-endemic-disease-follow-up">Plan an endemic disease follow-up</a>
-</div>
+<h2 id="apply-or-make-a-claim">Apply or make a claim</h2>
 
+<p>Use this service to apply for an agreement and make claims.</p>
 
-          <ul class="gem-c-document-list__item-metadata">
+<p>You will need your Rural Payments service customer reference number (CRN) and password to sign in.</p>
 
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T00:00:00+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
+<h3>Apply for an agreement</h3>
 
+<p>You need to apply for an agreement before you can make a claim. You’ll only need to do this once for an SBI.</p>
 
-      </li>
-      <li class="gem-c-document-list__item  ">
+<p>Applying takes about 5 to 10 minutes.</p>
 
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/farmers-and-vets-what-happens-on-an-endemic-disease-follow-up">What happens during an endemic disease follow-up</a>
-</div>
+<h3>Make a claim</h3>
+
+<p>You will need to use the details given in the vet’s summary when making a claim.</p>
+
+<p>Claiming takes about 10 minutes.</p>
+
+<p><a class="gem-c-button govuk-button govuk-button--start" role="button" data-module="govuk-button" data-ga4-attributes="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;start button&quot;}" draggable="false" href="https://apply-for-an-annual-health-and-welfare-review.defra.gov.uk/sign-in" data-govuk-button-init="" data-govuk-button-module-started="true"><span> Start now </span><svg class="govuk-button__start-icon govuk-!-display-none-print" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" focusable="false" aria-hidden="true"><path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path></svg></a></p>
 
 
-          <ul class="gem-c-document-list__item-metadata">
+<h2 id="how-to-have-a-poultry-biosecurity-review">How to have a poultry biosecurity review</h2>
 
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T10:00:05+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
+<p>Poultry keepers can choose the vet they want to do a review.</p>
 
+<p>If you are a poultry keeper who is a vet, you cannot carry out your own review – you must use another vet.</p>
 
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/what-to-do-after-an-endemic-disease-follow-up">What to do after an endemic disease follow-up</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T10:00:05+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-</ul>
-          </div>
-
-          <h3 class="govuk-heading-m govuk-!-font-size-27" id="how-to-work-with-your-vet">How to work with your vet</h3>
-
-            <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0" data-govspeak-module-started="true">
-      <div class="govspeak"><p>Farmers should send this guidance to the vet so they can:</p>
+<p>As part of an agreement, poultry keepers can have a poultry biosecurity review:</p>
 
 <ul>
-  <li>see how to sample and test&nbsp;</li>
-  <li>access the templates to fill in</li>
+  <li>every 10 months</li>
+  <li>a maximum of 3 times</li>
 </ul>
 
-<div role="note" aria-label="Warning" class="application-notice help-notice">
-<p>Vets need to follow the guidance so that farmers are eligible to claim</p>
-</div>
+<p>Reviews must be completed by 31 December 2028.</p>
 
-</div>
-</div>
+<h3>What a review includes</h3>
 
-          <div class="govuk-!-margin-bottom-8">
-              <ul data-module="ga4-link-tracker" data-ga4-track-links-only="" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;document list&quot;}" class="gem-c-document-list govuk-!-margin-bottom-5" data-ga4-link-tracker-module-started="true">
-      <li class="gem-c-document-list__item  ">
+<p>Reviews can take place in a single visit or over several visits.</p>
 
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/vets-how-to-do-an-animal-health-and-welfare-review-and-endemic-disease-follow-up">What a vet needs to do on a review and follow-up</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-06-26T10:00:05+01:00">
-                      26 June 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/government/publications/cattle-testing-required-for-an-animal-health-and-welfare-review-and-endemic-disease-follow-up">Cattle: testing required for an animal health and welfare review and endemic disease follow-up</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-08-27T10:00:01+01:00">
-                      27 August 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/government/publications/pigs-testing-required-for-an-annual-health-and-welfare-review-and-endemic-disease-follow-up">Pigs: testing required for an animal health and welfare review and endemic disease follow-up</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-08-27T10:00:01+01:00">
-                      27 August 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/government/publications/sheep-testing-required-for-an-annual-health-and-welfare-review-and-endemic-disease-follow-up">Sheep: testing required for an animal health and welfare review and endemic disease follow-up</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-08-27T10:00:01+01:00">
-                      27 August 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/vet-summary-templates-for-all-species">Vet summary templates for all species</a>
-</div>
-
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-08-27T10:00:01+01:00">
-                      27 August 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
-</ul>
-          </div>
-
-          <h3 class="govuk-heading-m govuk-!-font-size-27" id="how-to-claim">How to claim</h3>
-
-            <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0" data-govspeak-module-started="true">
-      <div class="govspeak"><p>Farmers should read this guidance to find out:</p>
+<p>The vet’s biosecurity assessment should cover:</p>
 
 <ul>
-  <li>when to claim for a follow-up&nbsp;</li>
-  <li>what information to provide when you claim</li>
+  <li>infrastructure and location</li>
+  <li>organisation of site and supply of materials</li>
+  <li>visitors, personnel and hygiene locks</li>
+  <li>buying in poultry</li>
+  <li>depopulation and off-farm movement of birds</li>
+  <li>transportation and management of eggs</li>
+  <li>feed and water supply</li>
+  <li>manure and carcass removal</li>
+  <li>disease management</li>
+  <li>cleaning and disinfection</li>
+  <li>measures between compartments and houses</li>
 </ul>
-</div>
-</div>
 
-          <div class="govuk-!-margin-bottom-8">
-              <ul data-module="ga4-link-tracker" data-ga4-track-links-only="" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;document list&quot;}" class="gem-c-document-list govuk-!-margin-bottom-5" data-ga4-link-tracker-module-started="true">
-      <li class="gem-c-document-list__item  ">
+<p>You can use free online tools to help you in your assessment, such as <a href="https://biocheck.ugent.be/">biocheck.ugent</a> and the <a href="https://www.britishpoultrycouncil.org/resources/biosecurity-practices/">British Poultry Council's examples of biosecurity practices</a>.</p>
 
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/farmers-how-to-claim-funding-to-improve-animal-health-and-welfare">Claim funding to improve animal health and welfare</a>
-</div>
+<h3>What a vet needs to provide</h3>
 
-
-          <ul class="gem-c-document-list__item-metadata">
-
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-09-25T10:30:02+01:00">
-                      25 September 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
-
-
-      </li>
+<p>After a review, a vet must give the poultry keeper:</p>
+<ul>
+  <li>a completed <a href="#">vet summary template</a></li>
+  <li>a written report of the assessment and recommended actions</li>
 </ul>
-          </div>
 
-          <h3 class="govuk-heading-m govuk-!-font-size-27" id="other-sources-of-funding">Other sources of funding</h3>
+<p>The details in the vet’s summary will be used to make a claim.</p>
 
-            <div data-module="govspeak" class="gem-c-govspeak govuk-govspeak gem-c-govspeak--direction-ltr govuk-!-margin-bottom-0" data-govspeak-module-started="true">
-      <div class="govspeak">
-</div>
-</div>
-
-          <div class="govuk-!-margin-bottom-8">
-              <ul data-module="ga4-link-tracker" data-ga4-track-links-only="" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;document list&quot;}" class="gem-c-document-list govuk-!-margin-bottom-5" data-ga4-link-tracker-module-started="true">
-      <li class="gem-c-document-list__item  ">
-
-        <div class="gem-c-document-list__item-title">          <a class="  govuk-link gem-print-force-link-styles " href="https://www.gov.uk/guidance/funding-for-farmers">Funding for farmers, growers and land managers</a>
-</div>
+<p>The Department for Environment, Food & Rural Affairs (Defra) and Rural Payments Agency (RPA) will not ask to see the written report.</p>
 
 
-          <ul class="gem-c-document-list__item-metadata">
 
-                <li class="gem-c-document-list__attribute">
-                    <time datetime="2025-09-10T14:23:54+01:00">
-                      10 September 2025
-                    </time>
-</li>
-                <li class="gem-c-document-list__attribute">
-                    Guidance
-</li>          </ul>
+<h2 id="contact-us">Contact us</h2>
 
 
-      </li>
+
+
+
+
+
+
+
+
+
+
+{# <div class="call-to-action">
+  <p>For more help with claiming, you can watch the videos that show you how to make a claim for:&nbsp;</p>
+
+  <ul>
+    <li>
+<a rel="external" href="https://www.youtube.com/watch?v=GyrlYb07H5A" data-youtube-player="off">sheep review</a>&nbsp;</li>
+    <li>
+<a rel="external" href="https://www.youtube.com/watch?v=AFy3cp4XIl8" data-youtube-player="off">beef cattle review</a>&nbsp;</li>
+    <li>
+<a rel="external" href="https://www.youtube.com/watch?v=N3w6aa715tc" data-youtube-player="off">dairy cattle review</a>&nbsp;&nbsp;</li>
+    <li>
+<a rel="external" href="https://www.youtube.com/watch?v=_iyJD6y1c70" data-youtube-player="off">pig review</a>&nbsp;</li>
+    <li>
+<a rel="external" href="https://www.youtube.com/watch?v=AE7Sl2dxdnw" data-youtube-player="off">sheep follow-up</a>&nbsp;</li>
+    <li>
+<a rel="external" href="https://www.youtube.com/watch?v=NaoGW-tqtWw" data-youtube-player="off">pig follow-up</a>&nbsp;</li>
+    <li>
+<a rel="external" href="https://www.youtube.com/watch?v=tbV_IiKS8Y8" data-youtube-player="off">cattle follow-up</a>&nbsp;</li>
+  </ul>
+</div> #}
+
+<p>
+  Contact the RPA if you cannot apply online, or have a question about your application.
+</p>
+  {# Contact the Rural Payments Agency and give your <abbr title="Improve Animal Health and Welfare">IAHW</abbr> agreement number if you:</p> #}
+
+<p>You can scan and attach documents in an email and send them to us. Or you can post them to our address. You should:</p>
+
+<ul>
+  <li>use ‘Poultry biosecurity review’ in the email subject heading</li>
+  <li>put your SBI and agreement number on everything you send to us</li>
 </ul>
-          </div>
-      </div>
 
-      <div class="responsive-bottom-margin">
-          <div id="full-publication-update-history" data-module="gem-toggle" class="gem-c-published-dates gem-c-published-dates--history" lang="en" data-gem-toggle-module-started="true">
+
+<p>Write to:</p>
+
+<div class="contact">
+<p>Rural Payments Agency</p>
+
+<p>PO Box 352</p>
+
+<p>Worksop</p>
+
+<p>S80 9FG</p>
+
+<p>Email: <a href="mailto:ruralpayments@defra.gov.uk">ruralpayments@defra.gov.uk</a></p>
+
+<p>Telephone: 03000 200 301</p>
+
+<p>Monday to Friday, 8:30am to 5pm, except public holidays</p>
+
+<p><a href="https://www.gov.uk/call-charges">Find out about call charges</a> (opens in a new tab)</p>
+</div>
+
+</div>
+
+</div>
+      
+  <div id="full-publication-update-history" data-module="gem-toggle" class="gem-c-published-dates gem-c-published-dates--history govuk-!-margin-bottom-5" lang="en" data-gem-toggle-module-started="true">
     <h2 class="govuk-visually-hidden">Updates to this page</h2>
-      <div>Published 19 June 2024</div>
-      Last updated 1 July 2025
-        <a href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#full-history" class="gem-c-published-dates__toggle govuk-link" data-controls="full-history" data-expanded="false" data-toggled-text="&lt;span aria-hidden=&quot;true&quot;&gt;+ &lt;/span&gt;show all updates" data-module="ga4-event-tracker" data-ga4-event="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;type&quot;:&quot;content history&quot;,&quot;section&quot;:&quot;Footer&quot;}" data-ga4-expandable="" role="button" aria-controls="full-history" aria-expanded="true" data-ga4-event-tracker-module-started="true"><span aria-hidden="true">‐ </span>hide all updates</a>
-        <div class="gem-c-published-dates__change-history" id="full-history" aria-live="polite" role="region">
+      <div>Published 20 May 2026</div>
+      Last updated 25 May 2026
+        <a href="https://www.gov.uk/guidance/farmers-how-to-claim-funding-to-improve-animal-health-and-welfare#full-history" class="gem-c-published-dates__toggle govuk-link" data-controls="full-history" data-expanded="false" data-toggled-text="&lt;span aria-hidden=&#39;true&#39;&gt;‐ &lt;/span&gt;hide all updates" data-module="ga4-event-tracker" data-ga4-event="{&quot;event_name&quot;:&quot;select_content&quot;,&quot;type&quot;:&quot;content history&quot;,&quot;section&quot;:&quot;Footer&quot;}" data-ga4-expandable="" role="button" aria-controls="full-history" aria-expanded="false" data-ga4-event-tracker-module-started="true"><span aria-hidden="true">+ </span>show all updates</a>
+        <div class="gem-c-published-dates__change-history js-hidden" id="full-history" aria-live="polite" role="region">
           <ol class="gem-c-published-dates__list">
               <li class="gem-c-published-dates__change-item">
-                <time class="gem-c-published-dates__change-date timestamp" datetime="2025-07-01T15:42:26Z">1 July 2025</time>
-                <p class="gem-c-published-dates__change-note">Added detail about needing to apply for the agreement to the warning text.</p>
+                <time class="gem-c-published-dates__change-date timestamp" datetime="2025-09-25T09:30:02Z">25 May 2026</time>
+                <p class="gem-c-published-dates__change-note">Changed link to a start button. Moved some content to above Start button.</p>
               </li>
               <li class="gem-c-published-dates__change-item">
-                <time class="gem-c-published-dates__change-date timestamp" datetime="2025-06-26T09:00:04Z">26 June 2025</time>
-                <p class="gem-c-published-dates__change-note">Restructured collections page, rewritten content to better reflect the guidance available. Removed reference to the old Annual Health and Welfare Review.</p>
+                <time class="gem-c-published-dates__change-date timestamp" datetime="2025-06-26T09:00:05Z">26 June 2025</time>
+                <p class="gem-c-published-dates__change-note">Restructured page, edited content</p>
               </li>
               <li class="gem-c-published-dates__change-item">
-                <time class="gem-c-published-dates__change-date timestamp" datetime="2025-01-21T10:01:41Z">21 January 2025</time>
-                <p class="gem-c-published-dates__change-note">Warning about endemic disease follow-up not being available for dairy cattle removed.</p>
+                <time class="gem-c-published-dates__change-date timestamp" datetime="2025-02-06T12:06:53Z">6 February 2025</time>
+                <p class="gem-c-published-dates__change-note">Update to clarify the final date you must make your claim by.</p>
               </li>
               <li class="gem-c-published-dates__change-item">
-                <time class="gem-c-published-dates__change-date timestamp" datetime="2024-10-23T13:35:46Z">23 October 2024</time>
-                <p class="gem-c-published-dates__change-note">Added detail about which pathway the funding is part of. Also added more detail about which agreement should be in place.</p>
+                <time class="gem-c-published-dates__change-date timestamp" datetime="2025-01-21T10:00:43Z">21 January 2025</time>
+                <p class="gem-c-published-dates__change-note">Added the name of the agreement to the Get help with your claim section.</p>
               </li>
               <li class="gem-c-published-dates__change-item">
-                <time class="gem-c-published-dates__change-date timestamp" datetime="2024-10-10T12:21:28Z">10 October 2024</time>
-                <p class="gem-c-published-dates__change-note">Clarified that a farmer who is also a vet must not do a health and welfare review on their own farm.</p>
+                <time class="gem-c-published-dates__change-date timestamp" datetime="2024-10-10T12:28:07Z">10 October 2024</time>
+                <p class="gem-c-published-dates__change-note">Added details about which agreement needs to be in place. Added clarity over dates claims can be made until.</p>
               </li>
               <li class="gem-c-published-dates__change-item">
-                <time class="gem-c-published-dates__change-date timestamp" datetime="2024-06-18T23:00:00Z">19 June 2024</time>
+                <time class="gem-c-published-dates__change-date timestamp" datetime="2024-08-20T12:32:55Z">20 August 2024</time>
+                <p class="gem-c-published-dates__change-note">We have added a link to video guidance to help you claim.</p>
+              </li>
+              <li class="gem-c-published-dates__change-item">
+                <time class="gem-c-published-dates__change-date timestamp" datetime="2024-06-18T23:00:00Z">20 May 2026</time>
                 <p class="gem-c-published-dates__change-note">First published.</p>
               </li>
           </ol>
         </div>
 </div>
-      </div>
 
-      <div data-sticky-element="" class="gem-c-contents-list-with-body__link-wrapper gem-c-contents-list-with-body__sticky-element--enabled gem-c-contents-list-with-body__sticky-element--stuck-to-window">
+<div class="published-dates-button-group">
+  <h2 class="govuk-visually-hidden">
+      Sign up for emails or print this page
+  </h2>
+
+  <div data-button-location="bottom" data-button-text-subscribe="Get emails about this page" data-button-text-unsubscribe="Stop getting emails about this page" data-module="ga4-link-tracker" class="gem-c-single-page-notification-button govuk-!-display-none-print govuk-!-margin-bottom-3" data-ga4-link-tracker-module-started="true">
+  <form action="https://www.gov.uk/email/subscriptions/single-page/new" method="POST">
+    <input type="hidden" name="base_path" value="/guidance/farmers-how-to-claim-funding-to-improve-animal-health-and-welfare">
+    <button class="gem-c-single-page-notification-button__submit" type="submit" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;subscribe&quot;,&quot;index_link&quot;:2,&quot;index_total&quot;:2,&quot;section&quot;:&quot;Footer&quot;,&quot;url&quot;:&quot;/email/subscriptions/single-page/new&quot;}">  <svg class="gem-c-single-page-notification-button__icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" height="18" width="18" viewBox="0 0 459.334 459.334"><path fill="currentColor" d="M177.216 404.514c-.001.12-.009.239-.009.359 0 30.078 24.383 54.461 54.461 54.461s54.461-24.383 54.461-54.461c0-.12-.008-.239-.009-.359H175.216zM403.549 336.438l-49.015-72.002v-89.83c0-60.581-43.144-111.079-100.381-122.459V24.485C254.152 10.963 243.19 0 229.667 0s-24.485 10.963-24.485 24.485v27.663c-57.237 11.381-100.381 61.879-100.381 122.459v89.83l-49.015 72.002a24.76 24.76 0 0 0 20.468 38.693H383.08a24.761 24.761 0 0 0 20.469-38.694z"></path></svg><span class="gem-c-single-page-notication-button__text">Get emails about this page</span>
+</button>
+</form></div>
+  <div class="gem-c-print-link govuk-!-display-none-print govuk-!-margin-bottom-8">
+    <button class="govuk-link gem-c-print-link__button" data-module="print-link" data-print-link-module-started="true">Print this page</button>
+</div>
+</div>
+
+
+      <div data-sticky-element="" class="gem-c-contents-list-with-body__link-wrapper gem-c-contents-list-with-body__sticky-element--hidden gem-c-contents-list-with-body__sticky-element--stuck-to-window gem-c-contents-list-with-body__sticky-element--enabled">
         <div class="gem-c-contents-list-with-body__link-container">
           
-<a class="govuk-link gem-c-back-to-top-link govuk-!-display-none-print" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets#contents">
+<a class="govuk-link gem-c-back-to-top-link govuk-!-display-none-print" href="https://www.gov.uk/guidance/farmers-how-to-claim-funding-to-improve-animal-health-and-welfare#contents">
     <svg class="gem-c-back-to-top-link__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17" aria-hidden="true" focusable="false">
       <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
     </svg>
@@ -720,11 +421,38 @@
   
 <div class="govuk-grid-column-one-third sidebar-navigation">
   
-<div class="gem-c-contextual-sidebar govuk-!-display-none-print"></div>
-</div>
+<div class="gem-c-contextual-sidebar govuk-!-display-none-print">
+
+      <div data-module="ga4-link-tracker" class="gem-c-related-navigation govuk-!-display-none-print" data-ga4-link-tracker-module-started="true">
+      <h2 id="related-nav-related_items-5efd4ddc" class="gem-c-related-navigation__main-heading">
+        Related content
+      </h2>
+
+
+
+      <nav class="gem-c-related-navigation__nav-section" aria-labelledby="related-nav-collections-5efd4ddc" data-module="gem-toggle" data-gem-toggle-module-started="true">
+
+    {# <h3 id="related-nav-collections-5efd4ddc" class="gem-c-related-navigation__sub-heading gem-c-related-navigation__sub-heading--sidebar" data-track-count="sidebarRelatedItemSection">Collection</h3>
+
+  <ul class="gem-c-related-navigation__link-list">
+        <li class="gem-c-related-navigation__link"><a class="govuk-link govuk-link gem-c-related-navigation__section-link govuk-link gem-c-related-navigation__section-link--sidebar" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;related content&quot;,&quot;index_section&quot;:&quot;1&quot;,&quot;index_link&quot;:&quot;1&quot;,&quot;index_section_count&quot;:&quot;1&quot;,&quot;index_total&quot;:&quot;1&quot;,&quot;section&quot;:&quot;Collection&quot;}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Funding to improve animal health and welfare: guidance for farmers and vets</a></li>
+
+  </ul> #}
+      <h3 id="related-nav-collections-5efd4ddc" class="gem-c-related-navigation__sub-heading gem-c-related-navigation__sub-heading--sidebar" data-track-count="sidebarRelatedItemSection">Guidance</h3>
+
+  <ul class="gem-c-related-navigation__link-list">
+        <li class="gem-c-related-navigation__link"><a class="govuk-link govuk-link gem-c-related-navigation__section-link govuk-link gem-c-related-navigation__section-link--sidebar" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;related content&quot;,&quot;index_section&quot;:&quot;1&quot;,&quot;index_link&quot;:&quot;1&quot;,&quot;index_section_count&quot;:&quot;1&quot;,&quot;index_total&quot;:&quot;1&quot;,&quot;section&quot;:&quot;Collection&quot;}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Animal health and welfarre pathway: Funding and support for farmers</a></li>
+
+  </ul>
+</nav>
 
 </div>
 
+
+</div>
+</div>
+
+</div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         
@@ -733,12 +461,14 @@
 
 
 
-      <nav class="gem-c-related-navigation__nav-section" aria-labelledby="related-nav-topics-4e2dd369" data-module="gem-toggle" data-gem-toggle-module-started="true">
+      <nav class="gem-c-related-navigation__nav-section" aria-labelledby="related-nav-topics-7a287290" data-module="gem-toggle" data-gem-toggle-module-started="true">
 
-    <h2 id="related-nav-topics-4e2dd369" class="gem-c-related-navigation__sub-heading gem-c-related-navigation__sub-heading--footer" data-track-count="footerRelatedItemSection">Explore the topic</h2>
+    <h2 id="related-nav-topics-7a287290" class="gem-c-related-navigation__sub-heading gem-c-related-navigation__sub-heading--footer" data-track-count="footerRelatedItemSection">Explore the topic</h2>
 
   <ul class="gem-c-related-navigation__link-list">
         <li class="gem-c-related-navigation__link"><a class="govuk-link govuk-link gem-c-related-navigation__section-link govuk-link gem-c-related-navigation__section-link--footer" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;contextual footer&quot;,&quot;index_section&quot;:&quot;1&quot;,&quot;index_link&quot;:&quot;1&quot;,&quot;index_section_count&quot;:&quot;1&quot;,&quot;index_total&quot;:&quot;1&quot;,&quot;section&quot;:&quot;Explore the topic&quot;}" href="https://www.gov.uk/environment/farming-food-grants-payments">Farming and food grants and payments</a></li>
+
+        <li class="gem-c-related-navigation__link"><a class="govuk-link govuk-link gem-c-related-navigation__section-link govuk-link gem-c-related-navigation__section-link--footer" data-ga4-link="{&quot;event_name&quot;:&quot;navigation&quot;,&quot;type&quot;:&quot;contextual footer&quot;,&quot;index_section&quot;:&quot;1&quot;,&quot;index_link&quot;:&quot;1&quot;,&quot;index_section_count&quot;:&quot;1&quot;,&quot;index_total&quot;:&quot;1&quot;,&quot;section&quot;:&quot;Explore the topic&quot;}" href="https://www.gov.uk/government/collections/funding-to-improve-animal-health-and-welfare-guidance-for-farmers-and-vets">Funding to improve animal health and welfare: guidance for farmers and vets</a></li>
 
   </ul>
 </nav>
@@ -748,14 +478,5 @@
 
     </div>
   </div>
-
-
-    {# </main>
-  </div> #}
-
-  
-
-
-      
 
 {% endblock %}
