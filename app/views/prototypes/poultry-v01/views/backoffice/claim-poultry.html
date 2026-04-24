@@ -160,22 +160,15 @@
               11 July 2024
             </dd>
           </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key govuk-!-width-one-third">
-              Species
-            </dt>
-            <dd class="govuk-summary-list__value">
-              Broilers, Ducks and Turkeys
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
+
+          {# <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
               Type of visit
             </dt>
             <dd class="govuk-summary-list__value">
               [Review type]
             </dd>
-          </div>
+          </div> #}
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
               Date of visit
@@ -196,10 +189,10 @@
 
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
-              Herd name
+              Site name
             </dt>
             <dd class="govuk-summary-list__value">
-              Commercial
+              East farm
             </dd>
             {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
@@ -209,7 +202,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
-              Herd CPH
+              Site CPH
             </dt>
             <dd class="govuk-summary-list__value">
               12/345/6789
@@ -222,7 +215,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
-              Is this the only herd or flock associated with this SBI?
+              Is this the only site associated with this SBI?
             </dt>
             <dd class="govuk-summary-list__value">
               Yes
@@ -245,7 +238,7 @@
 
 
           
-          <div class="govuk-summary-list__row">
+          {# <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key govuk-!-width-one-third">
               Date of testing
             </dt>
@@ -260,10 +253,18 @@
               <a class="govuk-link" href="change/date-testing.html">Change<span class="govuk-visually-hidden"> date of testing</span></a>
             </dd>
             {% endif %}
+          </div> #}
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-width-one-third">
+              Type of poultry
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Broilers, Ducks and Turkeys
+            </dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              11 or more beef cattle
+              Minimum number of birds
             </dt>
             <dd class="govuk-summary-list__value">
               Yes
