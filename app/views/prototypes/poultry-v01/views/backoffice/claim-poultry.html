@@ -270,6 +270,7 @@
               Yes
             </dd>
           </div>
+          
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
               Vet's name
@@ -298,45 +299,53 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              URN
+              Biosecurity assessment
             </dt>
             <dd class="govuk-summary-list__value">
-              URN-7374-48BC
+              Yes
             </dd>
-            {% if data['backoffice-user'] != 'team' %}
+            {# {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="change/urn.html">Change<span class="govuk-visually-hidden"> URN</span></a>
             </dd>
-            {% endif %}
+            {% endif %} #}
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Number of tests
+              Biosecurity usefulness
             </dt>
             <dd class="govuk-summary-list__value">
-              8
+              Very useful
             </dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Number of animals tested
+              Biosecurity recommended changes
             </dt>
             <dd class="govuk-summary-list__value">
-              8
+              Housing, buildings, infrastructure, and wild bird control
             </dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
-              Test results
+              Expected cost for biosecurity changes
             </dt>
             <dd class="govuk-summary-list__value">
-              Positive
+              Up to £1,500
             </dd>
-            {% if data['backoffice-user'] != 'team' %}
+            {# {% if data['backoffice-user'] != 'team' %}
             <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="change/test-results.html">Change<span class="govuk-visually-hidden"> test results</span></a>
             </dd>
-            {% endif %}
+            {% endif %} #}
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Evaluation interview
+            </dt>
+            <dd class="govuk-summary-list__value">
+              Yes
+            </dd>
           </div>
         </dl>
         <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
