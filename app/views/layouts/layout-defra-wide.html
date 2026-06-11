@@ -195,7 +195,7 @@ Administration of the health and welfare of your livestock
     serviceName: serviceName,
     navigation: [
       {
-        href: "/prototypes/v05/backoffice/claims.html",
+        href: "claims.html",
         text: "Claims",
         attributes: {
           id: "claims",
@@ -203,7 +203,7 @@ Administration of the health and welfare of your livestock
         }
       },
       {
-        href: "/prototypes/v05/backoffice/agreements.html",
+        href: "agreements.html",
         text: "Agreements",
         attributes: {
           id: "agreements",
@@ -211,7 +211,7 @@ Administration of the health and welfare of your livestock
         }
       },
       {
-        href: "/prototypes/v05/backoffice/flags.html",
+        href: "flags.html",
         text: "Flags",
         attributes: {
           id: "flags",
@@ -219,7 +219,7 @@ Administration of the health and welfare of your livestock
         }
       },
       {
-        href: "/prototypes/v05/backoffice/audit.html",
+        href: "audit.html",
         text: "Change log",
         attributes: {
           id: "audit",
@@ -250,7 +250,7 @@ Administration of the health and welfare of your livestock
   <div class="govuk-width-container">
     <div class="govuk-service-navigation__container">
       <span class="govuk-service-navigation__service-name">
-        <a href="/prototypes/v05/backoffice/index-research.njk" class="govuk-service-navigation__link">
+        <a href="index-research.njk" class="govuk-service-navigation__link">
           {{serviceName}}
         </a>
       </span>
@@ -261,24 +261,24 @@ Administration of the health and welfare of your livestock
         <ul class="govuk-service-navigation__list" id="navigation">
           <li class="govuk-service-navigation__item">
              {# govuk-service-navigation__item--active #}
-            <a id="claims" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/claims.html?changed=no" aria-current="true">
+            <a id="claims" class="govuk-service-navigation__link" href="claims.html?changed=no" aria-current="true">
               Claims
             </a>
           </li>
           <li class="govuk-service-navigation__item">
-            <a id="agreements" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/agreements.html">
+            <a id="agreements" class="govuk-service-navigation__link" href="agreements.html">
               <strong class="govuk-service-navigation__active-fallback">Agreements</strong>
             </a>
           </li>
 
           {% if data['backoffice-user'] != 'team' %}
           <li class="govuk-service-navigation__item">
-            <a id="flags" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/flags.html">
+            <a id="flags" class="govuk-service-navigation__link" href="flags.html">
               Flags
             </a>
           </li>
           <li class="govuk-service-navigation__item">
-            <a id="audit" class="govuk-service-navigation__link" href="/prototypes/v05/backoffice/audit.html">
+            <a id="audit" class="govuk-service-navigation__link" href="audit.html">
               Change log
             </a>
           </li>

@@ -31,7 +31,7 @@ Annual health and welfare review agreements
       <label class="govuk-label govuk-label--s" for="user-search">Find an agreement
         <div id="search-hint" class="govuk-hint moj-search__hint ">
           
-        Search agreement number, organisation or SBI number.</div>
+        Search by agreement number, organisation or SBI.</div>
       </label>
       <!--<div id="heading-hint" class="govuk-hint govuk-!-margin-bottom-3">
         Search by agreement number, status or single business identifier (SBI) number
@@ -51,8 +51,18 @@ Annual health and welfare review agreements
           <div class="govuk-details__text">
 
         
+    <div class="govuk-grid-row iahw-filters-group">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
+        {% from "govuk/components/select/macro.njk" import govukSelect %} {{
+        govukSelect({ id: "filter-type", name: "filter-type", label: { text: "Agreement type",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
+        value: "all", text: "All types", selected: true }, { value: "iahw",
+        text: "Improve Animal Health and Welfare (IAHW)" }, { value: "pbr", text: "Poultry Biosecurity Review (PBR)" } ] }) }}
+      </div>
+    </div>
 
 <div class="govuk-grid-row iahw-filters-group">
+
               <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
                 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
@@ -103,7 +113,9 @@ Annual health and welfare review agreements
               id: "filter",
               name: "filter",
               label: {
-                text: "Flag"
+                text: "Flag",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--s"
               },
               items: [
                 {
@@ -132,7 +144,9 @@ Annual health and welfare review agreements
               id: "filter",
               name: "filter",
               label: {
-                text: "Status"
+                text: "Status",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--s"
               },
               items: [
                 {
@@ -172,6 +186,8 @@ Annual health and welfare review agreements
 
         </div>
         </details>
+
+        <p><b>Search results:</b> 23 agreements</p>
 
         {% include "/prototypes/poultry-v01/views/backoffice/includes/agreements-table.html" %}
         

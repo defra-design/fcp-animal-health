@@ -37,16 +37,30 @@ Back office: Applications
   </div>
 </div>
 
-<div class="govuk-grid-row iahw-filters-group">
+<div class="govuk-grid-row iahw-filters-group govuk-!-margin-bottom-0">
   <div class="govuk-grid-column-full govuk-!-margin-top-2" style="padding: 0;">
 
+        {# <div class="govuk-grid-row iahw-filters-group govuk-!-padding-bottom-0"> #}
+      {# <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0"> #}
+      <div style="display: inline-block; margin-right: 20px;">
+        {% from "govuk/components/select/macro.njk" import govukSelect %} {{
+        govukSelect({ id: "filter-type", name: "filter-type", label: { text: "Agreement type",
+        isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
+        value: "all", text: "All types", selected: true }, { value: "iahw",
+        text: "Improve Animal Health and Welfare (IAHW)" }, { value: "pbr", text: "Poultry Biosecurity Review (PBR)" } ] }) }}
+      {# </div> #}
+      </div>
+
+<div style="display: inline-block;">
     {% from "govuk/components/select/macro.njk" import govukSelect %}
 
     {{ govukSelect({
       id: "filter",
       name: "filter",
       label: {
-        text: "Filter by"
+        text: "Status",
+        isPageHeading: false,
+        classes: "govuk-fieldset__legend--s"
       },
       items: [
         {
@@ -64,6 +78,8 @@ Back office: Applications
         }
       ]
     }) }}
+
+        </div>
 
   </div>
 </div>
