@@ -1,0 +1,621 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   '/Users/cbernardojr/.nvm/versions/node/v22.19.0/bin/node',
+1 verbose cli   '/Users/carlosbernardojr/Server/fcp-animal-health/node_modules/.bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '@ministryofjustice/frontend@9.0.0',
+1 verbose cli   '--save-exact'
+1 verbose cli ]
+2 info using npm@2.15.12
+3 info using node@v22.19.0
+4 verbose install initial load of /Users/carlosbernardojr/Server/fcp-animal-health/package.json
+5 warn package.json @ No description
+6 warn package.json @ No repository field.
+7 warn package.json @ No license field.
+8 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/govuk-frontend/package.json
+9 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/govuk-prototype-kit/package.json
+10 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/jquery/package.json
+11 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/latest/package.json
+12 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/moment/package.json
+13 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/package.json
+14 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@govuk-prototype-kit/common-templates/package.json
+15 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@govuk-prototype-kit/task-list/package.json
+16 verbose installManyTop reading scoped package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend/package.json
+17 info package.json npm@2.15.12 Non-dependency in bundleDependencies: ansi-regex
+18 info package.json npm@2.15.12 Non-dependency in bundleDependencies: imurmurhash
+19 info package.json latest@0.2.0 No license field.
+20 info package.json govuk-prototype-kit@13.18.0 No repository field.
+21 info package.json govuk-prototype-kit@13.18.0 No license field.
+22 verbose readDependencies loading dependencies from /Users/carlosbernardojr/Server/fcp-animal-health/package.json
+23 silly cache add args [ '@ministryofjustice/frontend@9.0.0', null ]
+24 verbose cache add spec @ministryofjustice/frontend@9.0.0
+25 silly cache add parsed spec Result {
+25 silly cache add   raw: '@ministryofjustice/frontend@9.0.0',
+25 silly cache add   scope: '@ministryofjustice',
+25 silly cache add   name: '@ministryofjustice/frontend',
+25 silly cache add   rawSpec: '9.0.0',
+25 silly cache add   spec: '9.0.0',
+25 silly cache add   type: 'version'
+25 silly cache add }
+26 silly addNamed @ministryofjustice/frontend@9.0.0
+27 verbose addNamed "9.0.0" is a plain semver version for @ministryofjustice/frontend
+28 silly mapToRegistry name @ministryofjustice/frontend
+29 silly mapToRegistry scope (from package name) @ministryofjustice
+30 verbose mapToRegistry no registry URL found in name for scope @ministryofjustice
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.org/
+33 silly mapToRegistry data Result {
+33 silly mapToRegistry   raw: '@ministryofjustice/frontend',
+33 silly mapToRegistry   scope: '@ministryofjustice',
+33 silly mapToRegistry   name: '@ministryofjustice/frontend',
+33 silly mapToRegistry   rawSpec: '',
+33 silly mapToRegistry   spec: 'latest',
+33 silly mapToRegistry   type: 'tag'
+33 silly mapToRegistry }
+34 silly mapToRegistry uri https://registry.npmjs.org/@ministryofjustice%2ffrontend
+35 verbose addNameVersion registry:https://registry.npmjs.org/@ministryofjustice%2ffrontend not in flight; fetching
+36 verbose request uri https://registry.npmjs.org/@ministryofjustice%2ffrontend
+37 verbose request no auth needed
+38 info attempt registry request try #1 at 12:11:10
+39 verbose request id 5d2521e2607a6c61
+40 http request GET https://registry.npmjs.org/@ministryofjustice%2ffrontend
+41 http 200 https://registry.npmjs.org/@ministryofjustice%2ffrontend
+42 verbose headers {
+42 verbose headers   date: 'Thu, 11 Jun 2026 11:11:10 GMT',
+42 verbose headers   'content-type': 'application/json',
+42 verbose headers   'transfer-encoding': 'chunked',
+42 verbose headers   connection: 'keep-alive',
+42 verbose headers   'set-cookie': [
+42 verbose headers     '_cfuvid=F9o9Z6MOZ825NhvurmoRlcV47ssVtV0l0ArvSN8xBeU-1781176270.5004106-1.0.1.1-usYBowbajejTXxPZI_ZBVZTebuciIFq30PDFyKYbuLg; HttpOnly; SameSite=None; Secure; Path=/; Domain=npmjs.org'
+42 verbose headers   ],
+42 verbose headers   'cf-ray': 'a0a02c6a9d60540e-LHR',
+42 verbose headers   'cf-cache-status': 'HIT',
+42 verbose headers   'access-control-allow-origin': '*',
+42 verbose headers   age: '185',
+42 verbose headers   'cache-control': 'public, max-age=300',
+42 verbose headers   vary: 'accept-encoding, accept',
+42 verbose headers   'last-modified': 'Wed, 25 Feb 2026 14:19:37 GMT',
+42 verbose headers   server: 'cloudflare',
+42 verbose headers   etag: 'W/"e3a3aad88e3147ce4ddf1498c0e8e5b1"',
+42 verbose headers   'content-encoding': 'gzip'
+42 verbose headers }
+43 silly get cb [
+43 silly get   200,
+43 silly get   {
+43 silly get     date: 'Thu, 11 Jun 2026 11:11:10 GMT',
+43 silly get     'content-type': 'application/json',
+43 silly get     'transfer-encoding': 'chunked',
+43 silly get     connection: 'keep-alive',
+43 silly get     'set-cookie': [
+43 silly get       '_cfuvid=F9o9Z6MOZ825NhvurmoRlcV47ssVtV0l0ArvSN8xBeU-1781176270.5004106-1.0.1.1-usYBowbajejTXxPZI_ZBVZTebuciIFq30PDFyKYbuLg; HttpOnly; SameSite=None; Secure; Path=/; Domain=npmjs.org'
+43 silly get     ],
+43 silly get     'cf-ray': 'a0a02c6a9d60540e-LHR',
+43 silly get     'cf-cache-status': 'HIT',
+43 silly get     'access-control-allow-origin': '*',
+43 silly get     age: '185',
+43 silly get     'cache-control': 'public, max-age=300',
+43 silly get     vary: 'accept-encoding, accept',
+43 silly get     'last-modified': 'Wed, 25 Feb 2026 14:19:37 GMT',
+43 silly get     server: 'cloudflare',
+43 silly get     etag: 'W/"e3a3aad88e3147ce4ddf1498c0e8e5b1"',
+43 silly get     'content-encoding': 'gzip'
+43 silly get   }
+43 silly get ]
+44 verbose get saving @ministryofjustice/frontend to /Users/cbernardojr/.npm/registry.npmjs.org/_40ministryofjustice_252ffrontend/.cache.json
+45 verbose correctMkdir /Users/cbernardojr/.npm correctMkdir not in flight; initializing
+46 silly mapToRegistry name @ministryofjustice/frontend
+47 silly mapToRegistry scope (from package name) @ministryofjustice
+48 verbose mapToRegistry no registry URL found in name for scope @ministryofjustice
+49 silly mapToRegistry using default registry
+50 silly mapToRegistry registry https://registry.npmjs.org/
+51 silly mapToRegistry data Result {
+51 silly mapToRegistry   raw: '@ministryofjustice/frontend',
+51 silly mapToRegistry   scope: '@ministryofjustice',
+51 silly mapToRegistry   name: '@ministryofjustice/frontend',
+51 silly mapToRegistry   rawSpec: '',
+51 silly mapToRegistry   spec: 'latest',
+51 silly mapToRegistry   type: 'tag'
+51 silly mapToRegistry }
+52 silly mapToRegistry uri https://registry.npmjs.org/@ministryofjustice%2ffrontend
+53 verbose addRemoteTarball https://registry.npmjs.org/@ministryofjustice/frontend/-/frontend-9.0.0.tgz not in flight; adding
+54 verbose addRemoteTarball [
+54 verbose addRemoteTarball   'https://registry.npmjs.org/@ministryofjustice/frontend/-/frontend-9.0.0.tgz',
+54 verbose addRemoteTarball   'c106740ccc681744f2a62616101b9dd2ff57202a'
+54 verbose addRemoteTarball ]
+55 info retry fetch attempt 1 at 12:11:10
+56 info attempt registry request try #1 at 12:11:10
+57 http fetch GET https://registry.npmjs.org/@ministryofjustice/frontend/-/frontend-9.0.0.tgz
+58 http fetch 200 https://registry.npmjs.org/@ministryofjustice/frontend/-/frontend-9.0.0.tgz
+59 silly fetchAndShaCheck shasum c106740ccc681744f2a62616101b9dd2ff57202a
+60 verbose addTmpTarball /tmp/npm-43954-b81c20bd/registry.npmjs.org/_40ministryofjustice/frontend/-/frontend-9.0.0.tgz not in flight; adding
+61 verbose addTmpTarball already have metadata; skipping unpack for @ministryofjustice/frontend@9.0.0
+62 verbose correctMkdir /Users/cbernardojr/.npm correctMkdir not in flight; initializing
+63 silly cache afterAdd @ministryofjustice/frontend@9.0.0
+64 verbose afterAdd /Users/cbernardojr/.npm/@ministryofjustice/frontend/9.0.0/package/package.json not in flight; writing
+65 verbose correctMkdir /Users/cbernardojr/.npm correctMkdir not in flight; initializing
+66 verbose afterAdd /Users/cbernardojr/.npm/@ministryofjustice/frontend/9.0.0/package/package.json written
+67 silly install resolved [
+67 silly install resolved   {
+67 silly install resolved     name: '@ministryofjustice/frontend',
+67 silly install resolved     description: 'The MOJ Frontend contains the code you need to start building user interfaces for UK Ministry of Justice government services.',
+67 silly install resolved     version: '9.0.0',
+67 silly install resolved     main: 'moj/all.js',
+67 silly install resolved     module: 'moj/all.mjs',
+67 silly install resolved     sass: 'moj/all.scss',
+67 silly install resolved     exports: {
+67 silly install resolved       '.': [Object],
+67 silly install resolved       './*': './*',
+67 silly install resolved       './moj/filters/*': './moj/filters/*.js',
+67 silly install resolved       './moj/filters/*.js': './moj/filters/*.js',
+67 silly install resolved       './package.json': './package.json'
+67 silly install resolved     },
+67 silly install resolved     sideEffects: false,
+67 silly install resolved     engines: { node: '>= 4.2.0' },
+67 silly install resolved     author: { name: 'MOJ Digital & Technology' },
+67 silly install resolved     repository: {
+67 silly install resolved       type: 'git',
+67 silly install resolved       url: 'git+https://github.com/ministryofjustice/moj-frontend.git'
+67 silly install resolved     },
+67 silly install resolved     bugs: { url: 'https://github.com/ministryofjustice/moj-frontend/issues' },
+67 silly install resolved     homepage: 'https://github.com/ministryofjustice/moj-frontend#readme',
+67 silly install resolved     keywords: [ 'moj', 'frontend', 'design system', 'template' ],
+67 silly install resolved     license: 'MIT',
+67 silly install resolved     publishConfig: { access: 'public' },
+67 silly install resolved     peerDependencies: { 'govuk-frontend': '^6.0.0', moment: '2.30.1' },
+67 silly install resolved     gitHead: '8295fbe2ff6bd8b1fc95ac265f1ef30aaf3ecbe0',
+67 silly install resolved     _id: '@ministryofjustice/frontend@9.0.0',
+67 silly install resolved     _nodeVersion: '22.22.0',
+67 silly install resolved     _npmVersion: '11.6.2',
+67 silly install resolved     dist: {
+67 silly install resolved       integrity: 'sha512-R63EvHq//lONAhpUfZCMfxlUHoysDx5Hc6mi9EEV+sfVGm2spGV52PJAkYCYAc3bhTaTiJDtEM+PXgJm0iTWvQ==',
+67 silly install resolved       shasum: 'c106740ccc681744f2a62616101b9dd2ff57202a',
+67 silly install resolved       tarball: 'https://registry.npmjs.org/@ministryofjustice/frontend/-/frontend-9.0.0.tgz',
+67 silly install resolved       fileCount: 350,
+67 silly install resolved       unpackedSize: 3331237,
+67 silly install resolved       attestations: [Object],
+67 silly install resolved       signatures: [Array]
+67 silly install resolved     },
+67 silly install resolved     _npmUser: {
+67 silly install resolved       name: 'GitHub Actions',
+67 silly install resolved       email: 'npm-oidc-no-reply@github.com',
+67 silly install resolved       trustedPublisher: [Object]
+67 silly install resolved     },
+67 silly install resolved     directories: {},
+67 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+67 silly install resolved     _npmOperationalInternal: {
+67 silly install resolved       host: 's3://npm-registry-packages-npm-production',
+67 silly install resolved       tmp: 'tmp/frontend_9.0.0_1772029175824_0.5892218399845541'
+67 silly install resolved     },
+67 silly install resolved     _hasShrinkwrap: false,
+67 silly install resolved     _shasum: 'c106740ccc681744f2a62616101b9dd2ff57202a',
+67 silly install resolved     _resolved: 'https://registry.npmjs.org/@ministryofjustice/frontend/-/frontend-9.0.0.tgz',
+67 silly install resolved     _from: '@ministryofjustice/frontend@9.0.0'
+67 silly install resolved   }
+67 silly install resolved ]
+68 info install @ministryofjustice/frontend@9.0.0 into /Users/carlosbernardojr/Server/fcp-animal-health
+69 info installOne @ministryofjustice/frontend@9.0.0
+70 verbose installOne of @ministryofjustice/frontend to /Users/carlosbernardojr/Server/fcp-animal-health not in flight; installing
+71 verbose correctMkdir /Users/cbernardojr/.npm/_locks correctMkdir not in flight; initializing
+72 verbose lock using /Users/cbernardojr/.npm/_locks/ministryofjustice-fronte-6a55043eedb69df0.lock for /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+73 silly install write writing @ministryofjustice/frontend 9.0.0 to /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+74 verbose unbuild node_modules/@ministryofjustice/frontend
+75 info preuninstall @ministryofjustice/frontend@2.2.4
+76 info uninstall @ministryofjustice/frontend@2.2.4
+77 verbose unbuild rmStuff @ministryofjustice/frontend@2.2.4 from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules
+78 verbose unbuild rmStuff in /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice
+79 info postuninstall @ministryofjustice/frontend@2.2.4
+80 silly gentlyRm /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend is being purged from base /Users/carlosbernardojr/Server/fcp-animal-health
+81 verbose gentlyRm don't care about contents; nuking /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+82 silly vacuum-fs purging /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+83 silly vacuum-fs removing /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice
+84 silly vacuum-fs quitting because other entries in /Users/carlosbernardojr/Server/fcp-animal-health/node_modules
+85 verbose tar unpack /Users/cbernardojr/.npm/@ministryofjustice/frontend/9.0.0/package.tgz
+86 verbose tar unpacking to /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+87 silly gentlyRm /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend is being purged
+88 verbose gentlyRm don't care about contents; nuking /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+89 silly gunzTarPerm modes [ '755', '644' ]
+90 silly gunzTarPerm extractEntry moj/moj-frontend.min.css
+91 silly gunzTarPerm extractEntry moj/components/add-another/add-another.bundle.js
+92 silly gunzTarPerm extractEntry moj/components/alert/alert.bundle.js
+93 silly gunzTarPerm extractEntry moj/components/alert/alert.spec.helper.bundle.js
+94 silly gunzTarPerm extractEntry moj/all.bundle.js
+95 silly gunzTarPerm extractEntry moj/filters/all.js
+96 silly gunzTarPerm extractEntry moj/components/button-menu/button-menu.bundle.js
+97 silly gunzTarPerm extractEntry moj/components/date-picker/date-picker.bundle.js
+98 silly gunzTarPerm extractEntry moj/components/filter-toggle-button/filter-toggle-button.bundle.js
+99 silly gunzTarPerm extractEntry moj/components/form-validator/form-validator.bundle.js
+100 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/header.bundle.js
+101 silly gunzTarPerm extractEntry moj/helpers.bundle.js
+102 silly gunzTarPerm extractEntry moj/init.js
+103 silly gunzTarPerm extractEntry moj/moj-frontend.min.js
+104 silly gunzTarPerm extractEntry moj/components/multi-file-upload/multi-file-upload.bundle.js
+105 silly gunzTarPerm extractEntry moj/components/multi-select/multi-select.bundle.js
+106 silly gunzTarPerm extractEntry moj/components/password-reveal/password-reveal.bundle.js
+107 silly gunzTarPerm extractEntry moj/filters/prototype-kit-13-filters.js
+108 silly gunzTarPerm extractEntry moj/components/rich-text-editor/rich-text-editor.bundle.js
+109 silly gunzTarPerm extractEntry moj/components/search-toggle/search-toggle.bundle.js
+110 silly gunzTarPerm extractEntry moj/components/sortable-table/sortable-table.bundle.js
+111 silly gunzTarPerm extractEntry govuk-prototype-kit.config.json
+112 silly gunzTarPerm extractEntry package.json
+113 silly gunzTarPerm extractEntry moj/components/action-bar/_action-bar.scss.map
+114 silly gunzTarPerm extractEntry moj/components/add-another/_add-another.scss.map
+115 silly gunzTarPerm extractEntry moj/components/alert/_alert.scss.map
+116 silly gunzTarPerm extractEntry moj/components/_all.scss.map
+117 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/_all.scss.map
+118 silly gunzTarPerm extractEntry moj/core/_all.scss.map
+119 silly gunzTarPerm extractEntry moj/helpers/_all.scss.map
+120 silly gunzTarPerm extractEntry moj/objects/_all.scss.map
+121 silly gunzTarPerm extractEntry moj/settings/_all.scss.map
+122 silly gunzTarPerm extractEntry moj/utilities/_all.scss.map
+123 silly gunzTarPerm extractEntry moj/settings/_assets.scss.map
+124 silly gunzTarPerm extractEntry moj/components/badge/_badge.scss.map
+125 silly gunzTarPerm extractEntry moj/components/banner/_banner.scss.map
+126 silly gunzTarPerm extractEntry moj/_base.scss.map
+127 silly gunzTarPerm extractEntry moj/vendor/govuk-frontend/_base.scss.map
+128 silly gunzTarPerm extractEntry moj/objects/_button-group.scss.map
+129 silly gunzTarPerm extractEntry moj/components/button-menu/_button-menu.scss.map
+130 silly gunzTarPerm extractEntry moj/settings/_colours.scss.map
+131 silly gunzTarPerm extractEntry moj/components/cookie-banner/_cookie-banner.scss.map
+132 silly gunzTarPerm extractEntry moj/components/currency-input/_currency-input.scss.map
+133 silly gunzTarPerm extractEntry moj/components/date-picker/_date-picker.scss.map
+134 silly gunzTarPerm extractEntry moj/objects/_filter-layout.scss.map
+135 silly gunzTarPerm extractEntry moj/components/filter/_filter.scss.map
+136 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/footer/_footer.scss.map
+137 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/_header.scss.map
+138 silly gunzTarPerm extractEntry moj/components/header/_header.scss.map
+139 silly gunzTarPerm extractEntry moj/helpers/_hidden.scss.map
+140 silly gunzTarPerm extractEntry moj/utilities/_hidden.scss.map
+141 silly gunzTarPerm extractEntry moj/components/identity-bar/_identity-bar.scss.map
+142 silly gunzTarPerm extractEntry moj/vendor/govuk-frontend/_index.scss.map
+143 silly gunzTarPerm extractEntry moj/components/interruption-card/_interruption-card.scss.map
+144 silly gunzTarPerm extractEntry moj/helpers/_links.scss.map
+145 silly gunzTarPerm extractEntry moj/settings/_measurements.scss.map
+146 silly gunzTarPerm extractEntry moj/components/messages/_messages.scss.map
+147 silly gunzTarPerm extractEntry moj/core/_moj-frontend-properties.scss.map
+148 silly gunzTarPerm extractEntry moj/components/multi-file-upload/_multi-file-upload.scss.map
+149 silly gunzTarPerm extractEntry moj/components/multi-select/_multi-select.scss.map
+150 silly gunzTarPerm extractEntry moj/components/notification-badge/_notification-badge.scss.map
+151 silly gunzTarPerm extractEntry moj/components/organisation-switcher/_organisation-switcher.scss.map
+152 silly gunzTarPerm extractEntry moj/components/page-header-actions/_page-header-actions.scss.map
+153 silly gunzTarPerm extractEntry moj/components/pagination/_pagination.scss.map
+154 silly gunzTarPerm extractEntry moj/components/password-reveal/_password-reveal.scss.map
+155 silly gunzTarPerm extractEntry moj/components/primary-navigation/_primary-navigation.scss.map
+156 silly gunzTarPerm extractEntry moj/components/progress-bar/_progress-bar.scss.map
+157 silly gunzTarPerm extractEntry moj/components/rich-text-editor/_rich-text-editor.scss.map
+158 silly gunzTarPerm extractEntry moj/objects/_scrollable-pane.scss.map
+159 silly gunzTarPerm extractEntry moj/components/search-toggle/_search-toggle.scss.map
+160 silly gunzTarPerm extractEntry moj/components/search/_search.scss.map
+161 silly gunzTarPerm extractEntry moj/components/side-navigation/_side-navigation.scss.map
+162 silly gunzTarPerm extractEntry moj/components/sortable-table/_sortable-table.scss.map
+163 silly gunzTarPerm extractEntry moj/components/sub-navigation/_sub-navigation.scss.map
+164 silly gunzTarPerm extractEntry moj/components/tag/_tag.scss.map
+165 silly gunzTarPerm extractEntry moj/components/task-list/_task-list.scss.map
+166 silly gunzTarPerm extractEntry moj/components/ticket-panel/_ticket-panel.scss.map
+167 silly gunzTarPerm extractEntry moj/components/timeline/_timeline.scss.map
+168 silly gunzTarPerm extractEntry moj/settings/_typography.scss.map
+169 silly gunzTarPerm extractEntry moj/objects/_width-container.scss.map
+170 silly gunzTarPerm extractEntry moj/utilities/_width-container.scss.map
+171 silly gunzTarPerm extractEntry moj/components/add-another/add-another.bundle.js.map
+172 silly gunzTarPerm extractEntry moj/components/add-another/add-another.bundle.mjs.map
+173 silly gunzTarPerm extractEntry moj/components/add-another/add-another.mjs.map
+174 silly gunzTarPerm extractEntry moj/components/alert/alert.bundle.js.map
+175 silly gunzTarPerm extractEntry moj/components/alert/alert.bundle.mjs.map
+176 silly gunzTarPerm extractEntry moj/components/alert/alert.mjs.map
+177 silly gunzTarPerm extractEntry moj/components/alert/alert.spec.helper.bundle.js.map
+178 silly gunzTarPerm extractEntry moj/components/alert/alert.spec.helper.bundle.mjs.map
+179 silly gunzTarPerm extractEntry moj/components/alert/alert.spec.helper.mjs.map
+180 silly gunzTarPerm extractEntry moj/all.bundle.js.map
+181 silly gunzTarPerm extractEntry moj/all.bundle.mjs.map
+182 silly gunzTarPerm extractEntry moj/all.mjs.map
+183 silly gunzTarPerm extractEntry moj/all.scss.map
+184 silly gunzTarPerm extractEntry moj/components/button-menu/button-menu.bundle.js.map
+185 silly gunzTarPerm extractEntry moj/components/button-menu/button-menu.bundle.mjs.map
+186 silly gunzTarPerm extractEntry moj/components/button-menu/button-menu.mjs.map
+187 silly gunzTarPerm extractEntry moj/components/date-picker/date-picker.bundle.js.map
+188 silly gunzTarPerm extractEntry moj/components/date-picker/date-picker.bundle.mjs.map
+189 silly gunzTarPerm extractEntry moj/components/date-picker/date-picker.mjs.map
+190 silly gunzTarPerm extractEntry moj/components/filter-toggle-button/filter-toggle-button.bundle.js.map
+191 silly gunzTarPerm extractEntry moj/components/filter-toggle-button/filter-toggle-button.bundle.mjs.map
+192 silly gunzTarPerm extractEntry moj/components/filter-toggle-button/filter-toggle-button.mjs.map
+193 silly gunzTarPerm extractEntry moj/components/form-validator/form-validator.bundle.js.map
+194 silly gunzTarPerm extractEntry moj/components/form-validator/form-validator.bundle.mjs.map
+195 silly gunzTarPerm extractEntry moj/components/form-validator/form-validator.mjs.map
+196 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/header.bundle.js.map
+197 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/header.bundle.mjs.map
+198 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/header.mjs.map
+199 silly gunzTarPerm extractEntry moj/helpers.bundle.js.map
+200 silly gunzTarPerm extractEntry moj/helpers.bundle.mjs.map
+201 silly gunzTarPerm extractEntry moj/helpers.mjs.map
+202 silly gunzTarPerm extractEntry moj/common/index.mjs.map
+203 silly gunzTarPerm extractEntry moj/common/moj-frontend-version.mjs.map
+204 silly gunzTarPerm extractEntry moj/moj-frontend.min.css.map
+205 silly gunzTarPerm extractEntry moj/moj-frontend.min.js.map
+206 silly gunzTarPerm extractEntry moj/components/multi-file-upload/multi-file-upload.bundle.js.map
+207 silly gunzTarPerm extractEntry moj/components/multi-file-upload/multi-file-upload.bundle.mjs.map
+208 silly gunzTarPerm extractEntry moj/components/multi-file-upload/multi-file-upload.mjs.map
+209 silly gunzTarPerm extractEntry moj/components/multi-select/multi-select.bundle.js.map
+210 silly gunzTarPerm extractEntry moj/components/multi-select/multi-select.bundle.mjs.map
+211 silly gunzTarPerm extractEntry moj/components/multi-select/multi-select.mjs.map
+212 silly gunzTarPerm extractEntry moj/components/password-reveal/password-reveal.bundle.js.map
+213 silly gunzTarPerm extractEntry moj/components/password-reveal/password-reveal.bundle.mjs.map
+214 silly gunzTarPerm extractEntry moj/components/password-reveal/password-reveal.mjs.map
+215 silly gunzTarPerm extractEntry moj/components/rich-text-editor/rich-text-editor.bundle.js.map
+216 silly gunzTarPerm extractEntry moj/components/rich-text-editor/rich-text-editor.bundle.mjs.map
+217 silly gunzTarPerm extractEntry moj/components/rich-text-editor/rich-text-editor.mjs.map
+218 silly gunzTarPerm extractEntry moj/components/search-toggle/search-toggle.bundle.js.map
+219 silly gunzTarPerm extractEntry moj/components/search-toggle/search-toggle.bundle.mjs.map
+220 silly gunzTarPerm extractEntry moj/components/search-toggle/search-toggle.mjs.map
+221 silly gunzTarPerm extractEntry moj/components/sortable-table/sortable-table.bundle.js.map
+222 silly gunzTarPerm extractEntry moj/components/sortable-table/sortable-table.bundle.mjs.map
+223 silly gunzTarPerm extractEntry moj/components/sortable-table/sortable-table.mjs.map
+224 silly gunzTarPerm extractEntry moj/components/action-bar/README.md
+225 silly gunzTarPerm extractEntry moj/components/add-another/README.md
+226 silly gunzTarPerm extractEntry moj/components/alert/README.md
+227 silly gunzTarPerm extractEntry moj/components/badge/README.md
+228 silly gunzTarPerm extractEntry moj/components/banner/README.md
+229 silly gunzTarPerm extractEntry moj/components/button-menu/README.md
+230 silly gunzTarPerm extractEntry moj/components/cookie-banner/README.md
+231 silly gunzTarPerm extractEntry moj/components/currency-input/README.md
+232 silly gunzTarPerm extractEntry moj/components/date-picker/README.md
+233 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/footer/README.md
+234 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/README.md
+235 silly gunzTarPerm extractEntry moj/components/filter-toggle-button/README.md
+236 silly gunzTarPerm extractEntry moj/components/filter/README.md
+237 silly gunzTarPerm extractEntry moj/components/form-validator/README.md
+238 silly gunzTarPerm extractEntry moj/components/header/README.md
+239 silly gunzTarPerm extractEntry moj/components/identity-bar/README.md
+240 silly gunzTarPerm extractEntry moj/components/messages/README.md
+241 silly gunzTarPerm extractEntry moj/components/multi-file-upload/README.md
+242 silly gunzTarPerm extractEntry moj/components/multi-select/README.md
+243 silly gunzTarPerm extractEntry moj/components/notification-badge/README.md
+244 silly gunzTarPerm extractEntry moj/components/organisation-switcher/README.md
+245 silly gunzTarPerm extractEntry moj/components/page-header-actions/README.md
+246 silly gunzTarPerm extractEntry moj/components/pagination/README.md
+247 silly gunzTarPerm extractEntry moj/components/password-reveal/README.md
+248 silly gunzTarPerm extractEntry moj/components/primary-navigation/README.md
+249 silly gunzTarPerm extractEntry moj/components/progress-bar/README.md
+250 silly gunzTarPerm extractEntry moj/components/rich-text-editor/README.md
+251 silly gunzTarPerm extractEntry moj/components/search-toggle/README.md
+252 silly gunzTarPerm extractEntry moj/components/search/README.md
+253 silly gunzTarPerm extractEntry moj/components/side-navigation/README.md
+254 silly gunzTarPerm extractEntry moj/components/sortable-table/README.md
+255 silly gunzTarPerm extractEntry moj/components/sub-navigation/README.md
+256 silly gunzTarPerm extractEntry moj/components/tag/README.md
+257 silly gunzTarPerm extractEntry moj/components/task-list/README.md
+258 silly gunzTarPerm extractEntry moj/components/ticket-panel/README.md
+259 silly gunzTarPerm extractEntry moj/components/timeline/README.md
+260 silly gunzTarPerm extractEntry README.md
+261 silly gunzTarPerm extractEntry moj/components/add-another/add-another.bundle.mjs
+262 silly gunzTarPerm extractEntry moj/components/add-another/add-another.mjs
+263 silly gunzTarPerm extractEntry moj/components/alert/alert.bundle.mjs
+264 silly gunzTarPerm extractEntry moj/components/alert/alert.mjs
+265 silly gunzTarPerm extractEntry moj/components/alert/alert.spec.helper.bundle.mjs
+266 silly gunzTarPerm extractEntry moj/components/alert/alert.spec.helper.mjs
+267 silly gunzTarPerm extractEntry moj/all.bundle.mjs
+268 silly gunzTarPerm extractEntry moj/all.mjs
+269 silly gunzTarPerm extractEntry moj/components/button-menu/button-menu.bundle.mjs
+270 silly gunzTarPerm extractEntry moj/components/button-menu/button-menu.mjs
+271 silly gunzTarPerm extractEntry moj/components/date-picker/date-picker.bundle.mjs
+272 silly gunzTarPerm extractEntry moj/components/date-picker/date-picker.mjs
+273 silly gunzTarPerm extractEntry moj/components/filter-toggle-button/filter-toggle-button.bundle.mjs
+274 silly gunzTarPerm extractEntry moj/components/filter-toggle-button/filter-toggle-button.mjs
+275 silly gunzTarPerm extractEntry moj/components/form-validator/form-validator.bundle.mjs
+276 silly gunzTarPerm extractEntry moj/components/form-validator/form-validator.mjs
+277 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/header.bundle.mjs
+278 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/header.mjs
+279 silly gunzTarPerm extractEntry moj/helpers.bundle.mjs
+280 silly gunzTarPerm extractEntry moj/helpers.mjs
+281 silly gunzTarPerm extractEntry moj/common/index.mjs
+282 silly gunzTarPerm extractEntry moj/common/moj-frontend-version.mjs
+283 silly gunzTarPerm extractEntry moj/components/multi-file-upload/multi-file-upload.bundle.mjs
+284 silly gunzTarPerm extractEntry moj/components/multi-file-upload/multi-file-upload.mjs
+285 silly gunzTarPerm extractEntry moj/components/multi-select/multi-select.bundle.mjs
+286 silly gunzTarPerm extractEntry moj/components/multi-select/multi-select.mjs
+287 silly gunzTarPerm extractEntry moj/components/password-reveal/password-reveal.bundle.mjs
+288 silly gunzTarPerm extractEntry moj/components/password-reveal/password-reveal.mjs
+289 silly gunzTarPerm extractEntry moj/components/rich-text-editor/rich-text-editor.bundle.mjs
+290 silly gunzTarPerm extractEntry moj/components/rich-text-editor/rich-text-editor.mjs
+291 silly gunzTarPerm extractEntry moj/components/search-toggle/search-toggle.bundle.mjs
+292 silly gunzTarPerm extractEntry moj/components/search-toggle/search-toggle.mjs
+293 silly gunzTarPerm extractEntry moj/components/sortable-table/sortable-table.bundle.mjs
+294 silly gunzTarPerm extractEntry moj/components/sortable-table/sortable-table.mjs
+295 silly gunzTarPerm extractEntry moj/components/alert/macro.njk
+296 silly gunzTarPerm extractEntry moj/components/badge/macro.njk
+297 silly gunzTarPerm extractEntry moj/components/banner/macro.njk
+298 silly gunzTarPerm extractEntry moj/components/button-menu/macro.njk
+299 silly gunzTarPerm extractEntry moj/components/cookie-banner/macro.njk
+300 silly gunzTarPerm extractEntry moj/components/currency-input/macro.njk
+301 silly gunzTarPerm extractEntry moj/components/date-picker/macro.njk
+302 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/footer/macro.njk
+303 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/macro.njk
+304 silly gunzTarPerm extractEntry moj/components/filter/macro.njk
+305 silly gunzTarPerm extractEntry moj/components/header/macro.njk
+306 silly gunzTarPerm extractEntry moj/components/identity-bar/macro.njk
+307 silly gunzTarPerm extractEntry moj/components/interruption-card/macro.njk
+308 silly gunzTarPerm extractEntry moj/components/messages/macro.njk
+309 silly gunzTarPerm extractEntry moj/components/multi-file-upload/macro.njk
+310 silly gunzTarPerm extractEntry moj/components/notification-badge/macro.njk
+311 silly gunzTarPerm extractEntry moj/components/organisation-switcher/macro.njk
+312 silly gunzTarPerm extractEntry moj/components/page-header-actions/macro.njk
+313 silly gunzTarPerm extractEntry moj/components/pagination/macro.njk
+314 silly gunzTarPerm extractEntry moj/components/primary-navigation/macro.njk
+315 silly gunzTarPerm extractEntry moj/components/progress-bar/macro.njk
+316 silly gunzTarPerm extractEntry moj/components/search/macro.njk
+317 silly gunzTarPerm extractEntry moj/components/side-navigation/macro.njk
+318 silly gunzTarPerm extractEntry moj/components/sub-navigation/macro.njk
+319 silly gunzTarPerm extractEntry moj/components/task-list/macro.njk
+320 silly gunzTarPerm extractEntry moj/components/ticket-panel/macro.njk
+321 silly gunzTarPerm extractEntry moj/components/timeline/macro.njk
+322 silly gunzTarPerm extractEntry moj/components/alert/template.njk
+323 silly gunzTarPerm extractEntry moj/components/badge/template.njk
+324 silly gunzTarPerm extractEntry moj/components/banner/template.njk
+325 silly gunzTarPerm extractEntry moj/components/button-menu/template.njk
+326 silly gunzTarPerm extractEntry moj/components/cookie-banner/template.njk
+327 silly gunzTarPerm extractEntry moj/components/currency-input/template.njk
+328 silly gunzTarPerm extractEntry moj/components/date-picker/template.njk
+329 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/footer/template.njk
+330 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/template.njk
+331 silly gunzTarPerm extractEntry moj/components/filter/template.njk
+332 silly gunzTarPerm extractEntry moj/components/header/template.njk
+333 silly gunzTarPerm extractEntry moj/components/identity-bar/template.njk
+334 silly gunzTarPerm extractEntry moj/components/interruption-card/template.njk
+335 silly gunzTarPerm extractEntry moj/components/messages/template.njk
+336 silly gunzTarPerm extractEntry moj/components/multi-file-upload/template.njk
+337 silly gunzTarPerm extractEntry moj/components/notification-badge/template.njk
+338 silly gunzTarPerm extractEntry moj/components/organisation-switcher/template.njk
+339 silly gunzTarPerm extractEntry moj/components/page-header-actions/template.njk
+340 silly gunzTarPerm extractEntry moj/components/pagination/template.njk
+341 silly gunzTarPerm extractEntry moj/components/primary-navigation/template.njk
+342 silly gunzTarPerm extractEntry moj/components/progress-bar/template.njk
+343 silly gunzTarPerm extractEntry moj/components/search/template.njk
+344 silly gunzTarPerm extractEntry moj/components/side-navigation/template.njk
+345 silly gunzTarPerm extractEntry moj/components/sub-navigation/template.njk
+346 silly gunzTarPerm extractEntry moj/components/task-list/template.njk
+347 silly gunzTarPerm extractEntry moj/components/ticket-panel/template.njk
+348 silly gunzTarPerm extractEntry moj/components/timeline/template.njk
+349 silly gunzTarPerm extractEntry moj/template.njk
+350 silly gunzTarPerm extractEntry moj/assets/images/govuk-logotype-crown.png
+351 silly gunzTarPerm extractEntry moj/assets/images/icon-document.png
+352 silly gunzTarPerm extractEntry moj/assets/images/icon-progress-tick.png
+353 silly gunzTarPerm extractEntry moj/assets/images/moj-apple-touch-icon-152x152-2024.png
+354 silly gunzTarPerm extractEntry moj/assets/images/moj-apple-touch-icon-167x167-2024.png
+355 silly gunzTarPerm extractEntry moj/assets/images/moj-apple-touch-icon-180x180-2024.png
+356 silly gunzTarPerm extractEntry moj/assets/images/moj-apple-touch-icon-2024.png
+357 silly gunzTarPerm extractEntry moj/assets/images/moj-logotype-crest-2024.png
+358 silly gunzTarPerm extractEntry moj/assets/images/moj-opengraph-image-2024.png
+359 silly gunzTarPerm extractEntry moj/components/action-bar/_action-bar.scss
+360 silly gunzTarPerm extractEntry moj/components/add-another/_add-another.scss
+361 silly gunzTarPerm extractEntry moj/components/alert/_alert.scss
+362 silly gunzTarPerm extractEntry moj/components/_all.scss
+363 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/_all.scss
+364 silly gunzTarPerm extractEntry moj/core/_all.scss
+365 silly gunzTarPerm extractEntry moj/helpers/_all.scss
+366 silly gunzTarPerm extractEntry moj/objects/_all.scss
+367 silly gunzTarPerm extractEntry moj/settings/_all.scss
+368 silly gunzTarPerm extractEntry moj/utilities/_all.scss
+369 silly gunzTarPerm extractEntry moj/settings/_assets.scss
+370 silly gunzTarPerm extractEntry moj/components/badge/_badge.scss
+371 silly gunzTarPerm extractEntry moj/components/banner/_banner.scss
+372 silly gunzTarPerm extractEntry moj/_base.scss
+373 silly gunzTarPerm extractEntry moj/vendor/govuk-frontend/_base.scss
+374 silly gunzTarPerm extractEntry moj/objects/_button-group.scss
+375 silly gunzTarPerm extractEntry moj/components/button-menu/_button-menu.scss
+376 silly gunzTarPerm extractEntry moj/settings/_colours.scss
+377 silly gunzTarPerm extractEntry moj/components/cookie-banner/_cookie-banner.scss
+378 silly gunzTarPerm extractEntry moj/components/currency-input/_currency-input.scss
+379 silly gunzTarPerm extractEntry moj/components/date-picker/_date-picker.scss
+380 silly gunzTarPerm extractEntry moj/objects/_filter-layout.scss
+381 silly gunzTarPerm extractEntry moj/components/filter/_filter.scss
+382 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/footer/_footer.scss
+383 silly gunzTarPerm extractEntry moj/components/domain-specific/probation/header/_header.scss
+384 silly gunzTarPerm extractEntry moj/components/header/_header.scss
+385 silly gunzTarPerm extractEntry moj/helpers/_hidden.scss
+386 silly gunzTarPerm extractEntry moj/utilities/_hidden.scss
+387 silly gunzTarPerm extractEntry moj/components/identity-bar/_identity-bar.scss
+388 silly gunzTarPerm extractEntry moj/vendor/govuk-frontend/_index.scss
+389 silly gunzTarPerm extractEntry moj/components/interruption-card/_interruption-card.scss
+390 silly gunzTarPerm extractEntry moj/helpers/_links.scss
+391 silly gunzTarPerm extractEntry moj/settings/_measurements.scss
+392 silly gunzTarPerm extractEntry moj/components/messages/_messages.scss
+393 silly gunzTarPerm extractEntry moj/core/_moj-frontend-properties.scss
+394 silly gunzTarPerm extractEntry moj/components/multi-file-upload/_multi-file-upload.scss
+395 silly gunzTarPerm extractEntry moj/components/multi-select/_multi-select.scss
+396 silly gunzTarPerm extractEntry moj/components/notification-badge/_notification-badge.scss
+397 silly gunzTarPerm extractEntry moj/components/organisation-switcher/_organisation-switcher.scss
+398 silly gunzTarPerm extractEntry moj/components/page-header-actions/_page-header-actions.scss
+399 silly gunzTarPerm extractEntry moj/components/pagination/_pagination.scss
+400 silly gunzTarPerm extractEntry moj/components/password-reveal/_password-reveal.scss
+401 silly gunzTarPerm extractEntry moj/components/primary-navigation/_primary-navigation.scss
+402 silly gunzTarPerm extractEntry moj/components/progress-bar/_progress-bar.scss
+403 silly gunzTarPerm extractEntry moj/components/rich-text-editor/_rich-text-editor.scss
+404 silly gunzTarPerm extractEntry moj/objects/_scrollable-pane.scss
+405 silly gunzTarPerm extractEntry moj/components/search-toggle/_search-toggle.scss
+406 silly gunzTarPerm extractEntry moj/components/search/_search.scss
+407 silly gunzTarPerm extractEntry moj/components/side-navigation/_side-navigation.scss
+408 silly gunzTarPerm extractEntry moj/components/sortable-table/_sortable-table.scss
+409 silly gunzTarPerm extractEntry moj/components/sub-navigation/_sub-navigation.scss
+410 silly gunzTarPerm extractEntry moj/components/tag/_tag.scss
+411 silly gunzTarPerm extractEntry moj/components/task-list/_task-list.scss
+412 silly gunzTarPerm extractEntry moj/components/ticket-panel/_ticket-panel.scss
+413 silly gunzTarPerm extractEntry moj/components/timeline/_timeline.scss
+414 silly gunzTarPerm extractEntry moj/settings/_typography.scss
+415 silly gunzTarPerm extractEntry moj/objects/_width-container.scss
+416 silly gunzTarPerm extractEntry moj/utilities/_width-container.scss
+417 silly gunzTarPerm extractEntry moj/all.scss
+418 silly gunzTarPerm extractEntry moj/assets/images/icon-alert-information.svg
+419 silly gunzTarPerm extractEntry moj/assets/images/icon-alert-success.svg
+420 silly gunzTarPerm extractEntry moj/assets/images/icon-alert-warning.svg
+421 silly gunzTarPerm extractEntry moj/assets/images/icon-arrow-black-down.svg
+422 silly gunzTarPerm extractEntry moj/assets/images/icon-arrow-black-up.svg
+423 silly gunzTarPerm extractEntry moj/assets/images/icon-arrow-white-down.svg
+424 silly gunzTarPerm extractEntry moj/assets/images/icon-arrow-white-up.svg
+425 silly gunzTarPerm extractEntry moj/assets/images/icon-close-cross-black.svg
+426 silly gunzTarPerm extractEntry moj/assets/images/icon-document.svg
+427 silly gunzTarPerm extractEntry moj/assets/images/icon-progress-tick.svg
+428 silly gunzTarPerm extractEntry moj/assets/images/icon-search-black.svg
+429 silly gunzTarPerm extractEntry moj/assets/images/icon-search-blue.svg
+430 silly gunzTarPerm extractEntry moj/assets/images/icon-search-white.svg
+431 silly gunzTarPerm extractEntry moj/assets/images/icon-tag-remove-cross-white.svg
+432 silly gunzTarPerm extractEntry moj/assets/images/icon-tag-remove-cross.svg
+433 silly gunzTarPerm extractEntry moj/assets/images/icon-toggle-plus-minus.svg
+434 silly gunzTarPerm extractEntry moj/assets/images/icon-wysiwyg-bold.svg
+435 silly gunzTarPerm extractEntry moj/assets/images/icon-wysiwyg-italic.svg
+436 silly gunzTarPerm extractEntry moj/assets/images/icon-wysiwyg-ordered-list.svg
+437 silly gunzTarPerm extractEntry moj/assets/images/icon-wysiwyg-underline.svg
+438 silly gunzTarPerm extractEntry moj/assets/images/icon-wysiwyg-unordered-list.svg
+439 silly gunzTarPerm extractEntry moj/assets/images/moj-logotype-crest-2024.svg
+440 verbose write writing to /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend/package.json
+441 info preinstall @ministryofjustice/frontend@9.0.0
+442 verbose readDependencies loading dependencies from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend/package.json
+443 silly prepareForInstallMany adding govuk-frontend@^6.0.0 from @ministryofjustice/frontend peerDependencies
+444 warn peerDependencies The peer dependency govuk-frontend@^6.0.0 included from @ministryofjustice/frontend will no
+445 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+446 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+447 verbose readDependencies loading dependencies from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend/package.json
+448 silly install resolved []
+449 verbose about to build /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+450 info build /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+451 info linkStuff @ministryofjustice/frontend@9.0.0
+452 silly linkStuff @ministryofjustice/frontend@9.0.0 has /Users/carlosbernardojr/Server/fcp-animal-health/node_modules as its parent node_modules
+453 verbose linkBins @ministryofjustice/frontend@9.0.0
+454 verbose linkMans @ministryofjustice/frontend@9.0.0
+455 verbose rebuildBundles @ministryofjustice/frontend@9.0.0
+456 info install @ministryofjustice/frontend@9.0.0
+457 info postinstall @ministryofjustice/frontend@9.0.0
+458 verbose readDependencies loading dependencies from /Users/carlosbernardojr/Server/fcp-animal-health/package.json
+459 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/govuk-frontend/package.json
+460 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/govuk-prototype-kit/package.json
+461 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/jquery/package.json
+462 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/latest/package.json
+463 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/moment/package.json
+464 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/package.json
+465 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/.bin/govuk-prototype-kit/package.json
+466 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/.bin/latest/package.json
+467 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/.bin/npm/package.json
+468 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@govuk-prototype-kit/common-templates/package.json
+469 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@govuk-prototype-kit/task-list/package.json
+470 verbose targetResolver reading package data from /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend/package.json
+471 verbose already installed skipping govuk-frontend@^6.0.0 /Users/carlosbernardojr/Server/fcp-animal-health
+472 silly install resolved []
+473 verbose unlock done using /Users/cbernardojr/.npm/_locks/ministryofjustice-fronte-6a55043eedb69df0.lock for /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/@ministryofjustice/frontend
+474 verbose validateInstall loading /Users/carlosbernardojr/Server/fcp-animal-health/package.json for validation
+475 verbose stack Error: The package govuk-frontend@5.11.2 does not satisfy its siblings' peerDependencies requirements!
+475 verbose stack     at /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/lib/install.js:125:32
+475 verbose stack     at /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/lib/install.js:268:7
+475 verbose stack     at /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+475 verbose stack     at /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+475 verbose stack     at cb (/Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+475 verbose stack     at /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+475 verbose stack     at cb (/Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+475 verbose stack     at /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+475 verbose stack     at cb (/Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+475 verbose stack     at /Users/carlosbernardojr/Server/fcp-animal-health/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+476 verbose cwd /Users/carlosbernardojr/Server/fcp-animal-health
+477 error Darwin 25.3.0
+478 error argv "/Users/cbernardojr/.nvm/versions/node/v22.19.0/bin/node" "/Users/carlosbernardojr/Server/fcp-animal-health/node_modules/.bin/npm" "install" "@ministryofjustice/frontend@9.0.0" "--save-exact"
+479 error node v22.19.0
+480 error npm  v2.15.12
+481 error code EPEERINVALID
+482 error peerinvalid The package govuk-frontend@5.11.2 does not satisfy its siblings' peerDependencies requirements!
+482 error peerinvalid Peer @ministryofjustice/frontend@9.0.0 wants govuk-frontend@^6.0.0
+483 verbose exit [ 1, true ]
