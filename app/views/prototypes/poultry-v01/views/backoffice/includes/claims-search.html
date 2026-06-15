@@ -45,14 +45,14 @@
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
         {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
         {{ govukDateInput({ id: "passport-issued", namePrefix:
-        "passport-issued", fieldset: { legend: { text: "Start claim date",
+        "passport-issued", fieldset: { legend: { text: "Claim date after",
         isPageHeading: false, classes: "govuk-fieldset__legend--s" } } }) }} {#
         , hint: { text: "For example, 27 3 2007" } #}
       </div>
 
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
         {{ govukDateInput({ id: "passport-issued", namePrefix:
-        "passport-issued", fieldset: { legend: { text: "End date",
+        "passport-issued", fieldset: { legend: { text: "Claim date before",
         isPageHeading: false, classes: "govuk-fieldset__legend--s" } } }) }} {#
         , hint: { text: "For example, 27 3 2007" } #}
       </div>
@@ -88,7 +88,7 @@
         {% from "govuk/components/select/macro.njk" import govukSelect %} {{
         govukSelect({ id: "filter-status", name: "filter-status", label: { text: "Status",
         isPageHeading: false, classes: "govuk-fieldset__legend--s" }, items: [ {
-        value: "all", text: "All status", selected: true }, { value: "ready",
+        value: "all", text: "All statuses", selected: true }, { value: "ready",
         text: "Ready to pay" }, { value: "incheck", text: "In check" }, { value:
         "paid", text: "On hold" }, { value:
         "paid", text: "Paid" }, { value:
