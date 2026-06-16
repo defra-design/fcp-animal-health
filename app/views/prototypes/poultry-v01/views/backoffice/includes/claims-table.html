@@ -19,7 +19,7 @@ data-module="moj-sortable-table"
         scope="col"
         class="govuk-table__header col-6 responsive-text"
     >
-        <span>Flagged
+        <span>Flag
              {# 🚩 #}
         </span>
     </th>
@@ -39,14 +39,14 @@ data-module="moj-sortable-table"
         scope="col"
         class="govuk-table__header col-25 responsive-text"
     >
-        Herd/Site name
+        Herd or site name
     </th>
 
     <th
         scope="col"
         class="govuk-table__header col-6 responsive-text"
     >
-        Herd/Site CPH
+        CPH
     </th>
 
     <th
@@ -56,7 +56,7 @@ data-module="moj-sortable-table"
         data-url="/claims/sort/SBI" #}
     >
         {# <button type="button" data-index="5"> #}
-        SBI number
+        SBI
         {# </button> #}
     </th>
 
@@ -143,7 +143,7 @@ data-module="moj-sortable-table"
             >
         </td>
     </tr>
-    <tr class="govuk-table__row">
+    <tr class="govuk-table__row flagged-item">
         <td class="govuk-table__cell">
             <div>
             <a
@@ -157,7 +157,9 @@ data-module="moj-sortable-table"
             </div>
         </td>
 
-        <td class="govuk-table__cell responsive-text"></td>
+        <td class="govuk-table__cell responsive-text">
+            <span>Yes</span>
+        </td>
 
         <td
             class="govuk-table__cell responsive-text"
@@ -194,8 +196,8 @@ data-module="moj-sortable-table"
         >
             <span class="app-long-tag"
             ><span
-                class="govuk-tag responsive-text govuk-tag--purple"
-                >On hold</span
+                class="govuk-tag responsive-text govuk-tag--orange"
+                >In check</span
             ></span
             >
         </td>

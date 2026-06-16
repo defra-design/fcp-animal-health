@@ -19,15 +19,42 @@
 <div class="govuk-grid-row govuk-!-margin-bottom-4">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REBC-M385-75C8</h1>
-    <h2 class="govuk-heading-m" style="margin-bottom: 8px;"><strong class="govuk-tag govuk-tag--purple">
-      On hold
+    <h2 class="govuk-heading-m" style="margin-bottom: 8px;"><strong class="govuk-tag govuk-tag--orange">
+      In check
     </strong></h2>
       <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">Brookfield Farm (view agreement)</a></p></h2>
   </div>
 </div>
 
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
+
+
+    {# {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% call govukInsetText() %}
+ This agreement has been flagged for: SBI not in the Poultry Register.
+{% endcall %} #}
+
+    <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Important
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <p class="govuk-notification-banner__heading">
+          This agreement has been flagged for: <br />
+          <ul>
+            <li>SBI not in the Poultry Register</li>
+            <li>Suspicion of fraud</li>
+          </ul>
+          {# <a class="govuk-notification-banner__link" href="#">View application</a>. #}
+        </p>
+      </div>
+    </div>
+
 
     <hr class="govuk-section-break govuk-section-break--s govuk-section-break--visible">
 
@@ -173,8 +200,8 @@
               Status
             </dt>
             <dd class="govuk-summary-list__value">
-              <strong class="govuk-tag govuk-tag--purple">
-                On hold
+              <strong class="govuk-tag govuk-tag--orange">
+                In check
               </strong>
             </dd>
             {% if data['backoffice-user'] != 'team' %}
@@ -386,14 +413,89 @@
             {% endif %}
           </div>
         </dl>
-        <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
-        <p class="govuk-body">If no further checks are required, you do not need to do anything. The claim will automatically move to ‘ready to pay’.</p>
+        {# <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
+        <p class="govuk-body">If no further checks are required, you do not need to do anything. The claim will automatically move to ‘ready to pay’.</p> #}
 
-        <div class="govuk-button-group">
+        {# <div class="govuk-button-group">
           <a href="change/move-claim-to-in-check.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
             Move claim to 'in check'
           </a>
+        </div> #}
+
+        <br />
+
+        {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+        {% set payHtml %}
+        <div class="govuk-form-group">
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+              <label class="govuk-label govuk-checkboxes__label" for="waste">
+                I have checked the claim against the verification checklist and it has passed. I recommend the payment is authorised.
+              </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
+              <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                I have sent the verification checklist to the authoriser explaining why it's passed.
+              </label>
+            </div>
+          </div>
         </div>
+        {% endset -%}
+
+        {% set rejectHtml %}
+        <div class="govuk-form-group">
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+              <label class="govuk-label govuk-checkboxes__label" for="waste">
+                I have checked the claim against the verification checklist and it has not passed. I recommend the claim is rejected.
+              </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
+              <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                I have sent the verification checklist to the authoriser explaining why it's failed.
+              </label>
+            </div>
+          </div>
+        </div>
+        {% endset -%}
+
+        {{ govukRadios({
+          name: "whereDoYouLive",
+          fieldset: {
+            legend: {
+              text: "What is your recommendation?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          items: [
+            {
+              value: "recommend-pay",
+              text: "Recommend to pay",
+              conditional: {
+                html: payHtml
+              }
+            },
+            {
+              value: "recommend-reject",
+              text: "Recommend to reject",
+              conditional: {
+                html: rejectHtml
+              }
+            }
+          ]
+        }) }}
+
+        <div class="govuk-button-group">
+          <a href="change/move-claim-to-in-check.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+            Confirm and continue
+          </a>
+        </div> 
 
 
         {% if data['backoffice-user'] != 'team' %}
