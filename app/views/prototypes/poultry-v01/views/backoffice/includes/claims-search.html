@@ -20,7 +20,7 @@
 
 <details id="filter-details" class="govuk-details govuk-!-margin-top-2">
   <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text"> Filter claims by </span>
+    <span class="govuk-details__summary-text"> Advanced search </span>
   </summary>
   <div class="govuk-details__text">
     {# We need to know your nationality so we can work out which elections
@@ -45,14 +45,14 @@
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
         {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
         {{ govukDateInput({ id: "passport-issued", namePrefix:
-        "passport-issued", fieldset: { legend: { text: "Claim date after",
+        "passport-issued", fieldset: { legend: { text: "Claim date from",
         isPageHeading: false, classes: "govuk-fieldset__legend--s" } } }) }} {#
         , hint: { text: "For example, 27 3 2007" } #}
       </div>
 
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
         {{ govukDateInput({ id: "passport-issued", namePrefix:
-        "passport-issued", fieldset: { legend: { text: "Claim date before",
+        "passport-issued", fieldset: { legend: { text: "Claim date to",
         isPageHeading: false, classes: "govuk-fieldset__legend--s" } } }) }} {#
         , hint: { text: "For example, 27 3 2007" } #}
       </div>
@@ -99,7 +99,7 @@
     <div class="govuk-grid-row iahw-filters-group">
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-0">
         {% from "govuk/components/button/macro.njk" import govukButton %} {{
-        govukButton({ text: "Apply filter", classes: "govuk-button--secondary",
+        govukButton({ text: "Search", classes: "govuk-button--secondary",
         href: "claims-filter-results.html" }) }}
       </div>
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-2">

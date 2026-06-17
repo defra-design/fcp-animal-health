@@ -16,11 +16,21 @@
 {% block content %}
 <div class="govuk-grid-row govuk-!-margin-bottom-4">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REBC-6844-3029</h1>
+
+    <h1 class="govuk-heading-l">
+      <span class="govuk-caption-l">P&D Fearnley & Sons</span>
+      Claim number: REBC-6844-3029
+    </h1>
+    <strong class="govuk-tag govuk-tag--purple">
+      On hold
+    </strong>
+
+
+    {# <h1 class="govuk-heading-l" style="margin-bottom: 8px;">Claim number: REBC-6844-3029</h1>
     <h2 class="govuk-heading-m" style="margin-bottom: 8px;"><strong class="govuk-tag govuk-tag--purple">
       On hold
     </strong></h2>
-      <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">P&D Fearnley & Sons (view agreement)</a></p></h2>
+      <h2 class="govuk-caption-l govuk-!-margin-bottom-3">Claim by <a href="business.html">P&D Fearnley & Sons (view agreement)</a></p></h2> #}
   </div>
 </div>
 
@@ -214,7 +224,8 @@
               Date of visit
             </dt>
             <dd class="govuk-summary-list__value">
-              11 October 2024 (previous 10/10/2024)
+              <b>Changed to:</b> 11 October 2024
+              <br /><b>Changed from:</b> 10 October 2024
               <br/><strong class="govuk-tag govuk-tag--yellow iahw-table-tag">
                 Change pending approval
               </strong>
@@ -371,8 +382,9 @@
             {% endif %}
           </div>
         </dl>
-        <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
-        <p class="govuk-body">If no further checks are required, you do not need to do anything. The claim will automatically move to ‘ready to pay’.</p>
+        
+        <p class="govuk-body">Move the claim to 'in check' if you recommend it for a full verification check.</p>
+        <p class="govuk-body">The claim will automatically move to 'ready to pay' if no further checks are needed.</p>
 
         <div class="govuk-button-group">
           <a href="change/move-claim-to-in-check.html" role="button" draggable="false" class="govuk-button" data-module="govuk-button">

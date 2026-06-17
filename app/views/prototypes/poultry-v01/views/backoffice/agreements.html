@@ -45,7 +45,7 @@ Annual health and welfare review agreements
     <details class="govuk-details govuk-!-margin-top-2">
           <summary class="govuk-details__summary">
             <span class="govuk-details__summary-text">
-              Filter agreements by
+              Advanced search
             </span>
           </summary>
           <div class="govuk-details__text">
@@ -71,7 +71,7 @@ Annual health and welfare review agreements
                   namePrefix: "passport-issued",
                   fieldset: {
                     legend: {
-                      text: "Agreement date after",
+                      text: "Agreement date from",
                       isPageHeading: false,
                       classes: "govuk-fieldset__legend--s"
                     }
@@ -89,7 +89,7 @@ Annual health and welfare review agreements
                   namePrefix: "passport-issued",
                   fieldset: {
                     legend: {
-                      text: "Agreement date before",
+                      text: "Agreement date to",
                       isPageHeading: false,
                       classes: "govuk-fieldset__legend--s"
                     }
@@ -173,7 +173,7 @@ Annual health and welfare review agreements
             {% from "govuk/components/button/macro.njk" import govukButton %}
 
             {{ govukButton({
-              text: "Apply filter",
+              text: "Search",
               classes: "govuk-button--secondary"
             }) }}
           </div>
@@ -187,7 +187,8 @@ Annual health and welfare review agreements
         </div>
         </details>
 
-        <p><b>Search results:</b> 23 agreements</p>
+        {# <p><b>Search results:</b> 23 agreements</p> #}
+        <p><b>23 search results</b></p>
 
         {% include "/prototypes/poultry-v01/views/backoffice/includes/agreements-table.html" %}
         
