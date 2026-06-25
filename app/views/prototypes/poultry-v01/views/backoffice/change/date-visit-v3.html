@@ -89,7 +89,69 @@ Back office: Applications
       }
     }) }} #}
 
-    {% from "govuk/components/select/macro.njk" import govukSelect %}
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+    {{ govukRadios({
+      name: "whereDoYouLive",
+      fieldset: {
+        legend: {
+          text: "Reasons for change",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "england",
+          text: "Farmer copied wrong data from summary sheet"
+        },
+        {
+          value: "scotland",
+          text: "Farmer entered data from a different claim"
+        },
+        {
+          value: "wales",
+          text: "Farmer done a typo mistake"
+        },
+        {
+          value: "northern-ireland",
+          text: "Selected the wrong option in the system"
+        },
+        {
+          value: "northern-ireland",
+          text: "Vet provided incorrect or confusing information"
+        }
+      ]
+    }) }}
+
+
+        {{ govukRadios({
+      name: "whereDoYouLive2",
+      fieldset: {
+        legend: {
+          text: "What triggered the change",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "england",
+          text: "Customer contacted RPA and requested change"
+        },
+        {
+          value: "scotland",
+          text: "Evidence doesn’t match backoffice"
+        }
+      ]
+    }) }}
+
+
+
+
+
+
+    {# {% from "govuk/components/select/macro.njk" import govukSelect %}
 
     {{ govukSelect({
       id: "reasons",
@@ -126,9 +188,9 @@ Back office: Applications
           text: "Vet provided incorrect or confusing information"
         }
       ]
-    }) }}
+    }) }} #}
 
-    {{ govukSelect({
+    {# {{ govukSelect({
       id: "reasons",
       name: "reasons",
       label: {
@@ -151,7 +213,7 @@ Back office: Applications
           text: "Evidence doesn’t match backoffice"
         }
       ]
-    }) }}
+    }) }} #}
 
     {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 

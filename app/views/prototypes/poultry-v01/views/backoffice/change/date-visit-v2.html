@@ -89,7 +89,84 @@ Back office: Applications
       }
     }) }} #}
 
-    {% from "govuk/components/select/macro.njk" import govukSelect %}
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+    {{ govukRadios({
+      name: "whereDoYouLive",
+      fieldset: {
+        legend: {
+          text: "Reasons for change",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "england",
+          text: "Farmer copied wrong data from summary sheet",
+          hint: {
+            text: "For example, farmer added the date of samples instead date of visit."
+          }
+        },
+        {
+          value: "scotland",
+          text: "Farmer entered data from a different claim",
+          hint: {
+            text: "For example, farmer entered information from a follow-up instead of review claim."
+          }
+        },
+        {
+          value: "wales",
+          text: "Farmer done a typo mistake",
+          hint: {
+            text: "For example, typed 0 instead of 1."
+          }
+        },
+        {
+          value: "northern-ireland",
+          text: "Selected the wrong option in the system",
+          hint: {
+            text: "For example, selected yes instead of no for the multiple-herds question."
+          }
+        },
+        {
+          value: "northern-ireland",
+          text: "Vet provided incorrect or confusing information",
+          hint: {
+            text: "For example, vet provided a custom vet summary template with confusing labels."
+          }
+        }
+      ]
+    }) }}
+
+
+        {{ govukRadios({
+      name: "whereDoYouLive2",
+      fieldset: {
+        legend: {
+          text: "What triggered the change",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "england",
+          text: "Customer contacted RPA and requested change"
+        },
+        {
+          value: "scotland",
+          text: "Evidence doesn’t match backoffice"
+        }
+      ]
+    }) }}
+
+
+
+
+
+
+    {# {% from "govuk/components/select/macro.njk" import govukSelect %}
 
     {{ govukSelect({
       id: "reasons",
@@ -126,9 +203,9 @@ Back office: Applications
           text: "Vet provided incorrect or confusing information"
         }
       ]
-    }) }}
+    }) }} #}
 
-    {{ govukSelect({
+    {# {{ govukSelect({
       id: "reasons",
       name: "reasons",
       label: {
@@ -151,7 +228,7 @@ Back office: Applications
           text: "Evidence doesn’t match backoffice"
         }
       ]
-    }) }}
+    }) }} #}
 
     {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
