@@ -38,7 +38,7 @@ Annual Health and Welfare Back Office
         </div>
         
 
-        {% from "govuk/components/input/macro.njk" import govukInput %}
+        {# {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {{ govukInput({
   label: {
@@ -48,7 +48,26 @@ Annual Health and Welfare Back Office
   },
   id: "event-name",
   name: "eventName"
-}) }}
+}) }} #}
+
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+      {{ govukTextarea({
+        name: "moreDetail",
+        id: "more-detail",
+        rows: "8",
+        label: {
+          text: "Reasons for withdrawn",
+          classes: "govuk-label--m",
+          isPageHeading: false
+        }
+
+      }) }}
+
+              {# ,
+        hint: {
+          text: "Add any addtional notes for the back office team to consider when reviewing this change"
+        } #}
 
         {# {% from "govuk/components/select/macro.njk" import govukSelect %}
 

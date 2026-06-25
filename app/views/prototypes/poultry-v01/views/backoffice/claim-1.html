@@ -251,13 +251,16 @@ Annual Health and Welfare Back Office
             </dd>
           </div>
         </dl>
-        <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
+
+        {% include "/prototypes/poultry-v01/views/backoffice/includes/claim-actions-incheck.html" %}
+
+        {# <p class="govuk-body">If you recommend this claim for a full verification check, move it to ‘in check’.</p>
         <div class="govuk-button-group">
           <a href="x-fearnley-farm-pig-on-hold-confirmation" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
             Move claim to 'in check'
           </a>
           <p class="govuk-body">If no further checks are required, you do not need to do anything. The claim will automatically move to ‘ready to pay’.</p>
-        </div>
+        </div> #}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="history">
