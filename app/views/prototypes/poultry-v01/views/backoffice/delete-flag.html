@@ -32,6 +32,23 @@ Annual Health and Welfare Back Office
       </p>
       
       <div class="govuk-form-group">
+        
+        {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+        {{ govukTextarea({
+          name: "moreDetail",
+          id: "more-detail",
+          rows: "8",
+          label: {
+            text: "Reason for deleting flag",
+            classes: "govuk-label--m",
+            isPageHeading: false
+          },
+          hint: {
+            text: "Provide some details as to why the agreement is no longer flagged."
+          }
+        }) }}
+
         {% from "govuk/components/button/macro.njk" import govukButton %}
         {# <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">
           Delete flag
