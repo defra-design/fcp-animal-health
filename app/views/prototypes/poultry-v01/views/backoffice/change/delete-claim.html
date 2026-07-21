@@ -29,13 +29,14 @@ Annual Health and Welfare Back Office
       <p class="govuk-body">
         <strong>Claim number:</strong> REBC-D9H7-BJQX
       </p>
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-visually-hidden">Warning</span>
-            Once this withdrawn is approved, this action cannot be undone.
-          </strong>
-        </div>
+
+      <div class="govuk-warning-text">
+        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+        <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">Warning</span>
+          Once this withdrawn is approved, this action cannot be undone.
+        </strong>
+      </div>
         
 
         {# {% from "govuk/components/input/macro.njk" import govukInput %}
@@ -52,12 +53,84 @@ Annual Health and Welfare Back Office
 
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+    {{ govukRadios({
+      name: "whereDoYouLive",
+      fieldset: {
+        legend: {
+          text: "Reason for withdrawal",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "england",
+          text: "Data from a different claim was entered",
+          hint: {
+            text: "For example, farmer added the date of samples instead date of visit."
+          }
+        },
+        {
+          value: "scotland",
+          text: "Farmer entered data from a different claim",
+          hint: {
+            text: "For example, farmer entered information from a follow-up instead of review claim."
+          }
+        },
+        {
+          value: "wales",
+          text: "Data was accidentally mistyped",
+          hint: {
+            text: "For example, typed 0 instead of 1."
+          }
+        },
+        {
+          value: "northern-ireland",
+          text: "Incorrect selection was made in the digital service",
+          hint: {
+            text: "For example, selected yes instead of no for the multiple-herds question."
+          }
+        },
+        {
+          value: "northern-ireland",
+          text: "Incorrect or confusing information was supplied by vet",
+          hint: {
+            text: "For example, vet provided a custom vet summary template with confusing labels."
+          }
+        }
+      ]
+    }) }}
+
+
+        {{ govukRadios({
+      name: "whereDoYouLive2",
+      fieldset: {
+        legend: {
+          text: "How the need for withdrawal was identified",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
+      },
+      items: [
+        {
+          value: "england",
+          text: "The customer contacted RPA"
+        },
+        {
+          value: "scotland",
+          text: "Evidence did not match customer's data during verification"
+        }
+      ]
+    }) }}
+
       {{ govukTextarea({
         name: "moreDetail",
         id: "more-detail",
         rows: "8",
         label: {
-          text: "Reasons for withdrawn",
+          text: "Additional details",
           classes: "govuk-label--m",
           isPageHeading: false
         }
@@ -115,13 +188,13 @@ Annual Health and Welfare Back Office
         </button> #}
 
         {{ govukButton({
-          text: "Withdraw",
+          text: "Yes, withdraw claim",
           classes: "govuk-button--warning",
           href: "../claims.html"
         }) }}
         &nbsp;&nbsp;&nbsp;
         {{ govukButton({
-          text: "Cancel",
+          text: "No, cancel action",
           classes: "govuk-button--secondary",
           href: "../claim-cattle1.html"
         }) }}

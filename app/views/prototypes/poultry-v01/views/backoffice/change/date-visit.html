@@ -89,69 +89,146 @@ Back office: Applications
       }
     }) }} #}
 
-    {% from "govuk/components/select/macro.njk" import govukSelect %}
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
-    {{ govukSelect({
-      id: "reasons",
-      name: "reasons",
-      label: {
-        text: "Reason for the change",
-        classes: "govuk-label--m",
-        isPageHeading: false
+    {{ govukRadios({
+      name: "whereDoYouLive",
+      fieldset: {
+        legend: {
+          text: "Reason for the change",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
       },
       items: [
         {
-          value: "reason0",
-          text: "",
-          selected: true 
+          value: "england",
+          text: "Data from a different claim was entered",
+          hint: {
+            text: "For example, farmer added the date of samples instead date of visit."
+          }
         },
         {
-          value: "reason1",
-          text: "Data from vet summary was entered incorrectly"
+          value: "scotland",
+          text: "Farmer entered data from a different claim",
+          hint: {
+            text: "For example, farmer entered information from a follow-up instead of review claim."
+          }
         },
         {
-          value: "reason2",
-          text: "Data from a different claim was entered"
+          value: "wales",
+          text: "Data was accidentally mistyped",
+          hint: {
+            text: "For example, typed 0 instead of 1."
+          }
         },
         {
-          value: "reason2",
-          text: "Data was accidentally mistyped"
+          value: "northern-ireland",
+          text: "Incorrect selection was made in the digital service",
+          hint: {
+            text: "For example, selected yes instead of no for the multiple-herds question."
+          }
         },
         {
-          value: "reason3",
-          text: "Incorrect selection was made in the digital service"
-        },
-        {
-          value: "reason4",
-          text: "Incorrect or confusing information was supplied by vet"
+          value: "northern-ireland",
+          text: "Incorrect or confusing information was supplied by vet",
+          hint: {
+            text: "For example, vet provided a custom vet summary template with confusing labels."
+          }
         }
       ]
     }) }}
 
-    {{ govukSelect({
-      id: "reasons",
-      name: "reasons",
-      label: {
-        text: "How the change was identified",
-        classes: "govuk-label--m",
-        isPageHeading: false
+
+        {{ govukRadios({
+      name: "whereDoYouLive2",
+      fieldset: {
+        legend: {
+          text: "How the change was identified",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--m"
+        }
       },
       items: [
         {
-          value: "reason0",
-          text: "",
-          selected: true 
-        },
-        {
-          value: "reason1",
+          value: "england",
           text: "The customer contacted RPA"
         },
         {
-          value: "reason2",
-          text: "Evidence does not match the data the customer entered"
+          value: "scotland",
+          text: "Evidence did not match customer's data during verification"
         }
       ]
     }) }}
+
+
+
+
+
+
+    {# {% from "govuk/components/select/macro.njk" import govukSelect %}
+
+    {{ govukSelect({
+      id: "reasons",
+      name: "reasons",
+      label: {
+        text: "Reasons for change",
+        classes: "govuk-label--m",
+        isPageHeading: false
+      },
+      items: [
+        {
+          value: "reason0",
+          text: "",
+          selected: true 
+        },
+        {
+          value: "reason1",
+          text: "Farmer copied wrong data from summary sheet"
+        },
+        {
+          value: "reason2",
+          text: "Farmer entered data from a different claim"
+        },
+        {
+          value: "reason2",
+          text: "Farmer done a typo mistake"
+        },
+        {
+          value: "reason3",
+          text: "Selected the wrong option in the system"
+        },
+        {
+          value: "reason4",
+          text: "Vet provided incorrect or confusing information"
+        }
+      ]
+    }) }} #}
+
+    {# {{ govukSelect({
+      id: "reasons",
+      name: "reasons",
+      label: {
+        text: "What triggered the change",
+        classes: "govuk-label--m",
+        isPageHeading: false
+      },
+      items: [
+        {
+          value: "reason0",
+          text: "",
+          selected: true 
+        },
+        {
+          value: "reason1",
+          text: "Customer contacted RPA and requested change"
+        },
+        {
+          value: "reason2",
+          text: "Evidence doesn’t match backoffice"
+        }
+      ]
+    }) }} #}
 
     {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
