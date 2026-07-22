@@ -22,7 +22,8 @@ Annual Health and Welfare Back Office
     <fieldset class="govuk-fieldset">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h1 class="govuk-fieldset__heading">
-          Are you sure you want to withdraw this claim?
+          {# Are you sure you want to withdraw this claim? #}
+          Confirm withdrawal of this claim
         </h1>
       </legend>
 
@@ -34,7 +35,8 @@ Annual Health and Welfare Back Office
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
           <span class="govuk-visually-hidden">Warning</span>
-          Once this withdrawn is approved, this action cannot be undone.
+          {# Once this withdrawn is approved, this action cannot be undone. #}
+          Once approved, a withdrawn claim cannot be undone.
         </strong>
       </div>
         
@@ -67,37 +69,37 @@ Annual Health and Welfare Back Office
       items: [
         {
           value: "england",
-          text: "Data from a different claim was entered",
+          text: "Data from the vet summary was entered incorrectly",
           hint: {
-            text: "For example, farmer added the date of samples instead date of visit."
+            text: "For example, date of sample instead of date of visit"
           }
         },
         {
           value: "scotland",
-          text: "Farmer entered data from a different claim",
+          text: "Data from a different claim was entered",
           hint: {
-            text: "For example, farmer entered information from a follow-up instead of review claim."
+            text: "For example, information from a follow-up instead of a review"
           }
         },
         {
           value: "wales",
-          text: "Data was accidentally mistyped",
+          text: "Data contained an unintentional typing error",
           hint: {
-            text: "For example, typed 0 instead of 1."
+            text: "For example, a spelling mistake or incorrect number"
           }
         },
         {
           value: "northern-ireland",
           text: "Incorrect selection was made in the digital service",
           hint: {
-            text: "For example, selected yes instead of no for the multiple-herds question."
+            text: "For example, yes instead of no"
           }
         },
         {
           value: "northern-ireland",
-          text: "Incorrect or confusing information was supplied by vet",
+          text: "Incorrect or confusing information was given by vet",
           hint: {
-            text: "For example, vet provided a custom vet summary template with confusing labels."
+            text: "For example, the wrong box completed in the summary template"
           }
         }
       ]
@@ -108,7 +110,7 @@ Annual Health and Welfare Back Office
       name: "whereDoYouLive2",
       fieldset: {
         legend: {
-          text: "How the need for withdrawal was identified",
+          text: "How the issue was discovered",
           isPageHeading: true,
           classes: "govuk-fieldset__legend--m"
         }
@@ -116,11 +118,11 @@ Annual Health and Welfare Back Office
       items: [
         {
           value: "england",
-          text: "The customer contacted RPA"
+          text: "Customer contacted the RPA"
         },
         {
           value: "scotland",
-          text: "Evidence did not match customer's data during verification"
+          text: "Evidence did not match customer's data"
         }
       ]
     }) }}
@@ -130,17 +132,16 @@ Annual Health and Welfare Back Office
         id: "more-detail",
         rows: "8",
         label: {
-          text: "Additional details",
+          text: "Enter details on why this claim should be withdrawn",
           classes: "govuk-label--m",
           isPageHeading: false
+        },
+        hint: {
+          text: "Describe all issues with this claim"
         }
 
       }) }}
 
-              {# ,
-        hint: {
-          text: "Add any addtional notes for the back office team to consider when reviewing this change"
-        } #}
 
         {# {% from "govuk/components/select/macro.njk" import govukSelect %}
 
@@ -188,13 +189,13 @@ Annual Health and Welfare Back Office
         </button> #}
 
         {{ govukButton({
-          text: "Yes, withdraw claim",
+          text: "Withdraw claim",
           classes: "govuk-button--warning",
           href: "../claims.html"
         }) }}
         &nbsp;&nbsp;&nbsp;
         {{ govukButton({
-          text: "No, cancel action",
+          text: "Do not withdraw claim",
           classes: "govuk-button--secondary",
           href: "../claim-cattle1.html"
         }) }}
