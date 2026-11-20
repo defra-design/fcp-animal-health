@@ -42,6 +42,24 @@ govukPrototypeKit.views.addFilter('govukShortDate', dateString => {
   return `${day}/${month}/${year}`
 })
 
+// Format a 24-hour HH:MM time the GOV.UK way, for example '2:15pm', '9am',
+// 'midday' or 'midnight'
+govukPrototypeKit.views.addFilter('govukTime', time => {
+  if (!time) {
+    return ''
+  }
+  const [hours, minutes] = time.split(':').map(Number)
+  if (minutes === 0 && hours === 12) {
+    return 'midday'
+  }
+  if (minutes === 0 && hours === 0) {
+    return 'midnight'
+  }
+  const hour = hours % 12 || 12
+  const suffix = hours < 12 ? 'am' : 'pm'
+  return minutes ? `${hour}:${String(minutes).padStart(2, '0')}${suffix}` : `${hour}${suffix}`
+})
+
 // Add your routes here
 
 const designs = require('./data/designs')
@@ -90,9 +108,17 @@ router.get('/prototypes/back-office/authorisation-workflow/draft/users/:userId',
 //                       reason and changes ({ id, label, from, to, type }).
 //   claimNotes        - notes added on draft/add-note, newest first. Each
 //                       has date, by (persona key) and text.
-//   claimEditBanner   - set after saving changes or adding a note, to show
-//                       a success banner once. status is 'saved', 'pending'
-//                       or 'note'.
+//   claimWithdrawals  - requests to withdraw the claim, from
+//                       draft/withdraw-claim, newest first. Each has id,
+//                       date, by (persona key), reason, discovered,
+//                       contactName, contactOrganisation, contactMethod and
+//                       details. A team lead approves or rejects each one,
+//                       like a batch. An approved request withdraws the
+//                       claim.
+//   claimEditBanner   - set after saving changes, adding a note or
+//                       requesting a withdrawal, to show a success banner
+//                       once. status is 'saved', 'pending', 'note' or
+//                       'withdrawal'.
 //   changeDecisions   - team lead decisions on changes, by change id: each
 //                       has decision ('approved' or 'rejected'), by (persona
 //                       key), date and notes. Applies to batches and to the
@@ -104,8 +130,10 @@ router.get('/prototypes/back-office/authorisation-workflow/draft/users/:userId',
 // 'rejected' once a team lead decides. Saved and approved batches change the
 // claim. Pending and rejected ones do not.
 //
-// Batches and notes both have createdAt, so the claim history can show them
-// in the order they happened, as claimSessionEvents.
+// Batches, notes and withdrawal requests all have createdAt, so the claim
+// history can show them in the order they happened, as claimSessionEvents.
+// They also have time (24-hour HH:MM, UK time), and decisions have a time,
+// as the claim history records the date and time of each event.
 //
 // Open /prototypes/back-office/authorisation-workflow/draft/claim-edit/reset to clear it all.
 //
@@ -116,6 +144,22 @@ const draftPath = '/prototypes/back-office/authorisation-workflow/draft'
 const claimEditPath = draftPath + '/claim-edit'
 
 const todayInLondon = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/London' })
+// The time now in the UK, as 24-hour HH:MM. Pages show it with govukTime.
+const timeInLondon = () => new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/London' })
+
+// The claim on the draft claim page, which every change made in the
+// prototype is to
+const draftClaim = { kind: 'claim', number: 'FUBC-HJ9N-S5PK', claimType: 'Follow-up' }
+
+// Withdrawal requests with any team lead decision applied: status is
+// 'pending', 'approved' or 'rejected'
+function decidedWithdrawals (data) {
+  const decisions = data.changeDecisions || {}
+  return (data.claimWithdrawals || []).map(request => {
+    const decision = decisions[request.id]
+    return decision ? { ...request, status: decision.decision, decision } : { ...request, status: 'pending' }
+  })
+}
 
 // A batch's id. Older batches have no id, so use when they were made.
 const batchId = batch => batch.id || batch.createdAt
@@ -165,20 +209,32 @@ router.use(draftPath, (req, res, next) => {
   res.locals.claimEditBatches = batches
   res.locals.claimWaitingForApproval = batches.some(batch => batch.status === 'pending')
 
-  // Batches and notes together, newest first, each with kind 'changes' or 'note'
+  // Withdrawal requests. The latest one decides the claim's state: waiting
+  // for approval, or withdrawn once approved. A rejected one leaves the
+  // claim in check, so another can be requested.
+  const withdrawals = decidedWithdrawals(data)
+  res.locals.claimWithdrawals = withdrawals
+  res.locals.claimWithdrawalPending = withdrawals.find(request => request.status === 'pending')
+  res.locals.claimWithdrawalApproved = withdrawals.find(request => request.status === 'approved')
+  res.locals.claimWithdrawalLatest = withdrawals[0]
+
+  // Batches, notes and withdrawal requests together, newest first, each with
+  // kind 'changes', 'note' or 'withdrawal'
   res.locals.claimSessionEvents = [
     ...batches.map(batch => ({ ...batch, kind: 'changes' })),
-    ...(data.claimNotes || []).map(note => ({ ...note, kind: 'note' }))
+    ...(data.claimNotes || []).map(note => ({ ...note, kind: 'note' })),
+    ...withdrawals.map(request => ({ ...request, kind: 'withdrawal' }))
   ].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''))
 
-  // The draft change log: changes made in the prototype, newest first, then
-  // the illustrative entries in app/views/prototypes/back-office/data/change-log.js, sorted by date.
-  // Session batches are always on the claim on the draft claim page.
+  // The draft change log: changes made in the prototype, then the
+  // illustrative entries in app/views/prototypes/back-office/data/change-log.js, newest first by date and
+  // time. Session changes are always to the claim on the draft claim page.
   const decisions = data.changeDecisions || {}
   const sessionChanges = batches.map(batch => ({
     id: batch.id,
     date: batch.date,
-    record: { kind: 'claim', number: 'FUBC-HJ9N-S5PK', claimType: 'Follow-up' },
+    time: batch.time,
+    record: draftClaim,
     scheme: 'IAHW',
     types: batch.changes.map(change => change.label + ' changed'),
     summary: batch.changes.length === 1 ? batch.changes[0].label + ' changed' : batch.changes.length + ' claim details changed',
@@ -189,17 +245,31 @@ router.use(draftPath, (req, res, next) => {
     approval: batch.status === 'saved' ? 'none' : batch.status,
     page: 'claim-details'
   }))
+  const sessionWithdrawals = withdrawals.map(request => ({
+    id: request.id,
+    date: request.date,
+    time: request.time,
+    record: draftClaim,
+    scheme: 'IAHW',
+    types: ['Claim withdrawal requested'],
+    summary: 'Claim withdrawal requested',
+    withdrawal: request,
+    by: request.by,
+    approval: request.status,
+    page: 'claim-details'
+  }))
   const staticChanges = changeLog.entries.map(entry => {
     const decision = decisions[entry.id]
     return decision ? { ...entry, approval: decision.decision } : entry
   })
   // Who decided, when and their notes, from the decision if there is one
-  res.locals.changeLogEntries = [...sessionChanges, ...staticChanges]
+  const when = entry => entry.date + ' ' + (entry.time || '')
+  res.locals.changeLogEntries = [...sessionChanges, ...sessionWithdrawals, ...staticChanges]
     .map(entry => {
       const decision = decisions[entry.id]
-      return decision ? { ...entry, decidedBy: decision.by, decidedDate: decision.date, decisionNotes: decision.notes } : entry
+      return decision ? { ...entry, decidedBy: decision.by, decidedDate: decision.date, decidedTime: decision.time, decisionNotes: decision.notes } : entry
     })
-    .sort((a, b) => b.date.localeCompare(a.date))
+    .sort((a, b) => when(b).localeCompare(when(a)))
   res.locals.changeLogTypes = changeLog.changeTypes
 
   // Show the banner after saving once only
@@ -226,6 +296,7 @@ router.get(claimEditPath + '/reset', (req, res) => {
   delete req.session.data.claimEdits
   delete req.session.data.claimEditBatches
   delete req.session.data.claimNotes
+  delete req.session.data.claimWithdrawals
   delete req.session.data.claimEditBanner
   delete req.session.data.changeDecisions
   delete req.session.data.changeLogBanner
@@ -244,6 +315,7 @@ router.post(claimEditPath + '/check', (req, res) => {
     id: 'change-' + Date.now(),
     createdAt: new Date().toISOString(),
     date: todayInLondon(),
+    time: timeInLondon(),
     by: 'backOfficeAdministrator',
     status: needsApproval ? 'pending' : 'saved',
     reason: (req.body.claimEditReason || '').trim(),
@@ -300,11 +372,50 @@ router.post(draftPath + '/add-note', (req, res) => {
   data.claimNotes = [{
     createdAt: new Date().toISOString(),
     date: todayInLondon(),
+    time: timeInLondon(),
     by: 'backOfficeAdministrator',
     text
   }, ...(data.claimNotes || [])]
   data.claimEditBanner = { status: 'note' }
   delete data.claimNote
+  res.redirect(draftPath + '/claim-details')
+})
+
+// Request to withdraw the claim, from draft/withdraw-claim. A withdrawal
+// needs a team lead's approval, like changes that affect eligibility, so it
+// is sent for approval and the claim stays in check until a team lead
+// decides on draft/review-change. Only one request can wait at a time, and
+// a withdrawn claim cannot be withdrawn again.
+//
+// The Prototype Kit also stores the answers in session data. They are
+// cleared once the request is made, so the next request starts empty.
+const withdrawFields = ['withdrawReason', 'withdrawReasonOther', 'withdrawDiscovered', 'withdrawDiscoveredOther', 'withdrawContactName', 'withdrawContactOrganisation', 'withdrawContactMethod', 'withdrawDetails']
+
+router.post(draftPath + '/withdraw-claim', (req, res) => {
+  const data = req.session.data
+  if (res.locals.claimWithdrawalPending || res.locals.claimWithdrawalApproved) {
+    return res.redirect(draftPath + '/claim-details')
+  }
+  const answer = name => (req.body[name] || '').trim()
+  const discovered = answer('withdrawDiscovered') === 'Other' ? answer('withdrawDiscoveredOther') : answer('withdrawDiscovered')
+  const customerContacted = answer('withdrawDiscovered') === 'Customer contacted the RPA'
+  data.claimWithdrawals = [{
+    id: 'withdrawal-' + Date.now(),
+    createdAt: new Date().toISOString(),
+    date: todayInLondon(),
+    time: timeInLondon(),
+    by: 'backOfficeAdministrator',
+    reason: answer('withdrawReason') === 'Other' ? answer('withdrawReasonOther') : answer('withdrawReason'),
+    discovered,
+    contactName: customerContacted ? answer('withdrawContactName') : '',
+    contactOrganisation: customerContacted ? answer('withdrawContactOrganisation') : '',
+    contactMethod: customerContacted ? answer('withdrawContactMethod') : '',
+    details: answer('withdrawDetails')
+  }, ...(data.claimWithdrawals || [])]
+  data.claimEditBanner = { status: 'withdrawal' }
+  for (const key of withdrawFields) {
+    delete data[key]
+  }
   res.redirect(draftPath + '/claim-details')
 })
 
@@ -388,7 +499,7 @@ router.post(reviewPath + '/:changeId', (req, res, next) => {
   if (decision !== 'approved' && decision !== 'rejected') {
     errors.reviewDecision = 'Select if you approve or reject this change'
   } else if (decision === 'rejected' && !notes) {
-    errors.rejectNotes = 'Enter why you are rejecting this change'
+    errors.rejectNotes = entry.withdrawal ? 'Enter why you are rejecting this request' : 'Enter why you are rejecting this change'
   }
   if (Object.keys(errors).length) {
     return renderReview(res, entry, { errors, values: req.body })
@@ -397,7 +508,7 @@ router.post(reviewPath + '/:changeId', (req, res, next) => {
   const data = req.session.data
   data.changeDecisions = {
     ...(data.changeDecisions || {}),
-    [entry.id]: { decision, by: reviewer, date: todayInLondon(), notes }
+    [entry.id]: { decision, by: reviewer, date: todayInLondon(), time: timeInLondon(), notes }
   }
   data.changeLogBanner = { decision, summary: entry.summary, record: entry.record.number, by: entry.by }
   for (const key of ['reviewDecision', 'approveNotes', 'rejectNotes']) {

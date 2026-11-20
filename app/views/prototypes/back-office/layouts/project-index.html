@@ -16,7 +16,13 @@
 
   If the index sets collapseCurrentDesigns to true, the current designs
   table is inside a closed details component, so the page leads with the
-  drafts.
+  drafts. If it sets hideCurrentDesigns to true, the current designs are
+  not listed at all.
+
+  If the index sets showSidebar to true, the designs sit in a two-thirds
+  column, with the sidebar block in a one-third column to the right, for
+  example for links to previous designs. On small screens the sidebar
+  comes after the designs.
 
   If the index sets siteMapSections, a list of section names, the drafts
   are shown as a site map instead of one table: a table per section, in
@@ -123,8 +129,14 @@
           <p class="govuk-body-l">{{ project.description }}</p>
         {% endif %}
       {% endfor %}
+    </div>
+  </div>
 
-      {% if collapseCurrentDesigns %}
+  <div class="govuk-grid-row">
+    <div class="{{ 'govuk-grid-column-two-thirds' if showSidebar else 'govuk-grid-column-full' }}">
+      {% if hideCurrentDesigns %}
+        {# Current designs are not listed #}
+      {% elif collapseCurrentDesigns %}
         {% set currentDesignsHtml %}{{ designTable("Current designs", "") }}{% endset %}
         {{ govukDetails({
           summaryText: "Current designs",
@@ -150,6 +162,11 @@
         {% endif %}
       {% endif %}
     </div>
+    {% if showSidebar %}
+      <div class="govuk-grid-column-one-third">
+        {% block sidebar %}{% endblock %}
+      </div>
+    {% endif %}
   </div>
 {% endblock %}
 

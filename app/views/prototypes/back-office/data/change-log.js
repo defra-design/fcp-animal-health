@@ -13,6 +13,8 @@
 // Each entry has:
 //   id          - unique, used in the review page address
 //   date        - YYYY-MM-DD
+//   time        - 24-hour HH:MM, UK time. Pages show it with govukTime,
+//                 for example 2:15pm.
 //   record      - what was changed:
 //                   kind       - 'claim' or 'agreement'
 //                   number     - the claim or agreement number
@@ -26,12 +28,17 @@
 //   changes     - optional: each detail changed, as { label, from, to },
 //                 shown to the team lead reviewing the change
 //   reason      - optional: why the change was made
+//   withdrawal  - claim withdrawal requests only: the answers from the
+//                 withdraw claim form (reason, discovered, contactName,
+//                 contactOrganisation, contactMethod, details), shown to
+//                 the team lead instead of a list of changes
 //   by          - who made it: a persona key from app/views/prototypes/back-office/data/personas.js, or
 //                 text such as 'Assisted Digital'
 //   approval    - 'pending', 'approved', 'rejected', or 'none' if the change
 //                 did not need approval
 //   decidedBy   - approved or rejected only: persona key of who decided
 //   decidedDate - approved or rejected only: YYYY-MM-DD
+//   decidedTime - approved or rejected only: 24-hour HH:MM
 //   decisionNotes - optional: the team lead's notes. Required when rejected.
 //   page        - the draft page the record number links to, for example
 //                 'claim-details'. Every claim links to the one draft claim
@@ -53,7 +60,7 @@ const changeTypes = {
     'Vet’s RCVS number changed',
     'URN or test certificate changed',
     'Follow-up test result changed',
-    'Claim withdrawn',
+    'Claim withdrawal requested',
     'New claim via Assisted Digital'
   ],
   agreement: [
@@ -67,6 +74,7 @@ const entries = [
   {
     id: 'example-1',
     date: '2026-11-17',
+    time: '09:42',
     record: { kind: 'agreement', number: 'IAHW-NQG3-7WZY' },
     scheme: 'IAHW',
     types: ['Flag created'],
@@ -80,6 +88,7 @@ const entries = [
   {
     id: 'example-2',
     date: '2026-11-14',
+    time: '14:05',
     record: { kind: 'claim', number: 'REBC-F775-GVVX', claimType: 'Review' },
     scheme: 'IAHW',
     types: ['Vet’s name changed', 'Vet’s RCVS number changed'],
@@ -92,19 +101,30 @@ const entries = [
   {
     id: 'example-3',
     date: '2026-11-11',
+    time: '10:18',
     record: { kind: 'claim', number: 'REBC-F775-GVVX', claimType: 'Review' },
     scheme: 'IAHW',
-    types: ['Claim withdrawn'],
-    summary: 'Claim withdrawn',
+    types: ['Claim withdrawal requested'],
+    summary: 'Claim withdrawal requested',
+    withdrawal: {
+      reason: 'Data from a different claim was entered',
+      discovered: 'Customer contacted the RPA',
+      contactName: 'Tom Harding',
+      contactOrganisation: '',
+      contactMethod: 'Phone',
+      details: 'Customer contacted RPA and asked to withdraw the claim, as details from their review claim were entered.'
+    },
     by: 'backOfficeAdministrator',
     approval: 'approved',
     decidedBy: 'backOfficeLead',
     decidedDate: '2026-11-12',
+    decidedTime: '09:05',
     page: 'claim-withdrawn'
   },
   {
     id: 'example-4',
     date: '2026-11-06',
+    time: '11:30',
     record: { kind: 'agreement', number: 'PBR-4TQM-2HXA' },
     scheme: 'PBR',
     types: ['New agreement via Assisted Digital'],
@@ -113,11 +133,13 @@ const entries = [
     approval: 'approved',
     decidedBy: 'backOfficeLead',
     decidedDate: '2026-11-07',
+    decidedTime: '15:20',
     page: 'agreement-details'
   },
   {
     id: 'example-5',
     date: '2026-10-31',
+    time: '16:47',
     record: { kind: 'claim', number: 'PORE-F775-GVVX', claimType: 'Review' },
     scheme: 'PBR',
     types: ['URN or test certificate changed'],
@@ -129,6 +151,7 @@ const entries = [
   {
     id: 'example-6',
     date: '2026-10-28',
+    time: '13:12',
     record: { kind: 'claim', number: 'REBC-F775-GVVX', claimType: 'Review' },
     scheme: 'IAHW',
     types: ['Date of visit changed'],
@@ -137,12 +160,14 @@ const entries = [
     approval: 'rejected',
     decidedBy: 'backOfficeLead',
     decidedDate: '2026-10-29',
+    decidedTime: '10:02',
     decisionNotes: 'The new date is before the agreement started, so the claim would not be eligible. Check the date with the vet.',
     page: 'claim-details'
   },
   {
     id: 'example-7',
     date: '2026-10-21',
+    time: '08:55',
     record: { kind: 'agreement', number: 'IAHW-8LKQ-V9EL' },
     scheme: 'IAHW',
     types: ['Flag deleted'],
@@ -151,11 +176,13 @@ const entries = [
     approval: 'approved',
     decidedBy: 'backOfficeLead',
     decidedDate: '2026-10-21',
+    decidedTime: '12:00',
     page: 'agreement-details'
   },
   {
     id: 'example-8',
     date: '2026-10-15',
+    time: '15:36',
     record: { kind: 'claim', number: 'PORE-F775-GVVX', claimType: 'Review' },
     scheme: 'PBR',
     types: ['New claim via Assisted Digital'],
@@ -164,6 +191,7 @@ const entries = [
     approval: 'approved',
     decidedBy: 'backOfficeApprover',
     decidedDate: '2026-10-16',
+    decidedTime: '09:40',
     page: 'claim-details'
   }
 ]

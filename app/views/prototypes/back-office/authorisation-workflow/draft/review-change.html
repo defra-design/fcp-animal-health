@@ -30,6 +30,14 @@
   A team lead cannot review their own change. The page says so instead of
   showing the form.
 
+  Claim withdrawal requests (from draft/withdraw-claim) are reviewed here
+  too. Instead of a from and to table, the page shows the answers from
+  the withdraw claim form, and the Approve hint warns that a withdrawal
+  cannot be undone and the farmer will no longer see the claim. Approving
+  withdraws the claim. Rejecting leaves it in check.
+
+  Dates show the time too, as the history records the time of each event.
+
   The signed-in user is Mei Chen, the back office lead persona, as only team
   leads can approve. In the live service only team leads would see the
   Review link.
@@ -91,14 +99,31 @@
     { key: { text: "Change to" }, value: { html: recordHtml } },
     { key: { text: "Change" }, value: { text: change.summary } },
     { key: { text: "Made by" }, value: { html: makerHtml } },
-    { key: { text: "Date" }, value: { text: change.date | govukDate } }
+    { key: { text: "Date" }, value: { text: (change.date | govukDate) + ((" at " + (change.time | govukTime)) if change.time else "") } }
   ] %}
+  {% if change.withdrawal %}
+    {% set w = change.withdrawal %}
+    {% set askedBy = (w.contactName + ((", " + w.contactOrganisation) if w.contactOrganisation else "")) if w.contactName else "" %}
+    {% set summaryRows = (summaryRows.push(
+      { key: { text: "Reason for withdrawal" }, value: { text: w.reason } },
+      { key: { text: "How the issue was discovered" }, value: { text: w.discovered } }
+    ), summaryRows) %}
+    {% if askedBy %}
+      {% set summaryRows = (summaryRows.push({ key: { text: "Asked for by" }, value: { text: askedBy } }), summaryRows) %}
+    {% endif %}
+    {% if w.contactMethod %}
+      {% set summaryRows = (summaryRows.push({ key: { text: "How they contacted the RPA" }, value: { text: w.contactMethod } }), summaryRows) %}
+    {% endif %}
+    {% if w.details %}
+      {% set summaryRows = (summaryRows.push({ key: { text: "Details" }, value: { text: w.details } }), summaryRows) %}
+    {% endif %}
+  {% endif %}
   {% if change.reason %}
     {% set summaryRows = (summaryRows.push({ key: { text: "Reason" }, value: { text: change.reason } }), summaryRows) %}
   {% endif %}
   {% if change.approval != "pending" and change.approval != "none" %}
     {% set summaryRows = (summaryRows.push(
-      { key: { text: "Decision" }, value: { html: govukTag(approvalTags[change.approval]) + " by " + (decider.fullName | escape) + " on " + (change.decidedDate | govukDate) } }
+      { key: { text: "Decision" }, value: { html: govukTag(approvalTags[change.approval]) + " by " + (decider.fullName | escape) + " on " + (change.decidedDate | govukDate) + ((" at " + (change.decidedTime | govukTime)) if change.decidedTime else "") } }
     ), summaryRows) %}
     {% if change.decisionNotes %}
       {% set summaryRows = (summaryRows.push({ key: { text: "Team lead’s notes" }, value: { text: change.decisionNotes } }), summaryRows) %}
@@ -126,7 +151,7 @@
       <span class="govuk-caption-l">Change to {{ recordName }} {{ change.record.number }}</span>
       <h1 class="govuk-heading-l">
         {%- if change.approval == "pending" -%}
-          Review this change
+          {{ "Review this withdrawal request" if change.withdrawal else "Review this change" }}
         {%- elif change.approval == "approved" -%}
           Change approved
         {%- elif change.approval == "rejected" -%}
@@ -165,7 +190,7 @@
               {{ govukTextarea({
                 name: "rejectNotes",
                 id: "rejectNotes",
-                label: { text: "Why are you rejecting this change?" },
+                label: { text: "Why are you rejecting this request?" if change.withdrawal else "Why are you rejecting this change?" },
                 hint: { text: "This is recorded in the history, so " + ((maker.firstName + " can") if maker else "the person who made the change can") + " see it." },
                 value: values.rejectNotes if values,
                 errorMessage: { text: errors.rejectNotes } if errors and errors.rejectNotes else false
@@ -176,21 +201,21 @@
               name: "reviewDecision",
               idPrefix: "reviewDecision",
               fieldset: {
-                legend: { text: "Do you approve this change?", classes: "govuk-fieldset__legend--m" }
+                legend: { text: "Do you approve this withdrawal?" if change.withdrawal else "Do you approve this change?", classes: "govuk-fieldset__legend--m" }
               },
               errorMessage: { text: errors.reviewDecision } if errors and errors.reviewDecision else false,
               items: [
                 {
                   value: "approved",
                   text: "Approve",
-                  hint: { text: "The " + recordName + " will be updated." },
+                  hint: { text: "The claim will be withdrawn. This cannot be undone, and the farmer will no longer see the claim in their account." if change.withdrawal else "The " + recordName + " will be updated." },
                   checked: values and values.reviewDecision == "approved",
                   conditional: { html: approveNotesHtml }
                 },
                 {
                   value: "rejected",
                   text: "Reject",
-                  hint: { text: "The " + recordName + " will not change." },
+                  hint: { text: "The claim will stay in check." if change.withdrawal else "The " + recordName + " will not change." },
                   checked: values and values.reviewDecision == "rejected",
                   conditional: { html: rejectNotesHtml }
                 }

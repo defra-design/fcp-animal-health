@@ -4,12 +4,23 @@
   Notes on design mock
   ====================
 
-  Authorisation workflow: withdraw claim (draft v1)
+  Authorisation workflow: withdraw claim (draft v3)
 
-  The form a back office user fills in to withdraw a claim. Opened from the
-  "Withdraw claim" button on draft/claim-details.html. Submitting it goes to
-  draft/claim-withdrawn.html, which shows the answers in the banner and the
-  claim history.
+  The form a back office user fills in to ask for a claim to be withdrawn.
+  Opened from the "Withdraw claim" button on draft/claim-details.html.
+
+  A withdrawal needs a team lead's approval. Olayinka (BA) confirmed that,
+  under the authorisation workflow, team leads and case officers can
+  request a withdrawal, but only a team lead can approve or reject it. So
+  "Send for approval" does not withdraw the claim. It goes back to the
+  claim page, which shows the request waiting for approval, and adds a
+  Pending row to the change log. A team lead approves or rejects it on
+  draft/review-change. Once approved, the claim shows as withdrawn.
+  The route is in app/views/prototypes/back-office/routes.js ("Request to withdraw the claim").
+
+  The warning also says the farmer will no longer see the claim in their
+  account once it is withdrawn, as Olayinka confirmed, so the caseworker
+  can tell the customer.
 
   Fields
   ------
@@ -20,6 +31,10 @@
   - How the issue was discovered: the live options. "Other", with a text
     box, is added by this draft.
   - Details on why the claim should be withdrawn: required text box.
+  Olayinka confirmed these are the mandatory fields. The "Other" options
+  and the contact fields below go beyond them. We are keeping them, to
+  discuss: a farmer can ask for a withdrawal, but all 5 live reasons are
+  data entry errors, so none fits that request. See ../notes.html.
 
   Added by this draft, to confirm in the design review (the live screen
   does not record the customer's request):
@@ -31,11 +46,9 @@
     fields is the most a conditional reveal should hold. If research shows
     agents and vets often call, move these to their own page.
 
-  The withdrawal date is today's date, set on the server when the page
-  loads, so it stays fixed while the form is filled in. A hidden form field
-  passes it to the withdrawn claim page.
+  The request is dated and timed when it is sent.
 
-  Who is withdrawing the claim is not asked. It is the signed-in user,
+  Who is asking for the withdrawal is not asked. It is the signed-in user,
   shown on the page and recorded automatically, as GOV.UK guidance is not
   to ask for information the service already has.
 
@@ -46,10 +59,9 @@
   Prototype limitations
   ---------------------
   - No validation or error messages.
-  - The Prototype Kit saves the answers in session data (withdrawReason,
-    withdrawReasonOther, withdrawDiscovered, withdrawDiscoveredOther,
-    withdrawContactName, withdrawContactOrganisation, withdrawContactMethod,
-    withdrawDetails, withdrawDate).
+  - The answers are saved as a withdrawal request in session data
+    (claimWithdrawals), then cleared from the form.
+  - The signed-in user is always Sanjay Mehta.
 #}
 
 {% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
@@ -109,7 +121,9 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <span class="govuk-caption-l">Claim FUBC-HJ9N-S5PK</span>
-      <h1 class="govuk-heading-l">Withdraw claim</h1>
+      <h1 class="govuk-heading-l">Request to withdraw this claim</h1>
+
+      <p class="govuk-body">A team lead needs to approve the request before the claim is withdrawn.</p>
 
       {{ govukSummaryList({
         rows: [
@@ -117,18 +131,16 @@
           { key: { text: "Business name" }, value: { text: holder.business.name } },
           { key: { text: "Agreement holder" }, value: { text: holder.fullName } },
           { key: { text: "Agreement number" }, value: { text: "IAHW-NQG3-7WZY" } },
-          { key: { text: "Withdrawn by" }, value: { text: processor.fullName + " (" + processor.organisation + ")" } },
-          { key: { text: "Withdrawal date" }, value: { text: today | govukDate } }
+          { key: { text: "Requested by" }, value: { text: processor.fullName + " (" + processor.organisation + ")" } },
+          { key: { text: "Date of request" }, value: { text: today | govukDate } }
         ]
       }) }}
 
       {{ govukWarningText({
-        text: "Once approved, a withdrawn claim cannot be undone."
+        text: "Once approved, a withdrawn claim cannot be undone. The farmer will no longer see it in their account."
       }) }}
 
-      <form method="post" action="{{ draftPath }}/claim-withdrawn" novalidate>
-        {# Carries the withdrawal date, fixed when this page loaded, to the withdrawn claim #}
-        <input type="hidden" name="withdrawDate" value="{{ today }}">
+      <form method="post" action="{{ draftPath }}/withdraw-claim" novalidate>
 
         {{ govukRadios({
           name: "withdrawReason",
@@ -192,7 +204,7 @@
         }) }}
 
         <div class="govuk-button-group">
-          {{ govukButton({ text: "Withdraw claim", classes: "govuk-button--warning" }) }}
+          {{ govukButton({ text: "Send for approval", classes: "govuk-button--warning" }) }}
           {{ govukButton({ text: "Do not withdraw claim", classes: "govuk-button--secondary", href: draftPath + "/claim-details" }) }}
         </div>
       </form>

@@ -10,9 +10,12 @@
 
 {% set projectName = "Authorisation workflow" %}
 
-{# The current designs are baselines, kept for comparison, so they sit in a
-   closed details component. The focus is the drafts. #}
-{% set collapseCurrentDesigns = true %}
+{# The current designs in this folder were a rough rebuild of the poultry
+   back office prototype, so they are not listed. The sidebar links to the
+   original designs instead. The pages are still in this folder, as the
+   design notes link to them. #}
+{% set hideCurrentDesigns = true %}
+{% set showSidebar = true %}
 
 {# Show the drafts as a site map, in the order of the navigation #}
 {% set siteMapSections = ["Claims", "Agreements", "Flags", "Change log", "Users"] %}
@@ -36,8 +39,16 @@
 {% endblock %}
 
 {% block afterDesigns %}
-  <h2 class="govuk-heading-m govuk-!-margin-top-8">Design notes</h2>
+  <h2 class="govuk-heading-m">Design notes</h2>
   <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/summary">What we changed</a>: a short outline of the main changes to each draft page, for presenting to stakeholders.</p>
-  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/notes">Design notes</a>: suggested changes to the agreement details, claim details, claim withdrawn and change log pages, and questions for Olayinka (BA).</p>
+  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/notes">Design notes</a>: suggested changes to the agreement details, claim details, claim withdrawn and change log pages, Olayinka’s (BA) answers to our questions, and what we still need to agree.</p>
   <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/personas/">Personas</a>: the people who use the service, with their goals. The designs use their names.</p>
+{% endblock %}
+
+{% block sidebar %}
+  <h2 class="govuk-heading-m">Previous designs</h2>
+  <p class="govuk-body">The back office designs before this work, in the poultry prototype.</p>
+  <ul class="govuk-list">
+    <li><a class="govuk-link" href="/prototypes/poultry-v01/backoffice/index-research.njk">Back office: previous designs</a></li>
+  </ul>
 {% endblock %}

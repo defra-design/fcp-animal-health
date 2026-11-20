@@ -53,6 +53,14 @@
   Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
   components or JS.
 
+  The Date column shows the time below the date, and the Status column
+  the time of a team lead's decision, as the history records the time of
+  each event. Rows are newest first by date and time.
+
+  Requests to withdraw a claim (draft/withdraw-claim) show here as
+  "Claim withdrawal requested", waiting for a team lead, like changes that
+  need approval.
+
   Title, type, version and last updated date for this design are in
   app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
 
@@ -90,7 +98,7 @@
 {% set navActive = "changeLog" %}
 {% set navCurrent = "changeLog" %}
 
-{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import internalBy %}
+{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import internalBy, dateTime %}
 
 {% block content %}
   {% set usersPath = draftPath + "/users" %}
@@ -166,7 +174,7 @@
             {%- if entry.approval == "pending" -%}
               Waiting for a team lead
             {%- else -%}
-              by {{ decider.fullName }}, {{ entry.decidedDate | govukShortDate }}
+              by {{ decider.fullName }}, {{ entry.decidedDate | govukShortDate }}{{ (" " + (entry.decidedTime | govukTime)) if entry.decidedTime }}
             {%- endif -%}
           </span><br>
           <a class="govuk-link" href="{{ draftPath }}/review-change/{{ entry.id | urlencode }}">
@@ -177,7 +185,7 @@
       {% endset %}
 
       {% set rows = (rows.push([
-        { text: entry.date | govukShortDate },
+        { html: dateTime(entry.date, entry.time) },
         { html: recordHtml },
         { html: changeHtml },
         { html: internalBy(person, entry.date, usersPath) if person else (entry.by | escape) },

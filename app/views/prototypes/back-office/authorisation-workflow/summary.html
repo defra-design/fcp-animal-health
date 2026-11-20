@@ -50,13 +50,13 @@
 
       <p class="govuk-body-l">The main changes in the draft designs, page by page.</p>
 
-      <p class="govuk-body">Updated 19 November 2026</p>
+      <p class="govuk-body">Updated 20 November 2026</p>
 
       <h2 class="govuk-heading-l">Across the service</h2>
       <ul class="govuk-list govuk-list--bullet">
         <li>Built only from GOV.UK Design System components, so it is quick to build and accessible.</li>
         <li>Pages lead with the thing the user came for: the claim on a claim page, the agreement on an agreement page.</li>
-        <li>Every action is recorded in the history: what changed, from what to what, who did it, their role at the time and why.</li>
+        <li>Every action is recorded in the history: what changed, from what to what, who did it, their role at the time, why, and the date and time.</li>
         <li>Dates are written in full, or as 5/11/2026 in tables where space is tight.</li>
       </ul>
 
@@ -89,15 +89,18 @@
 
       <h3 class="govuk-heading-m">Withdraw claim</h3>
       <ul class="govuk-list govuk-list--bullet">
+        <li>A withdrawal is a request. A team lead approves it before the claim is withdrawn, and the claim stays in check while it waits.</li>
         <li>Uses the live fields, with an "Other" option for the reason and how the issue was found.</li>
         <li>Shows the agreement holder, so the caseworker can check who they are speaking to.</li>
         <li>Records who asked for the withdrawal and how they contacted the RPA.</li>
+        <li>Warns that a withdrawal cannot be undone and the farmer will no longer see the claim.</li>
       </ul>
       {{ screenshot(draftPath + "/withdraw-claim", "Withdraw claim") }}
+      {{ screenshot(draftPath + "/claim-details", "Claim details, with a withdrawal request waiting for approval") }}
 
       <h3 class="govuk-heading-m">Claim withdrawn</h3>
       <ul class="govuk-list govuk-list--bullet">
-        <li>No separate page. The claim page shows the claim as withdrawn, with a banner saying when, by whom and why.</li>
+        <li>No separate page. Once a team lead approves the request, the claim page shows the claim as withdrawn, with a banner saying when, who requested and approved it, and why.</li>
       </ul>
       {{ screenshot(draftPath + "/claim-withdrawn", "Claim withdrawn") }}
 
@@ -123,6 +126,7 @@
       <h3 class="govuk-heading-m">Review a change</h3>
       <ul class="govuk-list govuk-list--bullet">
         <li>Team leads approve or reject a change from the change log, seeing who made it, why, and each detail from and to.</li>
+        <li>Requests to withdraw a claim are reviewed the same way, showing the reason, how the issue was found and who asked.</li>
         <li>Rejecting needs a reason. Approving can have optional notes. Both are recorded in the history for the person who made the change.</li>
         <li>An approved change updates the claim. A rejected one does not.</li>
         <li>Team leads cannot approve their own changes.</li>

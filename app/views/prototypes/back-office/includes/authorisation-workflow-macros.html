@@ -3,7 +3,7 @@
   ================================================
 
   Import into a page with:
-  {% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import roleOn, internalBy %}
+  {% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import roleOn, internalBy, dateTime %}
 
   Built only with GOV.UK Frontend classes. No bespoke CSS, HTML components
   or JS.
@@ -37,4 +37,16 @@
 #}
 {% macro internalBy(person, date, usersPath) -%}
   <a class="govuk-link" href="{{ usersPath }}/{{ person.id }}">{{ person.fullName }}</a><br><span class="govuk-hint">{{ roleOn(person, date) }}</span>
+{%- endmacro %}
+
+
+{#
+  dateTime(date, time)
+  When something happened, for a "Date" table cell: the short date, with
+  the time below it written the GOV.UK way, for example 2:15pm. date is
+  YYYY-MM-DD and time is 24-hour HH:MM. Events saved before times were
+  recorded have no time, so show the date only.
+#}
+{% macro dateTime(date, time) -%}
+  {{ date | govukShortDate }}{% if time %}<br><span class="govuk-hint">{{ time | govukTime }}</span>{% endif %}
 {%- endmacro %}

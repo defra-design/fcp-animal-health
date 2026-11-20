@@ -28,11 +28,11 @@
       <span class="govuk-caption-xl">Authorisation workflow</span>
       <h1 class="govuk-heading-xl">Design notes</h1>
 
-      <p class="govuk-body-l">First thoughts on the prototype screens, with suggested changes and questions we need answered.</p>
+      <p class="govuk-body-l">First thoughts on the prototype screens, with suggested changes, Olayinka’s answers to our questions, and what we still need to agree.</p>
 
       <p class="govuk-body">
         Steve Molesworth<br>
-        18 November 2026
+        18 November 2026, updated 20 November 2026
       </p>
 
       <h2 class="govuk-heading-l">Suggested changes</h2>
@@ -134,31 +134,60 @@
         <li>Keep the <strong>Type of change</strong> filter as it is.</li>
       </ol>
 
-      <h2 class="govuk-heading-l">Questions for Olayinka (BA)</h2>
+      <h2 class="govuk-heading-l">Olayinka’s answers</h2>
+      <p class="govuk-body">Olayinka (BA) answered our questions on 20 November 2026. Most answers confirm what the draft already does.</p>
+
+      <h3 class="govuk-heading-m">Already in the draft</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li><strong>Withdrawal fields:</strong> the reason, how the issue was discovered and the details are mandatory. The draft uses the live fields.</li>
+        <li><strong>Undoing a withdrawal:</strong> a withdrawn claim cannot be undone. The draft has no way to undo one.</li>
+        <li><strong>Other actions:</strong> there is no revoke. Recommend to pay and Recommend to reject already exist and are not changed by the authorisation workflow.</li>
+        <li><strong>Claim types:</strong> Review and Follow-up are the only ones.</li>
+        <li><strong>Approval statuses:</strong> Pending, Approved and Rejected, as agreed in the design workshop with the RPA.</li>
+        <li><strong>Types of change:</strong> URN, test results, date of visit, vet’s name, vet’s RCVS number, herd CPH and flags. The draft has all of these.</li>
+        <li><strong>Agreement types:</strong> IAHW (livestock) and PBR (poultry) are the only ones.</li>
+        <li><strong>Address format:</strong> sentence case, one part per line, will be recorded as a finding and built as an enhancement.</li>
+      </ul>
+
+      <h3 class="govuk-heading-m">What we changed because of the answers</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li><strong>Withdrawal needs a team lead’s approval.</strong> Team leads and case officers can ask for a claim to be withdrawn, but only a team lead can approve or reject it. The withdraw claim form now sends a request for approval. The claim stays in check while it waits, and the request shows as Pending in the change log. The team lead reviews it like any other change. Once approved, the claim shows as withdrawn.</li>
+        <li><strong>The farmer can no longer see a withdrawn claim.</strong> The withdraw form, the review page and the withdrawn claim say so, so the caseworker can tell the customer.</li>
+        <li><strong>Times in the history.</strong> The claim history records the date, time, action and user, so the claim history, change log and review page now show the time as well as the date, for example 2:15pm.</li>
+      </ul>
+
+      <h2 class="govuk-heading-l">To discuss with Olayinka</h2>
+      <p class="govuk-body">Where our design differs from the answers, or the answers leave something open. We have kept our design for now, because we think it is easier to use.</p>
       <ol class="govuk-list govuk-list--number">
-        <li><strong>Withdrawal approval:</strong> the live withdrawal screen warns “Once approved, a withdrawn claim cannot be undone”. Does a withdrawal need approving? If so, who approves it, and what does the claim show while it waits?</li>
-        <li><strong>After a claim is withdrawn:</strong> what happens next, and how is the claimant told? For example, an email or letter from the service, or a call from RPA.</li>
-        <li><strong>“Other” options:</strong> the live screen has no “Other” option for the reason or for how the issue was discovered. The draft adds one to each, with a text box. Is that acceptable, or must every withdrawal fit a listed option?</li>
-        <li><strong>The customer’s request (for the design review):</strong> the live screen does not record who asked for the withdrawal or how they asked, which seems odd. The draft asks for the name, organisation and contact method when “Customer contacted the RPA” is chosen. Does the RPA record who calls today? Can agents or vets ask for a withdrawal, or only the agreement holder? If only the agreement holder, a simple “Confirmed with the agreement holder” could be enough.</li>
-        <li><strong>Other actions:</strong> besides withdrawing, what actions do back office users need on a claim, for example revoke, recommend to pay or recommend to reject? Which roles see each one, and at which statuses?</li>
-        <li><strong>Claim types:</strong> are Review and Follow-up the only claim types for both IAHW and PBR?</li>
-        <li><strong>Statuses:</strong> what is the full list of claim statuses, and which ones should show a banner on the claim page?</li>
-        <li><strong>Claim history:</strong> what events should it record (for example submitted, status changed, withdrawn, details changed)? What should each entry show (for example the date, the event, the user and any notes)?</li>
-        <li><strong>Types of change:</strong> the change log will hold many types of change, not only changes to claims. What is the full list of change types? Which relate to claims and which to agreements? Does each type need different information in the table, or a different page to review it?</li>
-        <li><strong>Agreement types:</strong> are IAHW and PBR the only agreement types?</li>
-        <li><strong>Agreement information on the claim page:</strong> how much do caseworkers need while checking a claim? Options are a summary in a column to the right (the current draft), a summary underneath the claim, or just a link to the agreement.</li>
-        <li><strong>Agreement details:</strong> the current agreement page also shows the agreement holder’s email and “Eligible for automated data redaction”. Do caseworkers need these? The draft leaves them out for now.</li>
-        <li><strong>Address format:</strong> addresses come through in capitals with commas. Can the service store or format them so they show in sentence case, one part per line?</li>
-        <li>
-          <strong>Quick search on the claims and agreements lists:</strong> caseworkers often know the claim number, agreement number or SBI they want. Could the list update as they type, showing partial matches after a short pause (about half a second), with no need to select Search?
-          <ul class="govuk-list govuk-list--bullet">
-            <li>GOV.UK guidance advises against updating results as people type or change filters. This is mainly because screen reader users are not told the page has changed, and it can move focus. That matters most on public services. This is a back office tool used every day by trained staff, so there is room to do it differently.</li>
-            <li>If we do it, it must still meet accessibility rules (WCAG 2.2). Screen readers would need to hear the number of results as they change (a live region). The Search button should stay, so it still works without JavaScript.</li>
-            <li>It needs a search service that can return partial matches quickly, so check with the developers what the back end can support.</li>
-            <li>It needs custom JavaScript, so it cannot be shown in this prototype, which uses GOV.UK components only. It would be tested in research or a coded spike.</li>
-          </ul>
-        </li>
+        <li><strong>“Other” options on the withdrawal form:</strong> Olayinka says a farmer can ask for a withdrawal, but all 5 live reasons are data entry errors, so none fits a farmer asking to withdraw. The draft keeps “Other”, with a text box. Should we add a reason such as “The customer asked to withdraw the claim” as well, or instead?</li>
+        <li><strong>Recording who asked for a withdrawal:</strong> the mandatory fields do not include who asked or how. A farmer asking is one of only 2 ways a withdrawal starts, so recording who asked helps with disputes and audit. The draft asks for their name, organisation (optional) and how they made contact. Should the name and contact method be mandatory? Can agents or vets ask, or only the agreement holder?</li>
+        <li><strong>Claim statuses:</strong> Pending, Approved and Rejected look like the statuses of a change waiting for approval, not of a claim. What is the full list of claim statuses, for example In check, Recommended to pay, Paid and Withdrawn? Is “waiting for withdrawal approval” a claim status of its own? The draft keeps the claim In check, with a banner saying so.</li>
+        <li><strong>Who can withdraw:</strong> the answer says only a team lead (super admin) can withdraw today, but the roles table says super admins and administrators can. Which is right?</li>
+        <li><strong>Role names:</strong> the RPA roles are super admin, administrator, authoriser, recommender, user and processor. The answers also use team lead and case officer, and our personas use back office lead, administrator, approver and editor. Which RPA role is a case officer, and which can approve? We should agree one set of names before changing the prototype.</li>
+        <li><strong>Team leads’ own requests:</strong> can a team lead withdraw a claim or change claim details without another team lead approving? The draft says a team lead cannot approve their own change.</li>
+        <li><strong>Which claim changes need approval:</strong> the draft only sends changes that affect eligibility (date of visit and test result) for approval, so team leads are not a bottleneck. Is that right, or do all changes need approval? Today only super admins can update claim data.</li>
+        <li><strong>Telling the farmer:</strong> once withdrawn, the claim disappears from the farmer’s account. A claim vanishing with no explanation is likely to lead to calls. We recommend the service emails the farmer to say it was withdrawn and why. GOV.UK guidance is to tell people when the status of something they applied for changes.</li>
+        <li><strong>What the claim history shows:</strong> the answer asks for the date, time, action and user. The draft also shows the user’s role at the time, the approval status, notes and what changed from and to. We think this helps audit. Is it welcome?</li>
+        <li><strong>After a rejection:</strong> is the person who made the change or request told, and do they start again?</li>
+        <li><strong>Flags:</strong> case officers request to create or delete an agreement flag. Can team leads create and delete flags without approval?</li>
+        <li><strong>Quick search</strong> on the claims and agreements lists, updating as people type: not answered yet. See the notes below.</li>
       </ol>
+
+      <h3 class="govuk-heading-m">To discuss with the RPA team</h3>
+      <p class="govuk-body">Olayinka suggested we discuss these with the RPA team. The draft stays as it is until then.</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li><strong>Agreement information on the claim page:</strong> a summary in a column to the right (the current draft), a summary underneath the claim, or just a link to the agreement.</li>
+        <li><strong>Agreement details:</strong> whether caseworkers need the agreement holder’s email and “Eligible for automated data redaction”. The draft leaves them out.</li>
+      </ul>
+
+      <h3 class="govuk-heading-m">Quick search notes</h3>
+      <p class="govuk-body">Caseworkers often know the claim number, agreement number or SBI they want. Could the list update as they type, showing partial matches after a short pause (about half a second), with no need to select Search?</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>GOV.UK guidance advises against updating results as people type or change filters. This is mainly because screen reader users are not told the page has changed, and it can move focus. That matters most on public services. This is a back office tool used every day by trained staff, so there is room to do it differently.</li>
+        <li>If we do it, it must still meet accessibility rules (WCAG 2.2). Screen readers would need to hear the number of results as they change (a live region). The Search button should stay, so it still works without JavaScript.</li>
+        <li>It needs a search service that can return partial matches quickly, so check with the developers what the back end can support.</li>
+        <li>It needs custom JavaScript, so it cannot be shown in this prototype, which uses GOV.UK components only. It would be tested in research or a coded spike.</li>
+      </ul>
     </div>
   </div>
 {% endblock %}
