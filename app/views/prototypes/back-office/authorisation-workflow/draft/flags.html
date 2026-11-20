@@ -36,6 +36,18 @@
   "Me" is the signed-in user, Sanjay Mehta. "Case officers" and "Team
   leads" use each person's role when they created the flag.
 
+  Sorting
+  -------
+  The table uses the MOJ Design System sortable table (MOJ Frontend is
+  already installed and loaded by the kit): select a column heading to sort
+  by it. Only some columns sort, where the order helps: type, why, flagged by and date.
+  GOV.UK Frontend has no sortable table, but the MOJ one is an established
+  cross-government pattern for case-working tools, built on GOV.UK
+  Frontend, with accessible sort buttons. It sorts the rows on the page
+  only. A live service with pagination would sort on the server, across
+  every result. Sorting uses data-sort-value where the cell text would sort
+  wrongly, for example dates.
+
   Data
   ----
   Flags are in app/views/prototypes/back-office/data/flags.js, with flags added and removed in the
@@ -76,9 +88,9 @@
         { html: typeHtml },
         { html: numberHtml },
         { text: flag.sbi },
-        { html: whyHtml },
-        { html: internalBy(personas[flag.createdBy], flag.date, usersPath) },
-        { html: dateTime(flag.date, flag.time) }
+        { html: whyHtml, attributes: { "data-sort-value": flag.type } },
+        { html: internalBy(personas[flag.createdBy], flag.date, usersPath), attributes: { "data-sort-value": personas[flag.createdBy].fullName } },
+        { html: dateTime(flag.date, flag.time), attributes: { "data-sort-value": flag.date + " " + flag.time } }
       ]), rows) %}
     {% endif %}
   {% endfor %}
@@ -141,15 +153,16 @@
   {% if rows | length %}
     {{ govukTable({
       caption: "Flags",
+      attributes: { "data-module": "moj-sortable-table" },
       captionClasses: "govuk-visually-hidden",
       classes: "govuk-table--small-text-until-tablet",
       head: [
-        { text: "Type" },
+        { text: "Type", attributes: { "aria-sort": "none" } },
         { text: "Number" },
         { text: "SBI" },
-        { text: "Why" },
-        { text: "Flagged by" },
-        { text: "Date" }
+        { text: "Why", attributes: { "aria-sort": "none" } },
+        { text: "Flagged by", attributes: { "aria-sort": "none" } },
+        { text: "Date", attributes: { "aria-sort": "descending" } }
       ],
       rows: rows
     }) }}

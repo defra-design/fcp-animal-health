@@ -53,7 +53,9 @@ module.exports = [
       ],
       items: [
         { text: 'A Flags column next to the SBI shows if the claim is flagged, and if its agreement (the customer) is flagged.', added: '2026-11-20' },
-        { text: 'Filter to claims that are flagged, that belong to a flagged agreement, or either.', added: '2026-11-20' }
+        { text: 'Filter to claims that are flagged, that belong to a flagged agreement, or either.', added: '2026-11-20' },
+        { text: 'Sort by flags, species, claim date or status, by selecting the column heading. Uses the MOJ sortable table.', added: '2026-11-20' },
+        { text: 'Advanced search is collapsed every time the page loads. If filters are on, a message says so, with a link to clear them.', added: '2026-11-20' }
       ]
     },
     {
@@ -69,7 +71,8 @@ module.exports = [
         { text: 'Only details this service can change have a "Change" link, so it is clear what can be changed.', added: '2026-11-19' },
         { text: 'The claim history shows who did each thing and their role at the time, with a status column for changes waiting for approval.', added: '2026-11-19' },
         { text: 'If the claim or its agreement is flagged, the banner says so, with a warning, why and who flagged it.', added: '2026-11-20' },
-        { text: '"Flag this claim" is with the other actions.', added: '2026-11-20' }
+        { text: '"Flag this claim" is top right, by the heading, as flagging is not part of processing the claim.', added: '2026-11-20', updated: '2026-11-20' },
+        { text: 'After flagging, the banner says exactly what was recorded, with "Remove flag" to undo a mistake, instead of a check page.', added: '2026-11-20' }
       ]
     },
     {
@@ -128,7 +131,8 @@ module.exports = [
       ],
       items: [
         { text: 'A Flags column shows if the agreement is flagged, and how many of its claims are flagged.', added: '2026-11-20' },
-        { text: 'Filter to agreements that are flagged, that have flagged claims, or either.', added: '2026-11-20' }
+        { text: 'Filter to agreements that are flagged, that have flagged claims, or either.', added: '2026-11-20' },
+        { text: 'Sort by flags, organisation, agreement date or status. Advanced search is collapsed every time the page loads.', added: '2026-11-20' }
       ]
     },
     {
@@ -140,7 +144,8 @@ module.exports = [
         { text: 'Same heading pattern as the claim page: the agreement number as the heading.', added: '2026-11-18' },
         { text: 'New table of the agreement’s claims, each linking to the claim, showing which are flagged.', added: '2026-11-18', updated: '2026-11-20' },
         { text: 'Address written in sentence case, one line per part.', added: '2026-11-18' },
-        { text: 'If the agreement or any of its claims is flagged, a banner says so. "Flag this agreement" is under the details.', added: '2026-11-20' }
+        { text: 'If the agreement or any of its claims is flagged, a banner says so. "Flag this agreement" is top right, by the heading.', added: '2026-11-20', updated: '2026-11-20' },
+        { text: 'New agreement history, showing flags created and removed, who did it and why.', added: '2026-11-20' }
       ]
     }
   ]
@@ -156,7 +161,7 @@ module.exports = [
       items: [
         { text: 'Flag from the claim or agreement itself, so there is no need to find the agreement first.', added: '2026-11-20' },
         { text: 'Anyone can flag, as it changes nothing for the customer. Say why from a short list, with a note.', added: '2026-11-20' },
-        { text: 'The person who created a flag, or a team lead, can remove it, saying why.', added: '2026-11-20' }
+        { text: 'Only the person who created a flag, or a team lead, can remove it, saying why. Removed flags stay in the claim or agreement history.', added: '2026-11-20', updated: '2026-11-20' }
       ]
     },
     {
@@ -167,7 +172,8 @@ module.exports = [
       items: [
         { text: 'Every flag on agreements and claims, with why, who flagged it and their role.', added: '2026-11-20' },
         { text: 'Filter by what is flagged, who flagged it (me, case officers, team leads) and agreement type.', added: '2026-11-20' },
-        { text: 'No create or delete buttons: flags are added and removed on the agreement or claim.', added: '2026-11-20' }
+        { text: 'No create or delete buttons: flags are added and removed on the agreement or claim.', added: '2026-11-20' },
+        { text: 'Sort by type, why, who flagged it or date.', added: '2026-11-20' }
       ]
     }
   ]
@@ -185,7 +191,8 @@ module.exports = [
         { text: 'One row per change, showing who made it and their role at the time. When a team lead decides, the same row shows who approved or rejected it.', added: '2026-11-19' },
         { text: 'Says how many changes are waiting for approval, with a link to just those.', added: '2026-11-19' },
         { text: 'Filter by claims or agreements, type of change, scheme (IAHW or PBR), status, who made the change and when (last 24 hours, 7 days or 30 days).', added: '2026-11-18', updated: '2026-11-20' },
-        { text: 'Type and Number columns: Claim or Agreement in bold, then the number, linking to it. The flags list is the same.', added: '2026-11-20' }
+        { text: 'Type and Number columns: Claim or Agreement in bold, then the number, linking to it. The flags list is the same.', added: '2026-11-20' },
+        { text: 'Sort by date, type, who made the change or status (waiting for approval first).', added: '2026-11-20' }
       ]
     },
     {

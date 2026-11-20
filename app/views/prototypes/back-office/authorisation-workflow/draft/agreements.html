@@ -39,6 +39,18 @@
   - The agreements are in app/views/prototypes/back-office/data/agreements.js. The first is the
     agreement on the draft agreement page, so flags added there show here.
 
+  Sorting
+  -------
+  The table uses the MOJ Design System sortable table (MOJ Frontend is
+  already installed and loaded by the kit): select a column heading to sort
+  by it. Only some columns sort, where the order helps: flags, organisation, agreement date and status.
+  GOV.UK Frontend has no sortable table, but the MOJ one is an established
+  cross-government pattern for case-working tools, built on GOV.UK
+  Frontend, with accessible sort buttons. It sorts the rows on the page
+  only. A live service with pagination would sort on the server, across
+  every result. Sorting uses data-sort-value where the cell text would sort
+  wrongly, for example dates.
+
   Flags
   -----
   The Flags column shows whether the agreement is flagged ("Agreement
@@ -90,10 +102,10 @@
       {% set rows = (rows.push([
         { html: '<a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/draft/agreement-details">' + item.agreement + '</a>' },
         { text: item.sbi },
-        { html: flagsHtml },
+        { html: flagsHtml, attributes: { "data-sort-value": (100 if item.flag else 0) + item.flaggedClaims } },
         { text: item.organisation },
-        { text: item.date | govukShortDate },
-        { html: govukTag({ text: item.status, classes: statusClasses[item.status] }) }
+        { text: item.date | govukShortDate, attributes: { "data-sort-value": item.date } },
+        { html: govukTag({ text: item.status, classes: statusClasses[item.status] }), attributes: { "data-sort-value": item.status } }
       ]), rows) %}
     {% endif %}
   {% endfor %}
@@ -194,23 +206,31 @@
   {{ govukDetails({
     summaryText: "Advanced search",
     html: advancedHtml,
-    open: advancedActive
+    open: false
   }) }}
+
+  {# Advanced search is collapsed on every page load. The prototype
+     remembers filters, so say when some are on, or results seem to be
+     missing. #}
+  {% if advancedActive %}
+    {{ govukInsetText({ html: 'Advanced search filters are on, so some agreements are not shown. <a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/draft/agreements?agreementsSearch=&amp;agreementsAgreementType=&amp;agreementsFlag=&amp;agreementsStatus=&amp;agreementsFromDay=&amp;agreementsFromMonth=&amp;agreementsFromYear=&amp;agreementsToDay=&amp;agreementsToMonth=&amp;agreementsToYear=">Clear all filters</a>' }) }}
+  {% endif %}
 
   <p class="govuk-body govuk-!-font-weight-bold">{{ rows | length }} search result{{ "" if rows | length == 1 else "s" }}</p>
 
   {% if rows | length %}
     {{ govukTable({
       caption: "Agreements",
+      attributes: { "data-module": "moj-sortable-table" },
       captionClasses: "govuk-visually-hidden",
       classes: "govuk-table--small-text-until-tablet",
       head: [
         { text: "Agreement number" },
         { text: "SBI" },
-        { text: "Flags" },
-        { text: "Organisation" },
-        { text: "Agreement date" },
-        { text: "Status" }
+        { text: "Flags", attributes: { "aria-sort": "none" } },
+        { text: "Organisation", attributes: { "aria-sort": "none" } },
+        { text: "Agreement date", attributes: { "aria-sort": "none" } },
+        { text: "Status", attributes: { "aria-sort": "none" } }
       ],
       rows: rows
     }) }}

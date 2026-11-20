@@ -70,6 +70,18 @@
   the change log filtered to changes waiting for approval, and to those
   made in the last 24 hours.
 
+  Sorting
+  -------
+  The table uses the MOJ Design System sortable table (MOJ Frontend is
+  already installed and loaded by the kit): select a column heading to sort
+  by it. Only some columns sort, where the order helps: date, type, made by and status (waiting for approval first).
+  GOV.UK Frontend has no sortable table, but the MOJ one is an established
+  cross-government pattern for case-working tools, built on GOV.UK
+  Frontend, with accessible sort buttons. It sorts the rows on the page
+  only. A live service with pagination would sort on the server, across
+  every result. Sorting uses data-sort-value where the cell text would sort
+  wrongly, for example dates.
+
   Title, type, version and last updated date for this design are in
   app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
 
@@ -150,6 +162,9 @@
   } %}
 
   {# Rows that match the filters, and how many changes are pending overall #}
+  {# Sort order for the Status column: waiting for approval first #}
+  {% set statusOrder = { "pending": "1", "rejected": "2", "approved": "3", "none": "4" } %}
+
   {% set rows = [] %}
   {% set pending = [] %}
   {% for entry in changeLogEntries %}
@@ -197,12 +212,12 @@
       {% endset %}
 
       {% set rows = (rows.push([
-        { html: dateTime(entry.date, entry.time) },
+        { html: dateTime(entry.date, entry.time), attributes: { "data-sort-value": entry.date + " " + (entry.time or "") } },
         { html: typeHtml },
         { html: numberHtml },
         { html: changeHtml },
-        { html: internalBy(person, entry.date, usersPath) if person else (entry.by | escape) },
-        { html: statusHtml }
+        { html: internalBy(person, entry.date, usersPath) if person else (entry.by | escape), attributes: { "data-sort-value": person.fullName if person else entry.by } },
+        { html: statusHtml, attributes: { "data-sort-value": statusOrder[entry.approval] } }
       ]), rows) %}
     {% endif %}
   {% endfor %}
@@ -324,19 +339,20 @@
   </form>
 
   {% if rows | length %}
-    <p class="govuk-body">Showing {{ rows | length }} {{ "change" if rows | length == 1 else "changes" }}, newest first.</p>
+    <p class="govuk-body">Showing {{ rows | length }} {{ "change" if rows | length == 1 else "changes" }}. Select a column heading to sort.</p>
 
     {{ govukTable({
       caption: "Change log",
+      attributes: { "data-module": "moj-sortable-table" },
       captionClasses: "govuk-visually-hidden",
       classes: "govuk-table--small-text-until-tablet",
       head: [
-        { text: "Date" },
-        { text: "Type" },
+        { text: "Date", attributes: { "aria-sort": "descending" } },
+        { text: "Type", attributes: { "aria-sort": "none" } },
         { text: "Number" },
         { text: "Change" },
-        { text: "Made by" },
-        { text: "Status" }
+        { text: "Made by", attributes: { "aria-sort": "none" } },
+        { text: "Status", attributes: { "aria-sort": "none" } }
       ],
       rows: rows
     }) }}

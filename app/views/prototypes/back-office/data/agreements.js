@@ -16,6 +16,11 @@
 
 module.exports = [
   { agreement: "IAHW-NQG3-7WZY", agreementType: "iahw", sbi: "107204504", organisation: "Harding Farms", date: "2025-01-01", status: "Agreed" },
+  { agreement: "PBR-7KXD-3MWA", agreementType: "pbr", sbi: "200439296", organisation: "East Farm Poultry", date: "2025-09-30", status: "Agreed" },
+  { agreement: "IAHW-R8NC-4FQT", agreementType: "iahw", sbi: "123295764", organisation: "Northwind Farms Ltd", date: "2025-09-30", status: "Agreed" },
+  { agreement: "IAHW-6TPV-H2LS", agreementType: "iahw", sbi: "105832491", organisation: "Fellside Farm", date: "2025-09-29", status: "Agreed" },
+  { agreement: "IAHW-9QZB-K2DE", agreementType: "iahw", sbi: "107918634", organisation: "Braybrook Farm", date: "2025-09-29", status: "Agreed" },
+  { agreement: "IAHW-M3WC-7PRA", agreementType: "iahw", sbi: "106843519", organisation: "Merrick Farms", date: "2025-09-29", status: "Agreed" },
   { agreement: "AHWR-J76G-846L", agreementType: "iahw", sbi: "106415197", organisation: "John Murray", date: "2024-08-01", status: "Agreed" },
   { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", sbi: "107096477", organisation: "MR DR PENNY", date: "2025-09-29", status: "Agreed" },
   { agreement: "IAHW-HVBX-TF8I", agreementType: "iahw", sbi: "106592443", organisation: "Foxes Drove Farm", date: "2025-09-24", status: "Agreed" },

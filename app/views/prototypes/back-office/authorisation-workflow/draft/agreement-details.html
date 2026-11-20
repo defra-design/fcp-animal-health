@@ -19,7 +19,14 @@
   4. A "Claims for this agreement" table in the lower half of the page,
      showing claim number (links to the claim), claim type, date created,
      date last updated, flag and current status.
-  5. Flags. "Flag this agreement" opens draft/flag.html?level=agreement.
+  5. Flags. "Flag this agreement", top right by the heading, opens
+     draft/flag.html?level=agreement. After flagging, the success banner
+     says exactly what was recorded, with "Remove flag" to undo a mistake,
+     instead of a check page.
+  6. Agreement history, full width at the bottom: flags created and removed
+     on the agreement, with who did it, their role at the time and why. A
+     removed flag stays in the history. Only the person who created a flag,
+     or a team lead, can remove it.
      When the agreement, or any of its claims, is flagged, a blue banner
      says so with warning text (the exclamation mark): why, the note, who
      flagged it and when. The person who flagged the agreement, or a team
@@ -41,6 +48,8 @@
   link to the one draft claim details page.
 #}
 
+{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import internalBy, dateTime %}
+
 {% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
 {% set pageName = design.title if design else "Agreement details" %}
 {% set navActive = "agreements" %}
@@ -51,6 +60,7 @@
 {% block content %}
   {# People, from app/views/prototypes/back-office/data/personas.js #}
   {% set holder = personas.farmer %}
+  {% set usersPath = draftPath + "/users" %}
 
   {% set herdsHtml %}
     {{ govukSummaryList({
@@ -85,8 +95,17 @@
 
   {% if flagBanner %}
     {% set bannerHtml %}
-      <h3 class="govuk-notification-banner__heading">{{ ("Agreement flagged" if flagBanner.level == "agreement" else "Claim flagged") if flagBanner.action == "added" else "Flag removed" }}</h3>
-      {% if flagBanner.action == "added" %}<p class="govuk-body">The flag shows here, in the agreements list, on every claim for this customer and in the flags list.</p>{% endif %}
+      {% if flagBanner.action == "added" and draftAgreementFlag %}
+        {# Says exactly what was recorded, so there is no need for a check
+           page, with a way to undo a mistake straight away #}
+        <h3 class="govuk-notification-banner__heading">Agreement flagged: {{ draftAgreementFlag.type }}</h3>
+        {% if draftAgreementFlag.note %}<p class="govuk-body">Note: {{ draftAgreementFlag.note }}</p>{% endif %}
+        <p class="govuk-body">The flag shows on this agreement, in the agreements list, on every claim for this customer and in the flags list.</p>
+        <p class="govuk-body">Made a mistake? <a class="govuk-notification-banner__link" href="{{ draftPath }}/remove-flag/{{ draftAgreementFlag.id }}">Remove flag<span class="govuk-visually-hidden"> from this agreement</span></a></p>
+      {% else %}
+        <h3 class="govuk-notification-banner__heading">Flag removed</h3>
+        <p class="govuk-body"><a class="govuk-notification-banner__link" href="#agreement-history">View the agreement history</a>.</p>
+      {% endif %}
     {% endset %}
   {% elif draftAgreementFlag or claimFlagCount %}
     {% set bannerHtml %}
@@ -101,6 +120,18 @@
     <div class="govuk-grid-column-two-thirds">
       <span class="govuk-caption-l">Agreement</span>
       <h1 class="govuk-heading-l">IAHW-NQG3-7WZY</h1>
+    </div>
+    {# Top right, by the heading, as on the claim page (MOJ "page header
+       actions" pattern, built with GOV.UK grid and alignment classes) #}
+    {% if not draftAgreementFlag %}
+      <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+        {{ govukButton({ text: "Flag this agreement", classes: "govuk-button--secondary", href: draftPath + "/flag?level=agreement" }) }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 
       {% if bannerHtml %}
         {{ govukNotificationBanner({ html: bannerHtml, type: "success" if flagBanner else "" }) }}
@@ -126,10 +157,6 @@
           { key: { text: "Number of herds and flocks" }, value: { html: herdsHtml } }
         ]
       }) }}
-
-      {% if not draftAgreementFlag %}
-        {{ govukButton({ text: "Flag this agreement", classes: "govuk-button--secondary", href: draftPath + "/flag?level=agreement" }) }}
-      {% endif %}
 
       <h2 class="govuk-heading-m govuk-!-margin-top-8" id="claims">Claims for this agreement</h2>
 
@@ -162,6 +189,51 @@
             { html: govukTag({ text: "Paid", classes: "govuk-tag--green" }) }
           ]
         ]
+      }) }}
+    </div>
+  </div>
+
+  {# Agreement history: flags created and removed on this agreement, newest
+     first. A removed flag stays in the history. The first row is
+     illustrative. #}
+  {% set historyRows = [] %}
+  {% for event in agreementSessionEvents %}
+    {% if event.kind == "flag" %}
+      {% set historyRows = (historyRows.push([
+        { html: dateTime(event.date, event.time) },
+        { text: "Flag created" },
+        { html: internalBy(personas[event.by], event.date, usersPath) },
+        { html: "<strong>Why:</strong> " + (event.type | escape) + (("<br><strong>Note:</strong> " + (event.note | escape)) if event.note else "") }
+      ]), historyRows) %}
+    {% else %}
+      {% set historyRows = (historyRows.push([
+        { html: dateTime(event.date, event.time) },
+        { text: "Flag removed" },
+        { html: internalBy(personas[event.by], event.date, usersPath) },
+        { html: "<strong>Flag:</strong> " + (event.flag.type | escape) + "<br><strong>Why it was removed:</strong> " + (event.reason | escape) }
+      ]), historyRows) %}
+    {% endif %}
+  {% endfor %}
+  {% set historyRows = (historyRows.push([
+    { html: dateTime("2025-01-01", "10:12") },
+    { text: "Agreement accepted" },
+    { html: (holder.fullName | escape) + '<br><span class="govuk-hint">Agreement holder</span>' },
+    { text: "" }
+  ]), historyRows) %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h2 class="govuk-heading-m govuk-!-margin-top-6" id="agreement-history">Agreement history</h2>
+      {{ govukTable({
+        caption: "Agreement history",
+        captionClasses: "govuk-visually-hidden",
+        head: [
+          { text: "Date" },
+          { text: "Event" },
+          { text: "By" },
+          { text: "Notes" }
+        ],
+        rows: historyRows
       }) }}
     </div>
   </div>

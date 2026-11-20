@@ -54,7 +54,9 @@
        rejected, and the history shows the team lead's reason
   9. The claim history shows the date and time of each event, as Olayinka
      confirmed it records the date, time, action and user.
-  10. Flags. "Flag this claim" opens draft/flag.html. When the claim or its
+  10. Flags. "Flag this claim", top right by the heading, opens
+     draft/flag.html. It is not with the action buttons, as flagging is not
+     part of processing the claim (MOJ "page header actions" pattern). When the claim or its
      agreement is flagged, the blue banner says so with warning text (the
      exclamation mark), so the case officer sees it first: why, the note,
      who flagged it and when. The agreement flag links to the agreement.
@@ -183,9 +185,13 @@
     {% set bannerType = "success" %}
     {% set changeCount = claimEditBanner.count ~ (" change" if claimEditBanner.count == 1 else " changes") %}
     {% set bannerHtml %}
-      {% if flagBanner and flagBanner.action == "added" %}
-        <h3 class="govuk-notification-banner__heading">Claim flagged</h3>
-        <p class="govuk-body">The flag shows here, in the claims list, on the agreement and in the flags list.</p>
+      {% if flagBanner and flagBanner.action == "added" and draftClaimFlag %}
+        {# Says exactly what was recorded, so there is no need for a check
+           page, with a way to undo a mistake straight away #}
+        <h3 class="govuk-notification-banner__heading">Claim flagged: {{ draftClaimFlag.type }}</h3>
+        {% if draftClaimFlag.note %}<p class="govuk-body">Note: {{ draftClaimFlag.note }}</p>{% endif %}
+        <p class="govuk-body">The flag shows on this claim, in the claims list, on the agreement and in the flags list.</p>
+        <p class="govuk-body">Made a mistake? <a class="govuk-notification-banner__link" href="{{ draftPath }}/remove-flag/{{ draftClaimFlag.id }}">Remove flag<span class="govuk-visually-hidden"> from this claim</span></a></p>
       {% elif flagBanner %}
         <h3 class="govuk-notification-banner__heading">Flag removed</h3>
         <p class="govuk-body"><a class="govuk-notification-banner__link" href="#claim-history">View the claim history</a>.</p>
@@ -285,7 +291,7 @@
     {% elif batch.kind == "flag" %}
       {% set batchRows = (batchRows.push([
         { html: dateTime(batch.date, batch.time) },
-        { text: "Claim flagged" },
+        { text: "Flag created" },
         { text: "" },
         { html: internalBy(personas[batch.by], batch.date, usersPath) },
         { html: "<strong>Why:</strong> " + (batch.type | escape) + ((("<br><strong>Note:</strong> " + (batch.note | escape))) if batch.note else "") }
@@ -296,7 +302,7 @@
         { text: "Flag removed" },
         { text: "" },
         { html: internalBy(personas[batch.by], batch.date, usersPath) },
-        { html: "<strong>Reason:</strong> " + (batch.reason | escape) }
+        { html: "<strong>Flag:</strong> " + (batch.flag.type | escape) + "<br><strong>Why it was removed:</strong> " + (batch.reason | escape) }
       ]), batchRows) %}
     {% elif batch.kind == "withdrawal" %}
       {% set contactedRpa = batch.discovered == "Customer contacted the RPA" %}
@@ -361,6 +367,15 @@
 
       {{ govukNotificationBanner({ html: bannerHtml, type: bannerType }) }}
     </div>
+    {# Flagging is not part of processing the claim, so it sits top right,
+       by the heading and the banner where the flag shows, not with the
+       action buttons. Based on the MOJ Design System "page header actions"
+       pattern, built with GOV.UK grid and alignment classes. #}
+    {% if not draftClaimFlag and claimStatus != "withdrawn" %}
+      <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+        {{ govukButton({ text: "Flag this claim", classes: "govuk-button--secondary", href: draftPath + "/flag?level=claim" }) }}
+      </div>
+    {% endif %}
   </div>
 
   <div class="govuk-grid-row">
@@ -423,9 +438,6 @@
         <div class="govuk-button-group">
           {{ govukButton({ text: "Recommend to pay" }) }}
           {{ govukButton({ text: "Recommend to reject", classes: "govuk-button--secondary" }) }}
-          {% if not draftClaimFlag %}
-            {{ govukButton({ text: "Flag this claim", classes: "govuk-button--secondary", href: draftPath + "/flag?level=claim" }) }}
-          {% endif %}
           {{ govukButton({ text: "Withdraw claim", classes: "govuk-button--warning", href: draftPath + "/withdraw-claim" }) }}
         </div>
       {% endif %}

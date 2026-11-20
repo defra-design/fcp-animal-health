@@ -327,16 +327,21 @@ router.use(draftPath, (req, res, next) => {
   res.locals.draftAgreementFlag = agreementFlagByNumber[draftAgreement.number] || null
   res.locals.draftAgreementClaimFlags = claimFlags.filter(flag => flag.sbi === draftAgreement.sbi)
 
-  // Flags added to and removed from the draft claim in the prototype, for
-  // the claim history
+  // Flags added to and removed from the draft claim and agreement in the
+  // prototype, for the claim history and the agreement history. A removed
+  // flag stays in the history: one row when it was created, one when it was
+  // removed.
   const removedFlags = data.flagsRemoved || {}
   const sessionFlags = data.flagsAdded || []
-  const draftClaimFlagEvents = [
-    ...sessionFlags.filter(flag => flag.claim === draftClaim.number).map(flag => ({ ...flag, by: flag.createdBy, kind: 'flag' })),
+  const flagEvents = isMine => [
+    ...sessionFlags.filter(isMine).map(flag => ({ ...flag, by: flag.createdBy, kind: 'flag' })),
     ...[...sessionFlags, ...flagData.flags]
-      .filter(flag => flag.claim === draftClaim.number && removedFlags[flag.id])
+      .filter(flag => isMine(flag) && removedFlags[flag.id])
       .map(flag => ({ ...removedFlags[flag.id], flag, kind: 'flagRemoved' }))
   ]
+  const draftClaimFlagEvents = flagEvents(flag => flag.level === 'claim' && flag.claim === draftClaim.number)
+  res.locals.agreementSessionEvents = flagEvents(flag => flag.level === 'agreement' && flag.agreement === draftAgreement.number)
+    .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''))
 
   // Batches, notes and withdrawal requests together, newest first, each with
   // kind 'changes', 'note' or 'withdrawal'
@@ -445,6 +450,34 @@ router.use(draftPath, (req, res, next) => {
   if (req.method === 'GET' && req.path === '/change-log') {
     res.locals.changeLogBanner = data.changeLogBanner
     delete data.changeLogBanner
+  }
+  next()
+})
+
+// List filters only apply when they are in the page address. The Prototype
+// Kit saves every answer in the session, so without this a filter used
+// once (for example from a link on the What we changed page) would stay on
+// every time the list was opened. Opening a list with no query string,
+// from the navigation or a link, clears its filters and shows everything.
+const listFilters = {
+  '/claims': key => key.startsWith('claims'),
+  '/agreements': key => key.startsWith('agreements'),
+  '/flags': key => ['flagsRecord', 'flagsBy', 'flagsScheme', 'flagsAgreementType'].includes(key),
+  '/change-log': key => ['changeLogRecord', 'changeLogType', 'changeLogScheme', 'changeLogStatus', 'changeLogBy', 'changeLogPeriod'].includes(key)
+}
+
+router.get(Object.keys(listFilters).map(page => draftPath + page), (req, res, next) => {
+  if (!Object.keys(req.query).length) {
+    const isFilter = listFilters[req.path.slice(draftPath.length)]
+    // The kit copies the session into res.locals.data before routes run, so
+    // clear both, or this page load would still be filtered
+    for (const data of [req.session.data, res.locals.data || {}]) {
+      for (const key of Object.keys(data)) {
+        if (isFilter(key)) {
+          delete data[key]
+        }
+      }
+    }
   }
   next()
 })
@@ -645,9 +678,12 @@ router.post(flagPath, (req, res) => {
 // it, or a team lead, can remove it, and they must say why.
 const removeFlagPath = draftPath + '/remove-flag'
 
+// Only the person who created a flag, or a team lead, can remove it
+const canRemoveFlag = flag => flag.createdBy === signedInUser || roleOn(personas[signedInUser], todayInLondon()) === 'Back office team lead'
+
 function renderRemoveFlag (res, flag, extra = {}) {
   res.locals.design = designs.find(design => design.url === removeFlagPath)
-  const canRemove = flag.createdBy === signedInUser || roleOn(personas[signedInUser], todayInLondon()) === 'Back office team lead'
+  const canRemove = canRemoveFlag(flag)
   res.render('prototypes/back-office/authorisation-workflow/draft/remove-flag', { flag, canRemove, ...extra })
 }
 
@@ -671,6 +707,9 @@ router.post(removeFlagPath + '/:flagId', (req, res, next) => {
   const flag = res.locals.flags.find(item => item.id === req.params.flagId)
   if (!flag) {
     return next()
+  }
+  if (!canRemoveFlag(flag)) {
+    return renderRemoveFlag(res, flag)
   }
   const reason = (req.body.removeFlagReason || '').trim()
   if (!reason) {
