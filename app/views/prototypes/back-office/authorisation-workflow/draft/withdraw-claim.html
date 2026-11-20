@@ -1,0 +1,201 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: withdraw claim (draft v1)
+
+  The form a back office user fills in to withdraw a claim. Opened from the
+  "Withdraw claim" button on draft/claim-details.html. Submitting it goes to
+  draft/claim-withdrawn.html, which shows the answers in the banner and the
+  claim history.
+
+  Fields
+  ------
+  Based on the live "Confirm withdrawal of this claim" screen:
+  - Warning: "Once approved, a withdrawn claim cannot be undone."
+  - Reason for withdrawal: the live reasons, with their hints. "Other",
+    with a text box, is added by this draft.
+  - How the issue was discovered: the live options. "Other", with a text
+    box, is added by this draft.
+  - Details on why the claim should be withdrawn: required text box.
+
+  Added by this draft, to confirm in the design review (the live screen
+  does not record the customer's request):
+  - The agreement holder and business are shown at the top, so the
+    caseworker can check the caller against the record.
+  - Choosing "Customer contacted the RPA" reveals: the name of the person
+    who contacted the RPA, the organisation they represent (optional, for
+    example an agent or vet practice) and how they made contact. Three
+    fields is the most a conditional reveal should hold. If research shows
+    agents and vets often call, move these to their own page.
+
+  The withdrawal date is today's date, set on the server when the page
+  loads, so it stays fixed while the form is filled in. A hidden form field
+  passes it to the withdrawn claim page.
+
+  Who is withdrawing the claim is not asked. It is the signed-in user,
+  shown on the page and recorded automatically, as GOV.UK guidance is not
+  to ask for information the service already has.
+
+  Built only with GOV.UK Frontend macros and classes. The "Other" text
+  boxes use the radios component's conditional reveal, which is GOV.UK
+  Frontend JavaScript, not bespoke code.
+
+  Prototype limitations
+  ---------------------
+  - No validation or error messages.
+  - The Prototype Kit saves the answers in session data (withdrawReason,
+    withdrawReasonOther, withdrawDiscovered, withdrawDiscoveredOther,
+    withdrawContactName, withdrawContactOrganisation, withdrawContactMethod,
+    withdrawDetails, withdrawDate).
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set pageName = design.title if design else "Withdraw claim" %}
+{% set navActive = "claims" %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set backLinkHref = draftPath + "/claim-details" %}
+
+{% block content %}
+  {# People, from app/views/prototypes/back-office/data/personas.js #}
+  {% set holder = personas.farmer %}
+  {% set processor = personas.backOfficeAdministrator %}
+
+  {% set otherReasonHtml %}
+    {{ govukInput({
+      id: "withdrawReasonOther",
+      name: "withdrawReasonOther",
+      label: { text: "Give the reason" },
+      value: data.withdrawReasonOther
+    }) }}
+  {% endset %}
+
+  {% set customerContactHtml %}
+    {{ govukInput({
+      id: "withdrawContactName",
+      name: "withdrawContactName",
+      label: { text: "Name of the person who contacted the RPA" },
+      value: data.withdrawContactName
+    }) }}
+    {{ govukInput({
+      id: "withdrawContactOrganisation",
+      name: "withdrawContactOrganisation",
+      label: { text: "Organisation they represent (optional)" },
+      hint: { text: "For example, an agent or vet practice, if they were acting for the agreement holder" },
+      value: data.withdrawContactOrganisation
+    }) }}
+    {{ govukInput({
+      id: "withdrawContactMethod",
+      name: "withdrawContactMethod",
+      label: { text: "How did they contact the RPA?" },
+      hint: { text: "For example, phone, email or letter" },
+      classes: "govuk-!-width-two-thirds",
+      value: data.withdrawContactMethod
+    }) }}
+  {% endset %}
+
+  {% set otherDiscoveredHtml %}
+    {{ govukInput({
+      id: "withdrawDiscoveredOther",
+      name: "withdrawDiscoveredOther",
+      label: { text: "Say how the issue was discovered" },
+      value: data.withdrawDiscoveredOther
+    }) }}
+  {% endset %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Claim FUBC-HJ9N-S5PK</span>
+      <h1 class="govuk-heading-l">Withdraw claim</h1>
+
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Claim number" }, value: { text: "FUBC-HJ9N-S5PK" } },
+          { key: { text: "Business name" }, value: { text: holder.business.name } },
+          { key: { text: "Agreement holder" }, value: { text: holder.fullName } },
+          { key: { text: "Agreement number" }, value: { text: "IAHW-NQG3-7WZY" } },
+          { key: { text: "Withdrawn by" }, value: { text: processor.fullName + " (" + processor.organisation + ")" } },
+          { key: { text: "Withdrawal date" }, value: { text: today | govukDate } }
+        ]
+      }) }}
+
+      {{ govukWarningText({
+        text: "Once approved, a withdrawn claim cannot be undone."
+      }) }}
+
+      <form method="post" action="{{ draftPath }}/claim-withdrawn" novalidate>
+        {# Carries the withdrawal date, fixed when this page loaded, to the withdrawn claim #}
+        <input type="hidden" name="withdrawDate" value="{{ today }}">
+
+        {{ govukRadios({
+          name: "withdrawReason",
+          fieldset: {
+            legend: { text: "Reason for withdrawal", classes: "govuk-fieldset__legend--m" }
+          },
+          value: data.withdrawReason,
+          items: [
+            {
+              value: "Data from the vet summary was entered incorrectly",
+              text: "Data from the vet summary was entered incorrectly",
+              hint: { text: "For example, date of sample instead of date of visit" }
+            },
+            {
+              value: "Data from a different claim was entered",
+              text: "Data from a different claim was entered",
+              hint: { text: "For example, information from a follow-up instead of a review" }
+            },
+            {
+              value: "Data contained an unintentional typing error",
+              text: "Data contained an unintentional typing error",
+              hint: { text: "For example, a spelling mistake or incorrect number" }
+            },
+            {
+              value: "Incorrect selection was made in the digital service",
+              text: "Incorrect selection was made in the digital service",
+              hint: { text: "For example, yes instead of no" }
+            },
+            {
+              value: "Incorrect or confusing information was given by the vet",
+              text: "Incorrect or confusing information was given by the vet",
+              hint: { text: "For example, the wrong box completed in the summary template" }
+            },
+            {
+              value: "Other",
+              text: "Other",
+              conditional: { html: otherReasonHtml }
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          name: "withdrawDiscovered",
+          fieldset: {
+            legend: { text: "How the issue was discovered", classes: "govuk-fieldset__legend--m" }
+          },
+          value: data.withdrawDiscovered,
+          items: [
+            { value: "Customer contacted the RPA", text: "Customer contacted the RPA", conditional: { html: customerContactHtml } },
+            { value: "Evidence did not match the customer’s data", text: "Evidence did not match the customer’s data" },
+            { value: "Other", text: "Other", conditional: { html: otherDiscoveredHtml } }
+          ]
+        }) }}
+
+        {{ govukTextarea({
+          id: "withdrawDetails",
+          name: "withdrawDetails",
+          label: { text: "Enter details on why this claim should be withdrawn", classes: "govuk-label--m" },
+          hint: { text: "Describe all issues with this claim" },
+          value: data.withdrawDetails
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Withdraw claim", classes: "govuk-button--warning" }) }}
+          {{ govukButton({ text: "Do not withdraw claim", classes: "govuk-button--secondary", href: draftPath + "/claim-details" }) }}
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

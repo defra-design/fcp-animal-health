@@ -1,0 +1,357 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: claim details (draft v1)
+
+  Draft redesign of ../claim-details.html, applying the claim details
+  points in ../notes.html:
+  1. The claim comes first. Claim details sit at the top of the main
+     two-thirds column, followed by the action buttons. The claim history
+     is its own table, full width below, to give room for notes. No tabs
+     and no contents list.
+  2. Agreement information sits in a one-third column to the right, as a
+     short summary, with the agreement number linking to the agreement.
+     It may later move underneath the claim, or be replaced by a link to
+     the agreement. To discuss with the BA.
+  3. The heading is the claim number alone, with "Claim" as the caption.
+  4. Claim status shows as a tag after the claim number in the heading,
+     and as plain text in the claim details after the claim date. When the
+     claim is in check
+     (pending review) or withdrawn, a notification banner explains this and
+     links down to the claim history. The banner sits beneath the claim
+     heading, by design choice. GOV.UK guidance puts notification banners
+     immediately before the page heading, so check this in research.
+  5. Action buttons depend on the claim's status. In the live service they
+     would only show to back office team members.
+  6. Claim details this service can change have a "Change" link. Others
+     do not, so it is clear what can be changed. The user can change
+     several details and save them at once from check your changes
+     (draft/claim-edit/check.html). See the notes there for the flow.
+     After saving:
+     - a success banner shows instead of the in check banner, as GOV.UK
+       guidance says to show one notification banner at a time
+     - one history row lists every change, from and to, with the reason
+     - if the changes need team lead approval, the claim keeps its saved
+       values, the history's Status column shows them as Pending, the
+       in check banner says so, and no Change links show until a team lead
+       approves or rejects them, on draft/review-change. Approved changes
+       then show the new values. The history shows the decision, who made
+       it and when, and the team lead's notes.
+     Change links do not show on a withdrawn claim.
+  7. "Add a note", by the claim history heading, opens draft/add-note.html.
+     After saving, a success banner shows and the note is added to the
+     history. Notes can be added at any status.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  Scenarios
+  ---------
+  This page shows a claim in check. draft/claim-withdrawn.html extends this
+  page and sets claimWithdrawn to true to show the same claim withdrawn.
+  That replaces the separate claim withdrawn page: the banner says when,
+  by whom and why, and the claim history records the full withdrawal
+  details.
+
+  To confirm with the BA
+  ----------------------
+  - Which roles see which actions, and at which statuses.
+  - The withdraw workflow. The "Withdraw claim" button opens
+    draft/withdraw-claim.html, based on the live withdrawal fields.
+  - What claim history records. The history rows are illustrative.
+
+  Who did each event
+  ------------------
+  The "By" column says who did each event and what they were:
+  - internal users: their name, linking to their page in draft/users, and
+    the role they had when they did it, not their role now. In the live
+    service the role is stored with the event when it happens, and never
+    changes. Here it is looked up from the role history in
+    app/views/prototypes/back-office/data/personas.js, by the internalBy macro in
+    app/views/prototypes/back-office/includes/authorisation-workflow-macros.html. Sanjay Mehta was a back office editor when he
+    added the note and a back office administrator when he withdrew the
+    claim, so the history shows both.
+  - external users: their name and how they relate to the agreement, with
+    no link
+  - the system: "System"
+#}
+
+{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import internalBy %}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set pageName = design.title if design else "Claim details" %}
+{% set navActive = "claims" %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set backLinkHref = draftPath + "/change-log" %}
+
+{% block content %}
+  {# People, from app/views/prototypes/back-office/data/personas.js #}
+  {% set holder = personas.farmer %}
+  {% set processor = personas.backOfficeAdministrator %}
+
+  {% set claimStatus = "withdrawn" if claimWithdrawn else "inCheck" %}
+
+  {% set statuses = {
+    inCheck: { tag: { text: "In check", classes: "govuk-tag--orange" } },
+    withdrawn: { tag: { text: "Withdrawn", classes: "govuk-tag--grey" } }
+  } %}
+
+  {# Withdrawal answers from draft/withdraw-claim.html, with example values
+     if the form has not been filled in #}
+  {% set withdrawReason = (data.withdrawReasonOther if data.withdrawReason == "Other" else data.withdrawReason) or "Data from a different claim was entered" %}
+  {% set withdrawDiscovered = (data.withdrawDiscoveredOther if data.withdrawDiscovered == "Other" else data.withdrawDiscovered) or "Customer contacted the RPA" %}
+  {# Date from the withdraw claim form, or an example date #}
+  {% set withdrawDate = data.withdrawDate if (data.withdrawReason and data.withdrawDate) else "2026-11-11" %}
+
+  {# Who asked for the withdrawal, only when the customer contacted the RPA #}
+  {% set customerContacted = withdrawDiscovered == "Customer contacted the RPA" %}
+  {% set contactName = data.withdrawContactName or ("" if data.withdrawReason else holder.fullName) %}
+  {% set contactOrganisation = data.withdrawContactOrganisation %}
+  {% set contactMethod = data.withdrawContactMethod or ("" if data.withdrawReason else "Phone") %}
+  {% set requestedBy = contactName + (" (agreement holder)" if contactName == holder.fullName else "") + ((", " + contactOrganisation) if contactOrganisation else "") %}
+  {% set withdrawDetails = data.withdrawDetails if data.withdrawReason else "Customer contacted RPA and asked to withdraw the claim, as details from their review claim were entered." %}
+
+  {# Claim details can only be changed while the claim is in check and no
+     changes are waiting for approval #}
+  {% set canEdit = claimStatus == "inCheck" and not claimWaitingForApproval %}
+  {% set bannerType = "" %}
+
+  {% if claimEditBanner %}
+    {# Just saved changes or added a note: a success banner instead of the
+       in check banner #}
+    {% set bannerType = "success" %}
+    {% set changeCount = claimEditBanner.count ~ (" change" if claimEditBanner.count == 1 else " changes") %}
+    {% set bannerHtml %}
+      {% if claimEditBanner.status == "note" %}
+        <h3 class="govuk-notification-banner__heading">Note added</h3>
+        <p class="govuk-body"><a class="govuk-notification-banner__link" href="#claim-history">View the note in the claim history</a>.</p>
+      {% elif claimEditBanner.status == "pending" %}
+        <h3 class="govuk-notification-banner__heading">{{ changeCount }} sent for approval</h3>
+        <p class="govuk-body">A team lead needs to approve them before the claim changes. <a class="govuk-notification-banner__link" href="#claim-history">View the claim history</a>.</p>
+      {% else %}
+        <h3 class="govuk-notification-banner__heading">{{ changeCount }} saved</h3>
+        <p class="govuk-body"><a class="govuk-notification-banner__link" href="#claim-history">View the changes in the claim history</a>.</p>
+      {% endif %}
+    {% endset %}
+  {% elif claimStatus == "withdrawn" %}
+    {% set bannerHtml %}
+      <h3 class="govuk-notification-banner__heading">This claim was withdrawn on {{ withdrawDate | govukDate }} by {{ processor.fullName }}</h3>
+      <p class="govuk-body">Reason: {{ withdrawReason }}.</p>
+      <p class="govuk-body"><a class="govuk-notification-banner__link" href="#claim-history">View the claim history</a> for how the issue was discovered, who requested it and full details.</p>
+    {% endset %}
+  {% else %}
+    {% set bannerHtml %}
+      <h3 class="govuk-notification-banner__heading">This claim is in check</h3>
+      <p class="govuk-body">It needs a recommendation to pay or reject. <a class="govuk-notification-banner__link" href="#claim-history">View the claim history</a>.</p>
+      {% if claimWaitingForApproval %}
+        <p class="govuk-body">Changes to the claim details are waiting for approval from a team lead. You cannot make other changes until they are approved or rejected.</p>
+      {% elif claimChanges | length %}
+        <p class="govuk-body">You have {{ claimChanges | length }} unsaved {{ "change" if claimChanges | length == 1 else "changes" }}. <a class="govuk-notification-banner__link" href="{{ draftPath }}/claim-edit/check">Check and save your changes</a>.</p>
+      {% endif %}
+    {% endset %}
+  {% endif %}
+
+  {% set usersPath = draftPath + "/users" %}
+  {% set noteDate = "2026-10-31" %}
+
+  {% set historyRows = [
+    [
+      { text: noteDate | govukShortDate },
+      { text: "Note added" },
+      { text: "" },
+      { html: internalBy(processor, noteDate, usersPath) },
+      { text: "Called the vet practice to check the vet's RCVS number. It matches the claim." }
+    ],
+    [
+      { text: "30/10/2026" },
+      { text: "Status changed to In check" },
+      { text: "" },
+      { text: "System" },
+      { text: "" }
+    ],
+    [
+      { text: "30/10/2026" },
+      { text: "Claim submitted" },
+      { text: "" },
+      { html: (holder.fullName | escape) + '<br><span class="govuk-hint">Agreement holder</span>' },
+      { text: "" }
+    ]
+  ] %}
+  {# One row per batch of changes, from draft/claim-edit/check.html, and
+     per note, from draft/add-note.html, in the order they happened.
+     The Status column uses the same statuses as the change log. Changes
+     that did not need approval, and notes, have no status. #}
+  {% set approvalStatuses = {
+    pending: { text: "Pending", classes: "govuk-tag--yellow" },
+    approved: { text: "Approved", classes: "govuk-tag--green" },
+    rejected: { text: "Rejected", classes: "govuk-tag--red" }
+  } %}
+  {% set batchRows = [] %}
+  {% for batch in claimSessionEvents %}
+    {% if batch.kind == "note" %}
+      {% set batchRows = (batchRows.push([
+        { text: batch.date | govukShortDate },
+        { text: "Note added" },
+        { text: "" },
+        { html: internalBy(personas[batch.by], batch.date, usersPath) },
+        { html: batch.text | escape | nl2br }
+      ]), batchRows) %}
+    {% else %}
+    {% set eventText = (batch.changes[0].label + " changed") if batch.changes | length == 1 else (batch.changes | length ~ " claim details changed") %}
+    {% set approval = approvalStatuses[batch.status] %}
+    {% set notesHtml %}
+      <ul class="govuk-list">
+        {% for change in batch.changes %}
+          <li>{{ change.label }} changed from {{ (change.from | govukDate) if change.type == "date" else change.from }} to {{ (change.to | govukDate) if change.type == "date" else change.to }}</li>
+        {% endfor %}
+      </ul>
+      {% if batch.reason %}<p class="govuk-body govuk-!-margin-bottom-0"><strong>Reason:</strong> {{ batch.reason }}</p>{% endif %}
+      {% if batch.decision and batch.decision.notes %}<p class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-0"><strong>{{ "Approved" if batch.decision.decision == "approved" else "Rejected" }} by {{ personas[batch.decision.by].fullName }}:</strong> {{ batch.decision.notes }}</p>{% endif %}
+    {% endset %}
+    {% set statusHtml %}
+      {% if approval %}
+        {{ govukTag(approval) }}
+        {% if batch.decision %}<br><span class="govuk-hint">by {{ personas[batch.decision.by].fullName }}, {{ batch.decision.date | govukShortDate }}</span>{% endif %}
+      {% endif %}
+    {% endset %}
+    {% set batchRows = (batchRows.push([
+      { text: batch.date | govukShortDate },
+      { text: eventText },
+      { html: statusHtml },
+      { html: internalBy(personas[batch.by], batch.date, usersPath) },
+      { html: notesHtml }
+    ]), batchRows) %}
+    {% endif %}
+  {% endfor %}
+  {% set historyRows = batchRows.concat(historyRows) %}
+
+  {% if claimStatus == "withdrawn" %}
+    {% set historyRows = ([[
+      { text: withdrawDate | govukShortDate },
+      { text: "Claim withdrawn" },
+      { text: "" },
+      { html: internalBy(processor, withdrawDate, usersPath) },
+      { html: "<strong>Reason:</strong> " + (withdrawReason | escape) + "<br><strong>How the issue was discovered:</strong> " + (withdrawDiscovered | escape) + (("<br><strong>Requested by:</strong> " + (requestedBy | escape)) if customerContacted and requestedBy else "") + (("<br><strong>How they contacted the RPA:</strong> " + (contactMethod | escape)) if customerContacted and contactMethod else "") + (("<br><strong>Details:</strong> " + (withdrawDetails | escape)) if withdrawDetails else "") }
+    ]].concat(historyRows)) %}
+  {% endif %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Claim</span>
+      <h1 class="govuk-heading-l">
+        FUBC-HJ9N-S5PK
+        {{ govukTag({ text: statuses[claimStatus].tag.text, classes: statuses[claimStatus].tag.classes + " govuk-!-margin-left-2" }) }}
+      </h1>
+
+      {{ govukNotificationBanner({ html: bannerHtml, type: bannerType }) }}
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m" id="claim-details">Claim details</h2>
+      {% if canEdit %}
+        <p class="govuk-body">You can only change details that have a change link.</p>
+      {% endif %}
+
+      {# Rows with a field are details this service can change, from
+         app/views/prototypes/back-office/data/claim-edit-fields.js. They show the saved value, and a
+         Change link while the claim can be edited. #}
+      {% set detailSpecs = [
+        { key: "Claim date", text: "30 October 2026" },
+        { key: "Claim status", text: statuses[claimStatus].tag.text },
+        { key: "Business name", text: holder.business.name },
+        { key: "Claim type", text: "Follow-up" },
+        { key: "Livestock", text: "Beef cattle" },
+        { key: "Review test result", text: "Positive" },
+        { key: "Type of visit", text: "Endemic disease follow-ups" },
+        { field: "dateOfVisit" },
+        { key: "Herd name", text: "Jo" },
+        { field: "herdCph" },
+        { key: "Is this the only herd on this SBI?", text: "Yes" },
+        { key: "Reasons the herd is separate", html: '<ul class="govuk-list govuk-list--bullet"><li>This is the only herd</li></ul>' },
+        { key: "11 or more beef cattle", text: "Yes" },
+        { field: "vetName" },
+        { field: "vetRcvs" },
+        { key: "PI hunt", text: "Yes" },
+        { key: "PI hunt done on all cattle in herd", text: "Yes" },
+        { key: "Date of sampling", text: "10 December 2025" },
+        { field: "urn" },
+        { field: "testResult" },
+        { key: "Biosecurity assessment", text: "Yes" }
+      ] %}
+      {% set detailRows = [] %}
+      {% for spec in detailSpecs %}
+        {% if spec.field %}
+          {% set field = claimField[spec.field] %}
+          {% set detailRows = (detailRows.push({
+            key: { text: field.label },
+            value: { text: (field.current | govukDate) if field.type == "date" else field.current },
+            actions: {
+              items: [
+                { href: draftPath + "/claim-edit/" + field.page, text: "Change", visuallyHiddenText: field.name }
+              ]
+            } if canEdit else {}
+          }), detailRows) %}
+        {% else %}
+          {% set detailRows = (detailRows.push({
+            key: { text: spec.key },
+            value: { text: spec.text, html: spec.html }
+          }), detailRows) %}
+        {% endif %}
+      {% endfor %}
+
+      {{ govukSummaryList({ rows: detailRows }) }}
+
+      {% if claimStatus == "inCheck" %}
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Recommend to pay" }) }}
+          {{ govukButton({ text: "Recommend to reject", classes: "govuk-button--secondary" }) }}
+          {{ govukButton({ text: "Withdraw claim", classes: "govuk-button--warning", href: draftPath + "/withdraw-claim" }) }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m" id="agreement">Agreement</h2>
+      <ul class="govuk-list">
+        <li><strong>Agreement number</strong><br><a class="govuk-link" href="{{ draftPath }}/agreement-details">IAHW-NQG3-7WZY</a></li>
+        <li><strong>Agreement type</strong><br>Improve Animal Health and Welfare (IAHW)</li>
+        <li><strong>Agreement date</strong><br>1 January 2025</li>
+        <li><strong>Agreement holder</strong><br>{{ holder.fullName }}</li>
+        <li><strong>SBI number</strong><br>{{ holder.business.sbi }}</li>
+        <li><strong>Address</strong><br>{{ holder.business.address | join("<br>") | safe }}</li>
+        <li><strong>Business email</strong><br><span class="govuk-!-text-break-word">{{ holder.business.email }}</span></li>
+        <li><strong>Flagged</strong><br>No</li>
+        <li><strong>Number of herds and flocks</strong><br>Beef cattle: 1<br>Dairy cattle: 0<br>Sheep: 0<br>Pigs: 0</li>
+      </ul>
+      <p class="govuk-body"><a class="govuk-link" href="{{ draftPath }}/agreement-details">View the full agreement<span class="govuk-visually-hidden"> IAHW-NQG3-7WZY</span></a></p>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h2 class="govuk-heading-m govuk-!-margin-top-6" id="claim-history">Claim history</h2>
+      <p class="govuk-body"><a class="govuk-link" href="{{ draftPath }}/add-note">Add a note<span class="govuk-visually-hidden"> to this claim</span></a></p>
+      {{ govukTable({
+        caption: "Claim history",
+        captionClasses: "govuk-visually-hidden",
+        head: [
+          { text: "Date" },
+          { text: "Event" },
+          { text: "Status" },
+          { text: "By" },
+          { text: "Notes" }
+        ],
+        rows: historyRows
+      }) }}
+    </div>
+  </div>
+{% endblock %}

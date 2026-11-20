@@ -1,0 +1,98 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: users (draft v1)
+
+  New page. Lists everyone inside Defra and the RPA who has access to the
+  back office, so super admins can:
+  - review who has access and with what role, as security policy expects
+    regular access reviews
+  - spot people who have not used the service for a while, or who have
+    left, and should lose access
+  - follow a name in a claim history to the person and their role history
+
+  Each name links to the user's page, draft/user.html, which shows their
+  role history.
+
+  The page is read only. Access and roles are probably managed in Defra's
+  identity system, so this page would show that data rather than be a
+  second place to manage it. To confirm with Transform.
+
+  People come from the internal personas in app/views/prototypes/back-office/data/personas.js, so the
+  list is short. A live list would be longer, and may need search, filters
+  and pagination.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  To confirm with the BA
+  ----------------------
+  - Which roles count as super admins and can see this page.
+  - Whether other back office users can see a cut-down version, so the
+    links from claim history work for everyone.
+  - The role names. These are the persona types.
+
+  Last active
+  -----------
+  The last time the person did anything that was logged against their
+  name, such as adding a note or withdrawing a claim. It is not the last
+  time they signed in, as the service probably cannot get sign in data.
+  Someone who only looks at claims will seem inactive. Present it as a
+  check on access, not a measure of work, and check it with the data
+  protection officer.
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set pageName = design.title if design else "Users" %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set navActive = "users" %}
+{% set navCurrent = "users" %}
+
+{% block content %}
+  {% set userRows = [] %}
+  {% for key, person in personas %}
+    {% if person.group == "internal" %}
+      {% set userRows = (userRows.push([
+        { html: '<a class="govuk-link" href="' + usersHref + '/' + person.id + '">' + (person.fullName | escape) + '</a>' },
+        { html: '<span class="govuk-!-text-break-word">' + (person.email | escape) + '</span>' },
+        { text: person.roles[0].role },
+        { html: govukTag({ text: person.status, classes: "govuk-tag--green" if person.status == "Active" else "govuk-tag--grey" }) },
+        { text: person.dateAdded | govukShortDate },
+        { text: person.lastActive | govukShortDate }
+      ]), userRows) %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Users</h1>
+      <p class="govuk-body">Everyone in Defra and the RPA who has access to this service.</p>
+      <p class="govuk-body">Last active is the last time they did something that was recorded against their name, such as adding a note or withdrawing a claim.</p>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {{ govukTable({
+        caption: "Users",
+        captionClasses: "govuk-visually-hidden",
+        head: [
+          { text: "Name" },
+          { text: "Email" },
+          { text: "Role" },
+          { text: "Status" },
+          { text: "Date added" },
+          { text: "Last active" }
+        ],
+        rows: userRows
+      }) }}
+    </div>
+  </div>
+{% endblock %}

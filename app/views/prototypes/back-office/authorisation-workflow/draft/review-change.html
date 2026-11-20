@@ -1,0 +1,211 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: review a change (draft v1)
+
+  Where a team lead approves or rejects a change waiting for approval.
+  Opened from "Review" on a pending row in the change log. Each change has
+  its own page: draft/review-change/<change id>.
+
+  The page shows:
+  - what the change is to, who made it and their role at the time, when
+    and why
+  - each detail changed, from and to
+  - "Do you approve this change?": Approve or Reject. Approve reveals
+    optional notes. Reject reveals a required "Why are you rejecting this
+    change?". Both are recorded in the history, so the person who made the
+    change can see them.
+
+  "Save decision" goes back to the change log with a success banner. An
+  approved change updates the claim or agreement. A rejected one does not.
+  The change log row and the claim history show the decision, who made it
+  and when, and the claim history shows the notes.
+
+  Once decided, the same page shows the decision instead of the form.
+  "View decision" in the change log opens it.
+
+  A team lead cannot review their own change. The page says so instead of
+  showing the form.
+
+  The signed-in user is Mei Chen, the back office lead persona, as only team
+  leads can approve. In the live service only team leads would see the
+  Review link.
+
+  Errors use the GOV.UK error summary and error messages: no decision
+  chosen, or rejected without notes.
+
+  Built only with GOV.UK Frontend macros and classes. The notes boxes use
+  the radios component's conditional reveal, which is GOV.UK Frontend
+  JavaScript, not bespoke code.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  The page is rendered by app/routes.js, with the change as `change`, the
+  reviewer's persona key as `reviewer`, and `errors` and `values` when the
+  form has errors.
+
+  To confirm with the BA
+  ----------------------
+  - Whether the person who made the change should be told about the
+    decision, for example by email or a list of their own changes.
+  - What happens after a rejection: does the case officer make a new change?
+#}
+
+{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import roleOn %}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set signedInUser = personas[reviewer] %}
+{% set pageName = ("Error: " if errors else "") + (design.title if design else "Review a change") %}
+{% set navActive = "changeLog" %}
+{% set backLinkHref = draftPath + "/change-log" %}
+
+{% block content %}
+  {% set usersPath = draftPath + "/users" %}
+  {% set recordName = "claim" if change.record.kind == "claim" else "agreement" %}
+  {% set maker = personas[change.by] %}
+  {% set decider = personas[change.decidedBy] %}
+  {% set approvalTags = {
+    pending: { text: "Pending", classes: "govuk-tag--yellow" },
+    approved: { text: "Approved", classes: "govuk-tag--green" },
+    rejected: { text: "Rejected", classes: "govuk-tag--red" }
+  } %}
+
+  {% set recordHtml %}
+    <a class="govuk-link" href="{{ draftPath }}/{{ change.page }}">{{ change.record.number }}</a><br>
+    <span class="govuk-hint">{{ "Claim" if change.record.kind == "claim" else "Agreement" }} · {{ change.scheme }}{{ (" · " + change.record.claimType) if change.record.claimType }}</span>
+  {% endset %}
+
+  {% set makerHtml %}
+    {% if maker %}
+      <a class="govuk-link" href="{{ usersPath }}/{{ maker.id }}">{{ maker.fullName }}</a>, {{ roleOn(maker, change.date) | lower }}
+    {% else %}
+      {{ change.by }}
+    {% endif %}
+  {% endset %}
+
+  {% set summaryRows = [
+    { key: { text: "Change to" }, value: { html: recordHtml } },
+    { key: { text: "Change" }, value: { text: change.summary } },
+    { key: { text: "Made by" }, value: { html: makerHtml } },
+    { key: { text: "Date" }, value: { text: change.date | govukDate } }
+  ] %}
+  {% if change.reason %}
+    {% set summaryRows = (summaryRows.push({ key: { text: "Reason" }, value: { text: change.reason } }), summaryRows) %}
+  {% endif %}
+  {% if change.approval != "pending" and change.approval != "none" %}
+    {% set summaryRows = (summaryRows.push(
+      { key: { text: "Decision" }, value: { html: govukTag(approvalTags[change.approval]) + " by " + (decider.fullName | escape) + " on " + (change.decidedDate | govukDate) } }
+    ), summaryRows) %}
+    {% if change.decisionNotes %}
+      {% set summaryRows = (summaryRows.push({ key: { text: "Team lead’s notes" }, value: { text: change.decisionNotes } }), summaryRows) %}
+    {% endif %}
+  {% endif %}
+
+  {% set detailRows = [] %}
+  {% for item in change.changes %}
+    {% set detailRows = (detailRows.push([
+      { text: item.label },
+      { text: (item.from | govukDate) if item.type == "date" else item.from },
+      { text: (item.to | govukDate) if item.type == "date" else item.to }
+    ]), detailRows) %}
+  {% endfor %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors %}
+        {% set errorList = [] %}
+        {% if errors.reviewDecision %}{% set errorList = (errorList.push({ text: errors.reviewDecision, href: "#reviewDecision" }), errorList) %}{% endif %}
+        {% if errors.rejectNotes %}{% set errorList = (errorList.push({ text: errors.rejectNotes, href: "#rejectNotes" }), errorList) %}{% endif %}
+        {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+      {% endif %}
+
+      <span class="govuk-caption-l">Change to {{ recordName }} {{ change.record.number }}</span>
+      <h1 class="govuk-heading-l">
+        {%- if change.approval == "pending" -%}
+          Review this change
+        {%- elif change.approval == "approved" -%}
+          Change approved
+        {%- elif change.approval == "rejected" -%}
+          Change rejected
+        {%- else -%}
+          Change
+        {%- endif -%}
+      </h1>
+
+      {{ govukSummaryList({ rows: summaryRows }) }}
+
+      {% if detailRows | length %}
+        {{ govukTable({
+          caption: "What changed",
+          captionClasses: "govuk-table__caption--m",
+          head: [{ text: "Detail" }, { text: "From" }, { text: "To" }],
+          rows: detailRows
+        }) }}
+      {% endif %}
+
+      {% if change.approval == "pending" %}
+        {% if change.by == reviewer %}
+          {{ govukInsetText({ text: "You made this change, so another team lead needs to review it." }) }}
+        {% else %}
+          <form method="post" novalidate>
+            {% set approveNotesHtml %}
+              {{ govukTextarea({
+                name: "approveNotes",
+                id: "approveNotes",
+                label: { text: "Notes (optional)" },
+                hint: { text: "These are recorded in the history." },
+                value: values.approveNotes if values
+              }) }}
+            {% endset %}
+            {% set rejectNotesHtml %}
+              {{ govukTextarea({
+                name: "rejectNotes",
+                id: "rejectNotes",
+                label: { text: "Why are you rejecting this change?" },
+                hint: { text: "This is recorded in the history, so " + ((maker.firstName + " can") if maker else "the person who made the change can") + " see it." },
+                value: values.rejectNotes if values,
+                errorMessage: { text: errors.rejectNotes } if errors and errors.rejectNotes else false
+              }) }}
+            {% endset %}
+
+            {{ govukRadios({
+              name: "reviewDecision",
+              idPrefix: "reviewDecision",
+              fieldset: {
+                legend: { text: "Do you approve this change?", classes: "govuk-fieldset__legend--m" }
+              },
+              errorMessage: { text: errors.reviewDecision } if errors and errors.reviewDecision else false,
+              items: [
+                {
+                  value: "approved",
+                  text: "Approve",
+                  hint: { text: "The " + recordName + " will be updated." },
+                  checked: values and values.reviewDecision == "approved",
+                  conditional: { html: approveNotesHtml }
+                },
+                {
+                  value: "rejected",
+                  text: "Reject",
+                  hint: { text: "The " + recordName + " will not change." },
+                  checked: values and values.reviewDecision == "rejected",
+                  conditional: { html: rejectNotesHtml }
+                }
+              ]
+            }) }}
+
+            <div class="govuk-button-group">
+              {{ govukButton({ text: "Save decision" }) }}
+              <a class="govuk-link" href="{{ backLinkHref }}">Cancel</a>
+            </div>
+          </form>
+        {% endif %}
+      {% else %}
+        <p class="govuk-body"><a class="govuk-link" href="{{ backLinkHref }}">Back to the change log</a></p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

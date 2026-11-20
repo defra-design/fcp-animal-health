@@ -1,0 +1,40 @@
+{% extends "prototypes/back-office/layouts/claim-edit.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: change the date of visit (draft v1)
+
+  Edit page for the date of the vet's visit. A change needs team lead
+  approval, as the date can change whether the claim is eligible. The hint
+  says so before the user makes the change.
+
+  To confirm with the BA: the date rules, for example after the agreement
+  start and before the claim date. The prototype does not check the date.
+
+  Part of the change claim details flow: see layouts/claim-edit.html and
+  draft/claim-edit/check.html.
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set pageName = "Change the date of visit" %}
+
+{% block fields %}
+  {% set dateParts = claimField.dateOfVisit.value.split("-") %}
+
+  {{ govukDateInput({
+    id: "dateOfVisit",
+    namePrefix: "dateOfVisit",
+    fieldset: {
+      legend: { html: captionHtml + " " + claimField.dateOfVisit.label, isPageHeading: true, classes: "govuk-fieldset__legend--l" }
+    },
+    hint: { text: "For example, 27 3 2025. A change to the date of visit needs approval from a team lead." },
+    items: [
+      { name: "day", classes: "govuk-input--width-2", value: dateParts[2] | int if dateParts[2] else "" },
+      { name: "month", classes: "govuk-input--width-2", value: dateParts[1] | int if dateParts[1] else "" },
+      { name: "year", classes: "govuk-input--width-4", value: dateParts[0] }
+    ]
+  }) }}
+{% endblock %}

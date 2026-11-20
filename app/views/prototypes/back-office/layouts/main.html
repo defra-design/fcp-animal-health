@@ -1,0 +1,36 @@
+{#
+  Base layout for back office prototypes
+  ======================================
+
+  Every page in app/views/prototypes/back-office/ extends this, directly or
+  through another layout in this folder.
+
+  - Pages are 1200px wide, like the back office service, using the
+    app-back-office body class (app/assets/sass/_back-office.scss).
+  - The header and footer are split into the govukHeader,
+    govukServiceNavigation and govukFooter blocks, as in GOV.UK Frontend 6.
+    This repo uses GOV.UK Frontend 5, whose page template does not have
+    them, and the back office layouts override them.
+#}
+
+{% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
+
+{% set bodyClasses = ((bodyClasses + " ") if bodyClasses else "") + "app-back-office" %}
+
+{% block header %}
+  {% block govukHeader %}
+    {{ govukHeader({ homepageUrl: "/", containerClasses: "govuk-width-container" }) }}
+  {% endblock %}
+  {% block govukServiceNavigation %}{% endblock %}
+{% endblock %}
+
+{% block footer %}
+  {% block govukFooter %}
+    {{ govukFooter({
+      meta: {
+        items: [{ href: "/manage-prototype/clear-data", text: "Clear data" }],
+        visuallyHiddenTitle: "Footer links"
+      }
+    }) }}
+  {% endblock %}
+{% endblock %}

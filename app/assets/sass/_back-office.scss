@@ -1,0 +1,73 @@
+//
+// Back office prototypes (app/views/prototypes/back-office/)
+// ==========================================================
+//
+// Only applies to back office pages, which have the app-back-office class on
+// the body (app/views/prototypes/back-office/layouts/main.html).
+//
+
+// Page width
+// ----------
+// 1200px wide rather than the GOV.UK default of 960px, to match the back
+// office service, where caseworkers need more of each table and summary list
+// visible without wrapping. Up to 1260px wide screens, keep the GOV.UK
+// gutters rather than centring.
+
+.app-back-office .govuk-width-container {
+  max-width: 1200px;
+}
+
+@media (min-width: 1020px) and (max-width: 1259px) {
+  .app-back-office .govuk-width-container {
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+}
+
+// Widescreen toggle (temporary prototype tool, draft pages only)
+// --------------------------------------------------------------
+// Not part of the designs and not for production. The toggle in
+// layouts/authorisation-workflow.html adds app-widescreen to the body.
+// Content then runs to the edges of the screen, keeping the GOV.UK gutters:
+// 15px on mobile, 30px from tablet up.
+
+.app-widescreen .govuk-width-container {
+  max-width: none;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+@media (min-width: 40.0625em) {
+  .app-widescreen .govuk-width-container {
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+}
+
+// The toggle link sits at the top right of the blue GOV.UK header. The link
+// itself uses govuk-link--inverse for light text and the GOV.UK focus style.
+
+.app-header-tool .govuk-header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header-tool__link {
+  order: 2;
+  margin-left: 15px;
+}
+
+// Signed-in user in the service navigation
+// ----------------------------------------
+// GOV.UK Frontend 6 can put the service navigation's end slot inline, to the
+// right of the navigation. This repo uses Frontend 5, which puts it below,
+// so this puts it inline from tablet up.
+
+@media (min-width: 40.0625em) {
+  .app-back-office .govuk-service-navigation .govuk-width-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

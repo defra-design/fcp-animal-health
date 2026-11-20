@@ -1,0 +1,117 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: check your changes (draft v1)
+
+  Based on the GOV.UK check answers pattern. A back office user can change
+  several claim details, then save them all at once. Nothing is saved until
+  they select the button on this page.
+
+  The flow:
+  1. On the claim, the details this service can change have a "Change"
+     link. Others do not.
+  2. Each Change link opens an edit page in draft/claim-edit/, with a
+     Continue button. Continue stores the answer as an unsaved change and
+     comes here.
+  3. This page lists every detail that can be changed. Changed details
+     show the new value, with the saved value below. Each has a Change
+     link, so the user can make more changes from here.
+  4. One reason covers all the changes.
+  5. "Save changes" saves them as one batch: one row in the claim history
+     and one success banner. If any change needs team lead approval, the
+     whole batch does, and the button says "Send for approval" instead.
+  6. "Cancel and discard changes" clears the unsaved changes.
+
+  Which changes need approval is set in app/views/prototypes/back-office/data/claim-edit-fields.js. The
+  test result and date of visit need approval, as they can change whether
+  the claim is eligible. This is illustrative: to confirm with the BA.
+
+  Open draft/claim-edit/reset to clear unsaved changes and saved batches
+  and start again.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  To confirm with the BA
+  ----------------------
+  - Which changes need team lead approval.
+  - Whether a team lead can approve some changes in a batch and reject
+    others. This design assumes they approve or reject the whole batch.
+  - Whether the reason is required.
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set claimNumber = "FUBC-HJ9N-S5PK" %}
+{% set pageName = design.title if design else "Check your changes" %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set navActive = "claims" %}
+{% set backLinkHref = draftPath + "/claim-details" %}
+
+{% block content %}
+  {% set needsApproval = claimChangesNeedApproval | length > 0 %}
+
+  {% set rows = [] %}
+  {% for field in claimFields %}
+    {% set display = (field.value | govukDate) if field.type == "date" else field.value %}
+    {% set savedDisplay = (field.current | govukDate) if field.type == "date" else field.current %}
+    {% set valueHtml = (display | escape) + (('<br><span class="govuk-hint">Previously: ' + (savedDisplay | escape) + '</span>') if field.changed else "") %}
+    {% set rows = (rows.push({
+      key: { text: field.label },
+      value: { html: valueHtml },
+      actions: {
+        items: [
+          { href: draftPath + "/claim-edit/" + field.page, text: "Change", visuallyHiddenText: field.name }
+        ]
+      }
+    }), rows) %}
+  {% endfor %}
+
+  {% set approvalLabels = [] %}
+  {% for field in claimChangesNeedApproval %}
+    {% set approvalLabels = (approvalLabels.push(field.name), approvalLabels) %}
+  {% endfor %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Claim {{ claimNumber }}</span>
+      <h1 class="govuk-heading-l">Check your changes</h1>
+
+      {% if claimChanges | length %}
+        <p class="govuk-body">You have changed {{ claimChanges | length }} {{ "detail" if claimChanges | length == 1 else "details" }}. Your changes are not saved yet.</p>
+
+        {{ govukSummaryList({ rows: rows }) }}
+
+        <form method="post" novalidate>
+          {% if needsApproval %}
+            {{ govukInsetText({
+              text: "These changes need approval from a team lead, because they include a change to the " + approvalLabels | join(" and the ") + ". The claim will not change until they are approved."
+            }) }}
+          {% endif %}
+
+          {{ govukTextarea({
+            name: "claimEditReason",
+            id: "claimEditReason",
+            label: { text: "Reason for the changes", classes: "govuk-label--m" },
+            hint: { text: "This is recorded in the claim history." }
+          }) }}
+
+          <div class="govuk-button-group">
+            {{ govukButton({ text: "Send for approval" if needsApproval else "Save changes" }) }}
+            <a class="govuk-link" href="{{ draftPath }}/claim-edit/cancel">Cancel and discard changes</a>
+          </div>
+        </form>
+      {% else %}
+        <p class="govuk-body">You have not changed anything yet.</p>
+        {{ govukSummaryList({ rows: rows }) }}
+        <p class="govuk-body"><a class="govuk-link" href="{{ draftPath }}/claim-details">Back to the claim</a></p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

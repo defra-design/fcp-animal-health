@@ -1,0 +1,166 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Design notes for the Authorisation workflow designs.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% set workflowPath = "/prototypes/back-office/authorisation-workflow" %}
+{% set pageName = "Design notes" %}
+
+{% block header %}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Research prototypes", href: "/" },
+      { text: "Authorisation workflow", href: workflowPath + "/" },
+      { text: "Design notes" }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl">Authorisation workflow</span>
+      <h1 class="govuk-heading-xl">Design notes</h1>
+
+      <p class="govuk-body-l">First thoughts on the prototype screens, with suggested changes and questions we need answered.</p>
+
+      <p class="govuk-body">
+        Steve Molesworth<br>
+        18 November 2026
+      </p>
+
+      <h2 class="govuk-heading-l">Suggested changes</h2>
+
+      <h3 class="govuk-heading-m">All pages</h3>
+      <ol class="govuk-list govuk-list--number">
+        <li>Write <strong>dates in full</strong> in text and summary lists, as GOV.UK style advises, for example 5 November 2026. Where space is tight, such as the change date in the change log and dates in the claim history table, use the short form 5/11/2026, without leading zeros.</li>
+      </ol>
+
+      <h3 class="govuk-heading-m">Agreement details</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="{{ workflowPath }}/agreement-details">Current design<span class="govuk-visually-hidden">: agreement details</span></a></li>
+        <li><a class="govuk-link" href="{{ workflowPath }}/draft/agreement-details">Draft design<span class="govuk-visually-hidden">: agreement details</span></a></li>
+      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li>Lead with the <strong>agreement number</strong>, not the business name, to match the claim page. Make the heading the agreement number alone (“IAHW-NQG3-7WZY”), with a small “Agreement” caption above it and the status underneath.</li>
+        <li>
+          Show the agreement details in this order:
+          <ul class="govuk-list govuk-list--bullet">
+            <li>agreement number</li>
+            <li>agreement type</li>
+            <li>agreement date</li>
+            <li>agreement holder</li>
+            <li>SBI number</li>
+            <li>address</li>
+            <li>business email</li>
+            <li>flagged</li>
+            <li>number of herds and flocks</li>
+          </ul>
+        </li>
+        <li>Write the <strong>address in sentence case</strong>, not capitals, with each part on its own line. Keep the postcode in capitals.</li>
+        <li>
+          Add a <strong>Claims for this agreement</strong> table in the lower half of the page. It would show:
+          <ul class="govuk-list govuk-list--bullet">
+            <li>the claim number, linking to the claim</li>
+            <li>the claim type</li>
+            <li>the date created</li>
+            <li>the date last updated</li>
+            <li>the current status</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h3 class="govuk-heading-m">Claim details</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="{{ workflowPath }}/claim-details">Current design<span class="govuk-visually-hidden">: claim details</span></a></li>
+        <li><a class="govuk-link" href="{{ workflowPath }}/draft/claim-details">Draft design<span class="govuk-visually-hidden">: claim details</span></a></li>
+      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li>
+          <strong>Put the claim first.</strong> Remove the <strong>Claim</strong> and <strong>History</strong> tabs, and do not add a contents list. In the main two-thirds column, show:
+          <ul class="govuk-list govuk-list--bullet">
+            <li>the claim details at the top of the page</li>
+            <li>the action buttons</li>
+          </ul>
+          Show the claim history as its own table below, running the full width of the page, as it will hold a lot of notes.
+        </li>
+        <li>Move the <strong>agreement information</strong> out of the main column. It belongs on the agreement page. For now, show a short summary in a one-third column to the right of the claim details, with the agreement number linking to the agreement. Later it could move underneath the claim, or be replaced by a single link to the agreement. To discuss with Olayinka.</li>
+        <li>Make the <strong>heading the claim number</strong> alone (“FUBC-HJ9N-S5PK”), with a small “Claim” caption above it.</li>
+        <li>Show the <strong>claim status as a tag after the claim number</strong> in the heading, and as plain text in the claim details, straight after the claim date. If a claim is withdrawn or pending review, show a notification banner beneath the claim heading that links down to the claim history, so users can see what was done and by whom. GOV.UK guidance puts notification banners above the page heading, so this placement is a deliberate choice to test.</li>
+        <li>Show <strong>action buttons only to back office team members</strong>, for example to withdraw or revoke a claim. Which buttons appear depends on the user’s role and the claim’s status.</li>
+      </ol>
+
+      <h3 class="govuk-heading-m">Claim withdrawn</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="{{ workflowPath }}/claim-withdrawn">Current design<span class="govuk-visually-hidden">: claim withdrawn</span></a></li>
+        <li><a class="govuk-link" href="{{ workflowPath }}/draft/claim-withdrawn">Draft design<span class="govuk-visually-hidden">: claim withdrawn</span></a></li>
+        <li><a class="govuk-link" href="{{ workflowPath }}/draft/withdraw-claim">Draft withdraw claim form<span class="govuk-visually-hidden">: claim withdrawn</span></a></li>
+      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li>Remove the <strong>separate claim withdrawn page</strong>. Show a withdrawn claim on the claim details page instead, with its status at the top set to <strong>Withdrawn</strong>.</li>
+        <li>Add a <strong>notification banner</strong> at the top of the claim page saying when the claim was withdrawn, by whom and why, with a link down to the claim history.</li>
+        <li>Record the <strong>withdrawal in the claim history</strong>: the date, who withdrew it, the reason, how the issue was discovered, who made contact and how (if the customer contacted the RPA) and the details.</li>
+        <li>Hide the <strong>action buttons</strong> once a claim is withdrawn.</li>
+        <li>
+          Add a <strong><a class="govuk-link" href="{{ workflowPath }}/draft/withdraw-claim">Withdraw claim</a></strong> page, opened from the claim page, based on the live “Confirm withdrawal of this claim” fields. It keeps the warning “Once approved, a withdrawn claim cannot be undone” and asks:
+          <ul class="govuk-list govuk-list--bullet">
+            <li>the reason for withdrawal, using the live list of reasons and hints, plus a new “Other” option with a text box</li>
+            <li>how the issue was discovered, using the live options, plus a new “Other” option with a text box</li>
+            <li>if the customer contacted the RPA: the name of the person who made contact, the organisation they represent (optional, for example an agent or vet practice) and how they made contact (new, to confirm)</li>
+            <li>details on why the claim should be withdrawn</li>
+          </ul>
+          The page shows the agreement holder and business at the top, so the caseworker can check who made contact against the record. It also shows the withdrawal date, set to the day the page was opened. It does not ask who is withdrawing the claim. The service records the signed-in back office user automatically and shows their name on the page.
+        </li>
+      </ol>
+
+      <h3 class="govuk-heading-m">Change log</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="{{ workflowPath }}/change-log">Current design<span class="govuk-visually-hidden">: change log</span></a></li>
+        <li><a class="govuk-link" href="{{ workflowPath }}/draft/change-log">Draft design<span class="govuk-visually-hidden">: change log</span></a></li>
+      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li>Keep the title <strong>Change log</strong>. The page will hold many types of change, as listed in the Type of change filter, not only changes to claims. Each row needs to show its type of change clearly. How best to support many types in one table is still to be worked out.</li>
+        <li>Lead with the claim. Show the columns in this order: <strong>claim number</strong>, <strong>claim type</strong>, <strong>agreement number</strong>, <strong>agreement type</strong>, change, change date and status. Put the filters in the same order.</li>
+        <li>Make <strong>Claim type</strong> its own column, for example Review or Follow-up, and add a filter for it. It currently sits under the claim number.</li>
+        <li>Add an <strong>Agreement type</strong> column showing the abbreviation (IAHW or PBR). There’s already a filter for agreement type, but the table does not show it.</li>
+        <li>Shorten the <strong>Status</strong> filter options to Pending, Approved, Rejected and All, without the word “changes”.</li>
+        <li>Remove the <strong>Details</strong> column. The table is there to get users to a claim or an agreement, and the claim and agreement numbers already link to them.</li>
+        <li>Keep the <strong>Type of change</strong> filter as it is.</li>
+      </ol>
+
+      <h2 class="govuk-heading-l">Questions for Olayinka (BA)</h2>
+      <ol class="govuk-list govuk-list--number">
+        <li><strong>Withdrawal approval:</strong> the live withdrawal screen warns “Once approved, a withdrawn claim cannot be undone”. Does a withdrawal need approving? If so, who approves it, and what does the claim show while it waits?</li>
+        <li><strong>After a claim is withdrawn:</strong> what happens next, and how is the claimant told? For example, an email or letter from the service, or a call from RPA.</li>
+        <li><strong>“Other” options:</strong> the live screen has no “Other” option for the reason or for how the issue was discovered. The draft adds one to each, with a text box. Is that acceptable, or must every withdrawal fit a listed option?</li>
+        <li><strong>The customer’s request (for the design review):</strong> the live screen does not record who asked for the withdrawal or how they asked, which seems odd. The draft asks for the name, organisation and contact method when “Customer contacted the RPA” is chosen. Does the RPA record who calls today? Can agents or vets ask for a withdrawal, or only the agreement holder? If only the agreement holder, a simple “Confirmed with the agreement holder” could be enough.</li>
+        <li><strong>Other actions:</strong> besides withdrawing, what actions do back office users need on a claim, for example revoke, recommend to pay or recommend to reject? Which roles see each one, and at which statuses?</li>
+        <li><strong>Claim types:</strong> are Review and Follow-up the only claim types for both IAHW and PBR?</li>
+        <li><strong>Statuses:</strong> what is the full list of claim statuses, and which ones should show a banner on the claim page?</li>
+        <li><strong>Claim history:</strong> what events should it record (for example submitted, status changed, withdrawn, details changed)? What should each entry show (for example the date, the event, the user and any notes)?</li>
+        <li><strong>Types of change:</strong> the change log will hold many types of change, not only changes to claims. What is the full list of change types? Which relate to claims and which to agreements? Does each type need different information in the table, or a different page to review it?</li>
+        <li><strong>Agreement types:</strong> are IAHW and PBR the only agreement types?</li>
+        <li><strong>Agreement information on the claim page:</strong> how much do caseworkers need while checking a claim? Options are a summary in a column to the right (the current draft), a summary underneath the claim, or just a link to the agreement.</li>
+        <li><strong>Agreement details:</strong> the current agreement page also shows the agreement holder’s email and “Eligible for automated data redaction”. Do caseworkers need these? The draft leaves them out for now.</li>
+        <li><strong>Address format:</strong> addresses come through in capitals with commas. Can the service store or format them so they show in sentence case, one part per line?</li>
+        <li>
+          <strong>Quick search on the claims and agreements lists:</strong> caseworkers often know the claim number, agreement number or SBI they want. Could the list update as they type, showing partial matches after a short pause (about half a second), with no need to select Search?
+          <ul class="govuk-list govuk-list--bullet">
+            <li>GOV.UK guidance advises against updating results as people type or change filters. This is mainly because screen reader users are not told the page has changed, and it can move focus. That matters most on public services. This is a back office tool used every day by trained staff, so there is room to do it differently.</li>
+            <li>If we do it, it must still meet accessibility rules (WCAG 2.2). Screen readers would need to hear the number of results as they change (a live region). The Search button should stay, so it still works without JavaScript.</li>
+            <li>It needs a search service that can return partial matches quickly, so check with the developers what the back end can support.</li>
+            <li>It needs custom JavaScript, so it cannot be shown in this prototype, which uses GOV.UK components only. It would be tested in research or a coded spike.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Personas
+  ========
+
+  For design discussion only. Not for the public website.
+
+  Each persona has a type (for example "Agent") and a full name, which
+  designs can use wherever a real person's name is needed, for example
+  "Created by" on flags. Each
+  will also record: description, whether they are internal or
+  external users, their capabilities, and which parts of the product
+  ecosystem they use.
+
+  The personas, their details and images are in app/views/prototypes/back-office/data/personas.js.
+  Images were generated with ChatGPT and chosen from 21 candidates. Each
+  image is named after its persona, in app/assets/images/back-office-personas/ (600 x
+  600 JPEG). The full-size originals are in ~/Downloads/defra_personnas,
+  as defra-personna[number].png, where [number] is the persona's
+  candidate number in the data file.
+
+  Built only with GOV.UK Frontend macros and classes. Images use the
+  govuk-!-width-full override class so they fill their grid column.
+#}
+
+{% set pageName = "Personas" %}
+
+{# Persona data lives in app/views/prototypes/back-office/data/personas.js, the single source of truth #}
+{% set personaGroups = [
+  { key: "external", heading: "External users" },
+  { key: "internal", heading: "Internal users" }
+] %}
+
+{% block header %}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Research prototypes", href: "/" },
+      { text: "Personas" }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl">Back office</span>
+      <h1 class="govuk-heading-xl">Personas</h1>
+
+      <p class="govuk-body-s">Last updated 19 November 2026</p>
+
+      {{ govukWarningText({
+        text: "For design discussion only. Do not publish on the public website."
+      }) }}
+
+      <p class="govuk-body-l">The people who use the Animal Health and Welfare services, inside and outside government.</p>
+      <p class="govuk-body">Each persona shows the goals we have been given so far. We will add demographics, capabilities and which parts of the service each persona uses as we learn more.</p>
+      <p class="govuk-body">Each persona also has test details, such as an email address and SBI number. The designs use these, so the same people appear throughout the prototype. They come from one file, app/views/prototypes/back-office/data/personas.js, so a change there updates every page.</p>
+      <p class="govuk-body">More information about the personas is on <a class="govuk-link" href="https://eaflood.atlassian.net/wiki/spaces/VVAHWR/pages/5923405833/Personas">Confluence: Personas (sign in required)</a>. You need an Atlassian account with access to the team space.</p>
+    </div>
+  </div>
+
+  {% for group in personaGroups %}
+    {# Values set inside a for loop are not kept after it, so collect into a list #}
+    {% set groupPersonas = [] %}
+    {% for id, persona in personas %}
+      {% if persona.group == group.key %}
+        {% set groupPersonas = (groupPersonas.push(persona), groupPersonas) %}
+      {% endif %}
+    {% endfor %}
+
+    <h2 class="govuk-heading-l govuk-!-margin-top-6">{{ group.heading }}</h2>
+    {% for row in groupPersonas | batch(4) %}
+      <div class="govuk-grid-row">
+        {% for persona in row %}
+          <div class="govuk-grid-column-one-quarter">
+            <img class="govuk-!-width-full" src="/public/images/back-office-personas/{{ persona.image }}.jpg" alt="{{ persona.alt }}">
+            <h3 class="govuk-heading-m govuk-!-margin-top-3 govuk-!-margin-bottom-1">{{ persona.type }}</h3>
+            <p class="govuk-body-l govuk-!-margin-bottom-2">{{ persona.fullName }}</p>
+
+            <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-2">Goals</h4>
+            {% if persona.goals | length %}
+              <ul class="govuk-list govuk-list--bullet">
+                {% for goal in persona.goals %}
+                  <li>{{ goal }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="govuk-body">To be added.</p>
+            {% endif %}
+
+            <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-2">Test details</h4>
+            <ul class="govuk-list govuk-body-s">
+              {% if persona.organisation %}
+                <li><strong>Organisation</strong><br>{{ persona.organisation }}</li>
+              {% endif %}
+              <li><strong>Email</strong><br><span class="govuk-!-text-break-word">{{ persona.email }}</span></li>
+              <li><strong>Phone</strong><br>{{ persona.phone }}</li>
+              {% if persona.business %}
+                <li><strong>Business</strong><br>{{ persona.business.name }}</li>
+                <li><strong>Business email</strong><br><span class="govuk-!-text-break-word">{{ persona.business.email }}</span></li>
+                <li><strong>SBI number</strong><br>{{ persona.business.sbi }}</li>
+                <li><strong>Address</strong><br>{{ persona.business.address | join("<br>") | safe }}</li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  {% endfor %}
+{% endblock %}
+
+{% block footer %}{% endblock %}

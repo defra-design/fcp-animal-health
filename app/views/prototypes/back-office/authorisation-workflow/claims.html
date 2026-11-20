@@ -1,0 +1,271 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: claims (current)
+
+  Copied from the claims, agreements and flags pages of the poultry-v01
+  back office prototype (fcp-animal-health on Heroku), on 19 November 2026.
+  Rebuilt with GOV.UK Frontend macros and classes only. The source uses the
+  MOJ sortable table, an autocomplete search and custom styles, which are
+  left out.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js.
+
+  How search and filters work
+  ---------------------------
+  A GET form. The Prototype Kit saves the values in session data, so the
+  template filters the rows. Search matches claim number or SBI. Dates
+  filter on claim date once day, month and year are all filled in.
+
+  Assumptions and limitations
+  ---------------------------
+  - Agreement type is worked out from the claim number: claims starting
+    "PO" (poultry) are PBR, the rest IAHW.
+  - Every claim number links to the current claim details page.
+  - The source says "49 search results" with 3 pages. This copy shows the
+    23 claims on page 1, and the pagination is a placeholder.
+  - Claim numbers REDC-7G73-TY22, REPI-2QJ8-IFVK and REPI-SX14-82FL appear
+    twice, as in the source.
+#}
+
+{% set pageName = design.title if design else "Claims" %}
+{% set navActive = "claims" %}
+{% set navCurrent = "claims" %}
+
+{% block content %}
+  {% set claims = [
+    { claim: "PORE-F775-GVVX", claimType: "Review", agreementType: "pbr", flagged: false, species: "Broilers, Ducks, Turkeys", speciesKey: "poultry", herd: "East Farm", cph: "08/035/3979", sbi: "200439296", date: "2025-10-29", status: "On hold" },
+    { claim: "REBC-M385-75C8", claimType: "Review", agreementType: "iahw", flagged: true, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Commercial", cph: "20/101/4272", sbi: "107856490", date: "2025-10-29", status: "In check" },
+    { claim: "REBC-D9H7-BJQX", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Harwood 1", cph: "10/131/7588", sbi: "106740213", date: "2025-10-29", status: "Recommended to pay" },
+    { claim: "FUPI-4496-S18L", claimType: "Endemics", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Redstone Farm Sows", cph: "18/035/7572", sbi: "119648441", date: "2025-10-29", status: "On hold" },
+    { claim: "RESH-6598-1974", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "South field A", cph: "08/042/1752", sbi: "106415197", date: "2025-10-28", status: "Withdrawn" },
+    { claim: "RESH-7539-7325", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "South field B", cph: "08/042/6613", sbi: "106415197", date: "2025-10-28", status: "In check" },
+    { claim: "RESH-1740-7498", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Late breds A", cph: "08/042/1752", sbi: "106415197", date: "2025-10-28", status: "In check" },
+    { claim: "RESH-3277-8052", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Late breds B", cph: "08/042/6613", sbi: "106415197", date: "2025-10-28", status: "In check" },
+    { claim: "REBC-IQDU-K8XP", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Braybrook Mixed Beef Herd", cph: "09/056/9328", sbi: "107918634", date: "2025-10-28", status: "In check" },
+    { claim: "RESH-MU5B-Z59E", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Hawksmoor Mules", cph: "37/004/4781", sbi: "113469205", date: "2025-10-27", status: "In check" },
+    { claim: "FUSH-H4YD-EV2K", claimType: "Endemics", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Store Lambs", cph: "18/070/2217", sbi: "105832491", date: "2025-10-27", status: "In check" },
+    { claim: "RESH-PIQR-HHXR", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Pedigrees", cph: "25/013/5594", sbi: "109568312", date: "2025-10-27", status: "Ready to pay" },
+    { claim: "FUPI-WKTW-AJQE", claimType: "Endemics", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Northwind Breeding Herd", cph: "41/063/8049", sbi: "123295764", date: "2025-10-27", status: "In check" },
+    { claim: "REPI-3JR1-XSL3", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Merrick Finishing Herd", cph: "08/028/3470", sbi: "106843519", date: "2025-10-27", status: "Ready to pay" },
+    { claim: "REBC-MMZP-HGK1", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Angus", cph: "29/045/6903", sbi: "109452130", date: "2025-10-27", status: "Ready to pay" },
+    { claim: "REPI-XDHJ-XHJN", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Hillview Site 3", cph: "14/023/9126", sbi: "144327896", date: "2025-10-27", status: "Ready to pay" },
+    { claim: "REBC-6L4Q-FKV9", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Commercial", cph: "33/067/1429", sbi: "113789054", date: "2025-10-27", status: "Ready to pay" },
+    { claim: "REDC-7G73-TY22", claimType: "Review", agreementType: "iahw", flagged: false, species: "Dairy cattle", speciesKey: "dairy-cattle", herd: "Dunnings", cph: "46/012/8887", sbi: "208945671", date: "2025-10-27", status: "Ready to pay" },
+    { claim: "REPI-2QJ8-IFVK", claimType: "Review", agreementType: "iahw", flagged: true, species: "Pigs", speciesKey: "pigs", herd: "Greenbank Pigs CU", cph: "21/036/0032", sbi: "107563220", date: "2025-10-26", status: "Ready to pay" },
+    { claim: "REPI-SX14-82FL", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Finishers Site 9", cph: "03/075/4578", sbi: "116118345", date: "2025-10-26", status: "Ready to pay" },
+    { claim: "REDC-7G73-TY22", claimType: "Review", agreementType: "iahw", flagged: false, species: "Dairy cattle", speciesKey: "dairy-cattle", herd: "Commercial", cph: "56/342/7575", sbi: "106616010", date: "2025-10-25", status: "Ready to pay" },
+    { claim: "REPI-2QJ8-IFVK", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Pedigrees", cph: "65/757/8567", sbi: "107680408", date: "2025-10-25", status: "Ready to pay" },
+    { claim: "REPI-SX14-82FL", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Herd 1", cph: "34/644/9684", sbi: "107680408", date: "2025-10-25", status: "Ready to pay" }
+  ] %}
+
+  {% set statusClasses = { "Ready to pay": "", "In check": "govuk-tag--orange", "Recommended to pay": "govuk-tag--orange", "On hold": "govuk-tag--purple", Paid: "govuk-tag--green", Withdrawn: "govuk-tag--grey" } %}
+
+  {# Date range from the date inputs, as YYYY-MM-DD, only when complete #}
+  {% set fromIso = (data.claimsFromYear + "-" + ("0" + data.claimsFromMonth).slice(-2) + "-" + ("0" + data.claimsFromDay).slice(-2)) if (data.claimsFromDay and data.claimsFromMonth and data.claimsFromYear) else "" %}
+  {% set toIso = (data.claimsToYear + "-" + ("0" + data.claimsToMonth).slice(-2) + "-" + ("0" + data.claimsToDay).slice(-2)) if (data.claimsToDay and data.claimsToMonth and data.claimsToYear) else "" %}
+  {% set q = (data.claimsSearch or "") | trim | upper %}
+  {% set agreementType = data.claimsAgreementType or "all" %}
+  {% set claimType = data.claimsClaimType or "all" %}
+  {% set species = data.claimsSpecies or "all" %}
+  {% set flag = data.claimsFlag or "all" %}
+  {% set status = data.claimsStatus or "all" %}
+  {% set advancedActive = agreementType != "all" or claimType != "all" or species != "all" or flag != "all" or status != "all" or fromIso or toIso %}
+
+  {% set rows = [] %}
+  {% for item in claims %}
+    {% if (not q or q in item.claim or q in item.sbi)
+      and (agreementType == "all" or item.agreementType == agreementType)
+      and (claimType == "all" or item.claimType == claimType)
+      and (species == "all" or item.speciesKey == species)
+      and (flag == "all" or (flag == "flagged") == item.flagged)
+      and (status == "all" or item.status == status)
+      and (not fromIso or item.date >= fromIso)
+      and (not toIso or item.date <= toIso) %}
+      {% set rows = (rows.push([
+        { html: '<a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/claim-details">' + item.claim + '</a><br>' + item.claimType },
+        { text: "Yes" if item.flagged else "" },
+        { text: item.species },
+        { text: item.herd },
+        { text: item.cph },
+        { text: item.sbi },
+        { text: item.date | govukShortDate },
+        { html: govukTag({ text: item.status, classes: statusClasses[item.status] }) }
+      ]), rows) %}
+    {% endif %}
+  {% endfor %}
+
+  {% set advancedHtml %}
+        <form method="get" action="/prototypes/back-office/authorisation-workflow/claims" novalidate>
+          <input type="hidden" name="claimsSearch" value="{{ data.claimsSearch }}">
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+              {{ govukSelect({
+                id: "claimsAgreementType",
+                name: "claimsAgreementType",
+                label: { text: "Agreement type", classes: "govuk-label--s" },
+                classes: "govuk-!-width-full",
+                value: data.claimsAgreementType or "all",
+                items: [
+                { value: "all", text: "All types" },
+                { value: "iahw", text: "Improve Animal Health and Welfare (IAHW)" },
+                { value: "pbr", text: "Poultry Biosecurity Review (PBR)" }
+                ]
+              }) }}
+            </div>
+            <div class="govuk-grid-column-one-third">
+              {{ govukSelect({
+                id: "claimsClaimType",
+                name: "claimsClaimType",
+                label: { text: "Claim type", classes: "govuk-label--s" },
+                classes: "govuk-!-width-full",
+                value: data.claimsClaimType or "all",
+                items: [
+                { value: "all", text: "All types" },
+                { value: "Review", text: "Review" },
+                { value: "Endemics", text: "Endemics" }
+                ]
+              }) }}
+            </div>
+            <div class="govuk-grid-column-one-third">
+              {{ govukSelect({
+                id: "claimsSpecies",
+                name: "claimsSpecies",
+                label: { text: "Species", classes: "govuk-label--s" },
+                classes: "govuk-!-width-full",
+                value: data.claimsSpecies or "all",
+                items: [
+                { value: "all", text: "All species" },
+                { value: "beef-cattle", text: "Beef cattle" },
+                { value: "dairy-cattle", text: "Dairy cattle" },
+                { value: "pigs", text: "Pigs" },
+                { value: "sheep", text: "Sheep" },
+                { value: "poultry", text: "Poultry" }
+                ]
+              }) }}
+            </div>
+          </div>
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third">
+              {{ govukSelect({
+                id: "claimsFlag",
+                name: "claimsFlag",
+                label: { text: "Flag", classes: "govuk-label--s" },
+                classes: "govuk-!-width-full",
+                value: data.claimsFlag or "all",
+                items: [
+                { value: "all", text: "All flags" },
+                { value: "flagged", text: "Flagged" },
+                { value: "not-flagged", text: "Not flagged" }
+                ]
+              }) }}
+            </div>
+            <div class="govuk-grid-column-one-third">
+              {{ govukSelect({
+                id: "claimsStatus",
+                name: "claimsStatus",
+                label: { text: "Status", classes: "govuk-label--s" },
+                classes: "govuk-!-width-full",
+                value: data.claimsStatus or "all",
+                items: [
+                { value: "all", text: "All statuses" },
+                { value: "Ready to pay", text: "Ready to pay" },
+                { value: "In check", text: "In check" },
+                { value: "Recommended to pay", text: "Recommended to pay" },
+                { value: "On hold", text: "On hold" },
+                { value: "Paid", text: "Paid" },
+                { value: "Withdrawn", text: "Withdrawn" }
+                ]
+              }) }}
+            </div>
+          </div>
+            {{ govukDateInput({
+              id: "claimsFrom",
+              fieldset: { legend: { text: "Claim date from", classes: "govuk-fieldset__legend--s" } },
+              hint: { text: "For example, 27 3 2025" },
+              items: [
+                { name: "claimsFromDay", label: "Day", classes: "govuk-input--width-2", value: data.claimsFromDay },
+                { name: "claimsFromMonth", label: "Month", classes: "govuk-input--width-2", value: data.claimsFromMonth },
+                { name: "claimsFromYear", label: "Year", classes: "govuk-input--width-4", value: data.claimsFromYear }
+              ]
+            }) }}
+            {{ govukDateInput({
+              id: "claimsTo",
+              fieldset: { legend: { text: "Claim date to", classes: "govuk-fieldset__legend--s" } },
+              hint: { text: "For example, 27 3 2025" },
+              items: [
+                { name: "claimsToDay", label: "Day", classes: "govuk-input--width-2", value: data.claimsToDay },
+                { name: "claimsToMonth", label: "Month", classes: "govuk-input--width-2", value: data.claimsToMonth },
+                { name: "claimsToYear", label: "Year", classes: "govuk-input--width-4", value: data.claimsToYear }
+              ]
+            }) }}
+          <div class="govuk-button-group">
+            {{ govukButton({ text: "Search" }) }}
+            <a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/claims?claimsSearch=&amp;claimsAgreementType=&amp;claimsClaimType=&amp;claimsSpecies=&amp;claimsFlag=&amp;claimsStatus=&amp;claimsFromDay=&amp;claimsFromMonth=&amp;claimsFromYear=&amp;claimsToDay=&amp;claimsToMonth=&amp;claimsToYear=">Clear all filters</a>
+          </div>
+        </form>
+  {% endset %}
+
+  <h1 class="govuk-heading-xl">Claims</h1>
+
+  <form method="get" action="/prototypes/back-office/authorisation-workflow/claims" novalidate>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{ govukInput({
+          id: "claimsSearch",
+          name: "claimsSearch",
+          label: { text: "Find a claim", classes: "govuk-label--m" },
+          hint: { text: "Search by claim number or SBI" },
+          value: data.claimsSearch
+        }) }}
+        {{ govukButton({ text: "Search" }) }}
+      </div>
+    </div>
+  </form>
+
+  {{ govukDetails({
+    summaryText: "Advanced search",
+    html: advancedHtml,
+    open: advancedActive
+  }) }}
+
+  <p class="govuk-body govuk-!-font-weight-bold">{{ rows | length }} search result{{ "" if rows | length == 1 else "s" }}</p>
+
+  {% if rows | length %}
+    {{ govukTable({
+      caption: "Claims",
+      captionClasses: "govuk-visually-hidden",
+      classes: "govuk-table--small-text-until-tablet",
+      head: [
+        { text: "Claim number and type" },
+        { text: "Flag" },
+        { text: "Species" },
+        { text: "Herd or site name" },
+        { text: "CPH" },
+        { text: "SBI" },
+        { text: "Claim date" },
+        { text: "Status" }
+      ],
+      rows: rows
+    }) }}
+
+    {{ govukPagination({
+      previous: { href: "#" },
+      next: { href: "#" },
+      items: [
+        { number: 1, href: "#", current: true },
+        { number: 2, href: "#" },
+        { number: 3, href: "#" }
+      ]
+    }) }}
+  {% else %}
+    <p class="govuk-body">There are no claims that match your search.</p>
+  {% endif %}
+{% endblock %}

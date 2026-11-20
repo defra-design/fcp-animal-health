@@ -1,0 +1,118 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: agreement details (draft v1)
+
+  Draft redesign of ../agreement-details.html, applying the agreement
+  details points in ../notes.html:
+  1. Same heading pattern as the claim page: an "Agreement" caption, the
+     agreement number alone as the heading, and the status underneath
+     rather than in the heading.
+  2. Details in this order: agreement number, type, date, holder, SBI
+     number, address, business email, flagged, number of herds and flocks.
+     Agreement holder email and "Eligible for automated data redaction" are
+     left out, pending a question to the BA.
+  3. Address in sentence case, one line per part, postcode in capitals.
+  4. A "Claims for this agreement" table in the lower half of the page,
+     showing claim number (links to the claim), claim type, date created,
+     date last updated and current status.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  Data
+  ----
+  Uses the agreement from the claim details screen (IAHW-NQG3-7WZY), so
+  the draft agreement and claim pages agree with each other. The agreement
+  holder is the farmer persona, from app/views/prototypes/back-office/data/personas.js. The review
+  claim REBC-7KQ2-M4TD and its dates are illustrative. Both claim numbers
+  link to the one draft claim details page.
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set pageName = design.title if design else "Agreement details" %}
+{% set navActive = "agreements" %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set backLinkHref = draftPath + "/change-log" %}
+
+{% block content %}
+  {# People, from app/views/prototypes/back-office/data/personas.js #}
+  {% set holder = personas.farmer %}
+
+  {% set herdsHtml %}
+    {{ govukSummaryList({
+      classes: "govuk-!-margin-bottom-0",
+      rows: [
+        { key: { text: "Beef cattle" }, value: { text: "1" } },
+        { key: { text: "Dairy cattle" }, value: { text: "0" } },
+        { key: { text: "Sheep" }, value: { text: "0" } },
+        { key: { text: "Pigs" }, value: { text: "0" }, classes: "govuk-summary-list__row--no-border" }
+      ]
+    }) }}
+  {% endset %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-l">Agreement</span>
+      <h1 class="govuk-heading-l">IAHW-NQG3-7WZY</h1>
+
+      {{ govukSummaryList({
+        classes: "govuk-summary-list--no-border",
+        rows: [
+          { key: { text: "Status" }, value: { html: govukTag({ text: "Agreed", classes: "govuk-tag--green" }) } }
+        ]
+      }) }}
+
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Agreement number" }, value: { text: "IAHW-NQG3-7WZY" } },
+          { key: { text: "Agreement type" }, value: { text: "Improve Animal Health and Welfare (IAHW)" } },
+          { key: { text: "Agreement date" }, value: { text: "1 January 2025" } },
+          { key: { text: "Agreement holder" }, value: { text: holder.fullName } },
+          { key: { text: "SBI number" }, value: { text: holder.business.sbi } },
+          { key: { text: "Address" }, value: { html: holder.business.address | join("<br>") } },
+          { key: { text: "Business email" }, value: { text: holder.business.email } },
+          { key: { text: "Flagged" }, value: { text: "No" } },
+          { key: { text: "Number of herds and flocks" }, value: { html: herdsHtml } }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m govuk-!-margin-top-8">Claims for this agreement</h2>
+
+      {{ govukTable({
+        caption: "Claims for this agreement",
+        captionClasses: "govuk-visually-hidden",
+        head: [
+          { text: "Claim number" },
+          { text: "Claim type" },
+          { text: "Date created" },
+          { text: "Last updated" },
+          { text: "Status" }
+        ],
+        rows: [
+          [
+            { html: '<a class="govuk-link" href="' + draftPath + '/claim-details">FUBC-HJ9N-S5PK</a>' },
+            { text: "Follow-up" },
+            { text: "30/10/2026" },
+            { text: "30/10/2026" },
+            { html: govukTag({ text: "In check", classes: "govuk-tag--orange" }) }
+          ],
+          [
+            { html: '<a class="govuk-link" href="' + draftPath + '/claim-details">REBC-7KQ2-M4TD</a>' },
+            { text: "Review" },
+            { text: "12/1/2025" },
+            { text: "20/2/2025" },
+            { html: govukTag({ text: "Paid", classes: "govuk-tag--green" }) }
+          ]
+        ]
+      }) }}
+    </div>
+  </div>
+{% endblock %}

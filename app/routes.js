@@ -38,6 +38,11 @@ router.get('/', (req, res) => {
 // // Load routes for ready-for-dev-pages
 // router.use('/ready-for-dev', require('./views/ready-for-dev/routes'));
 
+// Back office prototypes. The file adds its own routes to the app, and must
+// come before the other prototypes, whose catch-all routes would otherwise
+// handle its pages. See the notes at the top of the file.
+require('./views/prototypes/back-office/routes');
+
 // Load routes for prototypes
 router.use('/prototypes/v01', require('./views/prototypes/v01/routes'));
 router.use('/prototypes/v01/new-user', require('./views/prototypes/v01/routes'));

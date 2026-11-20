@@ -1,0 +1,73 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: add a note (draft v1)
+
+  Opened from "Add a note" by the claim history on draft/claim-details.html.
+  A note does not change the claim, so there is no check page: "Save note"
+  saves it straight away. Back on the claim, a success banner says the note
+  was added and the note shows in the claim history, with who added it and
+  their role at the time.
+
+  Notes cannot be edited or deleted, like the rest of the history. To
+  correct a note, add another one.
+
+  Notes can be added to a claim at any status, including withdrawn.
+
+  An empty note shows the GOV.UK error summary and error message. The rest
+  of the prototype does not check answers.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  To confirm with the BA and data protection officer
+  ---------------------------------------------------
+  - Notes are free text, so staff will type personal details into them.
+    The hint asks them to only record what is needed. Notes need to be
+    covered by the claim's retention period, subject access requests and
+    the DPIA.
+  - Whether notes need a maximum length.
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set claimNumber = "FUBC-HJ9N-S5PK" %}
+{% set pageName = ("Error: " if noteError else "") + (design.title if design else "Add a note") %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set navActive = "claims" %}
+{% set backLinkHref = draftPath + "/claim-details" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if noteError %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [{ text: "Enter a note", href: "#claimNote" }]
+        }) }}
+      {% endif %}
+
+      <form method="post" novalidate>
+        {{ govukTextarea({
+          name: "claimNote",
+          id: "claimNote",
+          rows: 8,
+          label: { html: '<span class="govuk-caption-l">Claim ' + claimNumber + '</span> Add a note', isPageHeading: true, classes: "govuk-label--l" },
+          hint: { text: "Record what happened and what you did, for example a phone call with the vet. Only include personal details that are needed for the claim. You cannot change or delete a note once it is saved." },
+          errorMessage: { text: "Enter a note" } if noteError else false
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Save note" }) }}
+          <a class="govuk-link" href="{{ backLinkHref }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

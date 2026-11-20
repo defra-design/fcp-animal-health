@@ -1,0 +1,124 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Shared layout for Authorisation workflow designs
+  ================================================
+
+  Gives every page in app/views/prototypes/back-office/authorisation-workflow/ the same
+  admin service header, beta banner and footer.
+
+  Built only with GOV.UK Frontend macros. No bespoke CSS, HTML components
+  or JS.
+
+  The signed-in user is the back office administrator persona from
+  app/views/prototypes/back-office/data/personas.js. A page can set signedInUser to another persona. The signed-in user and "Sign out" sit in the service navigation's inline
+  end slot, to the right of the section links. This is the GOV.UK Frontend
+  slot for "authentication and account links". The user's name is plain
+  text, not a link, as there is no account page.
+
+  On each page:
+  - set navActive to the section the page belongs to, one of "claims",
+    "agreements", "flags" or "changeLog". The section is highlighted on
+    every page inside it, for example an agreement highlights "Agreements".
+  - also set navCurrent to the same value when the page is that section's
+    own landing page, such as the change log. It looks the same but tells
+    screen readers "current page" (aria-current="page") rather than
+    "current section" (aria-current="true").
+  - set backLinkHref to show a back link under the beta banner
+  - optionally set changeLogHref, claimsHref, agreementsHref or flagsHref
+    to point a navigation link at another version, for example a draft
+  - optionally set usersHref to add a "Users" link to the navigation. In
+    the live service it would only show to super admins. navActive and
+    navCurrent for it are "users".
+
+  Draft pages
+  -----------
+  Draft pages set draftPath ("/prototypes/back-office/authorisation-workflow/draft"). On
+  those pages:
+  - every navigation link goes to the draft version, and "Users" shows
+  - a temporary widescreen toggle shows at the top right of the blue GOV.UK
+    header, as a light (inverse) link. It is a prototype tool, not part of
+    the design, and must not go into production. The header has no slot
+    for it, so it is inserted into the header's container, and a little
+    bespoke CSS (app-header-tool in app/assets/sass/_back-office.scss) puts it on the right.
+    It links to the same page with ?widescreen=on or off, which the
+    Prototype Kit saves in session data, so it stays on for every draft
+    page until turned off. When on, the body gets the app-widescreen class
+    (app/assets/sass/_back-office.scss), so content runs to the edges of
+    the screen with the usual GOV.UK gutters.
+  Current pages are not affected.
+#}
+
+{% set workflowPath = "/prototypes/back-office/authorisation-workflow" %}
+{% set navBase = draftPath or workflowPath %}
+{% set changeLogHref = changeLogHref or navBase + "/change-log" %}
+{% set claimsHref = claimsHref or navBase + "/claims" %}
+{% set agreementsHref = agreementsHref or navBase + "/agreements" %}
+{% set flagsHref = flagsHref or navBase + "/flags" %}
+{% set usersHref = usersHref or ((draftPath + "/users") if draftPath else "") %}
+
+{# Temporary widescreen toggle, draft pages only #}
+{% set widescreen = draftPath and data.widescreen == "on" %}
+{% if widescreen %}
+  {% set bodyClasses = ((bodyClasses + " ") if bodyClasses else "") + "app-widescreen" %}
+{% endif %}
+{% set widescreenToggleHtml %}
+  {%- if draftPath -%}
+    <a class="govuk-link govuk-link--inverse govuk-!-font-size-16 app-header-tool__link" href="{{ currentPath }}?widescreen={{ 'off' if widescreen else 'on' }}">Turn widescreen {{ "off" if widescreen else "on" }}</a>
+  {%- endif -%}
+{% endset %}
+{% set signedInUser = signedInUser or personas.backOfficeAdministrator %}
+
+{# The GOV.UK logo links to the Authorisation workflow index #}
+{% block govukHeader %}
+  {% set headerHtml %}{{ govukHeader({ homepageUrl: workflowPath + "/", classes: "app-header-tool" if draftPath }) }}{% endset %}
+  {% if draftPath %}
+    {{ headerHtml | replace('<div class="govuk-header__logo">', widescreenToggleHtml + '<div class="govuk-header__logo">') | safe }}
+  {% else %}
+    {{ headerHtml | safe }}
+  {% endif %}
+{% endblock %}
+
+{% block govukServiceNavigation %}
+  {% set navigation = [
+    { href: claimsHref, text: "Claims", active: navActive == "claims", current: navCurrent == "claims" },
+    { href: agreementsHref, text: "Agreements", active: navActive == "agreements", current: navCurrent == "agreements" },
+    { href: flagsHref, text: "Flags", active: navActive == "flags", current: navCurrent == "flags" },
+    { href: changeLogHref, text: "Change log", active: navActive == "changeLog", current: navCurrent == "changeLog" }
+  ] %}
+  {% if usersHref %}
+    {% set navigation = navigation.concat([
+      { href: usersHref, text: "Users", active: navActive == "users", current: navCurrent == "users" }
+    ]) %}
+  {% endif %}
+  {{ govukServiceNavigation({
+    serviceName: "Improve Animal Health and Welfare admin",
+    serviceUrl: changeLogHref,
+    navigation: navigation,
+    slots: {
+      end: '<p class="govuk-body govuk-!-margin-0">' + signedInUser.fullName + ' (' + signedInUser.organisation + ')<a class="govuk-link govuk-!-margin-left-4" href="#">Sign out</a></p>'
+    }
+  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Beta" },
+    text: "This is a new service"
+  }) }}
+  {% if backLinkHref %}
+    {{ govukBackLink({ text: "Back", href: backLinkHref }) }}
+  {% endif %}
+{% endblock %}
+
+{% block govukFooter %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        { href: "#", text: "Privacy notice" },
+        { href: "#", text: "Accessibility" },
+        { href: "#", text: "Cookies" }
+      ]
+    }
+  }) }}
+{% endblock %}

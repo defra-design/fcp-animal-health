@@ -1,0 +1,156 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Shared layout for project index pages
+  =====================================
+
+  Each project folder in app/views/prototypes/back-office/ has an index.html that extends
+  this layout and sets projectName to match an entry in app/views/prototypes/back-office/data/projects.js.
+
+  The page lists the project's designs from app/views/prototypes/back-office/data/designs.js: current
+  designs first, then drafts (designs with stage: 'Draft') if there are any.
+  Use the afterDesigns block to add content between the two tables, such as
+  links to notes, the beforeDraftDesigns block to add content under the
+  "Draft designs" heading, and the notifications block to add a
+  notification banner above the page heading.
+
+  If the index sets collapseCurrentDesigns to true, the current designs
+  table is inside a closed details component, so the page leads with the
+  drafts.
+
+  If the index sets siteMapSections, a list of section names, the drafts
+  are shown as a site map instead of one table: a table per section, in
+  that order, listing drafts whose section matches, in the order they are
+  in app/views/prototypes/back-office/data/designs.js.
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set pageName = projectName %}
+
+{# Table of this project's designs at one stage: "" for current, "Draft" for drafts #}
+{% macro designTable(caption, stage) %}
+  {% set rows = [] %}
+  {% for item in designs %}
+    {% if item.project == projectName and (item.stage or "") == stage %}
+      {% set designHtml %}
+        <a class="govuk-link govuk-!-font-weight-bold" href="{{ item.url }}">{{ item.title }}</a>
+        <p class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{ item.description }}</p>
+      {% endset %}
+      {% set rows = (rows.push([
+        { html: designHtml },
+        { html: govukTag({ text: item.type, classes: "govuk-tag--grey" if item.type == "Email" }) },
+        { text: item.version },
+        { text: item.lastUpdated | govukDate }
+      ]), rows) %}
+    {% endif %}
+  {% endfor %}
+
+  {% if rows | length %}
+    {{ govukTable({
+      caption: caption,
+      captionClasses: "govuk-visually-hidden",
+      head: [
+        { text: "Design" },
+        { text: "Type" },
+        { text: "Version" },
+        { text: "Last updated" }
+      ],
+      rows: rows
+    }) }}
+  {% else %}
+    <p class="govuk-body">There are no designs here yet.</p>
+  {% endif %}
+{% endmacro %}
+
+{# Site map table of this project's drafts in one navigation section #}
+{% macro siteMapTable(section) %}
+  {% set rows = [] %}
+  {% for item in designs %}
+    {% if item.project == projectName and item.stage == "Draft" and item.section == section %}
+      {% set designHtml %}
+        <a class="govuk-link govuk-!-font-weight-bold" href="{{ item.url }}">{{ item.title }}</a>
+        <p class="govuk-body-s govuk-!-margin-top-1 govuk-!-margin-bottom-0">{{ item.description }}</p>
+      {% endset %}
+      {% set rows = (rows.push([
+        { html: designHtml },
+        { text: item.version },
+        { text: item.lastUpdated | govukShortDate }
+      ]), rows) %}
+    {% endif %}
+  {% endfor %}
+
+  {{ govukTable({
+    caption: section,
+    captionClasses: "govuk-table__caption--m",
+    head: [
+      { text: "Page" },
+      { text: "Version" },
+      { text: "Last updated" }
+    ],
+    rows: rows
+  }) }}
+{% endmacro %}
+
+{% block header %}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Research prototypes", href: "/" },
+      { text: projectName }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  {# A list is used because values set inside a for loop are not kept after it #}
+  {% set drafts = [] %}
+  {% for item in designs %}
+    {% if item.project == projectName and item.stage == "Draft" %}
+      {% set drafts = (drafts.push(item), drafts) %}
+    {% endif %}
+  {% endfor %}
+  {% set hasDrafts = drafts | length > 0 %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {% block notifications %}{% endblock %}
+      <span class="govuk-caption-xl">Back office</span>
+      <h1 class="govuk-heading-xl">{{ projectName }}</h1>
+      {% for project in projects %}
+        {% if project.name == projectName %}
+          <p class="govuk-body-l">{{ project.description }}</p>
+        {% endif %}
+      {% endfor %}
+
+      {% if collapseCurrentDesigns %}
+        {% set currentDesignsHtml %}{{ designTable("Current designs", "") }}{% endset %}
+        {{ govukDetails({
+          summaryText: "Current designs",
+          html: currentDesignsHtml
+        }) }}
+      {% else %}
+        <h2 class="govuk-heading-m">{{ "Current designs" if hasDrafts else "Designs" }}</h2>
+        {{ designTable("Current designs" if hasDrafts else "Designs", "") }}
+      {% endif %}
+
+      {% block afterDesigns %}{% endblock %}
+
+      {% if hasDrafts %}
+        <h2 class="govuk-heading-m govuk-!-margin-top-8">Draft designs</h2>
+        {% block beforeDraftDesigns %}{% endblock %}
+        {% if siteMapSections %}
+          <p class="govuk-body">Every draft page, grouped by the part of the navigation it belongs to.</p>
+          {% for section in siteMapSections %}
+            {{ siteMapTable(section) }}
+          {% endfor %}
+        {% else %}
+          {{ designTable("Draft designs", "Draft") }}
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

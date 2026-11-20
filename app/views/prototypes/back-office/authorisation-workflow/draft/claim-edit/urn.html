@@ -1,0 +1,30 @@
+{% extends "prototypes/back-office/layouts/claim-edit.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: change the URN or test certificate (draft v1)
+
+  Edit page for the unique lab reference number (URN) or test certificate
+  reference. Lab formats vary, so the prototype does not check the format.
+
+  Part of the change claim details flow: see layouts/claim-edit.html and
+  draft/claim-edit/check.html.
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set pageName = "Change the URN or test certificate" %}
+
+{% block fields %}
+  {{ govukInput({
+    label: { html: captionHtml + " " + claimField.urn.label, isPageHeading: true, classes: "govuk-label--l" },
+    hint: { text: "The unique reference number from the lab, or the test certificate reference" },
+    id: "urn",
+    name: "urn",
+    value: claimField.urn.value,
+    classes: "govuk-input--width-20",
+    spellcheck: false
+  }) }}
+{% endblock %}

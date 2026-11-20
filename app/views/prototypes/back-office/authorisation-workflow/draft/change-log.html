@@ -1,0 +1,309 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: change log (draft v2)
+
+  What it is for
+  --------------
+  A record of what has changed in the service and who needs to do what,
+  across claims and agreements. Some changes are just saved. Some wait for
+  a team lead to approve them, and are then approved or rejected.
+
+  Design
+  ------
+  1. One row per change. A change can cover several details saved at once,
+     as one entry, matching the claim history. When a team lead approves or
+     rejects a change, the same row's status changes and shows who decided
+     and when. Approvals are not rows of their own.
+  2. Opens on all changes, newest first. If any changes are waiting for
+     approval, inset text says how many and links to just those.
+  3. Columns:
+     - Date
+     - Record: the claim or agreement number, linking to it, with what it
+       is below: "Claim · IAHW · Follow-up" or "Agreement · PBR"
+     - Change: a short summary, with the details listed below when there
+       is more than one. The from and to values are in the record's
+       history, to keep rows short.
+     - Made by: name, linking to the user, with their role at the time of
+       the change (the internalBy macro). Assisted Digital shows as text.
+     - Status: Pending, Approved or Rejected, with "Waiting for a team lead"
+       or who decided and when below. Changes that did not need approval
+       say "No approval needed", with no tag.
+     No Action column. The record number is the link. Pending rows have a
+     "Review" link under the status, to draft/review-change, where a team
+     lead approves or rejects the change. Decided rows have "View
+     decision". After a decision, a success banner shows here once.
+  4. Filters, in a row of dropdowns:
+     - Record: claims or agreements
+     - Type of change: the types belong to claims or agreements. With all
+       records, both lists show, with "Claim:" and "Agreement:" in front.
+       Once a record is chosen and the filters applied, only that record's
+       types show. GOV.UK dropdowns cannot group options, and changing one
+       dropdown from another would need bespoke JavaScript.
+     - Scheme: IAHW or PBR
+     - Status: waiting for approval, approved, rejected or no approval
+       needed
+     - Made by: each internal user, or Assisted Digital
+     The claim type filter (review or follow-up) is gone. Claim type shows
+     in the Record column.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  Data
+  ----
+  changeLogEntries and changeLogTypes come from app/routes.js: changes made
+  in the prototype through the change claim details flow (on claim
+  FUBC-HJ9N-S5PK), then the illustrative entries in app/views/prototypes/back-office/data/change-log.js.
+
+  How the filters work
+  --------------------
+  A GET form. The Prototype Kit saves query string values in session data,
+  so the template reads data.changeLogRecord, changeLogType,
+  changeLogScheme, changeLogStatus and changeLogBy. They are not shared
+  with the current change log.
+
+  Prototype limitations
+  ---------------------
+  - Every claim links to the one draft claim details page, and every
+    agreement to the one draft agreement details page.
+  - No pagination, as the data is short.
+
+  To confirm with the BA
+  ----------------------
+  - The full list of agreement changes (flags, Assisted Digital, anything
+    else) and which need approval.
+  - Whether team leads can approve their own changes. This design assumes
+    they cannot.
+  - Whether "Made by" for Assisted Digital should be the member of staff
+    who keyed it in.
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set pageName = design.title if design else "Change log" %}
+{% set navActive = "changeLog" %}
+{% set navCurrent = "changeLog" %}
+
+{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import internalBy %}
+
+{% block content %}
+  {% set usersPath = draftPath + "/users" %}
+  {% set changeLogPath = draftPath + "/change-log" %}
+
+  {# Filter values, with defaults #}
+  {% set recordFilter = data.changeLogRecord or "all" %}
+  {% set schemeFilter = data.changeLogScheme or "all" %}
+  {% set statusFilter = data.changeLogStatus or "all" %}
+  {% set byFilter = data.changeLogBy or "anyone" %}
+
+  {# Type of change options: only the chosen record's types, or both with a
+     prefix. A type that is not in the list is ignored. #}
+  {% set typeItems = [{ value: "all", text: "All types of change" }] %}
+  {% set typeValues = [] %}
+  {% for kind, prefix in [["claim", "Claim: "], ["agreement", "Agreement: "]] %}
+    {% if recordFilter == "all" or recordFilter == kind %}
+      {% for type in changeLogTypes[kind] %}
+        {% set typeItems = (typeItems.push({ value: type, text: (prefix if recordFilter == "all" else "") + type }), typeItems) %}
+        {% set typeValues = (typeValues.push(type), typeValues) %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+  {% set typeFilter = data.changeLogType if data.changeLogType in typeValues else "all" %}
+
+  {# Made by options: internal users, then Assisted Digital #}
+  {% set byItems = [{ value: "anyone", text: "Anyone" }] %}
+  {% for key, person in personas %}
+    {% if person.group == "internal" %}
+      {% set byItems = (byItems.push({ value: key, text: person.fullName }), byItems) %}
+    {% endif %}
+  {% endfor %}
+  {% set byItems = (byItems.push({ value: "Assisted Digital", text: "Assisted Digital" }), byItems) %}
+
+  {% set approvalTags = {
+    pending: { text: "Pending", classes: "govuk-tag--yellow" },
+    approved: { text: "Approved", classes: "govuk-tag--green" },
+    rejected: { text: "Rejected", classes: "govuk-tag--red" }
+  } %}
+
+  {# Rows that match the filters, and how many changes are pending overall #}
+  {% set rows = [] %}
+  {% set pending = [] %}
+  {% for entry in changeLogEntries %}
+    {% if entry.approval == "pending" %}
+      {% set pending = (pending.push(entry), pending) %}
+    {% endif %}
+
+    {% if (recordFilter == "all" or entry.record.kind == recordFilter)
+      and (typeFilter == "all" or typeFilter in entry.types)
+      and (schemeFilter == "all" or entry.scheme == schemeFilter)
+      and (statusFilter == "all" or entry.approval == statusFilter)
+      and (byFilter == "anyone" or entry.by == byFilter) %}
+
+      {% set recordHtml %}
+        <a class="govuk-link" href="{{ draftPath }}/{{ entry.page }}">{{ entry.record.number }}</a><br>
+        <span class="govuk-hint">{{ "Claim" if entry.record.kind == "claim" else "Agreement" }} · {{ entry.scheme }}{{ (" · " + entry.record.claimType) if entry.record.claimType }}</span>
+      {% endset %}
+
+      {% set changeHtml %}
+        {{ entry.summary }}
+        {% if entry.fields %}<br><span class="govuk-hint">{{ entry.fields | join(", ") }}</span>{% endif %}
+      {% endset %}
+
+      {% set person = personas[entry.by] %}
+      {% set decider = personas[entry.decidedBy] %}
+      {% set statusHtml %}
+        {% if entry.approval == "none" %}
+          <span class="govuk-hint">No approval needed</span>
+        {% else %}
+          {{ govukTag(approvalTags[entry.approval]) }}<br>
+          <span class="govuk-hint">
+            {%- if entry.approval == "pending" -%}
+              Waiting for a team lead
+            {%- else -%}
+              by {{ decider.fullName }}, {{ entry.decidedDate | govukShortDate }}
+            {%- endif -%}
+          </span><br>
+          <a class="govuk-link" href="{{ draftPath }}/review-change/{{ entry.id | urlencode }}">
+            {{- "Review" if entry.approval == "pending" else "View decision" -}}
+            <span class="govuk-visually-hidden">: {{ entry.summary }}, {{ entry.record.number }}</span>
+          </a>
+        {% endif %}
+      {% endset %}
+
+      {% set rows = (rows.push([
+        { text: entry.date | govukShortDate },
+        { html: recordHtml },
+        { html: changeHtml },
+        { html: internalBy(person, entry.date, usersPath) if person else (entry.by | escape) },
+        { html: statusHtml }
+      ]), rows) %}
+    {% endif %}
+  {% endfor %}
+
+  {% set defaultQuery = "changeLogRecord=all&changeLogType=all&changeLogScheme=all&changeLogBy=anyone" %}
+
+  {# After a team lead approves or rejects a change, from draft/review-change #}
+  {% if changeLogBanner %}
+    {% set bannerMaker = personas[changeLogBanner.by] %}
+    {% set bannerHtml %}
+      <h3 class="govuk-notification-banner__heading">Change {{ changeLogBanner.decision }}</h3>
+      <p class="govuk-body">{{ changeLogBanner.summary }} on {{ changeLogBanner.record }}.{% if bannerMaker %} {{ bannerMaker.firstName }} can see your decision in the history.{% endif %}</p>
+    {% endset %}
+    {{ govukNotificationBanner({ type: "success", html: bannerHtml }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-xl">Change log</h1>
+
+  {% if pending | length %}
+    {% set pendingHtml %}
+      {{ pending | length }} {{ "change is" if pending | length == 1 else "changes are" }} waiting for approval.
+      {% if statusFilter != "pending" %}
+        <a class="govuk-link" href="{{ changeLogPath }}?{{ defaultQuery }}&changeLogStatus=pending">Show changes waiting for approval</a>
+      {% endif %}
+    {% endset %}
+    {{ govukInsetText({ html: pendingHtml }) }}
+  {% endif %}
+
+  <form method="get" action="{{ changeLogPath }}" novalidate>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "changeLogRecord",
+          name: "changeLogRecord",
+          label: { text: "Record", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: recordFilter,
+          items: [
+            { value: "all", text: "All records" },
+            { value: "claim", text: "Claims" },
+            { value: "agreement", text: "Agreements" }
+          ]
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "changeLogType",
+          name: "changeLogType",
+          label: { text: "Type of change", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: typeFilter,
+          items: typeItems
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "changeLogScheme",
+          name: "changeLogScheme",
+          label: { text: "Scheme", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: schemeFilter,
+          items: [
+            { value: "all", text: "All schemes" },
+            { value: "IAHW", text: "Improve Animal Health and Welfare (IAHW)" },
+            { value: "PBR", text: "Poultry Biosecurity Review (PBR)" }
+          ]
+        }) }}
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "changeLogStatus",
+          name: "changeLogStatus",
+          label: { text: "Status", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: statusFilter,
+          items: [
+            { value: "all", text: "All statuses" },
+            { value: "pending", text: "Waiting for approval" },
+            { value: "approved", text: "Approved" },
+            { value: "rejected", text: "Rejected" },
+            { value: "none", text: "No approval needed" }
+          ]
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "changeLogBy",
+          name: "changeLogBy",
+          label: { text: "Made by", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: byFilter,
+          items: byItems
+        }) }}
+      </div>
+    </div>
+
+    <div class="govuk-button-group">
+      {{ govukButton({ text: "Apply filters", classes: "govuk-button--secondary" }) }}
+      <a class="govuk-link" href="{{ changeLogPath }}?{{ defaultQuery }}&changeLogStatus=all">Clear filters</a>
+    </div>
+  </form>
+
+  {% if rows | length %}
+    <p class="govuk-body">Showing {{ rows | length }} {{ "change" if rows | length == 1 else "changes" }}, newest first.</p>
+
+    {{ govukTable({
+      caption: "Change log",
+      captionClasses: "govuk-visually-hidden",
+      classes: "govuk-table--small-text-until-tablet",
+      head: [
+        { text: "Date" },
+        { text: "Record" },
+        { text: "Change" },
+        { text: "Made by" },
+        { text: "Status" }
+      ],
+      rows: rows
+    }) }}
+  {% else %}
+    <p class="govuk-body">There are no changes that match these filters.</p>
+  {% endif %}
+{% endblock %}

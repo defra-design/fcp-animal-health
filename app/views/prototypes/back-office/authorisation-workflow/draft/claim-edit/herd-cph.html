@@ -1,0 +1,32 @@
+{% extends "prototypes/back-office/layouts/claim-edit.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: change the herd CPH (draft v1)
+
+  Edit page for the herd's county parish holding (CPH) number.
+
+  To confirm with the BA: the herd may be on other claims. Does a change
+  apply to this claim only, or to the herd?
+
+  Part of the change claim details flow: see layouts/claim-edit.html and
+  draft/claim-edit/check.html.
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set pageName = "Change the herd CPH" %}
+
+{% block fields %}
+  {{ govukInput({
+    label: { html: captionHtml + " " + claimField.herdCph.label, isPageHeading: true, classes: "govuk-label--l" },
+    hint: { text: "County parish holding number, for example 12/345/6789" },
+    id: "herdCph",
+    name: "herdCph",
+    value: claimField.herdCph.value,
+    classes: "govuk-input--width-10",
+    spellcheck: false
+  }) }}
+{% endblock %}

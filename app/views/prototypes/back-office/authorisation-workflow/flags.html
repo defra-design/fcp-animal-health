@@ -1,0 +1,124 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: flags (current)
+
+  Copied from the claims, agreements and flags pages of the poultry-v01
+  back office prototype (fcp-animal-health on Heroku), on 19 November 2026.
+  Rebuilt with GOV.UK Frontend macros and classes only. The source uses the
+  MOJ sortable table, an autocomplete search and custom styles, which are
+  left out.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js.
+
+  How the filter works
+  --------------------
+  A GET form with an "Apply filter" button. The source filters as soon as
+  the dropdown changes, which needs JavaScript.
+
+  Assumptions and limitations
+  ---------------------------
+  - Agreement type is worked out from the agreement number: "PBR" is PBR,
+    the rest (IAHW and the older AHWR) are IAHW.
+  - Agreement numbers link to the current agreement details page.
+  - "Create flag" and "Delete flag" are placeholders.
+  - "Created by" uses the back office personas from app/views/prototypes/back-office/data/personas.js
+    in place of the source's "[RPA staff name]" placeholders and
+    "Carlos Bernardo Jr".
+  - Times are written the GOV.UK way, for example 1:59pm.
+#}
+
+{% set pageName = design.title if design else "Flags" %}
+{% set navActive = "flags" %}
+{% set navCurrent = "flags" %}
+
+{% block content %}
+  {% set flags = [
+    { agreement: "AHWR-A271-8752", agreementType: "iahw", sbi: "107597689", note: "Investigate this agreement", createdBy: "backOfficeLead", date: "2025-10-01", time: "1:59pm" },
+    { agreement: "IAHW-JBU1-6BYF", agreementType: "iahw", sbi: "107314916", note: "Customer refuses new T&C conditions", createdBy: "backOfficeAdministrator", date: "2025-05-08", time: "2:22pm" },
+    { agreement: "IAHW-AAAA-AAAA", agreementType: "iahw", sbi: "107597689", note: "Agreement holder has rejected recent T&Cs", createdBy: "backOfficeEditor", date: "2025-05-23", time: "11:06am" },
+    { agreement: "IAHW-AAAA-AAAA", agreementType: "iahw", sbi: "107597689", note: "Not in the poultry register", createdBy: "backOfficeLead", date: "2025-10-01", time: "1:59pm" },
+    { agreement: "IAHW-Y5R6-WX5C", agreementType: "iahw", sbi: "200677499", note: "Test", createdBy: "backOfficeAdministrator", date: "2025-07-08", time: "3:12pm" },
+    { agreement: "IAHW-AC83-GH79", agreementType: "iahw", sbi: "108477971", note: "Testing flagging", createdBy: "backOfficeAdministrator", date: "2025-08-21", time: "11:19am" },
+    { agreement: "IAHW-BQAC-SWF4", agreementType: "iahw", sbi: "106221605", note: "Farmer has an Assisted Digital agreement", createdBy: "backOfficeEditor", date: "2025-09-19", time: "11:47am" },
+    { agreement: "AHWR-B271-8620", agreementType: "iahw", sbi: "122385434", note: "Investigate this agreement", createdBy: "backOfficeLead", date: "2025-09-17", time: "1:34pm" },
+    { agreement: "IAHW-DWBW-7IWY", agreementType: "iahw", sbi: "122385434", note: "Investigate this agreement", createdBy: "backOfficeEditor", date: "2025-09-25", time: "3:08pm" },
+    { agreement: "IAHW-VPUC-9V1Y", agreementType: "iahw", sbi: "106293418", note: "Investigate this agreement", createdBy: "backOfficeAdministrator", date: "2025-09-26", time: "12:30pm" }
+  ] %}
+
+  {% set agreementType = data.flagsAgreementType or "all" %}
+
+  {% set rows = [] %}
+  {% for item in flags %}
+    {% if agreementType == "all" or item.agreementType == agreementType %}
+      {% set rows = (rows.push([
+        { html: '<a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/agreement-details">' + item.agreement + '</a>' },
+        { text: item.sbi },
+        { text: item.note },
+        { text: personas[item.createdBy].fullName },
+        { text: (item.date | govukShortDate) + ", " + item.time },
+        { html: '<a class="govuk-link" href="#">Delete flag<span class="govuk-visually-hidden"> for ' + item.agreement + '</span></a>' }
+      ]), rows) %}
+    {% endif %}
+  {% endfor %}
+
+  <h1 class="govuk-heading-xl">Flags</h1>
+
+  {{ govukButton({ text: "Create flag", href: "#" }) }}
+
+  <form method="get" action="/prototypes/back-office/authorisation-workflow/flags" novalidate>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+              {{ govukSelect({
+                id: "flagsAgreementType",
+                name: "flagsAgreementType",
+                label: { text: "Agreement type", classes: "govuk-label--s" },
+                classes: "govuk-!-width-full",
+                value: data.flagsAgreementType or "all",
+                items: [
+                { value: "all", text: "All types" },
+                { value: "iahw", text: "Improve Animal Health and Welfare (IAHW)" },
+                { value: "pbr", text: "Poultry Biosecurity Review (PBR)" }
+                ]
+              }) }}
+      </div>
+    </div>
+    {{ govukButton({ text: "Apply filter", classes: "govuk-button--secondary" }) }}
+  </form>
+
+  {% if rows | length %}
+    {{ govukTable({
+      caption: "Flags",
+      captionClasses: "govuk-visually-hidden",
+      classes: "govuk-table--small-text-until-tablet",
+      head: [
+        { text: "Agreement number" },
+        { text: "SBI" },
+        { text: "Note" },
+        { text: "Created by" },
+        { text: "Date created" },
+        { text: "Action" }
+      ],
+      rows: rows
+    }) }}
+
+    {{ govukPagination({
+      previous: { href: "#" },
+      next: { href: "#" },
+      items: [
+        { number: 1, href: "#", current: true },
+        { number: 2, href: "#" },
+        { number: 3, href: "#" }
+      ]
+    }) }}
+  {% else %}
+    <p class="govuk-body">There are no flags for this agreement type.</p>
+  {% endif %}
+{% endblock %}

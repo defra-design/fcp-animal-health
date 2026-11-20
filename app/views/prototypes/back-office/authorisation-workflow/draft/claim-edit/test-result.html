@@ -1,0 +1,39 @@
+{% extends "prototypes/back-office/layouts/claim-edit.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: change the follow-up test result (draft v1)
+
+  Edit page for the test result. A change needs team lead approval, as it
+  can change whether the claim is eligible. The hint says so before the
+  user makes the change.
+
+  The options depend on the species and claim type. This claim is a beef
+  cattle follow-up, so the options are positive and negative. Sheep and pig
+  claims have different tests: to design with the BA.
+
+  Part of the change claim details flow: see layouts/claim-edit.html and
+  draft/claim-edit/check.html.
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set pageName = "Change the follow-up test result" %}
+
+{% block fields %}
+  {% set items = [] %}
+  {% for option in claimField.testResult.options %}
+    {% set items = (items.push({ value: option, text: option, checked: option == claimField.testResult.value }), items) %}
+  {% endfor %}
+
+  {{ govukRadios({
+    name: "testResult",
+    fieldset: {
+      legend: { html: captionHtml + " " + claimField.testResult.label, isPageHeading: true, classes: "govuk-fieldset__legend--l" }
+    },
+    hint: { text: "A change to the test result needs approval from a team lead." },
+    items: items
+  }) }}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Reset prototype data: confirm
+  =============================
+
+  Not a design. A tool for people using the prototype, opened from the
+  "Reset prototype data" button on the Authorisation workflow index.
+
+  GOV.UK Frontend has no modal component, and the Design System advises
+  against modals, so this is a confirmation page instead: a question
+  heading, warning text, a warning button to confirm and a link to cancel.
+
+  Confirming posts to app/routes.js, which clears the session data and goes
+  back to the index with a success banner.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% set workflowPath = "/prototypes/back-office/authorisation-workflow" %}
+{% set pageName = "Reset prototype data" %}
+
+{% block header %}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBackLink({ text: "Back", href: workflowPath + "/" }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Are you sure you want to reset the prototype data?</h1>
+
+      {{ govukWarningText({
+        text: "Any changes you have made in the prototype will be lost, such as changed claim details, notes and withdrawn claims. The prototype will go back to how it started."
+      }) }}
+
+      <p class="govuk-body">This only resets the prototype in this browser. Anyone else using it will not be affected.</p>
+
+      <form method="post" novalidate>
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Reset prototype data", classes: "govuk-button--warning" }) }}
+          <a class="govuk-link" href="{{ workflowPath }}/">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

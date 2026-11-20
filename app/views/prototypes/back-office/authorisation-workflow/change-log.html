@@ -1,0 +1,183 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: change log (current state)
+
+  Baseline copy of the change log in the admin service ("Improve Animal
+  Health and Welfare admin"). Caseworkers use it to find changes to
+  agreements and claims, filter them and open a change to review it.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  How the filters work
+  --------------------
+  The filters are a GET form. The Prototype Kit saves query string values
+  in session data, so the template reads data.agreementType,
+  data.changeType and data.status and filters the rows below. Status
+  defaults to "Pending changes", as in the screenshot.
+
+  Differences from the source screenshot
+  --------------------------------------
+  - The screenshot filters as soon as a dropdown changes. That needs
+    JavaScript, so this version has an "Apply filters" button instead,
+    which also works without JavaScript and is more accessible.
+  - "Change date" is sortable in the screenshot. GOV.UK Frontend has no
+    sortable table, so it is a plain column header here, with the newest
+    changes first.
+  - The "Type of change" dropdown in the screenshot shows 3 types. This
+    version lists every type that appears in the table.
+  - The header, beta banner and footer come from the shared
+    app/views/prototypes/back-office/layouts/authorisation-workflow.html layout. The screenshot
+    has no beta banner and shows a different user.
+  - Rows 8 and 9 (a Poultry Biosecurity Review agreement and an approved
+    and a rejected change) are added so the filters have something to show.
+    The rest is illustrative test data copied from the live screen.
+  - The pagination links are placeholders.
+#}
+
+{% set pageName = design.title if design else "Change log" %}
+{% set navActive = "changeLog" %}
+{% set navCurrent = "changeLog" %}
+
+{% block content %}
+  {% set agreementType = data.agreementType or "all" %}
+  {% set changeType = data.changeType or "all" %}
+  {% set status = data.status or "pending" %}
+
+  {% set changes = [
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "REBC-F775-GVVX", claimType: "Review", change: "Claim withdrawn", date: "29/09/2025", status: "pending", href: "/prototypes/back-office/authorisation-workflow/claim-withdrawn" },
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "REBC-F775-GVVX", claimType: "Review", change: "URN changed", date: "29/09/2025", status: "pending", href: "#" },
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "", claimType: "", change: "New agreement via Assisted Digital", date: "29/09/2025", status: "pending", href: "#" },
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "REBC-F775-GVVX", claimType: "Review", change: "New claim via Assisted Digital", date: "29/09/2025", status: "pending", href: "#" },
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "REBC-F775-GVVX", claimType: "Review", change: "Date of visit changed", date: "29/09/2025", status: "pending", href: "#" },
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "REBC-F775-GVVX", claimType: "Review", change: "RCVS changed", date: "29/09/2025", status: "pending", href: "#" },
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "REBC-F775-GVVX", claimType: "Review", change: "URN changed", date: "29/09/2025", status: "pending", href: "#" },
+    { agreement: "PBR-4TQM-2HXA", agreementType: "pbr", claim: "", claimType: "", change: "New agreement via Assisted Digital", date: "22/09/2025", status: "approved", href: "#" },
+    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", claim: "REBC-F775-GVVX", claimType: "Review", change: "Date of visit changed", date: "15/09/2025", status: "rejected", href: "#" }
+  ] %}
+
+  {% set statusTags = {
+    pending: { text: "Pending", classes: "govuk-tag--yellow" },
+    approved: { text: "Approved", classes: "govuk-tag--green" },
+    rejected: { text: "Rejected", classes: "govuk-tag--red" }
+  } %}
+
+  {% set rows = [] %}
+  {% for item in changes %}
+    {% if (agreementType == "all" or item.agreementType == agreementType)
+      and (changeType == "all" or item.change == changeType)
+      and (status == "all" or item.status == status) %}
+
+      {% set claimHtml %}
+        {% if item.claim %}
+          <a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/claim-details">{{ item.claim }}</a><br>{{ item.claimType }}
+        {% else %}
+          N/A
+        {% endif %}
+      {% endset %}
+
+      {% set rows = (rows.push([
+        { html: '<a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/agreement-details">' + item.agreement + '</a>' },
+        { html: claimHtml },
+        { text: item.change },
+        { text: item.date },
+        { html: govukTag(statusTags[item.status]) },
+        { html: '<a class="govuk-link" href="' + item.href + '">View change<span class="govuk-visually-hidden"> ' + item.change + ', ' + item.agreement + '</span></a>' }
+      ]), rows) %}
+    {% endif %}
+  {% endfor %}
+
+  <h1 class="govuk-heading-xl">Change log</h1>
+
+  <form method="get" action="/prototypes/back-office/authorisation-workflow/change-log" novalidate>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "agreementType",
+          name: "agreementType",
+          label: { text: "Agreement type", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: agreementType,
+          items: [
+            { value: "all", text: "All types" },
+            { value: "iahw", text: "Improve Animal Health and Welfare (IAHW)" },
+            { value: "pbr", text: "Poultry Biosecurity Review (PBR)" }
+          ]
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "changeType",
+          name: "changeType",
+          label: { text: "Type of change", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: changeType,
+          items: [
+            { value: "all", text: "All types of changes" },
+            { value: "Claim withdrawn", text: "Claim withdrawn" },
+            { value: "Date of visit changed", text: "Date of visit changed" },
+            { value: "New agreement via Assisted Digital", text: "New agreement via Assisted Digital" },
+            { value: "New claim via Assisted Digital", text: "New claim via Assisted Digital" },
+            { value: "RCVS changed", text: "RCVS changed" },
+            { value: "URN changed", text: "URN changed" }
+          ]
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "status",
+          name: "status",
+          label: { text: "Status", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: status,
+          items: [
+            { value: "pending", text: "Pending changes" },
+            { value: "approved", text: "Approved changes" },
+            { value: "rejected", text: "Rejected changes" },
+            { value: "all", text: "All changes" }
+          ]
+        }) }}
+      </div>
+    </div>
+
+    {{ govukButton({
+      text: "Apply filters",
+      classes: "govuk-button--secondary"
+    }) }}
+  </form>
+
+  {% if rows | length %}
+    {{ govukTable({
+      caption: "Changes",
+      captionClasses: "govuk-visually-hidden",
+      classes: "govuk-table--small-text-until-tablet",
+      head: [
+        { text: "Agreement number" },
+        { text: "Claim number and type" },
+        { text: "Change" },
+        { text: "Change date" },
+        { text: "Status" },
+        { text: "Details" }
+      ],
+      rows: rows
+    }) }}
+
+    {{ govukPagination({
+      next: { href: "#" },
+      items: [
+        { number: 1, href: "#", current: true },
+        { number: 2, href: "#" },
+        { number: 3, href: "#" }
+      ]
+    }) }}
+  {% else %}
+    <p class="govuk-body">There are no changes that match these filters.</p>
+  {% endif %}
+{% endblock %}

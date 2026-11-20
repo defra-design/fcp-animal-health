@@ -1,0 +1,149 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  What we changed
+  ===============
+
+  A short, high-level outline of the main UX changes to each draft page,
+  for presenting to stakeholders. Steve will use it as the outline of the
+  presentation, with a screenshot of each page.
+
+  Keep it short: a handful of bullets per page, in plain words, saying what
+  changed and why it matters to the user. The detail, reasoning and
+  questions for the BA stay in notes.html and the notes in each draft page.
+
+  Pages are in the same order as the site map on the index. Each section
+  ends with the page (or page state) to screenshot.
+
+  Update this whenever a draft page changes, and update the date below.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% set workflowPath = "/prototypes/back-office/authorisation-workflow" %}
+{% set draftPath = workflowPath + "/draft" %}
+{% set pageName = "What we changed" %}
+
+{% block header %}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Research prototypes", href: "/" },
+      { text: "Authorisation workflow", href: workflowPath + "/" },
+      { text: "What we changed" }
+    ]
+  }) }}
+{% endblock %}
+
+{# "Screenshot" line at the end of each section #}
+{% macro screenshot(href, text) %}
+  <p class="govuk-body-s">Screenshot: <a class="govuk-link" href="{{ href }}">{{ text }}</a></p>
+{% endmacro %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl">Authorisation workflow</span>
+      <h1 class="govuk-heading-xl">What we changed</h1>
+
+      <p class="govuk-body-l">The main changes in the draft designs, page by page.</p>
+
+      <p class="govuk-body">Updated 19 November 2026</p>
+
+      <h2 class="govuk-heading-l">Across the service</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Built only from GOV.UK Design System components, so it is quick to build and accessible.</li>
+        <li>Pages lead with the thing the user came for: the claim on a claim page, the agreement on an agreement page.</li>
+        <li>Every action is recorded in the history: what changed, from what to what, who did it, their role at the time and why.</li>
+        <li>Dates are written in full, or as 5/11/2026 in tables where space is tight.</li>
+      </ul>
+
+      <h2 class="govuk-heading-l">Claims</h2>
+
+      <h3 class="govuk-heading-m">Claim details</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>The claim comes first. The agreement is a short summary alongside, and the full history is below. No tabs.</li>
+        <li>The claim number is the heading, with its status as a tag. A banner says what the claim needs next.</li>
+        <li>Action buttons depend on the claim’s status.</li>
+        <li>Only details this service can change have a "Change" link, so it is clear what can be changed.</li>
+        <li>The claim history shows who did each thing and their role at the time, with a status column for changes waiting for approval.</li>
+      </ul>
+      {{ screenshot(draftPath + "/claim-details", "Claim details") }}
+
+      <h3 class="govuk-heading-m">Changing claim details</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Change several details, check them on one page, then save once. Based on the GOV.UK check answers pattern.</li>
+        <li>One reason covers all the changes, and they are one entry in the history.</li>
+        <li>Changes that affect eligibility, such as the test result, go to a team lead for approval first.</li>
+      </ul>
+      {{ screenshot(draftPath + "/claim-edit/check", "Check your changes, after changing the vet’s details and the test result") }}
+
+      <h3 class="govuk-heading-m">Add a note</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Add a note to any claim from the claim history.</li>
+        <li>Notes cannot be changed or deleted, like the rest of the history.</li>
+      </ul>
+      {{ screenshot(draftPath + "/add-note", "Add a note") }}
+
+      <h3 class="govuk-heading-m">Withdraw claim</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Uses the live fields, with an "Other" option for the reason and how the issue was found.</li>
+        <li>Shows the agreement holder, so the caseworker can check who they are speaking to.</li>
+        <li>Records who asked for the withdrawal and how they contacted the RPA.</li>
+      </ul>
+      {{ screenshot(draftPath + "/withdraw-claim", "Withdraw claim") }}
+
+      <h3 class="govuk-heading-m">Claim withdrawn</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>No separate page. The claim page shows the claim as withdrawn, with a banner saying when, by whom and why.</li>
+      </ul>
+      {{ screenshot(draftPath + "/claim-withdrawn", "Claim withdrawn") }}
+
+      <h2 class="govuk-heading-l">Agreements</h2>
+
+      <h3 class="govuk-heading-m">Agreement details</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Same heading pattern as the claim page: the agreement number as the heading.</li>
+        <li>New table of the agreement’s claims, each linking to the claim.</li>
+        <li>Address written in sentence case, one line per part.</li>
+      </ul>
+      {{ screenshot(draftPath + "/agreement-details", "Agreement details") }}
+
+      <h2 class="govuk-heading-l">Change log</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>One place to see what has changed, on claims and agreements, and what is waiting for approval.</li>
+        <li>One row per change, showing who made it and their role at the time. When a team lead decides, the same row shows who approved or rejected it.</li>
+        <li>Says how many changes are waiting for approval, with a link to just those.</li>
+        <li>Filter by claims or agreements, type of change, scheme (IAHW or PBR), status and who made the change.</li>
+      </ul>
+      {{ screenshot(draftPath + "/change-log", "Change log") }}
+
+      <h3 class="govuk-heading-m">Review a change</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Team leads approve or reject a change from the change log, seeing who made it, why, and each detail from and to.</li>
+        <li>Rejecting needs a reason. Approving can have optional notes. Both are recorded in the history for the person who made the change.</li>
+        <li>An approved change updates the claim. A rejected one does not.</li>
+        <li>Team leads cannot approve their own changes.</li>
+      </ul>
+      {{ screenshot(draftPath + "/review-change", "Review a change, showing the reject notes") }}
+
+      <h2 class="govuk-heading-l">Users (new)</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Super admins can see everyone with access, their role and when they were last active, to support access reviews.</li>
+        <li>Each user has a role history, so the role shown in a claim history can be checked for that date.</li>
+        <li>Names in the claim history link to the user.</li>
+      </ul>
+      {{ screenshot(draftPath + "/users", "Users") }}
+      {{ screenshot(draftPath + "/users/backOfficeAdministrator", "User: Sanjay Mehta, with a role change") }}
+
+      <h2 class="govuk-heading-l">Not changed yet</h2>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>The claims, agreements and flags lists are copies of the current pages.</li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

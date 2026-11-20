@@ -1,0 +1,49 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: claim withdrawn (current state)
+
+  Baseline copy of the confirmation screen shown in the admin service
+  ("Improve Animal Health and Welfare admin") after a claim is withdrawn.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
+
+  Differences from the source screenshot
+  --------------------------------------
+  - The service name in the screenshot reads "Improve animal heath and
+    welfare admin". "heath" is corrected to "health" here.
+  - The header, beta banner and footer come from the shared
+    app/views/prototypes/back-office/layouts/authorisation-workflow.html layout. The screenshot
+    has no beta banner and shows a different user.
+
+  Data is illustrative test data copied from the live screen.
+#}
+
+{% set pageName = design.title if design else "Claim withdrawn" %}
+{% set navActive = "claims" %}
+{% set backLinkHref = "/prototypes/back-office/authorisation-workflow/change-log" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">Claim REPI-6844-3029 withdrawn</h1>
+
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Claim number" }, value: { text: "REPI-6844-3029" } },
+          { key: { text: "Date of withdrawal" }, value: { text: "11/10/2024" } },
+          { key: { text: "Reason for withdrawal" }, value: { text: "Data from a different claim was entered" } },
+          { key: { text: "How the issue was discovered" }, value: { text: "The customer contacted RPA" } },
+          { key: { text: "Details on why this claim should be withdrawn" }, value: { text: "Customer contacted RPA and requested withdrawal" } }
+        ]
+      }) }}
+    </div>
+  </div>
+{% endblock %}

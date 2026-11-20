@@ -1,0 +1,24 @@
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: claim withdrawn (draft v1)
+
+  Draft redesign of ../claim-withdrawn.html. There is no separate claim
+  withdrawn page. Instead the claim details page shows the claim as
+  withdrawn:
+  - the status at the top is "Withdrawn"
+  - a notification banner says when the claim was withdrawn, by whom and
+    why, and links to the claim history
+  - the claim history records the reason, how the issue was discovered and
+    the details, which the current page shows on its own
+  - no action buttons show
+
+  This page reuses draft/claim-details.html. Make design changes there.
+
+  Title, type, version and last updated date for this design are in
+  app/views/prototypes/back-office/data/designs.js.
+#}
+
+{% set claimWithdrawn = true %}
+{% extends "prototypes/back-office/authorisation-workflow/draft/claim-details.html" %}

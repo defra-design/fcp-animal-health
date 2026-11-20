@@ -1,0 +1,43 @@
+{% extends "prototypes/back-office/layouts/project-index.html" %}
+
+{#
+  Index of Authorisation workflow designs.
+
+  Lists every design in app/views/prototypes/back-office/data/designs.js with
+  project: 'Authorisation workflow'. Add new designs there, not here.
+  The page layout is in app/views/prototypes/back-office/layouts/project-index.html.
+#}
+
+{% set projectName = "Authorisation workflow" %}
+
+{# The current designs are baselines, kept for comparison, so they sit in a
+   closed details component. The focus is the drafts. #}
+{% set collapseCurrentDesigns = true %}
+
+{# Show the drafts as a site map, in the order of the navigation #}
+{% set siteMapSections = ["Claims", "Agreements", "Flags", "Change log", "Users"] %}
+
+{# After resetting the prototype data, from reset-data.html #}
+{% block notifications %}
+  {% if prototypeDataReset %}
+    {{ govukNotificationBanner({
+      type: "success",
+      html: '<h3 class="govuk-notification-banner__heading">Prototype data reset</h3><p class="govuk-body">The designs are back to how they started.</p>'
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block beforeDraftDesigns %}
+  {{ govukButton({
+    text: "Reset prototype data",
+    classes: "govuk-button--secondary",
+    href: "/prototypes/back-office/authorisation-workflow/reset-data"
+  }) }}
+{% endblock %}
+
+{% block afterDesigns %}
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Design notes</h2>
+  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/summary">What we changed</a>: a short outline of the main changes to each draft page, for presenting to stakeholders.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/notes">Design notes</a>: suggested changes to the agreement details, claim details, claim withdrawn and change log pages, and questions for Olayinka (BA).</p>
+  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/personas/">Personas</a>: the people who use the service, with their goals. The designs use their names.</p>
+{% endblock %}
