@@ -6,9 +6,8 @@
 
   Authorisation workflow: agreements (draft v1)
 
-  Draft copy of ../agreements.html, so the draft journey stays in the draft
-  pages. The only change is that links go to the draft pages. Make draft
-  changes here, not in ../agreements.html, which is the baseline.
+  Started as a copy of the earlier rebuild of the agreements list (deleted on
+  20 November 2026; the previous designs are in the poultry prototype).
 
   Copied from the claims, agreements and flags pages of the poultry-v01
   back office prototype (fcp-animal-health on Heroku), on 19 November 2026.
@@ -37,6 +36,17 @@
   - The source says "23 search results" with 3 pages. This copy shows the
     21 agreements on page 1, and the pagination is a placeholder.
   - Organisation names are copied as they are, including capitals.
+  - The agreements are in app/views/prototypes/back-office/data/agreements.js. The first is the
+    agreement on the draft agreement page, so flags added there show here.
+
+  Flags
+  -----
+  The Flags column shows whether the agreement is flagged ("Agreement
+  flagged", red) and how many of its claims are flagged ("1 claim
+  flagged", yellow), so a case officer can see which customers have
+  claims that need a look. A claim belongs to the agreement with the
+  same SBI. The Flag filter can show agreements that are flagged, that
+  have flagged claims, either, or neither.
 #}
 
 {% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
@@ -45,29 +55,9 @@
 {% set navCurrent = "agreements" %}
 
 {% block content %}
-  {% set agreements = [
-    { agreement: "AHWR-J76G-846L", agreementType: "iahw", flagged: false, sbi: "106415197", organisation: "John Murray", date: "2024-08-01", status: "Agreed" },
-    { agreement: "IAHW-8LKQ-V9EL", agreementType: "iahw", flagged: true, sbi: "107096477", organisation: "MR DR PENNY", date: "2025-09-29", status: "Agreed" },
-    { agreement: "IAHW-HVBX-TF8I", agreementType: "iahw", flagged: false, sbi: "106592443", organisation: "Foxes Drove Farm", date: "2025-09-24", status: "Agreed" },
-    { agreement: "IAHW-4GF5-IQ8C", agreementType: "iahw", flagged: false, sbi: "106853564", organisation: "Hollis & Co Farm", date: "2025-09-23", status: "Agreed" },
-    { agreement: "IAHW-3HTQ-VIRW", agreementType: "iahw", flagged: false, sbi: "113775119", organisation: "Mr J D Fowler", date: "2025-09-23", status: "Agreed" },
-    { agreement: "IAHW-E4XU-9F37", agreementType: "iahw", flagged: false, sbi: "106214786", organisation: "Roger Hare", date: "2025-09-23", status: "Agreed" },
-    { agreement: "IAHW-SIWI-SDC1", agreementType: "iahw", flagged: false, sbi: "106488220", organisation: "Lewis Reed", date: "2025-09-23", status: "Agreed" },
-    { agreement: "IAHW-UN25-B6M5", agreementType: "iahw", flagged: false, sbi: "107097991", organisation: "Branwell Grange", date: "2025-09-23", status: "Agreed" },
-    { agreement: "IAHW-TMZX-9G61", agreementType: "iahw", flagged: false, sbi: "114416662", organisation: "The Great Wood", date: "2025-09-22", status: "Agreed" },
-    { agreement: "IAHW-5MHR-C1PN", agreementType: "iahw", flagged: false, sbi: "106345476", organisation: "Havnsogaard", date: "2025-09-09", status: "Agreed" },
-    { agreement: "IAHW-N89U-PNGX", agreementType: "iahw", flagged: false, sbi: "106345476", organisation: "E. Wetherby & Co.", date: "2025-09-09", status: "Not agreed" },
-    { agreement: "IAHW-JUET-XP2V", agreementType: "iahw", flagged: false, sbi: "106293418", organisation: "Ashcombe Fields", date: "2025-09-08", status: "Not agreed" },
-    { agreement: "IAHW-11GR-DPAP", agreementType: "iahw", flagged: false, sbi: "106293418", organisation: "J R DALTON FARMS", date: "2025-09-08", status: "Not agreed" },
-    { agreement: "IAHW-HFLT-N6RE", agreementType: "iahw", flagged: false, sbi: "115535885", organisation: "Merrick Fold", date: "2025-08-28", status: "Agreed" },
-    { agreement: "IAHW-JR83-W3QE", agreementType: "iahw", flagged: false, sbi: "123789589", organisation: "Ashcombe Fields", date: "2025-08-26", status: "Agreed" },
-    { agreement: "IAHW-FZD4-143S", agreementType: "iahw", flagged: false, sbi: "106180606", organisation: "E. Wetherby & Co.", date: "2025-08-20", status: "Agreed" },
-    { agreement: "IAHW-AC83-GH79", agreementType: "iahw", flagged: true, sbi: "108477971", organisation: "H S PETCH & SONS LTD", date: "2025-08-18", status: "Agreed" },
-    { agreement: "IAHW-JP1Q-UUYE", agreementType: "iahw", flagged: false, sbi: "106729447", organisation: "MR CLARK & A C GILBERT", date: "2025-08-08", status: "Agreed" },
-    { agreement: "IAHW-X9AE-DH93", agreementType: "iahw", flagged: false, sbi: "106953974", organisation: "Hiders Farm", date: "2025-08-01", status: "Agreed" },
-    { agreement: "IAHW-E7DQ-ZPUV", agreementType: "iahw", flagged: false, sbi: "113711316", organisation: "Ali Hussain", date: "2025-07-31", status: "Agreed" },
-    { agreement: "IAHW-TRZN-8NR3", agreementType: "iahw", flagged: false, sbi: "108475014", organisation: "Branwell Grange", date: "2025-07-28", status: "Agreed" }
-  ] %}
+  {# Agreements and their flags, from app/views/prototypes/back-office/data/agreements.js and
+     data/flags.js, set by app/views/prototypes/back-office/routes.js #}
+  {% set agreements = agreementsList %}
 
   {% set statusClasses = { Agreed: "govuk-tag--green", "Not agreed": "govuk-tag--pink" } %}
 
@@ -84,14 +74,23 @@
   {% for item in agreements %}
     {% if (not q or q in (item.agreement | lower) or q in (item.organisation | lower) or q in item.sbi)
       and (agreementType == "all" or item.agreementType == agreementType)
-      and (flag == "all" or (flag == "flagged") == item.flagged)
+      and (flag == "all"
+        or (flag == "agreement" and item.flag)
+        or (flag == "claims" and item.flaggedClaims)
+        or (flag == "either" and (item.flag or item.flaggedClaims))
+        or (flag == "none" and not item.flag and not item.flaggedClaims))
       and (status == "all" or item.status == status)
       and (not fromIso or item.date >= fromIso)
       and (not toIso or item.date <= toIso) %}
+      {% set flagsHtml %}
+        {% if item.flag %}{{ govukTag({ text: "Agreement flagged", classes: "govuk-tag--red govuk-!-margin-bottom-1" }) }}{% endif %}
+        {% if item.flag and item.flaggedClaims %}<br>{% endif %}
+        {% if item.flaggedClaims %}{{ govukTag({ text: item.flaggedClaims ~ (" claim" if item.flaggedClaims == 1 else " claims") ~ " flagged", classes: "govuk-tag--yellow" }) }}{% endif %}
+      {% endset %}
       {% set rows = (rows.push([
         { html: '<a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/draft/agreement-details">' + item.agreement + '</a>' },
-        { text: "Yes" if item.flagged else "" },
         { text: item.sbi },
+        { html: flagsHtml },
         { text: item.organisation },
         { text: item.date | govukShortDate },
         { html: govukTag({ text: item.status, classes: statusClasses[item.status] }) }
@@ -100,7 +99,7 @@
   {% endfor %}
 
   {% set advancedHtml %}
-        <form method="get" action="/prototypes/back-office/authorisation-workflow/agreements" novalidate>
+        <form method="get" action="/prototypes/back-office/authorisation-workflow/draft/agreements" novalidate>
           <input type="hidden" name="agreementsSearch" value="{{ data.agreementsSearch }}">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
@@ -125,9 +124,11 @@
                 classes: "govuk-!-width-full",
                 value: data.agreementsFlag or "all",
                 items: [
-                { value: "all", text: "All flags" },
-                { value: "flagged", text: "Flagged" },
-                { value: "not-flagged", text: "Not flagged" }
+                { value: "all", text: "All agreements" },
+                { value: "either", text: "Agreement or its claims flagged" },
+                { value: "agreement", text: "Agreement flagged" },
+                { value: "claims", text: "Has flagged claims" },
+                { value: "none", text: "Not flagged" }
                 ]
               }) }}
             </div>
@@ -175,7 +176,7 @@
 
   <h1 class="govuk-heading-xl">Agreements</h1>
 
-  <form method="get" action="/prototypes/back-office/authorisation-workflow/agreements" novalidate>
+  <form method="get" action="/prototypes/back-office/authorisation-workflow/draft/agreements" novalidate>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         {{ govukInput({
@@ -205,8 +206,8 @@
       classes: "govuk-table--small-text-until-tablet",
       head: [
         { text: "Agreement number" },
-        { text: "Flag" },
         { text: "SBI" },
+        { text: "Flags" },
         { text: "Organisation" },
         { text: "Agreement date" },
         { text: "Status" }

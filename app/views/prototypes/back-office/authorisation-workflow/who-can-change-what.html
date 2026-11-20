@@ -1,0 +1,163 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Who can change what
+  ===================
+
+  A design note, not part of the service. A first pass, for Steve and
+  Olayinka (BA) to take to the RPA, at every detail on a claim and an
+  agreement: can it be changed in the back office, and if so, can a case
+  officer change it, or only request a change for a team lead to approve.
+
+  Agreed with Olayinka on 20 November 2026. The authorisation workflow is
+  the ability for one person to request a change and another to approve or
+  reject it. Some changes need no approval. Which is which should depend on
+  the risk to the payment, by role, not by person.
+
+  Values:
+  - "Can change": they can change it, with no approval
+  - "Can request": they can ask, and a team lead approves or rejects
+  - "No": they cannot change it
+  Team leads cannot approve their own requests.
+
+  The starting point is the draft: the 6 claim details in the backlog
+  (app/views/prototypes/back-office/data/claim-edit-fields.js), with date of visit and the test result
+  needing approval as they affect eligibility. Everything else is our
+  suggestion, marked "To agree".
+
+  The roles are on the personas page, from
+  app/views/prototypes/back-office/data/back-office-roles.js.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% set workflowPath = "/prototypes/back-office/authorisation-workflow" %}
+{% set pageName = "Who can change what" %}
+
+{% block header %}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Research prototypes", href: "/" },
+      { text: "Back office optimisation", href: workflowPath + "/" },
+      { text: "Who can change what" }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  {# Each detail: name, whether it can be changed, case officer, team lead,
+     and a note. inBacklog marks the claim details already in the backlog. #}
+  {% set claimDetails = [
+    { name: "Claim number", changeable: "No", caseOfficer: "No", teamLead: "No", note: "Set by the service." },
+    { name: "Claim date", changeable: "No", caseOfficer: "No", teamLead: "No", note: "Set when the claim is submitted." },
+    { name: "Claim status", changeable: "By actions", caseOfficer: "Recommend to pay or reject", teamLead: "Authorise, or change out of sequence", note: "Changes through actions, not edits. Withdrawing needs approval." },
+    { name: "Business name", changeable: "No", caseOfficer: "No", teamLead: "No", note: "From the customer’s record." },
+    { name: "Claim type", changeable: "No", caseOfficer: "No", teamLead: "No", note: "Review or follow-up. A wrong type is a reason to withdraw." },
+    { name: "Livestock", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Changes what the claim is for, so it would affect the payment." },
+    { name: "Review test result", changeable: "No", caseOfficer: "No", teamLead: "No", note: "From the review claim." },
+    { name: "Type of visit", changeable: "No", caseOfficer: "No", teamLead: "No", note: "" },
+    { name: "Date of visit", changeable: "Yes", caseOfficer: "Can request", teamLead: "Can change", note: "In the backlog. Affects eligibility, so needs approval.", inBacklog: true },
+    { name: "Herd name", changeable: "To agree", caseOfficer: "Can change", teamLead: "Can change", note: "Low risk. Not in the backlog." },
+    { name: "Herd CPH", changeable: "Yes", caseOfficer: "Can change", teamLead: "Can change", note: "In the backlog.", inBacklog: true },
+    { name: "Is this the only herd on this SBI?", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Affects eligibility." },
+    { name: "Reasons the herd is separate", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Affects eligibility." },
+    { name: "11 or more beef cattle", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Affects eligibility." },
+    { name: "Vet’s name", changeable: "Yes", caseOfficer: "Can change", teamLead: "Can change", note: "In the backlog.", inBacklog: true },
+    { name: "Vet’s RCVS number", changeable: "Yes", caseOfficer: "Can change", teamLead: "Can change", note: "In the backlog.", inBacklog: true },
+    { name: "PI hunt", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Affects the payment." },
+    { name: "PI hunt done on all cattle in herd", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Affects the payment." },
+    { name: "Date of sampling", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Often confused with the date of visit. Affects eligibility." },
+    { name: "URN or test certificate", changeable: "Yes", caseOfficer: "Can change", teamLead: "Can change", note: "In the backlog.", inBacklog: true },
+    { name: "Follow-up test result", changeable: "Yes", caseOfficer: "Can request", teamLead: "Can change", note: "In the backlog. Affects eligibility, so needs approval.", inBacklog: true },
+    { name: "Biosecurity assessment", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Affects the payment." },
+    { name: "Notes", changeable: "Add only", caseOfficer: "Can add", teamLead: "Can add", note: "Notes cannot be changed or deleted." },
+    { name: "Flag", changeable: "Yes", caseOfficer: "Can flag, and remove own flags", teamLead: "Can flag, and remove any flag", note: "Our proposal. The RPA backlog has case officers requesting flags." }
+  ] %}
+
+  {% set agreementDetails = [
+    { name: "Agreement number", changeable: "No", caseOfficer: "No", teamLead: "No", note: "Set by the service." },
+    { name: "Agreement type", changeable: "No", caseOfficer: "No", teamLead: "No", note: "IAHW (livestock) or PBR (poultry)." },
+    { name: "Agreement date", changeable: "No", caseOfficer: "No", teamLead: "No", note: "" },
+    { name: "Agreement status", changeable: "No", caseOfficer: "No", teamLead: "No", note: "Set by the service." },
+    { name: "Agreement holder", changeable: "No", caseOfficer: "No", teamLead: "No", note: "From the customer’s record. Changed by the customer, not here." },
+    { name: "SBI number", changeable: "No", caseOfficer: "No", teamLead: "No", note: "From the customer’s record." },
+    { name: "Address", changeable: "No", caseOfficer: "No", teamLead: "No", note: "From the customer’s record." },
+    { name: "Business email", changeable: "No", caseOfficer: "No", teamLead: "No", note: "From the customer’s record." },
+    { name: "Number of herds and flocks", changeable: "To agree", caseOfficer: "Can request", teamLead: "Can change", note: "Could affect what they can claim." },
+    { name: "Flag", changeable: "Yes", caseOfficer: "Can flag, and remove own flags", teamLead: "Can flag, and remove any flag", note: "Our proposal. Flags the customer, and shows on all their claims." }
+  ] %}
+
+  {% macro detailRows(items) %}
+    {%- set rows = [] -%}
+    {%- for item in items -%}
+      {%- set rows = (rows.push([
+        { html: ("<strong>" + item.name + "</strong>") + (("<br>" + govukTag({ text: "In backlog", classes: "govuk-tag--blue" })) if item.inBacklog else "") },
+        { html: govukTag({ text: item.changeable, classes: "govuk-tag--yellow" }) if item.changeable == "To agree" else item.changeable },
+        { text: item.caseOfficer },
+        { text: item.teamLead },
+        { text: item.note }
+      ]), rows) -%}
+    {%- endfor -%}
+    {{ govukTable({
+      captionClasses: "govuk-visually-hidden",
+      head: [
+        { text: "Detail" },
+        { text: "Can it be changed?" },
+        { text: "Case officer" },
+        { text: "Team lead" },
+        { text: "Notes" }
+      ],
+      rows: rows
+    }) }}
+  {% endmacro %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl">Back office optimisation: design note</span>
+      <h1 class="govuk-heading-xl">Who can change what</h1>
+
+      <p class="govuk-body-l">Every detail on a claim and an agreement: whether it can be changed in the back office, and who can change it.</p>
+
+      <p class="govuk-body">
+        Steve Molesworth, with Olayinka (BA)<br>
+        First pass, 20 November 2026
+      </p>
+
+      {{ govukWarningText({ text: "For the team to discuss with the RPA. Not part of the service." }) }}
+
+      <p class="govuk-body">There are 2 types of back office user: case officers and team leads. With the authorisation workflow, a case officer can change some details straight away, and request a change to others for a team lead to approve or reject. Which needs approval should depend on how much a change could affect the payment.</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li><strong>Can change:</strong> they can change it, with no approval</li>
+        <li><strong>Can request:</strong> they can ask, and a team lead approves or rejects it. No one can approve their own request</li>
+        <li><strong>No:</strong> it cannot be changed in the back office</li>
+        <li><strong>To agree:</strong> our suggestion, to agree with the RPA</li>
+      </ul>
+
+      <p class="govuk-body">What each type of user can do overall is on the <a class="govuk-link" href="/prototypes/back-office/personas/#back-office-access">personas page</a>.</p>
+    </div>
+  </div>
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-6">Claim</h2>
+  {{ detailRows(claimDetails) }}
+
+  <h2 class="govuk-heading-l govuk-!-margin-top-6">Agreement</h2>
+  {{ detailRows(agreementDetails) }}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m govuk-!-margin-top-6">Questions for the RPA</h2>
+      <ol class="govuk-list govuk-list--number">
+        <li>Do you agree with which details can be changed, and which need approval?</li>
+        <li>Can any details change after a claim is paid?</li>
+        <li>Today only super admins can change claim data. Is it right that case officers can change low-risk details, such as the vet’s name, without approval?</li>
+        <li>Should anyone be able to change details on the agreement, or should they always come from the customer’s record?</li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

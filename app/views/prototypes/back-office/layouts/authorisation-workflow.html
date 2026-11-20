@@ -10,7 +10,7 @@
   Built only with GOV.UK Frontend macros. No bespoke CSS, HTML components
   or JS.
 
-  The signed-in user is the back office administrator persona from
+  The signed-in user is the case officer persona (Sanjay Mehta) from
   app/views/prototypes/back-office/data/personas.js. A page can set signedInUser to another persona. The signed-in user and "Sign out" sit in the service navigation's inline
   end slot, to the right of the section links. This is the GOV.UK Frontend
   slot for "authentication and account links". The user's name is plain
@@ -28,7 +28,7 @@
   - optionally set changeLogHref, claimsHref, agreementsHref or flagsHref
     to point a navigation link at another version, for example a draft
   - optionally set usersHref to add a "Users" link to the navigation. In
-    the live service it would only show to super admins. navActive and
+    the live service it would only show to team leads. navActive and
     navCurrent for it are "users".
 
   Draft pages
@@ -67,9 +67,9 @@
     <a class="govuk-link govuk-link--inverse govuk-!-font-size-16 app-header-tool__link" href="{{ currentPath }}?widescreen={{ 'off' if widescreen else 'on' }}">Turn widescreen {{ "off" if widescreen else "on" }}</a>
   {%- endif -%}
 {% endset %}
-{% set signedInUser = signedInUser or personas.backOfficeAdministrator %}
+{% set signedInUser = signedInUser or personas.caseOfficer %}
 
-{# The GOV.UK logo links to the Authorisation workflow index #}
+{# The GOV.UK logo links to the Back office optimisation index #}
 {% block govukHeader %}
   {% set headerHtml %}{{ govukHeader({ homepageUrl: workflowPath + "/", classes: "app-header-tool" if draftPath }) }}{% endset %}
   {% if draftPath %}

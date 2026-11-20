@@ -38,7 +38,7 @@
 
   Dates show the time too, as the history records the time of each event.
 
-  The signed-in user is Mei Chen, the back office lead persona, as only team
+  The signed-in user is Mei Chen, the team lead persona, as only team
   leads can approve. In the live service only team leads would see the
   Review link.
 
@@ -84,7 +84,7 @@
 
   {% set recordHtml %}
     <a class="govuk-link" href="{{ draftPath }}/{{ change.page }}">{{ change.record.number }}</a><br>
-    <span class="govuk-hint">{{ "Claim" if change.record.kind == "claim" else "Agreement" }} · {{ change.scheme }}{{ (" · " + change.record.claimType) if change.record.claimType }}</span>
+    <span class="govuk-hint"><strong>{{ "Claim" if change.record.kind == "claim" else "Agreement" }}</strong> · {{ change.scheme }}{{ (" · " + change.record.claimType) if change.record.claimType }}</span>
   {% endset %}
 
   {% set makerHtml %}

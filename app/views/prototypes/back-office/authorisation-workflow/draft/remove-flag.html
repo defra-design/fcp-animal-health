@@ -1,0 +1,82 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: remove a flag (draft v1)
+
+  New page, opened from "Remove flag" in the banner on
+  draft/claim-details.html or draft/agreement-details.html. The address is
+  draft/remove-flag/<flag id>.
+
+  The person who created the flag, or any team lead, can remove it. Others
+  see who created it and that they cannot remove it. This is our proposal,
+  to agree with the RPA. Today only team leads (super admins) manage flags.
+
+  A reason is required, as removing a flag is recorded in the change log
+  and, for a claim, the claim history. The flag is not deleted from the
+  record: it stops showing as active.
+
+  Rendered by app/views/prototypes/back-office/routes.js ("Flags"), with `flag`, `canRemove`, and
+  `errors` when the form has errors.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import roleOn %}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set recordName = "claim" if flag.level == "claim" else "agreement" %}
+{% set pageName = ("Error: " if errors else "") + "Remove flag" %}
+{% set navActive = "claims" if flag.level == "claim" else "agreements" %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set backLinkHref = draftPath + ("/claim-details" if flag.level == "claim" else "/agreement-details") %}
+
+{% block content %}
+  {% set creator = personas[flag.createdBy] %}
+  {% set recordNumber = flag.claim if flag.level == "claim" else flag.agreement %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors %}
+        {{ govukErrorSummary({ titleText: "There is a problem", errorList: [{ text: errors.removeFlagReason, href: "#removeFlagReason" }] }) }}
+      {% endif %}
+
+      <span class="govuk-caption-l">{{ "Claim" if flag.level == "claim" else "Agreement" }} {{ recordNumber }}</span>
+      <h1 class="govuk-heading-l">Remove flag</h1>
+
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Flagged" }, value: { text: ("Claim " + flag.claim) if flag.level == "claim" else ("Agreement " + flag.agreement) } },
+          { key: { text: "Why" }, value: { text: flag.type } },
+          { key: { text: "Note" }, value: { text: flag.note or "None" } },
+          { key: { text: "Flagged by" }, value: { text: creator.fullName + ", " + (roleOn(creator, flag.date) | lower) } },
+          { key: { text: "Date" }, value: { text: (flag.date | govukDate) + " at " + (flag.time | govukTime) } }
+        ]
+      }) }}
+
+      {% if canRemove %}
+        <form method="post" novalidate>
+          {{ govukTextarea({
+            id: "removeFlagReason",
+            name: "removeFlagReason",
+            label: { text: "Why are you removing this flag?", classes: "govuk-label--m" },
+            hint: { text: "This is recorded in the change log" + (" and the claim history" if flag.level == "claim" else "") + "." },
+            errorMessage: { text: errors.removeFlagReason } if errors and errors.removeFlagReason else false
+          }) }}
+
+          <div class="govuk-button-group">
+            {{ govukButton({ text: "Remove flag", classes: "govuk-button--warning" }) }}
+            <a class="govuk-link" href="{{ backLinkHref }}">Cancel</a>
+          </div>
+        </form>
+      {% else %}
+        {{ govukInsetText({ text: "Only " + creator.fullName + ", who created this flag, or a team lead can remove it." }) }}
+        <p class="govuk-body"><a class="govuk-link" href="{{ backLinkHref }}">Back to the {{ recordName }}</a></p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

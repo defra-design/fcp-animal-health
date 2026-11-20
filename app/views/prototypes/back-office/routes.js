@@ -42,6 +42,30 @@ govukPrototypeKit.views.addFilter('govukShortDate', dateString => {
   return `${day}/${month}/${year}`
 })
 
+// How long ago a YYYY-MM-DD date was, counting from today in the UK.
+// daysAgo counts every day. workingDaysAgo counts Monday to Friday only, so
+// on a Monday, the Friday before is 1 working day ago. Used for the "New"
+// and "Updated" tags on the What we changed page.
+const todayInUk = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/London' })
+const utcDate = dateString => new Date(dateString + 'T00:00:00Z')
+
+govukPrototypeKit.views.addFilter('daysAgo', dateString => {
+  return Math.round((utcDate(todayInUk()) - utcDate(dateString)) / 86400000)
+})
+
+govukPrototypeKit.views.addFilter('workingDaysAgo', dateString => {
+  const day = utcDate(dateString)
+  const today = utcDate(todayInUk())
+  let count = 0
+  while (day < today) {
+    day.setUTCDate(day.getUTCDate() + 1)
+    if (day.getUTCDay() !== 0 && day.getUTCDay() !== 6) {
+      count++
+    }
+  }
+  return count
+})
+
 // Format a 24-hour HH:MM time the GOV.UK way, for example '2:15pm', '9am',
 // 'midday' or 'midnight'
 govukPrototypeKit.views.addFilter('govukTime', time => {
@@ -65,13 +89,18 @@ govukPrototypeKit.views.addFilter('govukTime', time => {
 const designs = require('./data/designs')
 const projects = require('./data/projects')
 const personas = require('./data/personas')
+const backOfficeRoles = require('./data/back-office-roles')
+const whatWeChanged = require('./data/what-we-changed')
 
-// Make the lists of projects, designs and personas, the design for the
+// Make the lists of projects, designs, personas and back office roles, the
+// design for the
 // current page, and today's date (UK time, as YYYY-MM-DD) available to
 // every view
 router.use(basePath, (req, res, next) => {
   res.locals.projects = projects
   res.locals.personas = personas
+  res.locals.backOfficeRoles = backOfficeRoles
+  res.locals.whatWeChanged = whatWeChanged
   res.locals.designs = designs
   res.locals.today = new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/London' })
   res.locals.design = designs.find(design => design.url === req.baseUrl + req.path)
@@ -82,7 +111,7 @@ router.use(basePath, (req, res, next) => {
 })
 
 // Draft user pages for the Authorisation workflow, for example
-// /prototypes/back-office/authorisation-workflow/draft/users/backOfficeAdministrator.
+// /prototypes/back-office/authorisation-workflow/draft/users/caseOfficer.
 // Renders draft/user.html with the internal persona whose key is in the URL.
 router.get('/prototypes/back-office/authorisation-workflow/draft/users/:userId', (req, res, next) => {
   const user = personas[req.params.userId]
@@ -148,8 +177,54 @@ const todayInLondon = () => new Date().toLocaleDateString('en-CA', { timeZone: '
 const timeInLondon = () => new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/London' })
 
 // The claim on the draft claim page, which every change made in the
-// prototype is to
+// prototype is to, and its agreement, on the draft agreement page
 const draftClaim = { kind: 'claim', number: 'FUBC-HJ9N-S5PK', claimType: 'Follow-up' }
+const draftAgreement = { kind: 'agreement', number: 'IAHW-NQG3-7WZY', sbi: '107204504' }
+
+// The signed-in user on draft pages: Sanjay Mehta, a case officer. Team lead
+// pages, such as review-change, set their own.
+const signedInUser = 'caseOfficer'
+
+// The role an internal persona had on a date (YYYY-MM-DD), from their role
+// history. Matches the roleOn macro in app/views/prototypes/back-office/includes/authorisation-workflow-macros.html.
+function roleOn (person, date) {
+  const role = ((person && person.roles) || []).find(item => item.from <= date && (!item.to || item.to >= date))
+  return role ? role.role : ''
+}
+
+//
+// Flags
+// =====
+//
+// Agreements and claims can both be flagged. A claim shows when its
+// agreement (the agreement with the same SBI) is flagged, and an agreement
+// shows how many of its claims are flagged. See app/views/prototypes/back-office/data/flags.js.
+//
+// Anyone can flag, as a flag changes nothing for the customer, and flags do
+// not need approval. The person who created a flag, or any team lead, can
+// remove it, giving a reason. This is our proposal, to agree with the RPA.
+//
+// Session data:
+//   flagsAdded   - flags added in the prototype, newest first, in the same
+//                  shape as app/views/prototypes/back-office/data/flags.js, with createdAt
+//   flagsRemoved - flags removed, by flag id: by, date, time, reason and
+//                  createdAt
+//   flagBanner   - set after adding or removing a flag, to show a success
+//                  banner once: action ('added' or 'removed') and level
+//
+
+const flagData = require('./data/flags')
+const claimsData = require('./data/claims')
+const agreementsData = require('./data/agreements')
+
+// Active flags, newest first, with the creator's role at the time
+function activeFlags (data) {
+  const removed = data.flagsRemoved || {}
+  return [...(data.flagsAdded || []), ...flagData.flags]
+    .filter(flag => !removed[flag.id])
+    .map(flag => ({ ...flag, createdByRole: roleOn(personas[flag.createdBy], flag.date) }))
+    .sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time))
+}
 
 // Withdrawal requests with any team lead decision applied: status is
 // 'pending', 'approved' or 'rejected'
@@ -218,12 +293,58 @@ router.use(draftPath, (req, res, next) => {
   res.locals.claimWithdrawalApproved = withdrawals.find(request => request.status === 'approved')
   res.locals.claimWithdrawalLatest = withdrawals[0]
 
+  // Flags, and the claims and agreements lists with their flags
+  const flags = activeFlags(data)
+  const agreementFlagByNumber = {}
+  const agreementFlagBySbi = {}
+  const claimFlagByNumber = {}
+  for (const flag of flags) {
+    if (flag.level === 'agreement') {
+      agreementFlagByNumber[flag.agreement] = agreementFlagByNumber[flag.agreement] || flag
+      agreementFlagBySbi[flag.sbi] = agreementFlagBySbi[flag.sbi] || flag
+    } else {
+      // By claim number and SBI, as the source data has some claim numbers twice
+      const key = flag.claim + '|' + flag.sbi
+      claimFlagByNumber[key] = claimFlagByNumber[key] || flag
+    }
+  }
+  const claimFlags = flags.filter(flag => flag.level === 'claim')
+  res.locals.flags = flags
+  res.locals.flagTypes = flagData.flagTypes
+  res.locals.signedInUserKey = signedInUser
+  res.locals.claimsList = claimsData.map(claim => ({
+    ...claim,
+    claimFlag: claimFlagByNumber[claim.claim + '|' + claim.sbi] || null,
+    agreementFlag: agreementFlagBySbi[claim.sbi] || null
+  }))
+  res.locals.agreementsList = agreementsData.map(agreement => ({
+    ...agreement,
+    flag: agreementFlagByNumber[agreement.agreement] || null,
+    flaggedClaims: claimFlags.filter(flag => flag.sbi === agreement.sbi).length
+  }))
+  // The draft claim and agreement's flags
+  res.locals.draftClaimFlag = claimFlagByNumber[draftClaim.number + '|' + draftAgreement.sbi] || null
+  res.locals.draftAgreementFlag = agreementFlagByNumber[draftAgreement.number] || null
+  res.locals.draftAgreementClaimFlags = claimFlags.filter(flag => flag.sbi === draftAgreement.sbi)
+
+  // Flags added to and removed from the draft claim in the prototype, for
+  // the claim history
+  const removedFlags = data.flagsRemoved || {}
+  const sessionFlags = data.flagsAdded || []
+  const draftClaimFlagEvents = [
+    ...sessionFlags.filter(flag => flag.claim === draftClaim.number).map(flag => ({ ...flag, by: flag.createdBy, kind: 'flag' })),
+    ...[...sessionFlags, ...flagData.flags]
+      .filter(flag => flag.claim === draftClaim.number && removedFlags[flag.id])
+      .map(flag => ({ ...removedFlags[flag.id], flag, kind: 'flagRemoved' }))
+  ]
+
   // Batches, notes and withdrawal requests together, newest first, each with
   // kind 'changes', 'note' or 'withdrawal'
   res.locals.claimSessionEvents = [
     ...batches.map(batch => ({ ...batch, kind: 'changes' })),
     ...(data.claimNotes || []).map(note => ({ ...note, kind: 'note' })),
-    ...withdrawals.map(request => ({ ...request, kind: 'withdrawal' }))
+    ...withdrawals.map(request => ({ ...request, kind: 'withdrawal' })),
+    ...draftClaimFlagEvents
   ].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''))
 
   // The draft change log: changes made in the prototype, then the
@@ -258,24 +379,67 @@ router.use(draftPath, (req, res, next) => {
     approval: request.status,
     page: 'claim-details'
   }))
+  // Flags added and removed in the prototype. They do not need approval.
+  const flagRecord = flag => flag.level === 'claim' ? draftClaim : { kind: 'agreement', number: flag.agreement }
+  const flagPage = flag => flag.level === 'claim' ? 'claim-details' : 'agreement-details'
+  const flagReason = flag => flag.type + (flag.note ? ': ' + flag.note : '')
+  const sessionFlagChanges = [
+    ...sessionFlags.map(flag => ({
+      id: flag.id,
+      date: flag.date,
+      time: flag.time,
+      record: flagRecord(flag),
+      scheme: flag.scheme,
+      types: ['Flag created'],
+      summary: 'Flag created',
+      reason: flagReason(flag),
+      by: flag.createdBy,
+      approval: 'none',
+      page: flagPage(flag)
+    })),
+    ...[...sessionFlags, ...flagData.flags].filter(flag => removedFlags[flag.id]).map(flag => ({
+      id: 'removed-' + flag.id,
+      date: removedFlags[flag.id].date,
+      time: removedFlags[flag.id].time,
+      record: flagRecord(flag),
+      scheme: flag.scheme,
+      types: ['Flag removed'],
+      summary: 'Flag removed',
+      reason: removedFlags[flag.id].reason,
+      by: removedFlags[flag.id].by,
+      approval: 'none',
+      page: flagPage(flag)
+    }))
+  ]
   const staticChanges = changeLog.entries.map(entry => {
     const decision = decisions[entry.id]
     return decision ? { ...entry, approval: decision.decision } : entry
   })
   // Who decided, when and their notes, from the decision if there is one
   const when = entry => entry.date + ' ' + (entry.time || '')
-  res.locals.changeLogEntries = [...sessionChanges, ...sessionWithdrawals, ...staticChanges]
+  res.locals.changeLogEntries = [...sessionChanges, ...sessionWithdrawals, ...sessionFlagChanges, ...staticChanges]
     .map(entry => {
       const decision = decisions[entry.id]
       return decision ? { ...entry, decidedBy: decision.by, decidedDate: decision.date, decidedTime: decision.time, decisionNotes: decision.notes } : entry
     })
     .sort((a, b) => when(b).localeCompare(when(a)))
   res.locals.changeLogTypes = changeLog.changeTypes
+  // For the change log's "When" filter: the date and time (UK, as
+  // 'YYYY-MM-DD HH:MM') 24 hours, 7 days and 30 days ago
+  const londonDateTime = date => date.toLocaleDateString('en-CA', { timeZone: 'Europe/London' }) + ' ' +
+    date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Europe/London' })
+  const hoursAgo = hours => londonDateTime(new Date(Date.now() - hours * 60 * 60 * 1000))
+  res.locals.changeLogSince = { day: hoursAgo(24), week: hoursAgo(24 * 7), month: hoursAgo(24 * 30) }
 
   // Show the banner after saving once only
   if (req.method === 'GET' && req.path === '/claim-details') {
     res.locals.claimEditBanner = data.claimEditBanner
     delete data.claimEditBanner
+  }
+  // Show the banner after adding or removing a flag once only
+  if (req.method === 'GET' && (req.path === '/claim-details' || req.path === '/agreement-details')) {
+    res.locals.flagBanner = data.flagBanner
+    delete data.flagBanner
   }
   // Show the banner after a team lead's decision once only
   if (req.method === 'GET' && req.path === '/change-log') {
@@ -297,6 +461,9 @@ router.get(claimEditPath + '/reset', (req, res) => {
   delete req.session.data.claimEditBatches
   delete req.session.data.claimNotes
   delete req.session.data.claimWithdrawals
+  delete req.session.data.flagsAdded
+  delete req.session.data.flagsRemoved
+  delete req.session.data.flagBanner
   delete req.session.data.claimEditBanner
   delete req.session.data.changeDecisions
   delete req.session.data.changeLogBanner
@@ -316,7 +483,7 @@ router.post(claimEditPath + '/check', (req, res) => {
     createdAt: new Date().toISOString(),
     date: todayInLondon(),
     time: timeInLondon(),
-    by: 'backOfficeAdministrator',
+    by: 'caseOfficer',
     status: needsApproval ? 'pending' : 'saved',
     reason: (req.body.claimEditReason || '').trim(),
     changes: changes.map(field => ({ id: field.id, label: field.label, type: field.type, from: field.current, to: field.value }))
@@ -373,7 +540,7 @@ router.post(draftPath + '/add-note', (req, res) => {
     createdAt: new Date().toISOString(),
     date: todayInLondon(),
     time: timeInLondon(),
-    by: 'backOfficeAdministrator',
+    by: 'caseOfficer',
     text
   }, ...(data.claimNotes || [])]
   data.claimEditBanner = { status: 'note' }
@@ -404,7 +571,7 @@ router.post(draftPath + '/withdraw-claim', (req, res) => {
     createdAt: new Date().toISOString(),
     date: todayInLondon(),
     time: timeInLondon(),
-    by: 'backOfficeAdministrator',
+    by: 'caseOfficer',
     reason: answer('withdrawReason') === 'Other' ? answer('withdrawReasonOther') : answer('withdrawReason'),
     discovered,
     contactName: customerContacted ? answer('withdrawContactName') : '',
@@ -417,6 +584,106 @@ router.post(draftPath + '/withdraw-claim', (req, res) => {
     delete data[key]
   }
   res.redirect(draftPath + '/claim-details')
+})
+
+// Flag the draft claim or its agreement: draft/flag?level=claim or
+// draft/flag?level=agreement. A type is needed, and a note when the type is
+// "Other". A claim or agreement that is already flagged cannot be flagged
+// again.
+const flagPath = draftPath + '/flag'
+
+function renderFlagForm (res, level, extra = {}) {
+  res.locals.design = designs.find(design => design.url === flagPath)
+  res.render('prototypes/back-office/authorisation-workflow/draft/flag', { level, ...extra })
+}
+
+router.get(flagPath, (req, res) => {
+  const level = req.query.level === 'agreement' ? 'agreement' : 'claim'
+  renderFlagForm(res, level)
+})
+
+router.post(flagPath, (req, res) => {
+  const level = req.body.flagLevel === 'agreement' ? 'agreement' : 'claim'
+  const returnPage = draftPath + (level === 'claim' ? '/claim-details' : '/agreement-details')
+  if ((level === 'claim' && res.locals.draftClaimFlag) || (level === 'agreement' && res.locals.draftAgreementFlag)) {
+    return res.redirect(returnPage)
+  }
+  const type = (req.body.flagType || '').trim()
+  const note = (req.body.flagNote || '').trim()
+  const errors = {}
+  if (!flagData.flagTypes.some(item => item.value === type)) {
+    errors.flagType = 'Select why you are flagging this ' + level
+  } else if (type === 'Other' && !note) {
+    errors.flagNote = 'Enter a note saying why you are flagging this ' + level
+  }
+  if (Object.keys(errors).length) {
+    return renderFlagForm(res, level, { errors, values: req.body })
+  }
+  const data = req.session.data
+  data.flagsAdded = [{
+    id: 'flag-' + Date.now(),
+    createdAt: new Date().toISOString(),
+    level,
+    agreement: draftAgreement.number,
+    sbi: draftAgreement.sbi,
+    claim: level === 'claim' ? draftClaim.number : undefined,
+    scheme: 'IAHW',
+    type,
+    note,
+    createdBy: signedInUser,
+    date: todayInLondon(),
+    time: timeInLondon()
+  }, ...(data.flagsAdded || [])]
+  data.flagBanner = { action: 'added', level }
+  for (const key of ['flagType', 'flagNote', 'flagLevel']) {
+    delete data[key]
+  }
+  res.redirect(returnPage)
+})
+
+// Remove a flag: draft/remove-flag/<flag id>. Only the person who created
+// it, or a team lead, can remove it, and they must say why.
+const removeFlagPath = draftPath + '/remove-flag'
+
+function renderRemoveFlag (res, flag, extra = {}) {
+  res.locals.design = designs.find(design => design.url === removeFlagPath)
+  const canRemove = flag.createdBy === signedInUser || roleOn(personas[signedInUser], todayInLondon()) === 'Back office team lead'
+  res.render('prototypes/back-office/authorisation-workflow/draft/remove-flag', { flag, canRemove, ...extra })
+}
+
+// draft/remove-flag on its own shows the draft claim's flag, or else a flag
+// the signed-in user created
+router.get(removeFlagPath, (req, res) => {
+  const flags = res.locals.flags
+  const flag = res.locals.draftClaimFlag || flags.find(item => item.createdBy === signedInUser) || flags[0]
+  res.redirect(removeFlagPath + '/' + encodeURIComponent(flag.id))
+})
+
+router.get(removeFlagPath + '/:flagId', (req, res, next) => {
+  const flag = res.locals.flags.find(item => item.id === req.params.flagId)
+  if (!flag) {
+    return next()
+  }
+  renderRemoveFlag(res, flag)
+})
+
+router.post(removeFlagPath + '/:flagId', (req, res, next) => {
+  const flag = res.locals.flags.find(item => item.id === req.params.flagId)
+  if (!flag) {
+    return next()
+  }
+  const reason = (req.body.removeFlagReason || '').trim()
+  if (!reason) {
+    return renderRemoveFlag(res, flag, { errors: { removeFlagReason: 'Enter why you are removing this flag' } })
+  }
+  const data = req.session.data
+  data.flagsRemoved = {
+    ...(data.flagsRemoved || {}),
+    [flag.id]: { by: signedInUser, date: todayInLondon(), time: timeInLondon(), reason, createdAt: new Date().toISOString() }
+  }
+  data.flagBanner = { action: 'removed', level: flag.level }
+  delete data.removeFlagReason
+  res.redirect(draftPath + (flag.level === 'claim' ? '/claim-details' : '/agreement-details'))
 })
 
 //
@@ -459,7 +726,7 @@ router.get(workflowPath + '/', (req, res, next) => {
 //
 
 const reviewPath = draftPath + '/review-change'
-const reviewer = 'backOfficeLead'
+const reviewer = 'teamLead'
 
 router.get(reviewPath, (req, res) => {
   const entries = res.locals.changeLogEntries

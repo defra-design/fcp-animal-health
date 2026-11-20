@@ -6,7 +6,7 @@
 
   Authorisation workflow: agreement details (draft v1)
 
-  Draft redesign of ../agreement-details.html, applying the agreement
+  Draft redesign of the live agreement details page, applying the agreement
   details points in ../notes.html:
   1. Same heading pattern as the claim page: an "Agreement" caption, the
      agreement number alone as the heading, and the status underneath
@@ -18,7 +18,13 @@
   3. Address in sentence case, one line per part, postcode in capitals.
   4. A "Claims for this agreement" table in the lower half of the page,
      showing claim number (links to the claim), claim type, date created,
-     date last updated and current status.
+     date last updated, flag and current status.
+  5. Flags. "Flag this agreement" opens draft/flag.html?level=agreement.
+     When the agreement, or any of its claims, is flagged, a blue banner
+     says so with warning text (the exclamation mark): why, the note, who
+     flagged it and when. The person who flagged the agreement, or a team
+     lead, sees "Remove flag". Flagged claims show a tag in the claims
+     table. An agreement flag shows on every claim for this customer.
 
   Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
   components or JS.
@@ -58,10 +64,47 @@
     }) }}
   {% endset %}
 
+  {# Flags on this agreement and its claims #}
+  {% set claimFlagCount = draftAgreementClaimFlags | length %}
+  {% set flagWarningsHtml %}
+    {% if draftAgreementFlag %}
+      {% set agreementFlagHtml %}
+        <strong>This agreement is flagged:</strong> {{ draftAgreementFlag.type }}.{{ (" " + (draftAgreementFlag.note | escape)) if draftAgreementFlag.note }}
+        <br><span class="govuk-!-font-weight-regular">Flagged by {{ personas[draftAgreementFlag.createdBy].fullName }} on {{ draftAgreementFlag.date | govukDate }}.{% if draftAgreementFlag.createdBy == signedInUserKey %} <a class="govuk-notification-banner__link" href="{{ draftPath }}/remove-flag/{{ draftAgreementFlag.id }}">Remove flag<span class="govuk-visually-hidden"> from this agreement</span></a>{% endif %}</span>
+      {% endset %}
+      {{ govukWarningText({ html: agreementFlagHtml, classes: "govuk-!-margin-bottom-2" }) }}
+    {% endif %}
+    {% if claimFlagCount %}
+      {% set claimFlagsHtml %}
+        <strong>{{ claimFlagCount }} {{ "claim" if claimFlagCount == 1 else "claims" }} for this agreement {{ "is" if claimFlagCount == 1 else "are" }} flagged.</strong>
+        <br><span class="govuk-!-font-weight-regular"><a class="govuk-notification-banner__link" href="#claims">View the claims</a></span>
+      {% endset %}
+      {{ govukWarningText({ html: claimFlagsHtml, classes: "govuk-!-margin-bottom-2" }) }}
+    {% endif %}
+  {% endset %}
+
+  {% if flagBanner %}
+    {% set bannerHtml %}
+      <h3 class="govuk-notification-banner__heading">{{ ("Agreement flagged" if flagBanner.level == "agreement" else "Claim flagged") if flagBanner.action == "added" else "Flag removed" }}</h3>
+      {% if flagBanner.action == "added" %}<p class="govuk-body">The flag shows here, in the agreements list, on every claim for this customer and in the flags list.</p>{% endif %}
+    {% endset %}
+  {% elif draftAgreementFlag or claimFlagCount %}
+    {% set bannerHtml %}
+      <h3 class="govuk-notification-banner__heading">{{ "This agreement is flagged" if draftAgreementFlag else "A claim for this agreement is flagged" }}</h3>
+      {{ flagWarningsHtml | safe }}
+    {% endset %}
+  {% endif %}
+
+  {% set claimFlagTag = govukTag({ text: "Flagged", classes: "govuk-tag--yellow" }) if draftClaimFlag else "" %}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <span class="govuk-caption-l">Agreement</span>
       <h1 class="govuk-heading-l">IAHW-NQG3-7WZY</h1>
+
+      {% if bannerHtml %}
+        {{ govukNotificationBanner({ html: bannerHtml, type: "success" if flagBanner else "" }) }}
+      {% endif %}
 
       {{ govukSummaryList({
         classes: "govuk-summary-list--no-border",
@@ -79,12 +122,16 @@
           { key: { text: "SBI number" }, value: { text: holder.business.sbi } },
           { key: { text: "Address" }, value: { html: holder.business.address | join("<br>") } },
           { key: { text: "Business email" }, value: { text: holder.business.email } },
-          { key: { text: "Flagged" }, value: { text: "No" } },
+          { key: { text: "Flagged" }, value: { text: ("Yes: " + draftAgreementFlag.type) if draftAgreementFlag else "No" } },
           { key: { text: "Number of herds and flocks" }, value: { html: herdsHtml } }
         ]
       }) }}
 
-      <h2 class="govuk-heading-m govuk-!-margin-top-8">Claims for this agreement</h2>
+      {% if not draftAgreementFlag %}
+        {{ govukButton({ text: "Flag this agreement", classes: "govuk-button--secondary", href: draftPath + "/flag?level=agreement" }) }}
+      {% endif %}
+
+      <h2 class="govuk-heading-m govuk-!-margin-top-8" id="claims">Claims for this agreement</h2>
 
       {{ govukTable({
         caption: "Claims for this agreement",
@@ -94,6 +141,7 @@
           { text: "Claim type" },
           { text: "Date created" },
           { text: "Last updated" },
+          { text: "Flag" },
           { text: "Status" }
         ],
         rows: [
@@ -102,6 +150,7 @@
             { text: "Follow-up" },
             { text: "30/10/2026" },
             { text: "30/10/2026" },
+            { html: claimFlagTag },
             { html: govukTag({ text: "In check", classes: "govuk-tag--orange" }) }
           ],
           [
@@ -109,6 +158,7 @@
             { text: "Review" },
             { text: "12/1/2025" },
             { text: "20/2/2025" },
+            { text: "" },
             { html: govukTag({ text: "Paid", classes: "govuk-tag--green" }) }
           ]
         ]

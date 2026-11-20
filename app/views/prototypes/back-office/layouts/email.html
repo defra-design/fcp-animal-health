@@ -1,0 +1,60 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Layout for email designs
+  ========================
+
+  Shows an email as it would arrive: who it is from and to, and the
+  subject line, then a GOV.UK header and the body, in a column about as
+  wide as an email (two-thirds of the page).
+
+  Based on the earlier email designs in this repo, for example
+  app/views/prototypes/poultry-v01/views/new-user/email-claim-review-confirmation.njk, which
+  use inline styles and tables, as a real email would. This version uses
+  GOV.UK Frontend macros and classes only, as it is a design to look at,
+  not an email to send. GOV.UK Notify would send the real email.
+
+  Each email page sets:
+    emailFrom, emailTo, emailSubject - text
+  and puts the body in the emailBody block.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% set workflowPath = "/prototypes/back-office/authorisation-workflow" %}
+{% set pageName = (design.title if design else "Email") %}
+
+{% block header %}{% endblock %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Research prototypes", href: "/" },
+      { text: "Back office optimisation", href: workflowPath + "/" },
+      { text: "Email: " + pageName }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body">
+        <strong>From:</strong> {{ emailFrom }}<br>
+        <strong>To:</strong> {{ emailTo }}<br>
+        <strong>Subject line:</strong> {{ emailSubject }}
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+      {{ govukHeader({ homepageUrl: "#", containerClasses: "govuk-!-padding-left-3" }) }}
+
+      <div class="govuk-!-margin-top-6">
+        {% block emailBody %}{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -6,9 +6,8 @@
 
   Authorisation workflow: claims (draft v1)
 
-  Draft copy of ../claims.html, so the draft journey stays in the draft
-  pages. The only change is that links go to the draft pages. Make draft
-  changes here, not in ../claims.html, which is the baseline.
+  Started as a copy of the earlier rebuild of the claims list (deleted on
+  20 November 2026; the previous designs are in the poultry prototype).
 
   Copied from the claims, agreements and flags pages of the poultry-v01
   back office prototype (fcp-animal-health on Heroku), on 19 November 2026.
@@ -37,6 +36,24 @@
     23 claims on page 1, and the pagination is a placeholder.
   - Claim numbers REDC-7G73-TY22, REPI-2QJ8-IFVK and REPI-SX14-82FL appear
     twice, as in the source.
+  - The claims are in app/views/prototypes/back-office/data/claims.js. The first is the claim on the
+    draft claim page, so flags added there show here.
+
+  To discuss
+  ----------
+  The table has 8 columns, which is a lot to scan. We suggest removing
+  Species and CPH, keeping Species as a filter. See "Still to agree" in
+  ../notes.html. Not changed yet.
+
+  Flags
+  -----
+  A claim can be flagged itself, or belong to a flagged agreement (the
+  agreement with the same SBI, which is the customer). The Flags column
+  sits next to the SBI and shows either or both:
+  - "Agreement flagged" (red): the customer is flagged, a serious concern
+  - "Claim flagged" (yellow): something about this claim needs a look
+  The Flag filter can show claims that are flagged, that belong to a
+  flagged agreement, either, or neither.
 #}
 
 {% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
@@ -45,31 +62,9 @@
 {% set navCurrent = "claims" %}
 
 {% block content %}
-  {% set claims = [
-    { claim: "PORE-F775-GVVX", claimType: "Review", agreementType: "pbr", flagged: false, species: "Broilers, Ducks, Turkeys", speciesKey: "poultry", herd: "East Farm", cph: "08/035/3979", sbi: "200439296", date: "2025-10-29", status: "On hold" },
-    { claim: "REBC-M385-75C8", claimType: "Review", agreementType: "iahw", flagged: true, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Commercial", cph: "20/101/4272", sbi: "107856490", date: "2025-10-29", status: "In check" },
-    { claim: "REBC-D9H7-BJQX", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Harwood 1", cph: "10/131/7588", sbi: "106740213", date: "2025-10-29", status: "Recommended to pay" },
-    { claim: "FUPI-4496-S18L", claimType: "Endemics", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Redstone Farm Sows", cph: "18/035/7572", sbi: "119648441", date: "2025-10-29", status: "On hold" },
-    { claim: "RESH-6598-1974", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "South field A", cph: "08/042/1752", sbi: "106415197", date: "2025-10-28", status: "Withdrawn" },
-    { claim: "RESH-7539-7325", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "South field B", cph: "08/042/6613", sbi: "106415197", date: "2025-10-28", status: "In check" },
-    { claim: "RESH-1740-7498", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Late breds A", cph: "08/042/1752", sbi: "106415197", date: "2025-10-28", status: "In check" },
-    { claim: "RESH-3277-8052", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Late breds B", cph: "08/042/6613", sbi: "106415197", date: "2025-10-28", status: "In check" },
-    { claim: "REBC-IQDU-K8XP", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Braybrook Mixed Beef Herd", cph: "09/056/9328", sbi: "107918634", date: "2025-10-28", status: "In check" },
-    { claim: "RESH-MU5B-Z59E", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Hawksmoor Mules", cph: "37/004/4781", sbi: "113469205", date: "2025-10-27", status: "In check" },
-    { claim: "FUSH-H4YD-EV2K", claimType: "Endemics", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Store Lambs", cph: "18/070/2217", sbi: "105832491", date: "2025-10-27", status: "In check" },
-    { claim: "RESH-PIQR-HHXR", claimType: "Review", agreementType: "iahw", flagged: false, species: "Sheep", speciesKey: "sheep", herd: "Pedigrees", cph: "25/013/5594", sbi: "109568312", date: "2025-10-27", status: "Ready to pay" },
-    { claim: "FUPI-WKTW-AJQE", claimType: "Endemics", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Northwind Breeding Herd", cph: "41/063/8049", sbi: "123295764", date: "2025-10-27", status: "In check" },
-    { claim: "REPI-3JR1-XSL3", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Merrick Finishing Herd", cph: "08/028/3470", sbi: "106843519", date: "2025-10-27", status: "Ready to pay" },
-    { claim: "REBC-MMZP-HGK1", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Angus", cph: "29/045/6903", sbi: "109452130", date: "2025-10-27", status: "Ready to pay" },
-    { claim: "REPI-XDHJ-XHJN", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Hillview Site 3", cph: "14/023/9126", sbi: "144327896", date: "2025-10-27", status: "Ready to pay" },
-    { claim: "REBC-6L4Q-FKV9", claimType: "Review", agreementType: "iahw", flagged: false, species: "Beef cattle", speciesKey: "beef-cattle", herd: "Commercial", cph: "33/067/1429", sbi: "113789054", date: "2025-10-27", status: "Ready to pay" },
-    { claim: "REDC-7G73-TY22", claimType: "Review", agreementType: "iahw", flagged: false, species: "Dairy cattle", speciesKey: "dairy-cattle", herd: "Dunnings", cph: "46/012/8887", sbi: "208945671", date: "2025-10-27", status: "Ready to pay" },
-    { claim: "REPI-2QJ8-IFVK", claimType: "Review", agreementType: "iahw", flagged: true, species: "Pigs", speciesKey: "pigs", herd: "Greenbank Pigs CU", cph: "21/036/0032", sbi: "107563220", date: "2025-10-26", status: "Ready to pay" },
-    { claim: "REPI-SX14-82FL", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Finishers Site 9", cph: "03/075/4578", sbi: "116118345", date: "2025-10-26", status: "Ready to pay" },
-    { claim: "REDC-7G73-TY22", claimType: "Review", agreementType: "iahw", flagged: false, species: "Dairy cattle", speciesKey: "dairy-cattle", herd: "Commercial", cph: "56/342/7575", sbi: "106616010", date: "2025-10-25", status: "Ready to pay" },
-    { claim: "REPI-2QJ8-IFVK", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Pedigrees", cph: "65/757/8567", sbi: "107680408", date: "2025-10-25", status: "Ready to pay" },
-    { claim: "REPI-SX14-82FL", claimType: "Review", agreementType: "iahw", flagged: false, species: "Pigs", speciesKey: "pigs", herd: "Herd 1", cph: "34/644/9684", sbi: "107680408", date: "2025-10-25", status: "Ready to pay" }
-  ] %}
+  {# Claims and their flags, from app/views/prototypes/back-office/data/claims.js and data/flags.js,
+     set by app/views/prototypes/back-office/routes.js #}
+  {% set claims = claimsList %}
 
   {% set statusClasses = { "Ready to pay": "", "In check": "govuk-tag--orange", "Recommended to pay": "govuk-tag--orange", "On hold": "govuk-tag--purple", Paid: "govuk-tag--green", Withdrawn: "govuk-tag--grey" } %}
 
@@ -90,17 +85,26 @@
       and (agreementType == "all" or item.agreementType == agreementType)
       and (claimType == "all" or item.claimType == claimType)
       and (species == "all" or item.speciesKey == species)
-      and (flag == "all" or (flag == "flagged") == item.flagged)
+      and (flag == "all"
+        or (flag == "claim" and item.claimFlag)
+        or (flag == "agreement" and item.agreementFlag)
+        or (flag == "either" and (item.claimFlag or item.agreementFlag))
+        or (flag == "none" and not item.claimFlag and not item.agreementFlag))
       and (status == "all" or item.status == status)
       and (not fromIso or item.date >= fromIso)
       and (not toIso or item.date <= toIso) %}
+      {% set flagsHtml %}
+        {% if item.agreementFlag %}{{ govukTag({ text: "Agreement flagged", classes: "govuk-tag--red govuk-!-margin-bottom-1" }) }}{% endif %}
+        {% if item.agreementFlag and item.claimFlag %}<br>{% endif %}
+        {% if item.claimFlag %}{{ govukTag({ text: "Claim flagged", classes: "govuk-tag--yellow" }) }}{% endif %}
+      {% endset %}
       {% set rows = (rows.push([
         { html: '<a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/draft/claim-details">' + item.claim + '</a><br>' + item.claimType },
-        { text: "Yes" if item.flagged else "" },
+        { text: item.sbi },
+        { html: flagsHtml },
         { text: item.species },
         { text: item.herd },
         { text: item.cph },
-        { text: item.sbi },
         { text: item.date | govukShortDate },
         { html: govukTag({ text: item.status, classes: statusClasses[item.status] }) }
       ]), rows) %}
@@ -108,7 +112,7 @@
   {% endfor %}
 
   {% set advancedHtml %}
-        <form method="get" action="/prototypes/back-office/authorisation-workflow/claims" novalidate>
+        <form method="get" action="/prototypes/back-office/authorisation-workflow/draft/claims" novalidate>
           <input type="hidden" name="claimsSearch" value="{{ data.claimsSearch }}">
           <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-third">
@@ -166,9 +170,11 @@
                 classes: "govuk-!-width-full",
                 value: data.claimsFlag or "all",
                 items: [
-                { value: "all", text: "All flags" },
-                { value: "flagged", text: "Flagged" },
-                { value: "not-flagged", text: "Not flagged" }
+                { value: "all", text: "All claims" },
+                { value: "either", text: "Claim or agreement flagged" },
+                { value: "claim", text: "Claim flagged" },
+                { value: "agreement", text: "Agreement flagged" },
+                { value: "none", text: "Not flagged" }
                 ]
               }) }}
             </div>
@@ -220,7 +226,7 @@
 
   <h1 class="govuk-heading-xl">Claims</h1>
 
-  <form method="get" action="/prototypes/back-office/authorisation-workflow/claims" novalidate>
+  <form method="get" action="/prototypes/back-office/authorisation-workflow/draft/claims" novalidate>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         {{ govukInput({
@@ -250,11 +256,11 @@
       classes: "govuk-table--small-text-until-tablet",
       head: [
         { text: "Claim number and type" },
-        { text: "Flag" },
+        { text: "SBI" },
+        { text: "Flags" },
         { text: "Species" },
         { text: "Herd or site name" },
         { text: "CPH" },
-        { text: "SBI" },
         { text: "Claim date" },
         { text: "Status" }
       ],

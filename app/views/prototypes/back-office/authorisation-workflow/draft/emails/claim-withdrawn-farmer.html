@@ -1,0 +1,68 @@
+{% extends "prototypes/back-office/layouts/email.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: claim withdrawn email to the farmer (draft v1)
+
+  Sent to the agreement holder when a team lead approves a withdrawal.
+  Olayinka confirmed a withdrawn claim disappears from the farmer's
+  account. Without an email the claim would vanish with no explanation,
+  which is likely to lead to calls. Olayinka agreed on 20 November 2026
+  that the farmer should be told. GOV.UK guidance is to tell people when
+  the status of something they applied for changes.
+
+  It says which claim, when and why it was withdrawn, that they can no
+  longer see it, and how to contact the RPA if they think it is wrong.
+  The RPA contact details are from the earlier claim emails in this repo.
+
+  Shows the withdrawal approved in the prototype, or the example on
+  draft/claim-withdrawn if there is none.
+
+  To agree with the RPA:
+  - customer-facing wording for each withdrawal reason. The reasons in the
+    withdraw claim form are written for staff
+  - whether the farmer can make a new claim for the same visit
+  - whether an agent should get a copy
+
+  Built only with GOV.UK Frontend macros and classes, in
+  app/views/prototypes/back-office/layouts/email.html.
+#}
+
+{% set holder = personas.farmer %}
+{% set withdrawal = claimWithdrawalApproved or {
+  reason: "Data from a different claim was entered",
+  decision: { date: "2026-11-12" }
+} %}
+
+{% set emailFrom = "Get funding to improve animal health and welfare" %}
+{% set emailTo = holder.email %}
+{% set emailSubject = "Your claim FUBC-HJ9N-S5PK has been withdrawn" %}
+
+{% block emailBody %}
+  <h1 class="govuk-heading-l">Your claim has been withdrawn</h1>
+
+  <p class="govuk-body">We have withdrawn your claim for an animal health and welfare follow-up.</p>
+
+  {{ govukSummaryList({
+    rows: [
+      { key: { text: "Claim number" }, value: { text: "FUBC-HJ9N-S5PK" } },
+      { key: { text: "Improve Animal Health and Welfare (IAHW) agreement number" }, value: { text: "IAHW-NQG3-7WZY" } },
+      { key: { text: "Business" }, value: { text: holder.business.name } },
+      { key: { text: "Date withdrawn" }, value: { text: withdrawal.decision.date | govukDate } },
+      { key: { text: "Why we withdrew it" }, value: { text: withdrawal.reason } }
+    ]
+  }) }}
+
+  <p class="govuk-body">You will no longer see this claim in your account. We will not pay it.</p>
+
+  <h2 class="govuk-heading-m">If you think this is wrong</h2>
+  <p class="govuk-body">Contact the Rural Payments Agency (RPA) and give your claim number.</p>
+  <p class="govuk-body">Email: <a class="govuk-link" href="#">ruralpayments@defra.gov.uk</a></p>
+  <ul class="govuk-list">
+    <li>Telephone: 03000 200 301</li>
+    <li>Monday to Friday, 8:30am to 5pm, except bank holidays</li>
+  </ul>
+  <p class="govuk-body"><a class="govuk-link" href="#">Find out about call charges</a></p>
+{% endblock %}

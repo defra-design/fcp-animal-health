@@ -61,12 +61,14 @@ const changeTypes = {
     'URN or test certificate changed',
     'Follow-up test result changed',
     'Claim withdrawal requested',
-    'New claim via Assisted Digital'
+    'New claim via Assisted Digital',
+    'Flag created',
+    'Flag removed'
   ],
   agreement: [
     'New agreement via Assisted Digital',
     'Flag created',
-    'Flag deleted'
+    'Flag removed'
   ]
 }
 
@@ -75,15 +77,15 @@ const entries = [
     id: 'example-1',
     date: '2026-11-17',
     time: '09:42',
-    record: { kind: 'agreement', number: 'IAHW-NQG3-7WZY' },
+    record: { kind: 'claim', number: 'REBC-M385-75C8', claimType: 'Review' },
     scheme: 'IAHW',
-    types: ['Flag created'],
-    summary: 'Flag created',
-    changes: [{ label: 'Flag', from: 'Not flagged', to: 'Flagged' }],
-    reason: 'The agreement holder has 2 claims for the same herd with the same date of visit. Flag the agreement while we check them.',
-    by: 'backOfficeAdministrator',
+    types: ['Date of visit changed'],
+    summary: 'Date of visit changed',
+    changes: [{ label: 'Date of visit', type: 'date', from: '2025-10-12', to: '2025-10-21' }],
+    reason: 'The vet entered the date of sampling as the date of visit. The vet’s summary shows the visit was on 21 October.',
+    by: 'leilaHaddad',
     approval: 'pending',
-    page: 'agreement-details'
+    page: 'claim-details'
   },
   {
     id: 'example-2',
@@ -94,7 +96,7 @@ const entries = [
     types: ['Vet’s name changed', 'Vet’s RCVS number changed'],
     summary: '2 claim details changed',
     fields: ['Vet’s name', 'Vet’s RCVS number'],
-    by: 'backOfficeApprover',
+    by: 'helenMarsh',
     approval: 'none',
     page: 'claim-details'
   },
@@ -114,9 +116,9 @@ const entries = [
       contactMethod: 'Phone',
       details: 'Customer contacted RPA and asked to withdraw the claim, as details from their review claim were entered.'
     },
-    by: 'backOfficeAdministrator',
+    by: 'caseOfficer',
     approval: 'approved',
-    decidedBy: 'backOfficeLead',
+    decidedBy: 'teamLead',
     decidedDate: '2026-11-12',
     decidedTime: '09:05',
     page: 'claim-withdrawn'
@@ -131,7 +133,7 @@ const entries = [
     summary: 'New agreement via Assisted Digital',
     by: 'Assisted Digital',
     approval: 'approved',
-    decidedBy: 'backOfficeLead',
+    decidedBy: 'teamLead',
     decidedDate: '2026-11-07',
     decidedTime: '15:20',
     page: 'agreement-details'
@@ -144,7 +146,7 @@ const entries = [
     scheme: 'PBR',
     types: ['URN or test certificate changed'],
     summary: 'URN or test certificate changed',
-    by: 'backOfficeAdministrator',
+    by: 'caseOfficer',
     approval: 'none',
     page: 'claim-details'
   },
@@ -156,9 +158,11 @@ const entries = [
     scheme: 'IAHW',
     types: ['Date of visit changed'],
     summary: 'Date of visit changed',
-    by: 'backOfficeAdministrator',
+    changes: [{ label: 'Date of visit', type: 'date', from: '2025-10-02', to: '2024-12-18' }],
+    reason: 'The vet’s summary has a different date of visit.',
+    by: 'caseOfficer',
     approval: 'rejected',
-    decidedBy: 'backOfficeLead',
+    decidedBy: 'teamLead',
     decidedDate: '2026-10-29',
     decidedTime: '10:02',
     decisionNotes: 'The new date is before the agreement started, so the claim would not be eligible. Check the date with the vet.',
@@ -170,11 +174,11 @@ const entries = [
     time: '08:55',
     record: { kind: 'agreement', number: 'IAHW-8LKQ-V9EL' },
     scheme: 'IAHW',
-    types: ['Flag deleted'],
-    summary: 'Flag deleted',
-    by: 'backOfficeEditor',
+    types: ['Flag removed'],
+    summary: 'Flag removed',
+    by: 'leilaHaddad',
     approval: 'approved',
-    decidedBy: 'backOfficeLead',
+    decidedBy: 'teamLead',
     decidedDate: '2026-10-21',
     decidedTime: '12:00',
     page: 'agreement-details'
@@ -189,7 +193,7 @@ const entries = [
     summary: 'New claim via Assisted Digital',
     by: 'Assisted Digital',
     approval: 'approved',
-    decidedBy: 'backOfficeApprover',
+    decidedBy: 'helenMarsh',
     decidedDate: '2026-10-16',
     decidedTime: '09:40',
     page: 'claim-details'

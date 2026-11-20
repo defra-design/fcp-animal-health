@@ -20,9 +20,9 @@
   Routing
   -------
   Each user's page is at draft/users/<persona key>, for example
-  draft/users/backOfficeAdministrator. app/routes.js renders this template
+  draft/users/caseOfficer. app/routes.js renders this template
   with that persona as `user`. Opened directly, as draft/user, it shows the
-  back office administrator.
+  case officer, Sanjay Mehta. Helen Marsh's page shows a role change.
 
   Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
   components or JS.
@@ -41,7 +41,7 @@
 {% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import internalBy %}
 
 {% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
-{% set user = user or personas.backOfficeAdministrator %}
+{% set user = user or personas.caseOfficer %}
 {% set pageName = user.fullName %}
 {% set changeLogHref = draftPath + "/change-log" %}
 {% set usersHref = draftPath + "/users" %}

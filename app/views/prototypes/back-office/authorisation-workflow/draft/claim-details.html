@@ -6,7 +6,7 @@
 
   Authorisation workflow: claim details (draft v1)
 
-  Draft redesign of ../claim-details.html, applying the claim details
+  Draft redesign of the live claim details page, applying the claim details
   points in ../notes.html:
   1. The claim comes first. Claim details sit at the top of the main
      two-thirds column, followed by the action buttons. The claim history
@@ -54,6 +54,15 @@
        rejected, and the history shows the team lead's reason
   9. The claim history shows the date and time of each event, as Olayinka
      confirmed it records the date, time, action and user.
+  10. Flags. "Flag this claim" opens draft/flag.html. When the claim or its
+     agreement is flagged, the blue banner says so with warning text (the
+     exclamation mark), so the case officer sees it first: why, the note,
+     who flagged it and when. The agreement flag links to the agreement.
+     The person who flagged the claim, or a team lead, sees "Remove flag".
+     Flagging and removing a flag are recorded in the claim history. The
+     agreement summary on the right says if the agreement is flagged.
+     GOV.UK notification banners only come in blue and green, so a red
+     banner would need bespoke styles. Steve chose blue with warning text.
   7. "Add a note", by the claim history heading, opens draft/add-note.html.
      After saving, a success banner shows and the note is added to the
      history. Notes can be added at any status.
@@ -89,9 +98,9 @@
     service the role is stored with the event when it happens, and never
     changes. Here it is looked up from the role history in
     app/views/prototypes/back-office/data/personas.js, by the internalBy macro in
-    app/views/prototypes/back-office/includes/authorisation-workflow-macros.html. Sanjay Mehta was a back office editor when he
-    added the note and a back office administrator when he withdrew the
-    claim, so the history shows both.
+    app/views/prototypes/back-office/includes/authorisation-workflow-macros.html. Helen Marsh was a team lead until 31 October
+    2026 and is now a case officer, so events she did before then show
+    her as a team lead.
   - external users: their name and how they relate to the agreement, with
     no link
   - the system: "System"
@@ -109,7 +118,7 @@
 {% block content %}
   {# People, from app/views/prototypes/back-office/data/personas.js #}
   {% set holder = personas.farmer %}
-  {% set processor = personas.backOfficeAdministrator %}
+  {% set processor = personas.caseOfficer %}
 
   {# The approved withdrawal request, from draft/withdraw-claim.html and
      draft/review-change.html. draft/claim-withdrawn.html shows an example
@@ -119,7 +128,7 @@
     kind: "withdrawal",
     date: "2026-11-11",
     time: "10:18",
-    by: "backOfficeAdministrator",
+    by: "caseOfficer",
     reason: "Data from a different claim was entered",
     discovered: "Customer contacted the RPA",
     contactName: holder.fullName,
@@ -127,7 +136,7 @@
     contactMethod: "Phone",
     details: "Customer contacted RPA and asked to withdraw the claim, as details from their review claim were entered.",
     status: "approved",
-    decision: { decision: "approved", by: "backOfficeLead", date: "2026-11-12", time: "09:05", notes: "" }
+    decision: { decision: "approved", by: "teamLead", date: "2026-11-12", time: "09:05", notes: "" }
   } %}
   {% set useExampleWithdrawal = claimWithdrawn and not claimWithdrawalApproved %}
   {% set withdrawal = exampleWithdrawal if useExampleWithdrawal else claimWithdrawalApproved %}
@@ -149,13 +158,38 @@
   {% set canEdit = claimStatus == "inCheck" and not claimWaitingForApproval and not withdrawalPending %}
   {% set bannerType = "" %}
 
-  {% if claimEditBanner %}
+  {# Flags on this claim and its agreement. They show in the blue banner,
+     as warning text, so the case officer sees them first. #}
+  {% set flagWarningsHtml %}
+    {% if draftAgreementFlag %}
+      {% set agreementFlagHtml %}
+        <strong>This claim’s agreement is flagged:</strong> {{ draftAgreementFlag.type }}.{{ (" " + (draftAgreementFlag.note | escape)) if draftAgreementFlag.note }}
+        <br><span class="govuk-!-font-weight-regular">Flagged by {{ personas[draftAgreementFlag.createdBy].fullName }} on {{ draftAgreementFlag.date | govukDate }}. <a class="govuk-notification-banner__link" href="{{ draftPath }}/agreement-details">View the agreement<span class="govuk-visually-hidden"> IAHW-NQG3-7WZY</span></a></span>
+      {% endset %}
+      {{ govukWarningText({ html: agreementFlagHtml, classes: "govuk-!-margin-bottom-2" }) }}
+    {% endif %}
+    {% if draftClaimFlag %}
+      {% set claimFlagHtml %}
+        <strong>This claim is flagged:</strong> {{ draftClaimFlag.type }}.{{ (" " + (draftClaimFlag.note | escape)) if draftClaimFlag.note }}
+        <br><span class="govuk-!-font-weight-regular">Flagged by {{ personas[draftClaimFlag.createdBy].fullName }} on {{ draftClaimFlag.date | govukDate }}.{% if draftClaimFlag.createdBy == signedInUserKey %} <a class="govuk-notification-banner__link" href="{{ draftPath }}/remove-flag/{{ draftClaimFlag.id }}">Remove flag<span class="govuk-visually-hidden"> from this claim</span></a>{% endif %}</span>
+      {% endset %}
+      {{ govukWarningText({ html: claimFlagHtml, classes: "govuk-!-margin-bottom-2" }) }}
+    {% endif %}
+  {% endset %}
+
+  {% if claimEditBanner or flagBanner %}
     {# Just saved changes or added a note: a success banner instead of the
        in check banner #}
     {% set bannerType = "success" %}
     {% set changeCount = claimEditBanner.count ~ (" change" if claimEditBanner.count == 1 else " changes") %}
     {% set bannerHtml %}
-      {% if claimEditBanner.status == "note" %}
+      {% if flagBanner and flagBanner.action == "added" %}
+        <h3 class="govuk-notification-banner__heading">Claim flagged</h3>
+        <p class="govuk-body">The flag shows here, in the claims list, on the agreement and in the flags list.</p>
+      {% elif flagBanner %}
+        <h3 class="govuk-notification-banner__heading">Flag removed</h3>
+        <p class="govuk-body"><a class="govuk-notification-banner__link" href="#claim-history">View the claim history</a>.</p>
+      {% elif claimEditBanner.status == "note" %}
         <h3 class="govuk-notification-banner__heading">Note added</h3>
         <p class="govuk-body"><a class="govuk-notification-banner__link" href="#claim-history">View the note in the claim history</a>.</p>
       {% elif claimEditBanner.status == "withdrawal" %}
@@ -175,6 +209,7 @@
       <p class="govuk-body">{{ personas[withdrawal.by].fullName }} requested it on {{ withdrawal.date | govukDate }} and {{ personas[withdrawal.decision.by].fullName }} approved it. Reason: {{ withdrawal.reason }}.</p>
       <p class="govuk-body">The farmer can no longer see this claim in their account.</p>
       <p class="govuk-body"><a class="govuk-notification-banner__link" href="#claim-history">View the claim history</a> for how the issue was discovered, who asked for the withdrawal and full details.</p>
+      {{ flagWarningsHtml | safe }}
     {% endset %}
   {% else %}
     {% set bannerHtml %}
@@ -190,6 +225,7 @@
       {% elif claimChanges | length %}
         <p class="govuk-body">You have {{ claimChanges | length }} unsaved {{ "change" if claimChanges | length == 1 else "changes" }}. <a class="govuk-notification-banner__link" href="{{ draftPath }}/claim-edit/check">Check and save your changes</a>.</p>
       {% endif %}
+      {{ flagWarningsHtml | safe }}
     {% endset %}
   {% endif %}
 
@@ -245,6 +281,22 @@
         { text: "" },
         { html: internalBy(personas[batch.by], batch.date, usersPath) },
         { html: batch.text | escape | nl2br }
+      ]), batchRows) %}
+    {% elif batch.kind == "flag" %}
+      {% set batchRows = (batchRows.push([
+        { html: dateTime(batch.date, batch.time) },
+        { text: "Claim flagged" },
+        { text: "" },
+        { html: internalBy(personas[batch.by], batch.date, usersPath) },
+        { html: "<strong>Why:</strong> " + (batch.type | escape) + ((("<br><strong>Note:</strong> " + (batch.note | escape))) if batch.note else "") }
+      ]), batchRows) %}
+    {% elif batch.kind == "flagRemoved" %}
+      {% set batchRows = (batchRows.push([
+        { html: dateTime(batch.date, batch.time) },
+        { text: "Flag removed" },
+        { text: "" },
+        { html: internalBy(personas[batch.by], batch.date, usersPath) },
+        { html: "<strong>Reason:</strong> " + (batch.reason | escape) }
       ]), batchRows) %}
     {% elif batch.kind == "withdrawal" %}
       {% set contactedRpa = batch.discovered == "Customer contacted the RPA" %}
@@ -371,6 +423,9 @@
         <div class="govuk-button-group">
           {{ govukButton({ text: "Recommend to pay" }) }}
           {{ govukButton({ text: "Recommend to reject", classes: "govuk-button--secondary" }) }}
+          {% if not draftClaimFlag %}
+            {{ govukButton({ text: "Flag this claim", classes: "govuk-button--secondary", href: draftPath + "/flag?level=claim" }) }}
+          {% endif %}
           {{ govukButton({ text: "Withdraw claim", classes: "govuk-button--warning", href: draftPath + "/withdraw-claim" }) }}
         </div>
       {% endif %}
@@ -386,7 +441,7 @@
         <li><strong>SBI number</strong><br>{{ holder.business.sbi }}</li>
         <li><strong>Address</strong><br>{{ holder.business.address | join("<br>") | safe }}</li>
         <li><strong>Business email</strong><br><span class="govuk-!-text-break-word">{{ holder.business.email }}</span></li>
-        <li><strong>Flagged</strong><br>No</li>
+        <li><strong>Flagged</strong><br>{{ ("Yes: " + draftAgreementFlag.type) if draftAgreementFlag else "No" }}</li>
         <li><strong>Number of herds and flocks</strong><br>Beef cattle: 1<br>Dairy cattle: 0<br>Sheep: 0<br>Pigs: 0</li>
       </ul>
       <p class="govuk-body"><a class="govuk-link" href="{{ draftPath }}/agreement-details">View the full agreement<span class="govuk-visually-hidden"> IAHW-NQG3-7WZY</span></a></p>

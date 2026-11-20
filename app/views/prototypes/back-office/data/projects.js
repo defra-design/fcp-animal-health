@@ -10,8 +10,8 @@
 
 module.exports = [
   {
-    name: 'Authorisation workflow',
-    description: 'Backoffice screens where caseworkers check and authorise claims, with design feedback notes and draft redesigns.',
+    name: 'Back office optimisation',
+    description: 'A redesign of the back office, where RPA case officers and team leads check claims and agreements: the authorisation workflow for changes and withdrawals, flags, roles, users and emails.',
     url: '/prototypes/back-office/authorisation-workflow/'
   },
   {

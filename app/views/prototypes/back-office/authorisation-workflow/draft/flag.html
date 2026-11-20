@@ -1,0 +1,108 @@
+{% extends "prototypes/back-office/layouts/authorisation-workflow.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: flag a claim or agreement (draft v1)
+
+  New page, opened from "Flag this claim" on draft/claim-details.html or
+  "Flag this agreement" on draft/agreement-details.html. The address is
+  draft/flag?level=claim or draft/flag?level=agreement.
+
+  Today only agreements can be flagged, by team leads, from the flags
+  page. This design:
+  - lets anyone flag, from the claim or agreement itself, so there is no
+    need to find the agreement first. A flag changes nothing for the
+    customer, so it does not need approval
+  - lets case officers flag a single claim (tier 2) as well as an agreement,
+    which flags the customer (tier 1)
+  - asks why, from a short list of types, so flags can be filtered and
+    counted. A note is optional, but needed for "Other"
+  All to agree with the RPA. The types are illustrative.
+
+  Saving goes back to the claim or agreement, which shows the flag in its
+  banner with a success message. The flag shows in the flags list, the
+  claims and agreements lists, and the change log, and a claim flag shows
+  in the claim history.
+
+  Rendered by app/views/prototypes/back-office/routes.js ("Flags"), with `level`, and `errors` and
+  `values` when the form has errors.
+
+  The note box is always shown, not revealed by "Other", as it can be used
+  with any type.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set recordName = "claim" if level == "claim" else "agreement" %}
+{% set pageName = ("Error: " if errors else "") + "Flag this " + recordName %}
+{% set navActive = "claims" if level == "claim" else "agreements" %}
+{% set changeLogHref = draftPath + "/change-log" %}
+{% set usersHref = draftPath + "/users" %}
+{% set backLinkHref = draftPath + ("/claim-details" if level == "claim" else "/agreement-details") %}
+
+{% block content %}
+  {% set recordNumber = "FUBC-HJ9N-S5PK" if level == "claim" else "IAHW-NQG3-7WZY" %}
+
+  {% set typeItems = [] %}
+  {% for item in flagTypes %}
+    {% set typeItems = (typeItems.push({
+      value: item.value,
+      text: item.value,
+      hint: { text: item.hint },
+      checked: values and values.flagType == item.value
+    }), typeItems) %}
+  {% endfor %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors %}
+        {% set errorList = [] %}
+        {% if errors.flagType %}{% set errorList = (errorList.push({ text: errors.flagType, href: "#flagType" }), errorList) %}{% endif %}
+        {% if errors.flagNote %}{% set errorList = (errorList.push({ text: errors.flagNote, href: "#flagNote" }), errorList) %}{% endif %}
+        {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+      {% endif %}
+
+      <span class="govuk-caption-l">{{ "Claim" if level == "claim" else "Agreement" }} {{ recordNumber }}</span>
+      <h1 class="govuk-heading-l">Flag this {{ recordName }}</h1>
+
+      {% if level == "claim" %}
+        <p class="govuk-body">Flag a claim when something about it needs a closer look. The flag shows on the claim, in the claims list and on its agreement.</p>
+      {% else %}
+        <p class="govuk-body">Flag an agreement when there is a concern about the customer. The flag shows on the agreement, in the agreements list and on every claim for this customer.</p>
+      {% endif %}
+      <p class="govuk-body">Flagging does not change anything for the customer. Everyone in the back office can see the flag.</p>
+
+      <form method="post" action="{{ draftPath }}/flag" novalidate>
+        <input type="hidden" name="flagLevel" value="{{ level }}">
+
+        {{ govukRadios({
+          name: "flagType",
+          idPrefix: "flagType",
+          fieldset: {
+            legend: { text: "Why are you flagging this " + recordName + "?", classes: "govuk-fieldset__legend--m" }
+          },
+          errorMessage: { text: errors.flagType } if errors and errors.flagType else false,
+          items: typeItems
+        }) }}
+
+        {{ govukTextarea({
+          id: "flagNote",
+          name: "flagNote",
+          label: { text: "Note (optional)", classes: "govuk-label--m" },
+          hint: { text: "Needed if you selected Other. Say what you found, so the next person knows what to look for." },
+          value: values.flagNote if values,
+          errorMessage: { text: errors.flagNote } if errors and errors.flagNote else false
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Flag " + recordName }) }}
+          <a class="govuk-link" href="{{ backLinkHref }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

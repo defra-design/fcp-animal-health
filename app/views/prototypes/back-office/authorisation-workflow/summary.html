@@ -4,21 +4,31 @@
   What we changed
   ===============
 
-  A short, high-level outline of the main UX changes to each draft page,
-  for presenting to stakeholders. Steve will use it as the outline of the
-  presentation, with a screenshot of each page.
+  A short, high-level outline of the main UX changes in the draft designs,
+  so Olayinka (BA) and others can see what is new. Steve also uses it as
+  the outline for presentations, with a screenshot of each design.
 
-  Keep it short: a handful of bullets per page, in plain words, saying what
-  changed and why it matters to the user. The detail, reasoning and
-  questions for the BA stay in notes.html and the notes in each draft page.
+  The changes are in app/views/prototypes/back-office/data/what-we-changed.js, grouped like the site
+  map on the index, with when each was added and last meaningfully
+  updated. Add to it whenever a draft page changes. Keep it short and in
+  plain words. Detail and questions for the BA stay in notes.html and the
+  notes in each draft page.
 
-  Pages are in the same order as the site map on the index. Each section
-  ends with the page (or page state) to screenshot.
+  Each section is a table: the change, its status, and when it was added
+  and updated. Links to the designs are under each table.
+  - New (green): added today or the working day before, about 48 working
+    hours. Set by newWithinWorkingDays.
+  - Updated (blue): not new, but changed in the last 7 days. Set by
+    updatedWithinDays.
 
-  Update this whenever a draft page changes, and update the date below.
+  The "Show" filter is a GET form. It only offers New, Updated, or New or
+  updated when there are changes with that status, with how many in
+  brackets. Sections and groups with nothing to show are hidden.
 
-  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
-  components or JS.
+  Built with GOV.UK Frontend macros and classes, plus one exception: a
+  short script makes the Show filter update as soon as an option is
+  chosen, at Steve's request, as this is a notes page, not part of the
+  service. Without JavaScript the "Apply filter" button works instead.
 #}
 
 {% set workflowPath = "/prototypes/back-office/authorisation-workflow" %}
@@ -31,123 +41,151 @@
   {{ govukBreadcrumbs({
     items: [
       { text: "Research prototypes", href: "/" },
-      { text: "Authorisation workflow", href: workflowPath + "/" },
+      { text: "Back office optimisation", href: workflowPath + "/" },
       { text: "What we changed" }
     ]
   }) }}
 {% endblock %}
 
-{# "Screenshot" line at the end of each section #}
-{% macro screenshot(href, text) %}
-  <p class="govuk-body-s">Screenshot: <a class="govuk-link" href="{{ href }}">{{ text }}</a></p>
-{% endmacro %}
-
 {% block content %}
+  {% set newWithinWorkingDays = 1 %}
+  {% set updatedWithinDays = 7 %}
+
+  {# Count the changes with each status, so the Show filter only offers
+     options that have changes to show #}
+  {% set newChanges = [] %}
+  {% set updatedChanges = [] %}
+  {% for group in whatWeChanged %}
+    {% for section in group.sections %}
+      {% for item in section.items %}
+        {% if (item.added | workingDaysAgo) <= newWithinWorkingDays %}
+          {% set newChanges = (newChanges.push(item), newChanges) %}
+        {% elif item.updated and (item.updated | daysAgo) <= updatedWithinDays %}
+          {% set updatedChanges = (updatedChanges.push(item), updatedChanges) %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  {% endfor %}
+  {% set newCount = newChanges | length %}
+  {% set updatedCount = updatedChanges | length %}
+
+  {% set showItems = [] %}
+  {% set showValues = [] %}
+  {% for option in [
+    { value: "recent", text: "New or updated", count: newCount + updatedCount },
+    { value: "new", text: "New", count: newCount },
+    { value: "updated", text: "Updated", count: updatedCount }
+  ] %}
+    {% if option.count %}
+      {% set showItems = (showItems.push({ value: option.value, text: option.text + " (" + option.count + ")" }), showItems) %}
+      {% set showValues = (showValues.push(option.value), showValues) %}
+    {% endif %}
+  {% endfor %}
+  {% set show = data.summaryShow if data.summaryShow in showValues else "all" %}
+
+  {# Work out each change's status, and keep the ones the filter shows.
+     Lists are used because values set inside a for loop are not kept
+     after it. #}
+  {% set allChanges = [] %}
+  {% set shownChanges = [] %}
+  {% set groupsToShow = [] %}
+  {% for group in whatWeChanged %}
+    {% set sectionsToShow = [] %}
+    {% for section in group.sections %}
+      {% set rows = [] %}
+      {% for item in section.items %}
+        {% set allChanges = (allChanges.push(item), allChanges) %}
+        {% set isNew = (item.added | workingDaysAgo) <= newWithinWorkingDays %}
+        {% set isUpdated = (not isNew) and item.updated and (item.updated | daysAgo) <= updatedWithinDays %}
+        {% if show == "all" or (show == "new" and isNew) or (show == "updated" and isUpdated) or (show == "recent" and (isNew or isUpdated)) %}
+          {% set shownChanges = (shownChanges.push(item), shownChanges) %}
+          {% set statusHtml %}
+            {%- if isNew %}{{ govukTag({ text: "New", classes: "govuk-tag--green" }) }}
+            {%- elif isUpdated %}{{ govukTag({ text: "Updated", classes: "govuk-tag--blue" }) }}{% endif -%}
+          {% endset %}
+          {% set rows = (rows.push([
+            { html: item.text },
+            { html: statusHtml },
+            { text: item.added | govukShortDate },
+            { text: (item.updated | govukShortDate) if item.updated else "" }
+          ]), rows) %}
+        {% endif %}
+      {% endfor %}
+      {% if rows | length %}
+        {% set sectionsToShow = (sectionsToShow.push({ title: section.title, designs: section.designs, rows: rows }), sectionsToShow) %}
+      {% endif %}
+    {% endfor %}
+    {% if sectionsToShow | length %}
+      {% set groupsToShow = (groupsToShow.push({ group: group.group, sections: sectionsToShow }), groupsToShow) %}
+    {% endif %}
+  {% endfor %}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <span class="govuk-caption-xl">Authorisation workflow</span>
+      <span class="govuk-caption-xl">Back office optimisation</span>
       <h1 class="govuk-heading-xl">What we changed</h1>
 
-      <p class="govuk-body-l">The main changes in the draft designs, page by page.</p>
-
       <p class="govuk-body">Updated 20 November 2026</p>
+      <p class="govuk-body">{{ govukTag({ text: "New", classes: "govuk-tag--green" }) }} means added in the last 2 working days. {{ govukTag({ text: "Updated", classes: "govuk-tag--blue" }) }} means changed in the last 7 days.</p>
 
-      <h2 class="govuk-heading-l">Across the service</h2>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Built only from GOV.UK Design System components, so it is quick to build and accessible.</li>
-        <li>Pages lead with the thing the user came for: the claim on a claim page, the agreement on an agreement page.</li>
-        <li>Every action is recorded in the history: what changed, from what to what, who did it, their role at the time, why, and the date and time.</li>
-        <li>Dates are written in full, or as 5/11/2026 in tables where space is tight.</li>
-      </ul>
+      <form method="get" action="{{ workflowPath }}/summary" novalidate>
+        {{ govukSelect({
+          id: "summaryShow",
+          name: "summaryShow",
+          label: { text: "Show", classes: "govuk-label--s" },
+          value: show,
+          items: [{ value: "all", text: "All changes" }].concat(showItems)
+        }) }}
+        {{ govukButton({ text: "Apply filter", classes: "govuk-button--secondary", attributes: { id: "summaryShowApply" } }) }}
+      </form>
 
-      <h2 class="govuk-heading-l">Claims</h2>
+      {# Bespoke JavaScript, on this design notes page only, at Steve's
+         request (20 November 2026): the list updates as soon as an option
+         is chosen, so the Apply button is removed. Without JavaScript the
+         button stays and the form still works. Not for service pages:
+         GOV.UK guidance is to use an Apply button, and updating on change
+         can catch out keyboard and screen reader users (WCAG 3.2.2). #}
+      <script>
+        (function () {
+          var select = document.getElementById('summaryShow')
+          var button = document.getElementById('summaryShowApply')
+          if (!select || !button) return
+          button.parentNode.removeChild(button)
+          select.addEventListener('change', function () { select.form.submit() })
+        })()
+      </script>
 
-      <h3 class="govuk-heading-m">Claim details</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>The claim comes first. The agreement is a short summary alongside, and the full history is below. No tabs.</li>
-        <li>The claim number is the heading, with its status as a tag. A banner says what the claim needs next.</li>
-        <li>Action buttons depend on the claim’s status.</li>
-        <li>Only details this service can change have a "Change" link, so it is clear what can be changed.</li>
-        <li>The claim history shows who did each thing and their role at the time, with a status column for changes waiting for approval.</li>
-      </ul>
-      {{ screenshot(draftPath + "/claim-details", "Claim details") }}
-
-      <h3 class="govuk-heading-m">Changing claim details</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Change several details, check them on one page, then save once. Based on the GOV.UK check answers pattern.</li>
-        <li>One reason covers all the changes, and they are one entry in the history.</li>
-        <li>Changes that affect eligibility, such as the test result, go to a team lead for approval first.</li>
-      </ul>
-      {{ screenshot(draftPath + "/claim-edit/check", "Check your changes, after changing the vet’s details and the test result") }}
-
-      <h3 class="govuk-heading-m">Add a note</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Add a note to any claim from the claim history.</li>
-        <li>Notes cannot be changed or deleted, like the rest of the history.</li>
-      </ul>
-      {{ screenshot(draftPath + "/add-note", "Add a note") }}
-
-      <h3 class="govuk-heading-m">Withdraw claim</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>A withdrawal is a request. A team lead approves it before the claim is withdrawn, and the claim stays in check while it waits.</li>
-        <li>Uses the live fields, with an "Other" option for the reason and how the issue was found.</li>
-        <li>Shows the agreement holder, so the caseworker can check who they are speaking to.</li>
-        <li>Records who asked for the withdrawal and how they contacted the RPA.</li>
-        <li>Warns that a withdrawal cannot be undone and the farmer will no longer see the claim.</li>
-      </ul>
-      {{ screenshot(draftPath + "/withdraw-claim", "Withdraw claim") }}
-      {{ screenshot(draftPath + "/claim-details", "Claim details, with a withdrawal request waiting for approval") }}
-
-      <h3 class="govuk-heading-m">Claim withdrawn</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>No separate page. Once a team lead approves the request, the claim page shows the claim as withdrawn, with a banner saying when, who requested and approved it, and why.</li>
-      </ul>
-      {{ screenshot(draftPath + "/claim-withdrawn", "Claim withdrawn") }}
-
-      <h2 class="govuk-heading-l">Agreements</h2>
-
-      <h3 class="govuk-heading-m">Agreement details</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Same heading pattern as the claim page: the agreement number as the heading.</li>
-        <li>New table of the agreement’s claims, each linking to the claim.</li>
-        <li>Address written in sentence case, one line per part.</li>
-      </ul>
-      {{ screenshot(draftPath + "/agreement-details", "Agreement details") }}
-
-      <h2 class="govuk-heading-l">Change log</h2>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>One place to see what has changed, on claims and agreements, and what is waiting for approval.</li>
-        <li>One row per change, showing who made it and their role at the time. When a team lead decides, the same row shows who approved or rejected it.</li>
-        <li>Says how many changes are waiting for approval, with a link to just those.</li>
-        <li>Filter by claims or agreements, type of change, scheme (IAHW or PBR), status and who made the change.</li>
-      </ul>
-      {{ screenshot(draftPath + "/change-log", "Change log") }}
-
-      <h3 class="govuk-heading-m">Review a change</h3>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Team leads approve or reject a change from the change log, seeing who made it, why, and each detail from and to.</li>
-        <li>Requests to withdraw a claim are reviewed the same way, showing the reason, how the issue was found and who asked.</li>
-        <li>Rejecting needs a reason. Approving can have optional notes. Both are recorded in the history for the person who made the change.</li>
-        <li>An approved change updates the claim. A rejected one does not.</li>
-        <li>Team leads cannot approve their own changes.</li>
-      </ul>
-      {{ screenshot(draftPath + "/review-change", "Review a change, showing the reject notes") }}
-
-      <h2 class="govuk-heading-l">Users (new)</h2>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Super admins can see everyone with access, their role and when they were last active, to support access reviews.</li>
-        <li>Each user has a role history, so the role shown in a claim history can be checked for that date.</li>
-        <li>Names in the claim history link to the user.</li>
-      </ul>
-      {{ screenshot(draftPath + "/users", "Users") }}
-      {{ screenshot(draftPath + "/users/backOfficeAdministrator", "User: Sanjay Mehta, with a role change") }}
-
-      <h2 class="govuk-heading-l">Not changed yet</h2>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>The claims, agreements and flags lists are copies of the current pages.</li>
-      </ul>
+      <p class="govuk-body govuk-!-font-weight-bold">Showing {{ shownChanges | length }} of {{ allChanges | length }} changes</p>
     </div>
   </div>
+
+  {% if not groupsToShow | length %}
+    <p class="govuk-body">There are no changes that match this filter.</p>
+  {% endif %}
+
+  {% for group in groupsToShow %}
+    <h2 class="govuk-heading-l govuk-!-margin-top-6">{{ group.group }}</h2>
+    {% for section in group.sections %}
+      {{ govukTable({
+        caption: section.title or group.group,
+        captionClasses: "govuk-table__caption--m" if section.title else "govuk-visually-hidden",
+        head: [
+          { text: "Change", classes: "govuk-!-width-one-half" },
+          { text: "Status" },
+          { text: "Added" },
+          { text: "Updated" }
+        ],
+        rows: section.rows
+      }) }}
+      {% if section.designs | length %}
+        <ul class="govuk-list govuk-body-s govuk-!-margin-bottom-8">
+          {% for design in section.designs %}
+            <li>Design: <a class="govuk-link" href="{{ draftPath }}{{ design.path }}">{{ design.text }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
 {% endblock %}
 
 {% block footer %}{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "prototypes/back-office/layouts/main.html" %}
 
 {#
-  Design notes for the Authorisation workflow designs.
+  Design notes for the Back office optimisation designs.
 
   Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
   components or JS.
@@ -16,7 +16,7 @@
   {{ govukBreadcrumbs({
     items: [
       { text: "Research prototypes", href: "/" },
-      { text: "Authorisation workflow", href: workflowPath + "/" },
+      { text: "Back office optimisation", href: workflowPath + "/" },
       { text: "Design notes" }
     ]
   }) }}
@@ -25,15 +25,17 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <span class="govuk-caption-xl">Authorisation workflow</span>
+      <span class="govuk-caption-xl">Back office optimisation</span>
       <h1 class="govuk-heading-xl">Design notes</h1>
 
-      <p class="govuk-body-l">First thoughts on the prototype screens, with suggested changes, Olayinka’s answers to our questions, and what we still need to agree.</p>
+      <p class="govuk-body-l">First thoughts on the prototype screens, with suggested changes, Olayinka’s answers to our questions, what we agreed on 20 November, and what we still need to agree.</p>
 
       <p class="govuk-body">
         Steve Molesworth<br>
         18 November 2026, updated 20 November 2026
       </p>
+
+      <p class="govuk-body">The links on this page go to the draft designs. The designs before this work are in the <a class="govuk-link" href="/prototypes/poultry-v01/backoffice/index-research.njk">poultry prototype’s back office</a>.</p>
 
       <h2 class="govuk-heading-l">Suggested changes</h2>
 
@@ -44,7 +46,6 @@
 
       <h3 class="govuk-heading-m">Agreement details</h3>
       <ul class="govuk-list">
-        <li><a class="govuk-link" href="{{ workflowPath }}/agreement-details">Current design<span class="govuk-visually-hidden">: agreement details</span></a></li>
         <li><a class="govuk-link" href="{{ workflowPath }}/draft/agreement-details">Draft design<span class="govuk-visually-hidden">: agreement details</span></a></li>
       </ul>
       <ol class="govuk-list govuk-list--number">
@@ -78,7 +79,6 @@
 
       <h3 class="govuk-heading-m">Claim details</h3>
       <ul class="govuk-list">
-        <li><a class="govuk-link" href="{{ workflowPath }}/claim-details">Current design<span class="govuk-visually-hidden">: claim details</span></a></li>
         <li><a class="govuk-link" href="{{ workflowPath }}/draft/claim-details">Draft design<span class="govuk-visually-hidden">: claim details</span></a></li>
       </ul>
       <ol class="govuk-list govuk-list--number">
@@ -98,7 +98,6 @@
 
       <h3 class="govuk-heading-m">Claim withdrawn</h3>
       <ul class="govuk-list">
-        <li><a class="govuk-link" href="{{ workflowPath }}/claim-withdrawn">Current design<span class="govuk-visually-hidden">: claim withdrawn</span></a></li>
         <li><a class="govuk-link" href="{{ workflowPath }}/draft/claim-withdrawn">Draft design<span class="govuk-visually-hidden">: claim withdrawn</span></a></li>
         <li><a class="govuk-link" href="{{ workflowPath }}/draft/withdraw-claim">Draft withdraw claim form<span class="govuk-visually-hidden">: claim withdrawn</span></a></li>
       </ul>
@@ -121,7 +120,6 @@
 
       <h3 class="govuk-heading-m">Change log</h3>
       <ul class="govuk-list">
-        <li><a class="govuk-link" href="{{ workflowPath }}/change-log">Current design<span class="govuk-visually-hidden">: change log</span></a></li>
         <li><a class="govuk-link" href="{{ workflowPath }}/draft/change-log">Draft design<span class="govuk-visually-hidden">: change log</span></a></li>
       </ul>
       <ol class="govuk-list govuk-list--number">
@@ -156,21 +154,48 @@
         <li><strong>Times in the history.</strong> The claim history records the date, time, action and user, so the claim history, change log and review page now show the time as well as the date, for example 2:15pm.</li>
       </ul>
 
-      <h2 class="govuk-heading-l">To discuss with Olayinka</h2>
-      <p class="govuk-body">Where our design differs from the answers, or the answers leave something open. We have kept our design for now, because we think it is easier to use.</p>
+      <h2 class="govuk-heading-l">Agreed with Olayinka on 20 November 2026</h2>
+      <p class="govuk-body">From a call between Steve and Olayinka, reviewing the latest designs.</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li><strong>2 types of back office user:</strong> case officers (the RPA’s Recommender, Processor and User roles) and team leads (Super admin). The personas page now shows just these, with what each can do. Helen Marsh and Leila Haddad are now case officers.</li>
+        <li><strong>Withdrawals:</strong> case officers and team leads can request one. Only a team lead can approve or reject it, and no one can approve their own request.</li>
+        <li><strong>Telling the farmer:</strong> the farmer should get an email when their claim is withdrawn. Designed.</li>
+        <li><strong>Telling team leads:</strong> today nothing tells a team lead that changes are waiting. They have to check the change log. A daily email will say how many changes are waiting and how many came in the last 24 hours, with links to the filtered change log. Designed, with a new “When” filter on the change log.</li>
+        <li><strong>Telling the person whose request was rejected:</strong> Steve proposed they get an email with the team lead’s reason. We will not keep the rejected request for them to send again. Designed.</li>
+        <li><strong>Who can change what:</strong> we will take a table of every detail on a claim and agreement to the RPA, saying whether it can be changed and whether a case officer can change it or must request it. A first pass is on the <a class="govuk-link" href="{{ workflowPath }}/who-can-change-what">Who can change what</a> page.</li>
+        <li><strong>Flags:</strong> today only agreements can be flagged, by team leads, and a flag on an agreement covers everything the customer has. We will propose flagging claims too, and test it with the RPA. Designed (see below).</li>
+      </ul>
+
+      <h3 class="govuk-heading-m">Flags: what we are proposing</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Flag an agreement (the customer, a serious concern) or a claim (something found while checking it).</li>
+        <li>Anyone can flag, from the agreement or claim, as it changes nothing for the customer. Each flag has a type and an optional note, needed for “Other”.</li>
+        <li>The person who created a flag, or any team lead, can remove it, and must say why.</li>
+        <li>A claim shows when its agreement is flagged. An agreement shows how many of its claims are flagged. The claims and agreements lists show both, next to the SBI, with filters.</li>
+        <li>On the claim and agreement pages, flags show in the blue banner as warning text (with the exclamation mark). GOV.UK notification banners only come in blue and green, so we have not made it red.</li>
+        <li>The flags list no longer has “Create flag” or “Delete flag”, and has filters for what is flagged and who flagged it.</li>
+      </ul>
+
+      <h2 class="govuk-heading-l">Still to agree</h2>
       <ol class="govuk-list govuk-list--number">
-        <li><strong>“Other” options on the withdrawal form:</strong> Olayinka says a farmer can ask for a withdrawal, but all 5 live reasons are data entry errors, so none fits a farmer asking to withdraw. The draft keeps “Other”, with a text box. Should we add a reason such as “The customer asked to withdraw the claim” as well, or instead?</li>
-        <li><strong>Recording who asked for a withdrawal:</strong> the mandatory fields do not include who asked or how. A farmer asking is one of only 2 ways a withdrawal starts, so recording who asked helps with disputes and audit. The draft asks for their name, organisation (optional) and how they made contact. Should the name and contact method be mandatory? Can agents or vets ask, or only the agreement holder?</li>
-        <li><strong>Claim statuses:</strong> Pending, Approved and Rejected look like the statuses of a change waiting for approval, not of a claim. What is the full list of claim statuses, for example In check, Recommended to pay, Paid and Withdrawn? Is “waiting for withdrawal approval” a claim status of its own? The draft keeps the claim In check, with a banner saying so.</li>
-        <li><strong>Who can withdraw:</strong> the answer says only a team lead (super admin) can withdraw today, but the roles table says super admins and administrators can. Which is right?</li>
-        <li><strong>Role names:</strong> the RPA roles are super admin, administrator, authoriser, recommender, user and processor. The answers also use team lead and case officer, and our personas use back office lead, administrator, approver and editor. Which RPA role is a case officer, and which can approve? We should agree one set of names before changing the prototype.</li>
-        <li><strong>Team leads’ own requests:</strong> can a team lead withdraw a claim or change claim details without another team lead approving? The draft says a team lead cannot approve their own change.</li>
-        <li><strong>Which claim changes need approval:</strong> the draft only sends changes that affect eligibility (date of visit and test result) for approval, so team leads are not a bottleneck. Is that right, or do all changes need approval? Today only super admins can update claim data.</li>
-        <li><strong>Telling the farmer:</strong> once withdrawn, the claim disappears from the farmer’s account. A claim vanishing with no explanation is likely to lead to calls. We recommend the service emails the farmer to say it was withdrawn and why. GOV.UK guidance is to tell people when the status of something they applied for changes.</li>
-        <li><strong>What the claim history shows:</strong> the answer asks for the date, time, action and user. The draft also shows the user’s role at the time, the approval status, notes and what changed from and to. We think this helps audit. Is it welcome?</li>
-        <li><strong>After a rejection:</strong> is the person who made the change or request told, and do they start again?</li>
-        <li><strong>Flags:</strong> case officers request to create or delete an agreement flag. Can team leads create and delete flags without approval?</li>
+        <li><strong>“Other” options on the withdrawal form:</strong> a farmer can ask for a withdrawal, but all 5 live reasons are data entry errors. The draft keeps “Other”, with a text box.</li>
+        <li><strong>Recording who asked for a withdrawal:</strong> the draft asks for their name, organisation (optional) and how they made contact. Should the name and contact method be mandatory? Can agents or vets ask?</li>
+        <li><strong>Claim statuses:</strong> we still need the full list. Is “waiting for withdrawal approval” a status of its own?</li>
+        <li><strong>Selected for check, or being checked:</strong> about 1 in 4 claims is selected for checking. It would help to tell “selected for check” from “check in progress”, and perhaps to assign a check to a person. Parked for now, as it adds a lot.</li>
+        <li><strong>Flags:</strong> whether the RPA wants claim flags as well as agreement flags, the list of flag types, and whether a case officer’s flag needs approval (the RPA backlog says so).</li>
+        <li><strong>Which details need approval:</strong> see <a class="govuk-link" href="{{ workflowPath }}/who-can-change-what">Who can change what</a>.</li>
+        <li><strong>The daily email:</strong> when it is sent, whether it goes to every team lead, and whether they can turn it off.</li>
+        <li><strong>The farmer’s email:</strong> customer-facing wording for each withdrawal reason, and whether they can make a new claim for the same visit.</li>
+        <li><strong>What the claim history shows:</strong> the draft also shows the user’s role at the time, the approval status, notes and what changed from and to. We think this helps audit.</li>
         <li><strong>Quick search</strong> on the claims and agreements lists, updating as people type: not answered yet. See the notes below.</li>
+        <li>
+          <strong>Fewer columns on the <a class="govuk-link" href="{{ workflowPath }}/draft/claims">claims list</a>:</strong> it has 8 columns (claim number and type, SBI, flags, species, herd or site name, CPH, claim date and status), which is a lot to scan. We suggest removing species and CPH.
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Species can stay as a filter, and is on the claim page. The claim number also shows it, for example “BC” in REBC for beef cattle, though new staff may not know that.</li>
+            <li>CPH is mainly useful when checking one claim, so it can be on the claim page only.</li>
+            <li>Questions for Olayinka and the RPA: which columns do case officers use to pick a claim to work on, and do they sort or scan by species or CPH? Is herd or site name needed, or would the claim page do?</li>
+          </ul>
+        </li>
       </ol>
 
       <h3 class="govuk-heading-m">To discuss with the RPA team</h3>

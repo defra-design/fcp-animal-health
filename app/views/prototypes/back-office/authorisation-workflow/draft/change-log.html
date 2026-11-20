@@ -22,8 +22,12 @@
      approval, inset text says how many and links to just those.
   3. Columns:
      - Date
-     - Record: the claim or agreement number, linking to it, with what it
-       is below: "Claim · IAHW · Follow-up" or "Agreement · PBR"
+     - Type: Claim or Agreement, in bold so they are easy to pick out
+     - Number: the claim or agreement number, linking to it. Claims have
+       the claim type below, as on the claims list. The scheme is not
+       shown, as agreement numbers already start with it (IAHW, AHWR or
+       PBR), and the Scheme filter covers it.
+     The flags list uses the same Type and Number columns.
      - Change: a short summary, with the details listed below when there
        is more than one. The from and to values are in the record's
        history, to keep rows short.
@@ -32,12 +36,12 @@
      - Status: Pending, Approved or Rejected, with "Waiting for a team lead"
        or who decided and when below. Changes that did not need approval
        say "No approval needed", with no tag.
-     No Action column. The record number is the link. Pending rows have a
+     No Action column. The number is the link. Pending rows have a
      "Review" link under the status, to draft/review-change, where a team
      lead approves or rejects the change. Decided rows have "View
      decision". After a decision, a success banner shows here once.
   4. Filters, in a row of dropdowns:
-     - Record: claims or agreements
+     - Type: claims or agreements
      - Type of change: the types belong to claims or agreements. With all
        records, both lists show, with "Claim:" and "Agreement:" in front.
        Once a record is chosen and the filters applied, only that record's
@@ -48,7 +52,7 @@
        needed
      - Made by: each internal user, or Assisted Digital
      The claim type filter (review or follow-up) is gone. Claim type shows
-     in the Record column.
+     under the number.
 
   Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
   components or JS.
@@ -60,6 +64,11 @@
   Requests to withdraw a claim (draft/withdraw-claim) show here as
   "Claim withdrawal requested", waiting for a team lead, like changes that
   need approval.
+
+  The "When" filter shows changes made in the last 24 hours, 7 days or 30
+  days. The team lead's daily email (draft/emails/team-lead-daily) links to
+  the change log filtered to changes waiting for approval, and to those
+  made in the last 24 hours.
 
   Title, type, version and last updated date for this design are in
   app/views/prototypes/back-office/data/designs.js. Update them there when the design changes.
@@ -109,6 +118,7 @@
   {% set schemeFilter = data.changeLogScheme or "all" %}
   {% set statusFilter = data.changeLogStatus or "all" %}
   {% set byFilter = data.changeLogBy or "anyone" %}
+  {% set periodFilter = data.changeLogPeriod if data.changeLogPeriod in ["day", "week", "month"] else "all" %}
 
   {# Type of change options: only the chosen record's types, or both with a
      prefix. A type that is not in the list is ignored. #}
@@ -151,11 +161,13 @@
       and (typeFilter == "all" or typeFilter in entry.types)
       and (schemeFilter == "all" or entry.scheme == schemeFilter)
       and (statusFilter == "all" or entry.approval == statusFilter)
-      and (byFilter == "anyone" or entry.by == byFilter) %}
+      and (byFilter == "anyone" or entry.by == byFilter)
+      and (periodFilter == "all" or (entry.date + " " + (entry.time or "00:00")) >= changeLogSince[periodFilter]) %}
 
-      {% set recordHtml %}
-        <a class="govuk-link" href="{{ draftPath }}/{{ entry.page }}">{{ entry.record.number }}</a><br>
-        <span class="govuk-hint">{{ "Claim" if entry.record.kind == "claim" else "Agreement" }} · {{ entry.scheme }}{{ (" · " + entry.record.claimType) if entry.record.claimType }}</span>
+      {% set typeHtml %}<strong>{{ "Claim" if entry.record.kind == "claim" else "Agreement" }}</strong>{% endset %}
+      {% set numberHtml %}
+        <a class="govuk-link" href="{{ draftPath }}/{{ entry.page }}">{{ entry.record.number }}</a>
+        {%- if entry.record.claimType %}<br>{{ entry.record.claimType }}{% endif %}
       {% endset %}
 
       {% set changeHtml %}
@@ -186,7 +198,8 @@
 
       {% set rows = (rows.push([
         { html: dateTime(entry.date, entry.time) },
-        { html: recordHtml },
+        { html: typeHtml },
+        { html: numberHtml },
         { html: changeHtml },
         { html: internalBy(person, entry.date, usersPath) if person else (entry.by | escape) },
         { html: statusHtml }
@@ -194,7 +207,7 @@
     {% endif %}
   {% endfor %}
 
-  {% set defaultQuery = "changeLogRecord=all&changeLogType=all&changeLogScheme=all&changeLogBy=anyone" %}
+  {% set defaultQuery = "changeLogRecord=all&changeLogType=all&changeLogScheme=all&changeLogBy=anyone&changeLogPeriod=all" %}
 
   {# After a team lead approves or rejects a change, from draft/review-change #}
   {% if changeLogBanner %}
@@ -224,11 +237,11 @@
         {{ govukSelect({
           id: "changeLogRecord",
           name: "changeLogRecord",
-          label: { text: "Record", classes: "govuk-label--s" },
+          label: { text: "Type", classes: "govuk-label--s" },
           classes: "govuk-!-width-full",
           value: recordFilter,
           items: [
-            { value: "all", text: "All records" },
+            { value: "all", text: "Claims and agreements" },
             { value: "claim", text: "Claims" },
             { value: "agreement", text: "Agreements" }
           ]
@@ -287,6 +300,21 @@
           items: byItems
         }) }}
       </div>
+      <div class="govuk-grid-column-one-third">
+        {{ govukSelect({
+          id: "changeLogPeriod",
+          name: "changeLogPeriod",
+          label: { text: "When", classes: "govuk-label--s" },
+          classes: "govuk-!-width-full",
+          value: periodFilter,
+          items: [
+            { value: "all", text: "Any time" },
+            { value: "day", text: "Last 24 hours" },
+            { value: "week", text: "Last 7 days" },
+            { value: "month", text: "Last 30 days" }
+          ]
+        }) }}
+      </div>
     </div>
 
     <div class="govuk-button-group">
@@ -304,7 +332,8 @@
       classes: "govuk-table--small-text-until-tablet",
       head: [
         { text: "Date" },
-        { text: "Record" },
+        { text: "Type" },
+        { text: "Number" },
         { text: "Change" },
         { text: "Made by" },
         { text: "Status" }

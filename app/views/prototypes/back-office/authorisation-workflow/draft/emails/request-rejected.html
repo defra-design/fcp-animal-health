@@ -1,0 +1,84 @@
+{% extends "prototypes/back-office/layouts/email.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: request rejected email (draft v1)
+
+  Sent to the person who asked for a change or withdrawal when a team lead
+  rejects it. Today they are not told. Steve proposed this on 20 November
+  2026: it is the right thing to do, and the reason the team lead has to
+  give when rejecting can go straight into the email.
+
+  It says what they asked for, who rejected it and why, that the claim has
+  not changed, and what to do next. We do not keep the rejected request
+  for them to resubmit: they make a new request from the claim page.
+
+  Shows the latest rejected change or withdrawal made by Sanjay Mehta in
+  the prototype, or an example from the change log if there is none.
+  Reject a change on draft/review-change to see it here.
+
+  Built only with GOV.UK Frontend macros and classes, in
+  app/views/prototypes/back-office/layouts/email.html.
+#}
+
+{% from "prototypes/back-office/includes/authorisation-workflow-macros.html" import roleOn %}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+
+{# The latest rejected change by the signed-in case officer #}
+{% set rejected = [] %}
+{% for entry in changeLogEntries %}
+  {% if entry.approval == "rejected" and entry.by == signedInUserKey %}
+    {% set rejected = (rejected.push(entry), rejected) %}
+  {% endif %}
+{% endfor %}
+{% set change = rejected | first %}
+{% set maker = personas[change.by] %}
+{% set decider = personas[change.decidedBy] %}
+{% set recordName = change.record.kind %}
+{% set isWithdrawal = change.withdrawal %}
+{% set requestText = ("Your request to withdraw " + recordName + " " + change.record.number) if isWithdrawal else ("Your change to " + recordName + " " + change.record.number) %}
+
+{% set emailFrom = "Animal health and welfare back office" %}
+{% set emailTo = maker.email %}
+{% set emailSubject = requestText + " was rejected" %}
+
+{% block emailBody %}
+  <h1 class="govuk-heading-l">{{ requestText }} was rejected</h1>
+
+  <p class="govuk-body">{{ decider.fullName }}, {{ roleOn(decider, change.decidedDate) | lower }}, rejected it on {{ change.decidedDate | govukDate }}.</p>
+
+  {% set askedHtml %}
+    {% if isWithdrawal %}
+      Withdraw the {{ recordName }}. Reason: {{ change.withdrawal.reason }}
+    {% elif change.changes %}
+      <ul class="govuk-list">
+        {% for item in change.changes %}
+          <li>{{ item.label }} from {{ (item.from | govukDate) if item.type == "date" else item.from }} to {{ (item.to | govukDate) if item.type == "date" else item.to }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      {{ change.summary }}
+    {% endif %}
+  {% endset %}
+
+  {{ govukSummaryList({
+    rows: [
+      { key: { text: ("Claim" if recordName == "claim" else "Agreement") }, value: { text: change.record.number } },
+      { key: { text: "What you asked for" }, value: { html: askedHtml } },
+      { key: { text: "Date you asked" }, value: { text: change.date | govukDate } },
+      { key: { text: "Why it was rejected" }, value: { text: change.decisionNotes } }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-m">What happens next</h2>
+  <p class="govuk-body">The {{ recordName }} has not changed.</p>
+  <p class="govuk-body">If it still needs changing, make a new request from the {{ recordName }} page. You will need to enter the details again. If you are not sure, ask {{ decider.firstName }}.</p>
+  <p class="govuk-body"><a class="govuk-link" href="{{ draftPath }}/{{ change.page }}">View {{ recordName }} {{ change.record.number }}</a></p>
+
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+  <p class="govuk-body-s">This is an automated email. Do not reply to it.</p>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "prototypes/back-office/layouts/email.html" %}
+
+{#
+  Notes on design mock
+  ====================
+
+  Authorisation workflow: daily email to team leads (draft v1)
+
+  Today nothing tells a team lead that changes are waiting for approval.
+  They have to remember to check the change log. Steve and Olayinka agreed
+  on 20 November 2026 that a daily email would be better.
+
+  Sent to every team lead each weekday morning, only when changes are
+  waiting. It says:
+  - how many changes are waiting for approval, linking to the change log
+    filtered to just those
+  - how many were made in the last 24 hours, linking to the change log
+    filtered to those
+  - how many of each type are waiting, so the team lead can plan
+
+  The numbers are worked out from the draft change log, so they change as
+  you use the prototype. Send a withdrawal or claim change for approval to
+  see them go up.
+
+  To agree with the RPA: the time it is sent, whether it goes to every
+  team lead or is shared out, and whether team leads can turn it off.
+
+  Built only with GOV.UK Frontend macros and classes, in
+  app/views/prototypes/back-office/layouts/email.html.
+#}
+
+{% set draftPath = "/prototypes/back-office/authorisation-workflow/draft" %}
+{% set changeLogPath = draftPath + "/change-log" %}
+{% set filterQuery = "changeLogRecord=all&changeLogType=all&changeLogScheme=all&changeLogBy=anyone" %}
+
+{# Changes waiting for approval, all and in the last 24 hours, and by type #}
+{% set pending = [] %}
+{% set pendingToday = [] %}
+{% for entry in changeLogEntries %}
+  {% if entry.approval == "pending" %}
+    {% set pending = (pending.push(entry), pending) %}
+    {% if (entry.date + " " + (entry.time or "00:00")) >= changeLogSince.day %}
+      {% set pendingToday = (pendingToday.push(entry), pendingToday) %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% set pendingCount = pending | length %}
+{% set todayCount = pendingToday | length %}
+{% set changesWord = "change" if pendingCount == 1 else "changes" %}
+
+{% set emailFrom = "Animal health and welfare back office" %}
+{% set emailTo = personas.teamLead.email %}
+{% set emailSubject = pendingCount ~ " " ~ changesWord ~ " waiting for your approval" %}
+
+{% block emailBody %}
+  {% if not pendingCount %}
+    {{ govukInsetText({ text: "No changes are waiting for approval in the prototype now, so this email would not be sent. Send a withdrawal or claim change for approval to see it." }) }}
+  {% endif %}
+
+  <h1 class="govuk-heading-l">Changes waiting for your approval</h1>
+
+  <p class="govuk-body">{{ pendingCount }} {{ changesWord }} to claims and agreements {{ "is" if pendingCount == 1 else "are" }} waiting for a team lead to approve or reject {{ "it" if pendingCount == 1 else "them" }}.</p>
+
+  <ul class="govuk-list govuk-list--bullet">
+    <li><a class="govuk-link" href="{{ changeLogPath }}?{{ filterQuery }}&changeLogStatus=pending&changeLogPeriod=all">{{ pendingCount }} {{ changesWord }} waiting for approval</a></li>
+    <li><a class="govuk-link" href="{{ changeLogPath }}?{{ filterQuery }}&changeLogStatus=pending&changeLogPeriod=day">{{ todayCount }} made in the last 24 hours</a></li>
+  </ul>
+
+  {% if pendingCount %}
+    <h2 class="govuk-heading-m">What is waiting</h2>
+    {% set typeRows = [] %}
+    {% set seen = [] %}
+    {% for entry in pending %}
+      {% if entry.summary not in seen %}
+        {% set seen = (seen.push(entry.summary), seen) %}
+        {% set matching = [] %}
+        {% for other in pending %}
+          {% if other.summary == entry.summary %}{% set matching = (matching.push(other), matching) %}{% endif %}
+        {% endfor %}
+        {% set typeRows = (typeRows.push({ key: { text: entry.summary }, value: { text: matching | length } }), typeRows) %}
+      {% endif %}
+    {% endfor %}
+    {{ govukSummaryList({ rows: typeRows }) }}
+  {% endif %}
+
+  <h2 class="govuk-heading-m">What to do</h2>
+  <p class="govuk-body">Review each change in the change log, then approve or reject it. You cannot approve a change you made yourself.</p>
+  <p class="govuk-body">If you reject a change, the person who made it gets an email with your reason.</p>
+
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+  <p class="govuk-body-s">We send this email to team leads at 8am each weekday when changes are waiting for approval. We do not send it when nothing is waiting.</p>
+  <p class="govuk-body-s">This is an automated email. Do not reply to it.</p>
+{% endblock %}

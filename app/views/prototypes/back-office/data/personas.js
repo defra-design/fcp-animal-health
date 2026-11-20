@@ -35,7 +35,16 @@
 //                 Their current role is roles[0].role, which matches type.
 //
 // Every persona also gets an id (its key here), used in links such as
-// /prototypes/back-office/authorisation-workflow/draft/users/backOfficeAdministrator
+// /prototypes/back-office/authorisation-workflow/draft/users/caseOfficer
+//
+// Back office users
+// -----------------
+// Olayinka (BA) confirmed there are only 2 types of back office user:
+// case officers and team leads. External users have no back office access.
+// caseOfficer (Sanjay Mehta) is the signed-in user in the draft designs, and
+// teamLead (Mei Chen) reviews changes. Helen Marsh and Leila Haddad are
+// more case officers, so the designs show a mix of people. What each type
+// can do is in app/views/prototypes/back-office/data/back-office-roles.js.
 //
 
 const personas = {
@@ -124,15 +133,15 @@ const personas = {
     phone: '07700 900105',
     organisation: 'Ashworth Rural Consultants'
   },
-  backOfficeAdministrator: {
-    type: 'Back office administrator',
+  caseOfficer: {
+    type: 'Back office case officer',
     group: 'internal',
     firstName: 'Sanjay',
     lastName: 'Mehta',
     image: 'back-office-administrator',
     candidate: 4,
     alt: 'Person with glasses and a grey beard, wearing a navy fleece gilet, check shirt and green lanyard',
-    goals: ['Contact point for customers', 'Edit claims', 'Process claims', 'Escalate support tickets to engineering', 'Provides support to end users'],
+    goals: ['Check claims and recommend them to pay or reject', 'Request changes to claims, and claim withdrawals', 'Flag agreements and claims that need a closer look', 'Contact point for customers'],
     email: 'sanjay.mehta@rpa.test',
     phone: '07700 900201',
     organisation: 'RPA',
@@ -140,19 +149,18 @@ const personas = {
     dateAdded: '2025-03-03',
     lastActive: '2026-11-19',
     roles: [
-      { role: 'Back office administrator', from: '2026-11-03', changedBy: 'backOfficeLead' },
-      { role: 'Back office editor', from: '2025-03-03', to: '2026-11-02', changedBy: 'backOfficeLead' }
+      { role: 'Back office case officer', from: '2025-03-03', changedBy: 'teamLead' }
     ]
   },
-  backOfficeLead: {
-    type: 'Back office lead',
+  teamLead: {
+    type: 'Back office team lead',
     group: 'internal',
     firstName: 'Mei',
     lastName: 'Chen',
     image: 'back-office-lead',
     candidate: 6,
     alt: 'Person with grey hair tied back, wearing a navy cardigan, striped top and lanyard',
-    goals: ['Authorise back office changes', 'Obtain statistics', 'Raise system changes'],
+    goals: ['Approve or reject changes and withdrawals requested by case officers', 'Authorise claim payments and rejections', 'Manage flags', 'Obtain statistics', 'Raise system changes'],
     email: 'mei.chen@rpa.test',
     phone: '07700 900202',
     organisation: 'RPA',
@@ -160,18 +168,20 @@ const personas = {
     dateAdded: '2024-06-10',
     lastActive: '2026-11-18',
     roles: [
-      { role: 'Back office lead', from: '2024-06-10', changedBy: 'Defra service desk' }
+      { role: 'Back office team lead', from: '2024-06-10', changedBy: 'Defra service desk' }
     ]
   },
-  backOfficeApprover: {
-    type: 'Back office approver',
+  // Helen Marsh was a team lead until 31 October 2026, so the change log
+  // and her user page show a role that has changed
+  helenMarsh: {
+    type: 'Back office case officer',
     group: 'internal',
     firstName: 'Helen',
     lastName: 'Marsh',
     image: 'back-office-approver',
     candidate: 20,
     alt: 'Person with glasses, wearing a knitted tank top over a shirt, arms folded, in an office',
-    goals: ['Helps with approval of changes to agreements and claims'],
+    goals: [],
     email: 'helen.marsh@rpa.test',
     phone: '07700 900203',
     organisation: 'RPA',
@@ -179,11 +189,12 @@ const personas = {
     dateAdded: '2024-09-16',
     lastActive: '2026-11-14',
     roles: [
-      { role: 'Back office approver', from: '2024-09-16', changedBy: 'backOfficeLead' }
+      { role: 'Back office case officer', from: '2026-11-01', changedBy: 'teamLead' },
+      { role: 'Back office team lead', from: '2024-09-16', to: '2026-10-31', changedBy: 'teamLead' }
     ]
   },
-  backOfficeEditor: {
-    type: 'Back office editor',
+  leilaHaddad: {
+    type: 'Back office case officer',
     group: 'internal',
     firstName: 'Leila',
     lastName: 'Haddad',
@@ -198,7 +209,7 @@ const personas = {
     dateAdded: '2026-10-06',
     lastActive: '2026-10-21',
     roles: [
-      { role: 'Back office editor', from: '2026-10-06', changedBy: 'backOfficeLead' }
+      { role: 'Back office case officer', from: '2026-10-06', changedBy: 'teamLead' }
     ]
   }
 }

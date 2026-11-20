@@ -20,6 +20,10 @@
   as defra-personna[number].png, where [number] is the persona's
   candidate number in the data file.
 
+  "Back office access" lists the 2 types of back office user, the RPA's
+  role-based access control (RBAC) roles each one has, and what each can
+  do. The data is in app/views/prototypes/back-office/data/back-office-roles.js.
+
   Built only with GOV.UK Frontend macros and classes. Images use the
   govuk-!-width-full override class so they fill their grid column.
 #}
@@ -49,7 +53,7 @@
       <span class="govuk-caption-xl">Back office</span>
       <h1 class="govuk-heading-xl">Personas</h1>
 
-      <p class="govuk-body-s">Last updated 19 November 2026</p>
+      <p class="govuk-body-s">Last updated 20 November 2026</p>
 
       {{ govukWarningText({
         text: "For design discussion only. Do not publish on the public website."
@@ -110,6 +114,68 @@
       </div>
     {% endfor %}
   {% endfor %}
+
+  {# Back office access, from app/views/prototypes/back-office/data/back-office-roles.js #}
+  {% set typeRows = [] %}
+  {% for userType in backOfficeRoles.userTypes %}
+    {% set people = [] %}
+    {% for id, person in personas %}
+      {% if person.type == userType.type %}
+        {% set people = (people.push(person.fullName), people) %}
+      {% endif %}
+    {% endfor %}
+    {% set typeRows = (typeRows.push([
+      { html: "<strong>" + userType.type + "</strong><br>" + userType.summary },
+      { text: userType.rbac | join(", ") },
+      { text: people | join(", ") }
+    ]), typeRows) %}
+  {% endfor %}
+
+  {% set permissionRows = [] %}
+  {% for permission in backOfficeRoles.permissions %}
+    {% set liveRoles = [] %}
+    {% for role in backOfficeRoles.rbacRoles %}
+      {% if permission.live[loop.index0] %}
+        {% set liveRoles = (liveRoles.push(role), liveRoles) %}
+      {% endif %}
+    {% endfor %}
+    {% set permissionRows = (permissionRows.push([
+      { text: permission.action },
+      { text: permission.caseOfficer },
+      { text: permission.teamLead },
+      { text: (liveRoles | join(", ")) if liveRoles | length else "None (new)" },
+      { text: permission.note or "" }
+    ]), permissionRows) %}
+  {% endfor %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h2 class="govuk-heading-l govuk-!-margin-top-6" id="back-office-access">Back office access</h2>
+      <p class="govuk-body">There are 2 types of back office user. Each has a set of the RPA’s role-based access control (RBAC) roles. A case officer can request some things, such as withdrawing a claim, and a team lead approves or rejects the request. No one can approve their own request.</p>
+
+      {{ govukTable({
+        caption: "Types of back office user",
+        captionClasses: "govuk-table__caption--m",
+        head: [{ text: "Type" }, { text: "RPA roles" }, { text: "Personas" }],
+        rows: typeRows
+      }) }}
+
+      {{ govukTable({
+        caption: "What each type of user can do",
+        captionClasses: "govuk-table__caption--m",
+        head: [
+          { text: "Action" },
+          { text: "Case officer" },
+          { text: "Team lead" },
+          { text: "RPA roles that can do it today" },
+          { text: "Notes" }
+        ],
+        rows: permissionRows
+      }) }}
+
+      <p class="govuk-body">“Request” means they can ask, and a team lead approves or rejects it. What a case officer and team lead can do is based on the RPA’s roles table and the authorisation workflow. Where it goes beyond the RPA’s table, it is our proposal, to agree with the RPA.</p>
+    </div>
+  </div>
 {% endblock %}
 
 {% block footer %}{% endblock %}

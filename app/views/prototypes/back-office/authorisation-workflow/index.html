@@ -1,14 +1,17 @@
 {% extends "prototypes/back-office/layouts/project-index.html" %}
 
 {#
-  Index of Authorisation workflow designs.
+  Index of Back office optimisation designs. The project started as the authorisation
+  workflow and grew to cover the whole back office, so it was renamed on
+  20 November 2026. The folder and addresses still say
+  authorisation-workflow, so shared links keep working.
 
   Lists every design in app/views/prototypes/back-office/data/designs.js with
-  project: 'Authorisation workflow'. Add new designs there, not here.
+  project: 'Back office optimisation'. Add new designs there, not here.
   The page layout is in app/views/prototypes/back-office/layouts/project-index.html.
 #}
 
-{% set projectName = "Authorisation workflow" %}
+{% set projectName = "Back office optimisation" %}
 
 {# The current designs in this folder were a rough rebuild of the poultry
    back office prototype, so they are not listed. The sidebar links to the
@@ -17,8 +20,9 @@
 {% set hideCurrentDesigns = true %}
 {% set showSidebar = true %}
 
-{# Show the drafts as a site map, in the order of the navigation #}
-{% set siteMapSections = ["Claims", "Agreements", "Flags", "Change log", "Users"] %}
+{# Show the drafts as a site map, in the order of the navigation, then the
+   emails the service sends #}
+{% set siteMapSections = ["Claims", "Agreements", "Flags", "Change log", "Users", "Emails"] %}
 
 {# After resetting the prototype data, from reset-data.html #}
 {% block notifications %}
@@ -42,7 +46,8 @@
   <h2 class="govuk-heading-m">Design notes</h2>
   <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/summary">What we changed</a>: a short outline of the main changes to each draft page, for presenting to stakeholders.</p>
   <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/notes">Design notes</a>: suggested changes to the agreement details, claim details, claim withdrawn and change log pages, Olayinka’s (BA) answers to our questions, and what we still need to agree.</p>
-  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/personas/">Personas</a>: the people who use the service, with their goals. The designs use their names.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/authorisation-workflow/who-can-change-what">Who can change what</a>: every detail on a claim and agreement, whether it can be changed, and whether a case officer can change it or must request it. A first pass to discuss with the RPA.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/personas/">Personas</a>: the people who use the service, with their goals, and the 2 types of back office user and what each can do. The designs use their names.</p>
 {% endblock %}
 
 {% block sidebar %}
