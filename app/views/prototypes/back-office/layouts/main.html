@@ -11,6 +11,10 @@
     govukServiceNavigation and govukFooter blocks, as in GOV.UK Frontend 6.
     This repo uses GOV.UK Frontend 5, whose page template does not have
     them, and the back office layouts override them.
+  - The default header matches the Research prototypes page. The index,
+    design notes, What we changed, Who can change what and personas pages
+    use it. Draft designs use the service header in
+    layouts/authorisation-workflow.html, and emails have none.
 #}
 
 {% extends "govuk-prototype-kit/layouts/govuk-branded.njk" %}
@@ -19,7 +23,9 @@
 
 {% block header %}
   {% block govukHeader %}
-    {{ govukHeader({ homepageUrl: "/", containerClasses: "govuk-width-container" }) }}
+    {# The same header as the Research prototypes page: the GOV.UK logo and
+       the service name, both linking to it #}
+    {{ govukHeader({ homepageUrl: "/", serviceName: serviceName, serviceUrl: "/", containerClasses: "govuk-width-container" }) }}
   {% endblock %}
   {% block govukServiceNavigation %}{% endblock %}
 {% endblock %}
