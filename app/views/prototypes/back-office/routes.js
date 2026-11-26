@@ -909,28 +909,49 @@ router.use(v1Path, (req, res, next) => {
   // The history: the events in the data file, then a row for each request
   // and each decision, oldest first, as in the live service
   const person = key => ({ name: personas[key] ? personas[key].fullName : key, role: personas[key] ? v1Role(key) : '' })
+  // Each row's status is the request's status at that point in time: a
+  // request row is always 'pending', a decision row is 'approved' or
+  // 'rejected', and when a new request replaces one still waiting, a
+  // 'superseded' row comes just before the new request. order keeps rows
+  // with the same date and time in that order.
   const requestEvents = requests.flatMap(request => {
     const field = fieldById[request.fieldId]
     const replaced = requests.find(item => item.supersededBy === request.id)
-    const events = [{
+    const events = []
+    if (replaced) {
+      events.push({
+        date: request.date,
+        time: request.time,
+        order: 0,
+        action: field.label + ' change superseded',
+        details: [{ key: 'Replaced by', value: 'the request by ' + person(request.by).name + ', below' }],
+        status: 'superseded',
+        ...person(request.by),
+        note: ''
+      })
+    }
+    events.push({
       date: request.date,
       time: request.time,
+      order: 1,
       action: field.label + ' change requested',
       details: [
         { key: 'Previous value', value: show(field, request.from) },
         { key: 'Proposed value', value: show(field, request.to) },
         ...(replaced ? [{ key: 'Replaces', value: 'the request by ' + person(replaced.by).name + ' on ' + liveDate(replaced.date) }] : [])
       ],
-      status: request.status,
+      status: 'pending',
       ...person(request.by),
       note: request.note
-    }]
+    })
     if (request.decision) {
       events.push({
         date: request.decision.date,
         time: request.decision.time,
+        order: 1,
         action: field.label + ' change ' + request.status,
         details: [{ key: 'Value', value: show(field, request.status === 'approved' ? request.to : request.from) }],
+        status: request.status,
         ...person(request.decision.by),
         note: request.decision.note
       })
@@ -938,9 +959,9 @@ router.use(v1Path, (req, res, next) => {
     return events
   })
   const history = [
-    ...v1ClaimData.history.map(event => ({ ...event, name: event.user })),
+    ...v1ClaimData.history.map(event => ({ ...event, name: event.user, order: 1 })),
     ...requestEvents
-  ].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+  ].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time) || a.order - b.order)
 
   res.locals.v1Claim = { ...v1ClaimData, fields, history }
   res.locals.v1Requests = requests
