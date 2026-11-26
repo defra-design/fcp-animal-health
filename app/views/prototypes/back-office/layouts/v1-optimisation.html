@@ -1,0 +1,90 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Shared layout for Back office 1.0 optimisation
+  ==============================================
+
+  Every page in app/views/prototypes/back-office/v1-optimisation/ (except
+  the index) extends this. It matches the live back office as it is today:
+  the service name "Administration of the health and welfare of your
+  livestock", then Home, the signed-in user, Support and Sign out as
+  links in the service navigation, and a beta banner.
+
+  The signed-in user is the persona whose key is in session data
+  (v1User), set by the "Sign in as" links on the project index. The
+  default is the case officer persona (Sanjay Mehta), from
+  app/views/prototypes/back-office/data/personas.js. Their name in the
+  navigation links to those "Sign in as" links, so it is quick to switch
+  between a case officer and a team lead.
+
+  On each page, optionally set backLinkHref to show a back link under the
+  beta banner.
+
+  Widescreen toggle
+  -----------------
+  A temporary widescreen toggle shows at the top right of the blue GOV.UK
+  header. It is a prototype tool, not part of the design, and must not go
+  into production. It works the same way as on the Back office 2.0
+  optimisation draft pages (layouts/authorisation-workflow.html), with the
+  same CSS (app-header-tool and app-widescreen in
+  app/assets/sass/_back-office.scss). It saves ?widescreen=on or off in
+  session data, so it stays on until turned off, on these pages and the
+  Back office 2.0 optimisation draft pages.
+
+  Built only with GOV.UK Frontend macros and classes, apart from the
+  widescreen toggle.
+#}
+
+{% set projectPath = "/prototypes/back-office/v1-optimisation" %}
+{% set signedInUser = personas[v1UserKey] or personas.caseOfficer %}
+
+{# Temporary widescreen toggle #}
+{% set widescreen = data.widescreen == "on" %}
+{% if widescreen %}
+  {% set bodyClasses = ((bodyClasses + " ") if bodyClasses else "") + "app-widescreen" %}
+{% endif %}
+{% set widescreenToggleHtml %}
+  <a class="govuk-link govuk-link--inverse govuk-!-font-size-16 app-header-tool__link" href="{{ currentPath }}?widescreen={{ 'off' if widescreen else 'on' }}">Turn widescreen {{ "off" if widescreen else "on" }}</a>
+{% endset %}
+
+{# The GOV.UK logo links to the project index #}
+{% block govukHeader %}
+  {% set headerHtml %}{{ govukHeader({ homepageUrl: projectPath + "/", classes: "app-header-tool" }) }}{% endset %}
+  {{ headerHtml | replace('<div class="govuk-header__logo">', widescreenToggleHtml + '<div class="govuk-header__logo">') | safe }}
+{% endblock %}
+
+{# As in the live service, the user's name, Support and Sign out are
+   navigation links, next to Home #}
+{% block govukServiceNavigation %}
+  {{ govukServiceNavigation({
+    serviceName: "Administration of the health and welfare of your livestock",
+    navigation: [
+      { href: "#", text: "Home" },
+      { href: projectPath + "/#sign-in-as", text: signedInUser.fullName },
+      { href: "#", text: "Support" },
+      { href: "#", text: "Sign out" }
+    ]
+  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: { text: "Beta" },
+    text: "This is a new service"
+  }) }}
+  {% if backLinkHref %}
+    {{ govukBackLink({ text: "Back", href: backLinkHref }) }}
+  {% endif %}
+{% endblock %}
+
+{% block govukFooter %}
+  {{ govukFooter({
+    meta: {
+      items: [
+        { href: "#", text: "Privacy notice" },
+        { href: "#", text: "Accessibility" },
+        { href: "#", text: "Cookies" }
+      ]
+    }
+  }) }}
+{% endblock %}

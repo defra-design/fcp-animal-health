@@ -42,6 +42,12 @@ govukPrototypeKit.views.addFilter('govukShortDate', dateString => {
   return `${day}/${month}/${year}`
 })
 
+// Format a YYYY-MM-DD date as '09/11/2026', as the live back office does
+govukPrototypeKit.views.addFilter('liveDate', dateString => {
+  const [year, month, day] = dateString.split('-')
+  return `${day}/${month}/${year}`
+})
+
 // How long ago a YYYY-MM-DD date was, counting from today in the UK.
 // daysAgo counts every day. workingDaysAgo counts Monday to Friday only, so
 // on a Monday, the Friday before is 1 working day ago. Used for the "New"
@@ -821,6 +827,304 @@ router.post(reviewPath + '/:changeId', (req, res, next) => {
     delete data[key]
   }
   res.redirect(draftPath + '/change-log')
+})
+
+//
+// Back office 1.0 optimisation
+// ============================
+//
+// Pages in app/views/prototypes/back-office/v1-optimisation/ show the claim
+// in app/views/prototypes/back-office/data/v1-optimisation.js, as v1Claim,
+// with any changes made in the prototype.
+//
+// Changing a claim detail happens on its own page,
+// v1-optimisation/change/<page>, not in a form in the middle of the claim
+// as in the live service. The page asks for the new value and an optional
+// note.
+//
+// Every change is a request that a team lead approves or rejects, on
+// v1-optimisation/review/<request id>. Until then the claim shows the
+// approved value, the proposed value and a "Pending approval" tag.
+// A new request for a field that already has one waiting replaces it: the
+// earlier request is "superseded". A team lead cannot review their own
+// request: another team lead must (see v1-optimisation/notes).
+//
+// The signed-in user is a persona key in session data (v1User). The
+// project index has links to sign in as each back office persona, for
+// example ?v1User=teamLead. The default is caseOfficer (Sanjay Mehta).
+//
+// Session data (req.session.data):
+//   v1User         - the signed-in persona's key
+//   v1Requests     - every change request, oldest first. Starts as a copy
+//                    of the requests in the data file. Each has id,
+//                    fieldId, from, to, by (persona key), date, time, note,
+//                    status ('pending', 'approved', 'rejected' or
+//                    'superseded'), and once decided, decision (by, date,
+//                    time, note) or supersededBy (a request id)
+//   v1ClaimBanner  - set after a request or decision, to show a success
+//                    banner on the claim once
+//
+// Open /prototypes/back-office/v1-optimisation/reset to clear it all.
+//
+
+const v1ClaimData = require('./data/v1-optimisation')
+const v1Path = basePath + '/v1-optimisation'
+const v1Users = ['caseOfficer', 'helenMarsh', 'leilaHaddad', 'teamLead']
+
+// Format a YYYY-MM-DD date as '09/11/2026', as the live back office does
+const liveDate = dateString => dateString.split('-').reverse().join('/')
+// The time now in the UK, as HH:MM:SS, as the live history shows it
+const v1TimeNow = () => new Date().toLocaleTimeString('en-GB', { hourCycle: 'h23', timeZone: 'Europe/London' })
+
+// A persona's role, as the 1.0 pages show it
+const v1Role = key => personas[key] && personas[key].type === 'Back office team lead' ? 'Team lead' : 'Case officer'
+
+// The change requests: from the session once anything has changed,
+// otherwise the ones in the data file
+const v1RequestsOf = data => data.v1Requests || v1ClaimData.requests
+
+router.use(v1Path, (req, res, next) => {
+  const data = req.session.data
+  if (!v1Users.includes(data.v1User)) {
+    data.v1User = 'caseOfficer'
+  }
+  const userKey = data.v1User
+  const requests = v1RequestsOf(data)
+
+  // Approved values: the submitted values with approved requests applied,
+  // oldest first
+  const fields = v1ClaimData.fields.map(field => {
+    let value = field.value
+    for (const request of requests) {
+      if (request.fieldId === field.id && request.status === 'approved') {
+        value = request.to
+      }
+    }
+    const pending = requests.find(request => request.fieldId === field.id && request.status === 'pending')
+    return { ...field, value, pending }
+  })
+  const fieldById = Object.fromEntries(fields.map(field => [field.id, field]))
+  const show = (field, text) => field.type === 'date' ? liveDate(text) : text
+
+  // The history: the events in the data file, then a row for each request
+  // and each decision, oldest first, as in the live service
+  const person = key => ({ name: personas[key] ? personas[key].fullName : key, role: personas[key] ? v1Role(key) : '' })
+  const requestEvents = requests.flatMap(request => {
+    const field = fieldById[request.fieldId]
+    const replaced = requests.find(item => item.supersededBy === request.id)
+    const events = [{
+      date: request.date,
+      time: request.time,
+      action: field.label + ' change requested',
+      details: [
+        { key: 'Previous value', value: show(field, request.from) },
+        { key: 'Proposed value', value: show(field, request.to) },
+        ...(replaced ? [{ key: 'Replaces', value: 'the request by ' + person(replaced.by).name + ' on ' + liveDate(replaced.date) }] : [])
+      ],
+      status: request.status,
+      ...person(request.by),
+      note: request.note
+    }]
+    if (request.decision) {
+      events.push({
+        date: request.decision.date,
+        time: request.decision.time,
+        action: field.label + ' change ' + request.status,
+        details: [{ key: 'Value', value: show(field, request.status === 'approved' ? request.to : request.from) }],
+        ...person(request.decision.by),
+        note: request.decision.note
+      })
+    }
+    return events
+  })
+  const history = [
+    ...v1ClaimData.history.map(event => ({ ...event, name: event.user })),
+    ...requestEvents
+  ].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+
+  res.locals.v1Claim = { ...v1ClaimData, fields, history }
+  res.locals.v1Requests = requests
+  res.locals.v1UserKey = userKey
+  res.locals.v1IsTeamLead = v1Role(userKey) === 'Team lead'
+  res.locals.v1Users = v1Users.map(key => ({ key, name: personas[key].fullName, role: v1Role(key) }))
+  if (req.method === 'GET' && req.path === '/claim-details') {
+    res.locals.v1ClaimBanner = data.v1ClaimBanner
+    delete data.v1ClaimBanner
+  }
+  next()
+})
+
+router.get(v1Path + '/reset', (req, res) => {
+  for (const key of ['v1Requests', 'v1ClaimBanner', 'v1Value', 'v1Value-day', 'v1Value-month', 'v1Value-year', 'v1Note', 'v1Decision', 'v1ApproveNote', 'v1RejectNote']) {
+    delete req.session.data[key]
+  }
+  res.redirect(v1Path + '/')
+})
+
+// A real date from day, month and year, as YYYY-MM-DD, or nothing
+function v1DateValue (day, month, year) {
+  if (!/^\d{1,2}$/.test(day) || !/^\d{1,2}$/.test(month) || !/^\d{4}$/.test(year)) {
+    return null
+  }
+  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)))
+  if (date.getUTCDate() !== Number(day) || date.getUTCMonth() !== Number(month) - 1) {
+    return null
+  }
+  return date.toISOString().slice(0, 10)
+}
+
+// An answer from a form. Checkboxes come as a list, with '_unchecked'
+// added by the Prototype Kit, so take the first real value.
+function v1Answer (req, name) {
+  const raw = [].concat(req.body[name] || '').find(item => item && item !== '_unchecked') || ''
+  return String(raw).trim()
+}
+
+function findV1Field (res, page) {
+  return res.locals.v1Claim.fields.find(field => field.page === page)
+}
+
+function renderV1Change (res, field, extra = {}) {
+  res.locals.design = designs.find(design => design.url === v1Path + '/change')
+  res.render('prototypes/back-office/v1-optimisation/change', { field, ...extra })
+}
+
+router.get(v1Path + '/change/:page', (req, res, next) => {
+  const field = findV1Field(res, req.params.page)
+  if (!field) {
+    return next()
+  }
+  renderV1Change(res, field)
+})
+
+router.post(v1Path + '/change/:page', (req, res, next) => {
+  const field = findV1Field(res, req.params.page)
+  if (!field) {
+    return next()
+  }
+  const answer = name => v1Answer(req, name)
+  const note = answer('v1Note')
+  const errors = {}
+  let value
+  if (field.type === 'date') {
+    value = v1DateValue(answer('v1Value-day'), answer('v1Value-month'), answer('v1Value-year'))
+    if (!answer('v1Value-day') && !answer('v1Value-month') && !answer('v1Value-year')) {
+      errors.v1Value = 'Enter the ' + field.name
+    } else if (!value) {
+      errors.v1Value = 'The ' + field.name + ' must be a real date'
+    }
+  } else if (field.type === 'radios') {
+    value = answer('v1Value')
+    if (!field.options.includes(value)) {
+      errors.v1Value = 'Select the new ' + field.name
+    }
+  } else {
+    value = answer('v1Value')
+    if (!value) {
+      errors.v1Value = 'Enter the ' + field.name
+    }
+  }
+  if (!errors.v1Value && value === field.value) {
+    errors.v1Value = (field.type === 'radios' ? 'Select a different ' : 'Enter a different ') + field.name + ', or select Cancel'
+  }
+  if (Object.keys(errors).length) {
+    return renderV1Change(res, field, { errors, values: req.body })
+  }
+
+  // Send the change for approval. It replaces any request for this field
+  // that is still waiting.
+  const data = req.session.data
+  const request = {
+    id: 'request-' + Date.now(),
+    fieldId: field.id,
+    from: field.value,
+    to: value,
+    by: res.locals.v1UserKey,
+    date: todayInLondon(),
+    time: v1TimeNow(),
+    note,
+    status: 'pending'
+  }
+  data.v1Requests = [
+    ...v1RequestsOf(data).map(item => item.fieldId === field.id && item.status === 'pending' ? { ...item, status: 'superseded', supersededBy: request.id } : item),
+    request
+  ]
+  data.v1ClaimBanner = { action: 'requested', name: field.name, replaced: Boolean(field.pending) }
+  for (const key of ['v1Value', 'v1Value-day', 'v1Value-month', 'v1Value-year', 'v1Note']) {
+    delete data[key]
+  }
+  res.redirect(v1Path + '/claim-details')
+})
+
+// Reviewing a change request: a team lead approves or rejects it.
+// Rejecting needs a reason, approving does not. Requests that are no
+// longer waiting, or that the team lead made themselves, show without the
+// form.
+function findV1Request (res, id) {
+  const request = res.locals.v1Requests.find(item => item.id === id)
+  if (!request) {
+    return null
+  }
+  const field = res.locals.v1Claim.fields.find(item => item.id === request.fieldId)
+  return { request, field }
+}
+
+function renderV1Review (res, found, extra = {}) {
+  res.locals.design = designs.find(design => design.url === v1Path + '/review')
+  const canReview = res.locals.v1IsTeamLead && found.request.status === 'pending' && found.request.by !== res.locals.v1UserKey
+  res.render('prototypes/back-office/v1-optimisation/review', {
+    request: found.request,
+    field: found.field,
+    requester: { name: personas[found.request.by].fullName, role: v1Role(found.request.by) },
+    canReview,
+    ...extra
+  })
+}
+
+// review on its own shows the first request waiting for approval
+router.get(v1Path + '/review', (req, res) => {
+  const requests = res.locals.v1Requests
+  const request = requests.find(item => item.status === 'pending') || requests[requests.length - 1]
+  res.redirect(v1Path + '/review/' + encodeURIComponent(request.id))
+})
+
+router.get(v1Path + '/review/:id', (req, res, next) => {
+  const found = findV1Request(res, req.params.id)
+  if (!found) {
+    return next()
+  }
+  renderV1Review(res, found)
+})
+
+router.post(v1Path + '/review/:id', (req, res, next) => {
+  const found = findV1Request(res, req.params.id)
+  if (!found) {
+    return next()
+  }
+  const userKey = res.locals.v1UserKey
+  if (!res.locals.v1IsTeamLead || found.request.status !== 'pending' || found.request.by === userKey) {
+    return res.redirect(v1Path + '/review/' + encodeURIComponent(found.request.id))
+  }
+  const decision = v1Answer(req, 'v1Decision')
+  const note = v1Answer(req, decision === 'rejected' ? 'v1RejectNote' : 'v1ApproveNote')
+  const errors = {}
+  if (decision !== 'approved' && decision !== 'rejected') {
+    errors.v1Decision = 'Select if you approve or reject this change'
+  } else if (decision === 'rejected' && !note) {
+    errors.v1RejectNote = 'Enter why you are rejecting this change'
+  }
+  if (Object.keys(errors).length) {
+    return renderV1Review(res, found, { errors, values: req.body })
+  }
+  const data = req.session.data
+  data.v1Requests = v1RequestsOf(data).map(item => item.id === found.request.id
+    ? { ...item, status: decision, decision: { by: userKey, date: todayInLondon(), time: v1TimeNow(), note } }
+    : item)
+  data.v1ClaimBanner = { action: decision, name: found.field.name, by: personas[found.request.by].fullName }
+  for (const key of ['v1Decision', 'v1ApproveNote', 'v1RejectNote']) {
+    delete data[key]
+  }
+  res.redirect(v1Path + '/claim-details')
 })
 
 //

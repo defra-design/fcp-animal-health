@@ -1,0 +1,212 @@
+{% extends "prototypes/back-office/layouts/v1-optimisation.html" %}
+
+{#
+  Claim details (as live)
+  =======================
+
+  The claim details page as it is in the live service today (QA site, 26
+  November 2026): the claim number and status, the agreement details,
+  then the claim and its history in tabs, and the recommend buttons.
+
+  The claim is in app/views/prototypes/back-office/data/v1-optimisation.js,
+  available as v1Claim.
+
+  Differences from the live page:
+  - the live page shows a red flag icon by the claim number. GOV.UK
+    Frontend has no icon, so this uses a red "Flagged" tag
+  - the test result has a Change link, which the live service does not
+  - Change links open a page of their own (v1-optimisation/change.html),
+    not a form in the middle of this page
+  - every change needs a team lead's approval. Until then the row shows
+    the current (approved) value, the proposed value and a "Pending
+    approval" tag, the same as the history. (Not "Change pending
+    approval": GOV.UK Frontend caps tags at 160px wide, so it wrapped
+    onto 2 lines.) Team leads also see a Review link
+  - the history has a row for each change request, with the previous and
+    proposed values, its status and the note, and a row for each team
+    lead decision. The live Action column is called Event, there is a
+    Status column for requests (pending approval, approved, rejected or
+    superseded), and the User column gives the person's role, for example
+    "Helen Marsh, case officer"
+  - links to pages not built yet (the agreement, the Status Change link
+    and the recommend buttons) go nowhere ("#")
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set pageName = "Claim " + v1Claim.number %}
+{% set backLinkHref = "/prototypes/back-office/v1-optimisation/" %}
+
+{% block content %}
+  {% set claim = v1Claim %}
+  {% set agreement = claim.agreement %}
+
+  {# After a request or a decision, once only #}
+  {% if v1ClaimBanner %}
+    {% set bannerHtml %}
+      {% if v1ClaimBanner.action == "requested" %}
+        <h3 class="govuk-notification-banner__heading">Change to the {{ v1ClaimBanner.name }} sent for approval</h3>
+        <p class="govuk-body">A team lead needs to approve it before the claim changes.{% if v1ClaimBanner.replaced %} It replaces the change that was waiting for approval.{% endif %}</p>
+      {% elif v1ClaimBanner.action == "approved" %}
+        <h3 class="govuk-notification-banner__heading">You approved the change to the {{ v1ClaimBanner.name }}</h3>
+        <p class="govuk-body">The claim is updated, and {{ v1ClaimBanner.by }} can see your decision in the history.</p>
+      {% else %}
+        <h3 class="govuk-notification-banner__heading">You rejected the change to the {{ v1ClaimBanner.name }}</h3>
+        <p class="govuk-body">The claim has not changed, and {{ v1ClaimBanner.by }} can see why in the history.</p>
+      {% endif %}
+    {% endset %}
+    {{ govukNotificationBanner({ type: "success", html: bannerHtml }) }}
+  {% endif %}
+
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+  {# Claim number, with the status on the right #}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+        Claim number: {{ claim.number }}
+        {% if claim.flagged %}
+          {{ govukTag({ text: "Flagged", classes: "govuk-tag--red govuk-!-margin-left-2" }) }}
+        {% endif %}
+      </h1>
+    </div>
+    <div class="govuk-grid-column-one-quarter govuk-!-text-align-right">
+      {{ govukTag({ text: claim.status, classes: "govuk-tag--orange" }) }}
+    </div>
+  </div>
+
+  <p class="govuk-caption-m">Claim by <a class="govuk-link" href="#">{{ claim.businessName }}</a></p>
+
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+  {# Agreement details #}
+  {% set herdRows = [] %}
+  {% for herd in agreement.herds %}
+    {% set herdRows = (herdRows.push({
+      key: { text: herd.type },
+      value: { text: herd.count },
+      classes: "govuk-summary-list__row--no-border" if loop.last
+    }), herdRows) %}
+  {% endfor %}
+  {% set herdsHtml %}
+    {{ govukSummaryList({ rows: herdRows, classes: "govuk-!-margin-bottom-0" }) }}
+  {% endset %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-9",
+        rows: [
+          { key: { text: "Agreement number" }, value: { text: agreement.number } },
+          { key: { text: "Agreement date" }, value: { text: agreement.date | liveDate } },
+          { key: { text: "Agreement holder" }, value: { text: agreement.holder } },
+          { key: { text: "Agreement holder email" }, value: { text: agreement.holderEmail } },
+          { key: { text: "SBI number" }, value: { text: agreement.sbi } },
+          { key: { text: "Address" }, value: { text: agreement.address } },
+          { key: { text: "Business email" }, value: { text: agreement.businessEmail } },
+          { key: { text: "Flagged" }, value: { text: "Yes" if claim.flagged else "No" } },
+          { key: { text: "Number of herds and flocks" }, value: { html: herdsHtml } }
+        ]
+      }) }}
+    </div>
+  </div>
+
+  {# Claim tab #}
+  {% set claimPath = "/prototypes/back-office/v1-optimisation" %}
+  {% set claimRows = [] %}
+  {% for field in claim.fields %}
+    {% if field.pending %}
+      {# The approved value, then the proposed one #}
+      {% set pendingHtml %}
+        <p class="govuk-body govuk-!-margin-bottom-1">Current: {{ (field.value | liveDate) if field.type == "date" else field.value }}</p>
+        <p class="govuk-body govuk-!-margin-bottom-2">Proposed: {{ (field.pending.to | liveDate) if field.type == "date" else field.pending.to }}</p>
+        {{ govukTag({ text: "Pending approval", classes: "govuk-tag--yellow" }) }}
+      {% endset %}
+      {% set value = { html: pendingHtml } %}
+    {% elif field.type == "date" %}
+      {% set value = { text: field.value | liveDate } %}
+    {% elif field.type == "status" %}
+      {% set value = { html: govukTag({ text: field.value, classes: "govuk-tag--orange" }) } %}
+    {% elif field.type == "list" %}
+      {% set listHtml %}
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+          {% for item in field.value %}<li>{{ item }}</li>{% endfor %}
+        </ul>
+      {% endset %}
+      {% set value = { html: listHtml } %}
+    {% else %}
+      {% set value = { text: field.value } %}
+    {% endif %}
+    {% set actionItems = [] %}
+    {% if field.pending and v1IsTeamLead %}
+      {% set actionItems = (actionItems.push({ href: claimPath + "/review/" + field.pending.id, text: "Review", visuallyHiddenText: "change to " + field.name }), actionItems) %}
+    {% endif %}
+    {% if field.change or field.page %}
+      {% set actionItems = (actionItems.push({ href: (claimPath + "/change/" + field.page) if field.page else "#", text: "Change", visuallyHiddenText: field.name or (field.label | lower) }), actionItems) %}
+    {% endif %}
+    {% set claimRows = (claimRows.push({
+      key: { text: field.label },
+      value: value,
+      actions: { items: actionItems } if actionItems | length
+    }), claimRows) %}
+  {% endfor %}
+
+  {% set claimPanelHtml %}
+    <h2 class="govuk-heading-l">Claim details</h2>
+    {{ govukSummaryList({ rows: claimRows }) }}
+  {% endset %}
+
+  {# History tab #}
+  {% set historyRows = [] %}
+  {% set statusTags = {
+    pending: { text: "Pending approval", classes: "govuk-tag--yellow" },
+    approved: { text: "Approved", classes: "govuk-tag--green" },
+    rejected: { text: "Rejected", classes: "govuk-tag--red" },
+    superseded: { text: "Superseded", classes: "govuk-tag--grey" }
+  } %}
+  {% for event in claim.history %}
+    {% set actionHtml %}
+      {{ event.action }}
+      {% for detail in event.details %}
+        <br><strong>{{ detail.key }}:</strong> {{ detail.value }}
+      {% endfor %}
+    {% endset %}
+    {% set historyRows = (historyRows.push([
+      { text: event.date | liveDate },
+      { text: event.time },
+      { html: actionHtml },
+      { html: govukTag(statusTags[event.status]) if event.status else "" },
+      { text: event.name + ((", " + (event.role | lower)) if event.role else "") },
+      { text: event.note }
+    ]), historyRows) %}
+  {% endfor %}
+
+  {% set historyPanelHtml %}
+    <h2 class="govuk-heading-l">History</h2>
+    {{ govukTable({
+      caption: "History",
+      captionClasses: "govuk-visually-hidden",
+      head: [
+        { text: "Date" },
+        { text: "Time" },
+        { text: "Event" },
+        { text: "Status" },
+        { text: "User" },
+        { text: "Note" }
+      ],
+      rows: historyRows
+    }) }}
+  {% endset %}
+
+  {{ govukTabs({
+    items: [
+      { label: "Claim", id: "claim", panel: { html: claimPanelHtml } },
+      { label: "History", id: "history", panel: { html: historyPanelHtml } }
+    ]
+  }) }}
+
+  <div class="govuk-button-group">
+    {{ govukButton({ text: "Recommend to pay", href: "#" }) }}
+    {{ govukButton({ text: "Recommend to reject", href: "#" }) }}
+  </div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends "prototypes/back-office/layouts/v1-optimisation.html" %}
+
+{#
+  Update a claim detail
+  =====================
+
+  One page for each claim detail with a Change link, for example
+  v1-optimisation/change/date-of-visit or change/test-result. Text fields
+  have a text input and dates a date input. Fields with options, such as
+  the test result, list the options other than the current one as radios.
+  The test result has only Positive and Negative, so there is one option
+  left. It is a single checkbox to tick (Steve's choice, so the user
+  actively makes the change), rather than a value shown as text. routes.js renders it with field,
+  the claim field from app/views/prototypes/back-office/data/v1-optimisation.js.
+
+  In the live service, the form opens in the middle of the claim details
+  page, between the agreement details and the claim tabs. Here it is a page
+  of its own, as in the Back office 2.0 optimisation designs: one thing
+  per page, with the claim number as a caption so the user knows which
+  claim they are changing.
+
+  Shows the current value, then asks for the new value and a note, as the
+  live form does.
+
+  The new value starts empty rather than pre-filled: the user is
+  correcting someone else's answer, so an empty field makes the change
+  deliberate and avoids saving the old value by mistake. (GOV.UK's "check
+  answers" advice to pre-fill is for users changing their own answers.)
+
+  The note is optional (Steve's decision, 26 November 2026), so the label
+  says "(optional)", as GOV.UK advises.
+
+  Every change needs a team lead's approval, so the button says "Send for
+  approval" rather than the live service's "Confirm and continue". It
+  sends the request and goes back to the claim, which shows the change as
+  pending. If the field already has a change waiting for approval, a
+  warning says who asked for what, and that this change replaces it. Cancel and the back link go back to
+  the claim without saving.
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set claimPath = "/prototypes/back-office/v1-optimisation/claim-details" %}
+{% set backLinkHref = claimPath %}
+{% set pageName = ("Error: " if errors else "") + "Update " + field.name %}
+
+{% block content %}
+  {% set currentValue = (field.value | liveDate) if field.type == "date" else field.value %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors %}
+        {% set errorList = [] %}
+        {% for key, message in errors %}
+          {% set errorList = (errorList.push({ text: message, href: "#" + key + ("-day" if key == "v1Value" and field.type == "date" else "") }), errorList) %}
+        {% endfor %}
+        {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">
+        <span class="govuk-caption-l">Claim {{ v1Claim.number }}</span>
+        Update {{ field.name }}
+      </h1>
+
+      <p class="govuk-body">A team lead needs to approve your change before the claim is updated.</p>
+
+      <p class="govuk-body">Current {{ field.name }}: <strong>{{ currentValue }}</strong></p>
+
+      {% if field.pending %}
+        {% set pendingValue = (field.pending.to | liveDate) if field.type == "date" else field.pending.to %}
+        {{ govukWarningText({
+          text: personas[field.pending.by].fullName + " asked to change this to " + pendingValue + " on " + (field.pending.date | liveDate) + ". It is waiting for approval. If you send a change, it replaces theirs."
+        }) }}
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% if field.type == "date" %}
+          {% if values %}
+            {% set day = values["v1Value-day"] %}
+            {% set month = values["v1Value-month"] %}
+            {% set year = values["v1Value-year"] %}
+          {% endif %}
+          {{ govukDateInput({
+            id: "v1Value",
+            namePrefix: "v1Value",
+            fieldset: {
+              legend: { text: "New " + field.name, classes: "govuk-fieldset__legend--s" }
+            },
+            hint: { text: "For example, 27 3 2026" },
+            errorMessage: { text: errors.v1Value } if errors and errors.v1Value,
+            items: [
+              { name: "day", classes: "govuk-input--width-2" + (" govuk-input--error" if errors and errors.v1Value), value: day },
+              { name: "month", classes: "govuk-input--width-2" + (" govuk-input--error" if errors and errors.v1Value), value: month },
+              { name: "year", classes: "govuk-input--width-4" + (" govuk-input--error" if errors and errors.v1Value), value: year }
+            ]
+          }) }}
+        {% elif field.type == "radios" %}
+          {# Only the options it can change to. With one, such as Positive
+             to Negative, it is a single checkbox, so the user still makes
+             the change themselves by ticking it. #}
+          {% set items = [] %}
+          {% for option in field.options %}
+            {% if option != field.value %}
+              {% set items = (items.push({ value: option, text: option, checked: values and values.v1Value == option }), items) %}
+            {% endif %}
+          {% endfor %}
+          {% if items | length == 1 %}
+            {{ govukCheckboxes({
+              idPrefix: "v1Value",
+              name: "v1Value",
+              fieldset: {
+                legend: { text: "New " + field.name, classes: "govuk-fieldset__legend--s" }
+              },
+              items: items,
+              errorMessage: { text: errors.v1Value } if errors and errors.v1Value
+            }) }}
+          {% else %}
+            {{ govukRadios({
+              idPrefix: "v1Value",
+              name: "v1Value",
+              fieldset: {
+                legend: { text: "New " + field.name, classes: "govuk-fieldset__legend--s" }
+              },
+              items: items,
+              errorMessage: { text: errors.v1Value } if errors and errors.v1Value
+            }) }}
+          {% endif %}
+        {% else %}
+          {{ govukInput({
+            label: { text: "New " + field.name, classes: "govuk-label--s" },
+            id: "v1Value",
+            name: "v1Value",
+            value: values.v1Value if values,
+            classes: "govuk-input--width-20",
+            spellcheck: false,
+            errorMessage: { text: errors.v1Value } if errors and errors.v1Value
+          }) }}
+        {% endif %}
+
+        {{ govukTextarea({
+          label: { text: "Note (optional)", classes: "govuk-label--s" },
+          hint: { text: "Why is this change being made? It shows in the claim history." },
+          id: "v1Note",
+          name: "v1Note",
+          rows: 3,
+          value: values.v1Note if values,
+          errorMessage: { text: errors.v1Note } if errors and errors.v1Note
+        }) }}
+
+        <div class="govuk-button-group">
+          {{ govukButton({ text: "Send for approval" }) }}
+          <a class="govuk-link" href="{{ claimPath }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

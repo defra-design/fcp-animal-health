@@ -1,0 +1,42 @@
+{% extends "prototypes/back-office/layouts/project-index.html" %}
+
+{#
+  Index of Back office 1.0 optimisation designs, started 26 November 2026.
+
+  Small changes to the live back office (1.0) as it is today, rather than
+  the redesign in Back office 2.0 optimisation (authorisation-workflow/). The
+  first journey: a case officer requests a change to a claim's test result
+  and a team lead approves it.
+
+  Lists every design in app/views/prototypes/back-office/data/designs.js with
+  project: 'Back office 1.0 optimisation'. Add new designs there, not here.
+  The page layout is in app/views/prototypes/back-office/layouts/project-index.html.
+#}
+
+{% set projectName = "Back office 1.0 optimisation" %}
+
+{# Prototype tool: sign in as a case officer or the team lead. The link
+   saves the persona's key as v1User (the Prototype Kit stores the query
+   string in session data) and opens the claim. #}
+{% block afterDesigns %}
+  <h2 class="govuk-heading-m govuk-!-margin-top-8">Design notes</h2>
+  <p class="govuk-body"><a class="govuk-link" href="/prototypes/back-office/v1-optimisation/notes">Design notes</a>: what we decided and why, and what we still need to agree with the RPA.</p>
+
+  <h2 class="govuk-heading-m govuk-!-margin-top-8" id="sign-in-as">Sign in as</h2>
+  <p class="govuk-body">Case officers ask for changes to the claim. The team lead approves or rejects them.</p>
+  {% set userRows = [] %}
+  {% for user in v1Users %}
+    {% set userRows = (userRows.push({
+      key: { text: user.name },
+      value: { html: user.role + ((" " + govukTag({ text: "Signed in", classes: "govuk-tag--green govuk-!-margin-left-2" })) if user.key == v1UserKey else "") },
+      actions: { items: [{ href: "/prototypes/back-office/v1-optimisation/claim-details?v1User=" + user.key, text: "Sign in and open the claim", visuallyHiddenText: "as " + user.name }] }
+    }), userRows) %}
+  {% endfor %}
+  {{ govukSummaryList({ rows: userRows }) }}
+
+  {{ govukButton({
+    text: "Reset prototype data",
+    classes: "govuk-button--secondary",
+    href: "/prototypes/back-office/v1-optimisation/reset"
+  }) }}
+{% endblock %}

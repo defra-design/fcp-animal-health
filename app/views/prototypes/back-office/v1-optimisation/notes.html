@@ -1,0 +1,108 @@
+{% extends "prototypes/back-office/layouts/main.html" %}
+
+{#
+  Design notes for the Back office 1.0 optimisation designs.
+
+  Record each design decision here as it is made, with why, and anything
+  still to agree with the RPA.
+
+  Built only with GOV.UK Frontend macros and classes. No bespoke CSS, HTML
+  components or JS.
+#}
+
+{% set projectPath = "/prototypes/back-office/v1-optimisation" %}
+{% set pageName = "Design notes" %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Research prototypes", href: "/" },
+      { text: "Back office 1.0 optimisation", href: projectPath + "/" },
+      { text: "Design notes" }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl">Back office 1.0 optimisation</span>
+      <h1 class="govuk-heading-xl">Design notes</h1>
+
+      <p class="govuk-body-l">Small changes to the live back office as it is today. The first journey: a back office user asks to change a claim detail, such as the test result, and a team lead approves or rejects it.</p>
+
+      <p class="govuk-body">
+        Steve Molesworth<br>
+        26 November 2026
+      </p>
+
+      <h2 class="govuk-heading-l">Starting point</h2>
+      <p class="govuk-body">The <a class="govuk-link" href="{{ projectPath }}/claim-details">claim details page</a> is copied from the live service’s QA site, as it was on 26 November 2026: agreement details at the top, then the claim and its history in tabs. The claim, people and email addresses are QA test data. The back office users are the personas from the 2.0 work.</p>
+      <p class="govuk-body">Differences from the live page that are not design decisions:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>a red “Flagged” tag by the claim number, in place of the live flag icon, which GOV.UK Frontend does not have</li>
+        <li>links to pages not designed yet, such as the agreement, Change status and the recommend buttons, go nowhere</li>
+      </ul>
+
+      <h2 class="govuk-heading-l">Decisions</h2>
+      <p class="govuk-body">Agreed by Steve Molesworth on 26 November 2026, unless it says otherwise.</p>
+
+      <h3 class="govuk-heading-m">Changing a claim detail</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="{{ projectPath }}/change/date-of-visit">Design<span class="govuk-visually-hidden">: update a claim detail</span></a></li>
+      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li><strong>Each change has a page of its own.</strong> In the live service, the form opens in the middle of the claim page, between the agreement details and the claim tabs, which is hard to read and easy to miss. A page of its own matches the 2.0 designs and GOV.UK’s “one thing per page”. The claim number is a caption, so the user knows which claim they are changing.</li>
+        <li><strong>The page shows the current value as text, and the new value starts empty.</strong> For example, “Current vet’s name: Amelia”, then “New vet’s name”. The labels name the detail, rather than saying “Current value” and “New value”, as GOV.UK advises. An empty field makes the change deliberate, and avoids saving the old value by mistake. GOV.UK’s advice to pre-fill answers is for users changing their own answers on a check answers page. Here, the user is correcting someone else’s.</li>
+        <li><strong>The note is optional</strong>, and its label says “Note (optional)”, as GOV.UK advises. Its hint asks why the change is being made, and says it shows in the claim history. We discussed making it required, for audit and so team leads know why, and chose optional.</li>
+        <li><strong>The test result has a Change link.</strong> The live service does not have one.</li>
+        <li><strong>The new test result is a single checkbox</strong> with the opposite result, for example “Negative” when it is Positive now. The test result is only Positive or Negative, so there is only one possible new value: 2 radios would let the user pick the current one, only to get an error. Ticking the box means the user actively makes the change, which showing the new value as text would not. GOV.UK allows a single checkbox when the user confirms one thing.</li>
+        <li><strong>A new value the same as the current one is an error</strong>: “Enter a different vet’s name, or select Cancel”.</li>
+      </ol>
+
+      <h3 class="govuk-heading-m">Approval</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="{{ projectPath }}/review">Design<span class="govuk-visually-hidden">: review a change</span></a></li>
+      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li><strong>Every change needs a team lead’s approval</strong>, whoever makes it: case officers and team leads. So the button says “Send for approval”, rather than the live service’s “Confirm and continue”, and the page says a team lead needs to approve the change before the claim is updated.</li>
+        <li><strong>Team leads cannot approve their own changes.</strong> Another team lead must. A team lead who opens their own request sees “You asked for this change, so another team lead needs to review it”, with no form. This keeps a second person checking every change, as government guidance on internal controls expects where money is at risk (for example Managing Public Money, and the Government Functional Standard for counter fraud): the test result and date of visit can decide whether a claim is paid. We tried letting team leads approve their own changes, and decided against it the same day.</li>
+        <li><strong>Until it is approved, the claim shows the current value, the proposed value and a “Pending approval” tag</strong>, for example “Current: 25/11/2026”, “Proposed: 14/10/2026”. The current value is the approved one, so the claim never shows an unapproved value as if it were real. The tag says “Pending approval” rather than “Change pending approval”, as GOV.UK Frontend caps tags at 160px wide and the longer text broke onto 2 lines. It matches the history’s status.</li>
+        <li><strong>A new change replaces one that is waiting for approval</strong>, whoever asked for it. The earlier request is “superseded”. Before sending, the update page warns who asked for what, and when, and that the new change replaces it.</li>
+        <li><strong>Team leads review a change on a page of its own</strong>, from a Review link on the claim, next to Change. It shows the current and proposed values, who asked, when, their note and the status. Approving can have a note. Rejecting needs a reason, which shows in the history. This matches the 2.0 review page.</li>
+      </ol>
+
+      <h3 class="govuk-heading-m">History</h3>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="{{ projectPath }}/claim-details#history">Design<span class="govuk-visually-hidden">: claim history</span></a></li>
+      </ul>
+      <ol class="govuk-list govuk-list--number">
+        <li><strong>Each request is a row</strong>, with the previous and proposed values and the note. A request that replaced another says which.</li>
+        <li><strong>Each decision is a row of its own</strong>, with the team lead and their note, so the history shows when it was decided as well as when it was asked for.</li>
+        <li><strong>The live Action column is called Event</strong>, and there is <strong>a Status column</strong> for requests: Pending approval, Approved, Rejected or Superseded. Decision rows leave it empty, as the event says what was decided.</li>
+        <li><strong>The User column gives the person’s role</strong>, for example “Helen Marsh, case officer”, with the role in lower case as GOV.UK style advises mid-sentence.</li>
+        <li>The history stays <strong>oldest first</strong>, as in the live service.</li>
+      </ol>
+
+      <h2 class="govuk-heading-l">To agree with the RPA</h2>
+      <ol class="govuk-list govuk-list--number">
+        <li><strong>Who approves a team lead’s change</strong> when no other team lead is available, for example out of hours or when only one team lead is working. Could it wait, go to a named deputy, or go to a manager?</li>
+        <li><strong>Does every detail need approval?</strong> A typo in the vet’s name does not affect payment. The 2.0 designs let case officers save some details straight away.</li>
+        <li><strong>Telling people about superseded requests.</strong> Should the person whose request was replaced get an email, like the 2.0 “request rejected” email?</li>
+        <li><strong>What happens when the test result changes.</strong> A changed result can change whether the claim is paid. Should approving it change the claim’s status, or tell the case officer to recheck the claim?</li>
+        <li><strong>Date rules.</strong> For example, can the date of visit be after the claim date? The QA claim has a date of visit (25 November 2026) after its claim date (14 October 2026). The prototype does not check dates.</li>
+        <li><strong>Changing the status.</strong> The Status Change link is not designed yet.</li>
+      </ol>
+
+      <h2 class="govuk-heading-l">Prototype tools</h2>
+      <p class="govuk-body">These are for trying the designs, not part of them:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li><a class="govuk-link" href="{{ projectPath }}/#sign-in-as">Sign in as</a> a case officer (Sanjay Mehta, Helen Marsh or Leila Haddad) or the team lead (Mei Chen). The signed-in name in the header links back to this list.</li>
+        <li>The claim starts with 3 requests: one approved, one rejected and one waiting for approval. <a class="govuk-link" href="{{ projectPath }}/reset">Reset prototype data</a> puts it back.</li>
+        <li>The widescreen toggle, at the top right of the header, stretches pages to the width of the screen.</li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

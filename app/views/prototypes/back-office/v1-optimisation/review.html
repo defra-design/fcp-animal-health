@@ -1,0 +1,126 @@
+{% extends "prototypes/back-office/layouts/v1-optimisation.html" %}
+
+{#
+  Review a change
+  ===============
+
+  Where a team lead approves or rejects a change a back office user asked
+  for, from the Review link on the claim. routes.js renders it with
+  request, field (the claim field, with its approved value) and requester
+  (name and role).
+
+  Shows the current (approved) value, the proposed value, who asked, when,
+  and their note. Rejecting needs a reason, approving does not, as in the
+  Back office 2.0 optimisation designs (draft/review-change.html). The
+  decision shows in the claim history.
+
+  Only team leads can review, and not their own requests: another team
+  lead must (see v1-optimisation/notes.html). Anyone else, or a request
+  that is no longer waiting, sees the details without the form.
+
+  Built only with GOV.UK Frontend macros and classes.
+#}
+
+{% set claimPath = "/prototypes/back-office/v1-optimisation/claim-details" %}
+{% set backLinkHref = claimPath %}
+{% set pageName = ("Error: " if errors else "") + "Review change to " + field.name %}
+
+{% block content %}
+  {% set fromValue = (request.from | liveDate) if field.type == "date" else request.from %}
+  {% set toValue = (request.to | liveDate) if field.type == "date" else request.to %}
+  {% set statusTags = {
+    pending: { text: "Pending approval", classes: "govuk-tag--yellow" },
+    approved: { text: "Approved", classes: "govuk-tag--green" },
+    rejected: { text: "Rejected", classes: "govuk-tag--red" },
+    superseded: { text: "Superseded", classes: "govuk-tag--grey" }
+  } %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errors %}
+        {% set errorList = [] %}
+        {% for key, message in errors %}
+          {% set errorList = (errorList.push({ text: message, href: "#" + key }), errorList) %}
+        {% endfor %}
+        {{ govukErrorSummary({ titleText: "There is a problem", errorList: errorList }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-l">
+        <span class="govuk-caption-l">Claim {{ v1Claim.number }}</span>
+        Review change to {{ field.name }}
+      </h1>
+
+      {{ govukSummaryList({
+        rows: [
+          { key: { text: "Previous value" if request.status == "approved" else "Current value" }, value: { text: fromValue } },
+          { key: { text: "Proposed value" }, value: { text: toValue } },
+          { key: { text: "Requested by" }, value: { html: requester.name + "<br>" + requester.role } },
+          { key: { text: "Requested on" }, value: { text: (request.date | liveDate) + " at " + request.time } },
+          { key: { text: "Note" }, value: { text: request.note or "No note" } },
+          { key: { text: "Status" }, value: { html: govukTag(statusTags[request.status]) } }
+        ]
+      }) }}
+
+      {% if canReview %}
+        {% set approveNoteHtml %}
+          {{ govukTextarea({
+            name: "v1ApproveNote",
+            id: "v1ApproveNote",
+            label: { text: "Note (optional)" },
+            hint: { text: "It shows in the claim history." },
+            value: values.v1ApproveNote if values
+          }) }}
+        {% endset %}
+        {% set rejectNoteHtml %}
+          {{ govukTextarea({
+            name: "v1RejectNote",
+            id: "v1RejectNote",
+            label: { text: "Why are you rejecting this change?" },
+            hint: { text: "It shows in the claim history, so " + requester.name + " can see it." },
+            value: values.v1RejectNote if values,
+            errorMessage: { text: errors.v1RejectNote } if errors and errors.v1RejectNote
+          }) }}
+        {% endset %}
+
+        <form method="post" novalidate>
+          {{ govukRadios({
+            name: "v1Decision",
+            idPrefix: "v1Decision",
+            fieldset: {
+              legend: { text: "Do you approve this change?", classes: "govuk-fieldset__legend--m" }
+            },
+            errorMessage: { text: errors.v1Decision } if errors and errors.v1Decision,
+            items: [
+              {
+                value: "approved",
+                text: "Approve",
+                hint: { text: "The " + field.name + " will change to " + toValue + "." },
+                checked: values and values.v1Decision == "approved",
+                conditional: { html: approveNoteHtml }
+              },
+              {
+                value: "rejected",
+                text: "Reject",
+                hint: { text: "The " + field.name + " will stay as " + fromValue + "." },
+                checked: values and values.v1Decision == "rejected",
+                conditional: { html: rejectNoteHtml }
+              }
+            ]
+          }) }}
+
+          <div class="govuk-button-group">
+            {{ govukButton({ text: "Save decision" }) }}
+            <a class="govuk-link" href="{{ claimPath }}">Cancel</a>
+          </div>
+        </form>
+      {% else %}
+        {% if request.status == "pending" and request.by == v1UserKey %}
+          {{ govukInsetText({ text: "You asked for this change, so another team lead needs to review it." }) }}
+        {% elif request.status == "pending" %}
+          {{ govukInsetText({ text: "Only a team lead can approve or reject this change." }) }}
+        {% endif %}
+        <p class="govuk-body"><a class="govuk-link" href="{{ claimPath }}">Back to the claim</a></p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

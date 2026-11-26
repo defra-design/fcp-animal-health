@@ -69,7 +69,7 @@
 {% endset %}
 {% set signedInUser = signedInUser or personas.caseOfficer %}
 
-{# The GOV.UK logo links to the Back office optimisation index #}
+{# The GOV.UK logo links to the Back office 2.0 optimisation index #}
 {% block govukHeader %}
   {% set headerHtml %}{{ govukHeader({ homepageUrl: workflowPath + "/", classes: "app-header-tool" if draftPath }) }}{% endset %}
   {% if draftPath %}
