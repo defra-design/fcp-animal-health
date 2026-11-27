@@ -26,6 +26,9 @@
 //            their update page, v1-optimisation/change/<page>
 //   name   - the label as it reads mid-sentence, for example in "Update
 //            date of visit". Keeps acronyms in capitals.
+//   hint   - optional hint for the new value on the update page
+//   format - optional pattern the new value must match, with formatError
+//            the message when it does not (the herd CPH)
 //
 //   value is what the farmer submitted. The claim shows it with any
 //   approved requests applied.
@@ -74,16 +77,16 @@ module.exports = {
     { id: 'typeOfVisit', label: 'Type of visit', value: 'Animal health and welfare review' },
     { id: 'dateOfVisit', label: 'Date of visit', type: 'date', value: '2026-11-25', change: true, page: 'date-of-visit', name: 'date of visit' },
     { id: 'herdName', label: 'Herd name', value: 'Shah Show and Tell' },
-    { id: 'herdCph', label: 'Herd CPH', value: '12/345/2345' },
+    { id: 'herdCph', label: 'Herd CPH', value: '12/345/2345', page: 'herd-cph', name: 'herd CPH', hint: 'For example, 12/345/6789', format: /^\d{2}\/\d{3}\/\d{4}$/, formatError: 'Enter the herd CPH in the correct format, like 12/345/6789' },
     { id: 'onlyHerd', label: 'Is this the only herd on this SBI?', value: 'Yes' },
     { id: 'herdReasons', label: 'Reasons the herd is separate', type: 'list', value: ['This is the only herd'] },
-    { id: 'dateOfSampling', label: 'Date of sampling', type: 'date', value: '2026-10-14' },
+    { id: 'dateOfSampling', label: 'Date of sampling', type: 'date', value: '2026-10-14', page: 'date-of-sampling', name: 'date of sampling' },
     { id: 'pigs51OrMore', label: '51 or more pigs', value: 'Yes' },
     { id: 'bloodSamples', label: 'Number of blood samples taken', value: '30' },
     { id: 'vetName', label: 'Vet’s name', value: 'Amelia', change: true, page: 'vet-name', name: 'vet’s name' },
     { id: 'vetRcvs', label: 'Vet’s RCVS number', value: '123465X', change: true, page: 'vet-rcvs', name: 'vet’s RCVS number' },
     { id: 'animalsTested', label: 'Number of animals tested', value: '50' },
-    { id: 'urn', label: 'URN', value: 'URN8914224' },
+    { id: 'urn', label: 'Unique lab reference number (URN)', value: 'URN8914224', page: 'urn', name: 'unique lab reference number (URN)' },
     { id: 'testResult', label: 'Test result', type: 'radios', options: ['Positive', 'Negative'], value: 'Positive', page: 'test-result', name: 'test result' }
   ],
 

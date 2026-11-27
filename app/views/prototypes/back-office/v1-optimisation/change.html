@@ -128,6 +128,7 @@
         {% else %}
           {{ govukInput({
             label: { text: "New " + field.name, classes: "govuk-label--s" },
+            hint: { text: field.hint } if field.hint,
             id: "v1Value",
             name: "v1Value",
             value: values.v1Value if values,

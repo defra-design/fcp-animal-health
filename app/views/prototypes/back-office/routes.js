@@ -1043,6 +1043,8 @@ router.post(v1Path + '/change/:page', (req, res, next) => {
     value = answer('v1Value')
     if (!value) {
       errors.v1Value = 'Enter the ' + field.name
+    } else if (field.format && !field.format.test(value)) {
+      errors.v1Value = field.formatError
     }
   }
   if (!errors.v1Value && value === field.value) {
